@@ -1,0 +1,64 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+nav, footer {
+    padding: .5rem 1rem;
+}
+
+strong {
+    font-weight: 700;
+}
+
+nav .brand-logo {
+    left: 6.5rem;
+    font-size: 2rem;
+}
+
+.my-nav-element {
+    font-size: 1.2rem;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.5);
+}
+
+h3 {
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+.flashes h4 {
+    line-height: 2;
+    font-size: 1.5rem;
+    color: white;
+    background-color: rgba(38, 166, 153, 0.147)
+}
+
+.my-edit-btn, .my-cancel-btn {
+    background-color: white;
+    font-weight: 700;
+    color: rgb(38, 166, 154);
+}
+
+.my-edit-btn:hover, .my-cancel-btn:hover {
+    color: white;
+}
+
+.btn-small {
+    margin: 5px;
+}
+
+.btn-large {
+    width: 14rem;
+    margin: .5rem;
+    padding: 0 1rem;
+}
