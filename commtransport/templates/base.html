@@ -1,12 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- google font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+        integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        type="text/css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block styles %}
+    {% endblock %}
+
     <title>Community Transport</title>
 </head>
+
 <body>
-    Hello Community Transport!
+    <header>
+        <!-- top navbar  -->
+        <nav class="nav-extended brown lighten-4 ">
+            <div class="nav-wrapper ">
+                <a href="#" class="brand-logo my-logo  grey-text text-darken-2">Community Transport Berkshire</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger grey-text text-darken-2 right"><i
+                        class="fas fa-bars" aria-label="menu"></i></a>
+                <ul class="right hide-on-med-and-down ">
+                    <li><a class="my-nav-element grey-text text-darken-2" href="#">Home</a>
+                    </li>
+                    {% if session.user %}
+                    <li><a class="my-nav-element grey-text text-darken-2"
+                            href="#">Profile</a></li>
+                    <li><a class="my-nav-element grey-text text-darken-2" href="#">New Task</a>
+                    </li>
+                    {% if session.user|lower == 'admin'|lower%}
+                    <li><a class="my-nav-element grey-text text-darken-2" href="#">Manage
+                            Categories</a></li>
+                    {% endif %}
+                    <li><a class="my-nav-element grey-text text-darken-2" href="#">Log Out</a>
+                    </li>
+                    {% else %}
+                    <li><a class="my-nav-element grey-text text-darken-2" href="#">Log In</a></li>
+                    <li><a class="my-nav-element grey-text text-darken-2" href="#">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+
+        <!-- mobile side navbar  -->
+        <ul class="sidenav" id="mobile-demo">
+            <li>
+                <h4 class="center-align grey-text text-darken-2">Task Manager</h4>
+            </li>
+            <li><a class="my-nav-element grey-text text-darken-2" href="#">Home</a></li>
+            {% if session.user %}
+            <li><a class="my-nav-element grey-text text-darken-2"
+                    href="#">Profile</a></li>
+            <li><a class="my-nav-element grey-text text-darken-2" href="#">New Task</a></li>
+            {% if session.user|lower == 'admin'|lower%}
+            <li><a class="my-nav-element grey-text text-darken-2" href="#">Manage
+                    Categories</a></li>
+            {% endif %}
+            <li><a class="my-nav-element grey-text text-darken-2" href="#">Log Out</a></li>
+            {% else %}
+            <li><a class="my-nav-element grey-text text-darken-2" href="#">Log In</a></li>
+            <li><a class="my-nav-element grey-text text-darken-2" href="#">Register</a></li>
+            {% endif %}
+        </ul>
+    </header>
+
+    <section>
+        <!-- Flash messages  -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="row flashes">
+            <h4 class="grey-text text-darken-2 center-align">"message comes here"</h4>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </section>
+
+    <main class="container">
+        {% block content%}
+        {% endblock %}
+    </main>
+
+    <!-- footer https://materializecss.com/footer.html -->
+    <footer class="brown lighten-4 grey-text text-darken-2">
+        <div class="footer-copyright">
+                *Disclaimer: This website was created for demonstrational purposes only. Please don't enter real data.
+                <a class="grey-text text-darken-2 right" href="https://codeinstitute.net" target="_blank">
+                    &copy; Szilvia Csernusne Berczes, 2023. All rights reserved.</a>
+        </div>
+    </footer>
+
+
+    <!-- Materialize  -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script src=""></script>
+    {% block scripts %}
+    {% endblock %}
 </body>
+
 </html>
