@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask-sqlalchemy = "<3"
+psycopg2 = "*"
+sqlalchemy = "==1.4.46"
+pep8 = "*"
+autopep8 = "*"
+pylint = "*"
+pylint-flask = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
