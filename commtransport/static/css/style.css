@@ -1,13 +1,47 @@
 body {
+    position: relative;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
     font-family: 'Quicksand', sans-serif;
-    font-size: 1rem
+    font-size: 1rem;
+    background-image: url(../assets/cityscape1.svg);
+    background-size: cover;
+    background-repeat: repeat-x;
+    background-position: -918px;
+    animation: moveBackground 50s forwards;
+}
+
+/* moving the oversized background */
+  @keyframes moveBackground {
+    0% {
+      background-position: right;
+    }
+
+    100% {
+      background-position: left;
+    }
+    
+  }
+
+.red-car {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    bottom: 70px;
+    left: 50%;
 }
 
 main {
     flex: 1 0 auto;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    line-height: normal;
 }
 
 nav, footer {
@@ -18,8 +52,11 @@ strong {
     font-weight: 700;
 }
 
-nav .brand-logo {
-    left: 6.5rem;
+form {
+    z-index: 10;
+}
+
+.logo {
     font-size: 2rem;
 }
 
@@ -61,4 +98,40 @@ h3 {
     width: 14rem;
     margin: .5rem;
     padding: 0 1rem;
+}
+
+.yellow-car, .hospital {
+    height: 6rem;
+    width: 7rem;
+}
+
+/* Google maps styles  */
+
+
+      h2 {
+        margin: 0;
+        font-family: Roboto, sans-serif;
+      }
+
+      input {
+        height: 30px;
+      }
+
+      input {
+        border: 0;
+        border-bottom: 1px solid black;
+        font-size: 14px;
+        font-family: Roboto, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+      }
+
+      input:focus::placeholder {
+        color: white;
+      }
+
+      /* end of google maps styles  */
+
+.main-bg-img {
+    width: 100%;
 }
