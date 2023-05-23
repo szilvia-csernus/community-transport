@@ -26,7 +26,6 @@ async function initMap() {
 	};
 
 	// Request needed libraries.
-	//@ts-ignore
 	const { Map } = await google.maps.importLibrary('maps');
 	const { Autocomplete } = await google.maps.importLibrary('places');
 
@@ -53,7 +52,6 @@ async function initMap() {
 					notification.style.display = 'block';
 					addressInput.style['border-bottom'] = '1px solid #f44336';
 					addressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
-					// window.alert("No details available for input: '" + place.name + "'");
 					return;
 				} else {
 					addressInput.style['border-bottom'] = '1px solid #4caf50';
@@ -68,16 +66,13 @@ async function initMap() {
 
 	addressInput.addEventListener('focusout', function () {
 		
-		const place = autocomplete.getPlace();
-		console.log('focus out', place)
-		if (!place?.place_id) {
+		console.log(addressId.value)
+		if (!addressId.value) {
 			// User entered the name of a Place that was not suggested and
 			// pressed the Enter key, or the Place Details request failed.
 			notification.style.display = 'block';
 			addressInput.style['border-bottom'] = '1px solid #f44336';
 			addressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
-			// window.alert("No details available for input: '" + place.name + "'");
-			return;
 		}
 		else {
 			addressInput.style['border-bottom'] = '1px solid #4caf50';
@@ -88,16 +83,12 @@ async function initMap() {
 
 	addressInput.addEventListener('focusin', function () {
 				
-		const place = autocomplete.getPlace();
-		console.log('focus in', place)
-		if (!place?.place_id) {
+		if (!addressId.value) {
 			// User entered the name of a Place that was not suggested and
 			// pressed the Enter key, or the Place Details request failed.
 			notification.style.display = 'none';
 			addressInput.style['border-bottom'] = '';
 			addressInput.style['box-shadow'] = '';
-			// window.alert("No details available for input: '" + place.name + "'");
-			return;
 		}
 	});
 }

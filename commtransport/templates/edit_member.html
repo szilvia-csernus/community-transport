@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Google Maps JavaScript API  -->
+<script>
+    (g => {
+        var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__",
+            m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set,
+                e = new URLSearchParams, u = () => h || (h = new Promise(
+                    async (f, n) => {
+                        await (a = m.createElement("script"));
+                        e.set("libraries", [...r] + "");
+                        for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]);
+                        e.set("callback", c + ".maps." + q);
+                        a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f;
+                        a.onerror = () => h = n(Error(p + " could not load."));
+                        a.nonce = m.querySelector("script[nonce]")?.nonce || "";
+                        m.head.append(a)
+                    }));
+        d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(
+            () => d[l](f, ...n))
+    })({
+        key: "AIzaSyCJKHrw61FGKpNiIY4H5eZhJF2rEYn1DJ0",
+        v: "weekly",
+        // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+        // Add other bootstrap parameters as needed, using camel case.
+    });
+</script>
+
+
+<h3 class="center-align grey-text text-darken-2">Update {{member.fullname}}'s Data</h3>
+
+<div class="row">
+    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register') }}">
+        <div class="card-panel">
+            <!-- name input  -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-user-plus teal-text prefix"></i>
+                    <input id="fullname" name="fullname" type="text" minlength="5" maxlength="100" class="validate"
+                        value="{{ member.fullname }}" required>
+                    <label for="fullname">Full Name</label>
+                </div>
+            </div>
+            <!-- phone input  -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-phone-alt teal-text prefix"></i>
+                    <input id="phone_nr" name="phone_nr" type="text" minlength="10" maxlength="20" class="validate"
+                        value="{{ member.phone_nr }}" required>
+                    <label for="phone_nr">Phone Number</label>
+                </div>
+            </div>
+            <!-- address input  -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-map-marker-alt teal-text prefix"></i>
+                    <!--
+                        Copyright 2021 Google LLC
+                    
+                        Licensed under the Apache License, Version 2.0 (the "License");
+                        you may not use this file except in compliance with the License.
+                        You may obtain a copy of the License at
+                    
+                            https://www.apache.org/licenses/LICENSE-2.0
+                    
+                        Unless required by applicable law or agreed to in writing, software
+                        distributed under the License is distributed on an "AS IS" BASIS,
+                        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                        See the License for the specific language governing permissions and
+                        limitations under the License.
+                      -->
+
+
+
+                    <div class="notification" id="addressNotification">
+                        <div class="tooltip"></div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        Please enter a Google-verified address
+                    </div>
+
+                    <input id="address" name="address" type="text" placeholder="" 
+                      value="{{ member_address }}" autocomplete="off">
+                    <label for="address" id="addressLabel">Address</label>
+                    <input type="hidden" id="address_id" name="address_id" value="{{ member_address_id }}" >
+                    <div id="map"></div>
+                </div>
+            </div>
+            
+            <!-- update button  -->
+            <div class="row">
+                <button type="submit" class="col s12 l6 offset-l3 btn teal">
+                    Update <i class="fas fa-sign-in-alt"></i>
+                </button>
+            </div>
+
+            <div class="row">
+                <a href="{{ url_for('delete_member', member_id=member.id) }}" 
+                class="col s12 l6 offset-l3 transparent teal-text btn danger-btn">Delete
+                    Member</a>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<script src="{{ url_for('static', filename='js/address.js')}}"></script>
+
+{% endblock %}
