@@ -9,6 +9,11 @@ def home():
     return render_template("base.html")
 
 
+@app.route("/map")
+def map():
+    return render_template("map.html")
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":

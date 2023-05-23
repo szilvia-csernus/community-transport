@@ -29,7 +29,7 @@ body {
     width: 200px;
     height: 100px;
     bottom: 70px;
-    left: 50%;
+    right: 20px;
 }
 
 main {
@@ -100,38 +100,116 @@ h3 {
     padding: 0 1rem;
 }
 
-.yellow-car, .hospital {
-    height: 6rem;
-    width: 7rem;
+input[name="address"] {
+    position: relative;
+}
+
+.notification {
+    display: none;
+    position:absolute;
+    top: 52px;
+    left: 100px;
+    background-color: rgb(45, 45, 45);
+    color: rgb(240, 240, 240);
+    padding: .8rem;
+    border-radius: 3px;
+    font-size: .95rem;
+}
+
+.notification > i {
+    font-size: 1.3rem;
+    margin-right: .5rem;
+    color:rgba(255, 255, 255, 0.5)
+}
+
+.notification .tooltip {
+    position: absolute;
+    background-color: rgb(45, 45, 45);
+    width: 1rem;
+    height: 1rem;
+    rotate: 45deg;
+    top: -0.4rem;
+}
+
+.visible {
+    display: block;
 }
 
 /* Google maps styles  */
 
 
-      h2 {
-        margin: 0;
-        font-family: Roboto, sans-serif;
-      }
+        .sb-title {
+            position: relative;
+            top: -12px;
+            font-family: Roboto, sans-serif;
+            font-weight: 500;
+        }
 
-      input {
-        height: 30px;
-      }
+        .sb-title-icon {
+            position: relative;
+            top: -5px;
+        }
 
-      input {
-        border: 0;
-        border-bottom: 1px solid black;
-        font-size: 14px;
-        font-family: Roboto, sans-serif;
-        font-style: normal;
-        font-weight: normal;
-      }
+        .card-container {
+            display: flex;
+            height: 500px;
+            width: 600px;
+        }
 
-      input:focus::placeholder {
-        color: white;
-      }
+        .panel {
+            background: white;
+            width: 300px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
 
-      /* end of google maps styles  */
+        .half-input-container {
+            display: flex;
+            justify-content: space-between;
+        }
 
-.main-bg-img {
-    width: 100%;
-}
+        .half-input {
+            max-width: 120px;
+        }
+
+        .map {
+            width: 300px;
+        }
+
+        h2 {
+            margin: 0;
+            font-family: Roboto, sans-serif;
+        }
+
+        input {
+            height: 30px;
+        }
+
+        input {
+            border: 0;
+            border-bottom: 1px solid black;
+            font-size: 14px;
+            font-family: Roboto, sans-serif;
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        input:focus::placeholder {
+            color: white;
+        }
+
+        .button-cta {
+            height: 40px;
+            width: 40%;
+            background: #3367d6;
+            color: white;
+            font-size: 15px;
+            text-transform: uppercase;
+            font-family: Roboto, sans-serif;
+            border: 0;
+            border-radius: 3px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
+            cursor: pointer;
+        }

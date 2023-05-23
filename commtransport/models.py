@@ -5,7 +5,7 @@ class User(db.Model):
     # schema for the User model
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(50), unique=True, nullable=False)
-    user_username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(260), nullable=False)
     # handle the case when place gets deleted! (ask user for new address)
     place_id = db.Column(db.Integer, db.ForeignKey("place.id")) 
