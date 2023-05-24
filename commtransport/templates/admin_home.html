@@ -5,9 +5,8 @@
 
 <h3 class="grey-text text-darken-2 center-align">All Members</h3>
 
-<div class="row card-panel grey lighten-5">
-    <form action="" method="POST" class="col s12">
-        <div class="row align-wrapper center-align">
+<form action="" method="POST" class="col s12">
+        <div class="row valign-wrapper center-align card-panel grey lighten-5">
             <div class="input-field col s12 m6">
                 <i class="fas fa-search prefix grey-text text-darken-2"></i>
                 <input type="text" name="query" id="query" minllength="3" class="validate" required>
@@ -15,40 +14,43 @@
 
             </div>
             <div class="col s12 m6">
-                <button type="submit" class="teal btn white-text my-edit-btn">
+                <button type="submit" class="my-green btn white-text my-edit-btn">
                     <i class="fas fa-search left"></i> Search
                 </button>
                 <a href="" class="btn my-cancel-btn">Reset</a>
             </div>
-        </div>
+    </div>
     </form>
-</div>
 
 {% if members|length > 0 %}
 <ul class="collapsible">
     {% for member in members %}
     <li>
-        <div class="collapsible-header brown lighten-4 grey-text text-darken-2">
+        <div class="collapsible-header brown lighten-4 grey-text text-darken-4">
 
             <div class="col s12 m9">
                 <i class="fas fa-caret-down"></i>
-                <strong>{{ member.fullname }}:</strong>
-                {% if member.is_volunteer == True %}
-                Volunteer !!
+                <strong>{{ member[0].fullname }}</strong>
+                
+            </div>
+            <div>
+                {% if member[0].is_admin %}
+                <span class="badge my-red darken-2 white-text">A</span>
+                {% endif %}
+                {% if member[0].is_volunteer %}
+                    <span class="badge my-green white-text">V</span>
                 {% endif %}
             </div>
-
-
         </div>
         <div class="collapsible-body brown lighten-5">
-            <strong>{{ member.email }}</strong>
-            <p>{{ member.address_id }}</p>
-            <p><em>admin: {{ member.is_admin }}</em></p>
-            <p><em>volunteer: {{ member.is_volunteer }}</em></p>
+            <strong>{{ member[0].email }}</strong>
+            <em>{{ member[1].address }}</em>
+            <p><em>admin: {{ member[0].is_admin }}</em></p>
+            <p><em>volunteer: {{ member[0].is_volunteer }}</em></p>
             <p>
-                <a href="{{ url_for('edit_member', member_id=member.id) }}"
+                <a href="{{ url_for('edit_member', user_id=user.id, member_id=member[0].id) }}"
                     class="waves-effect waves-light btn-small my-edit-btn">Edit Member Details</a>
-                <a href="{{ url_for('delete_member', member_id=member.id) }}" class="transparent teal-text btn-small danger-btn">Delete
+                <a href="{{ url_for('delete_member', user_id=user.id, member_id=member[0].id) }}" class="btn-small waves-effect danger-btn">Delete
                     Member</a>
             </p>
             
@@ -57,7 +59,7 @@
     {% endfor %}
 </ul>
 {% else %}
-<h3 class="teal-text text-darken-2 center-align">No Results Found</h3>
+<h3 class="my-green-text text-darken-2 center-align">No Results Found</h3>
 
 {% endif%}
 

@@ -1,3 +1,8 @@
+:root {
+    --my-green: #408b1e;
+    --my-red: #941b1b;
+}
+
 body {
     position: relative;
     display: flex;
@@ -83,22 +88,14 @@ h3 {
 .my-edit-btn, .my-cancel-btn {
     background-color: white;
     font-weight: 700;
-    color: rgb(38, 166, 154);
+    color: var(--my-green);
 }
 
 .my-edit-btn:hover, .my-cancel-btn:hover {
     color: white;
 }
 
-.btn-small {
-    margin: 5px;
-}
 
-.btn-large {
-    width: 14rem;
-    margin: .5rem;
-    padding: 0 1rem;
-}
 
 input[name="address"] {
     position: relative;
@@ -133,6 +130,36 @@ input[name="address"] {
 
 .visible {
     display: block;
+}
+
+.my-icon {
+    font-size: 2rem;
+    margin-right: .7rem;
+}
+
+.row .col.checkboxes-frame {
+    border: .7px solid var(--my-green);;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-around;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.my-green {
+    background-color: var(--my-green);;
+}
+
+.my-green-text {
+    color: var(--my-green);;
+}
+
+.my-red {
+    background-color: var(--my-red);;
+}
+
+.my-red-text {
+    color: var(--my-red);;
 }
 
 /* Google maps styles  */
@@ -217,5 +244,48 @@ input[name="address"] {
 /* end of google maps styles  */
 
 .danger-btn {
-    border: 1px solid red;
+    background-color: transparent;
+    border: 1px solid var(--my-red);
+    color: var(--my-red);
 }
+
+.danger-btn:hover {
+    background-color: var(--my-red);
+    color: white;
+}
+
+/* Modifying Materialize's styles  */
+
+.btn-small {
+    margin: 5px;
+}
+
+.btn-large {
+    width: 14rem;
+    margin: .5rem;
+    padding: 0 1rem;
+}
+
+.collapsible span.badge {
+    width: 2rem;
+    height: 2rem;
+    min-width: 0;
+    border-radius: 1rem;
+    line-height: 27px;
+    margin-left: .5rem;
+}
+
+[type="checkbox"].filled-in:checked+span:not(.lever):after {
+
+    border-color: var(--my-green);;
+    background-color: var(--my-green);;
+}
+
+.collapsible-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* end of Materialize's modifications  */
+

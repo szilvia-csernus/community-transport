@@ -42,7 +42,7 @@ def register():
             phone_nr=request.form.get("phone_nr"),
             place_id = place.id,
             email=request.form.get("email").lower(),
-            is_admin=False,
+            is_admin=True,
             is_volunteer=False,
             password=generate_password_hash(request.form.get("password"))
         )
@@ -66,42 +66,69 @@ def signin():
             Member.email==request.form.get("email").lower()).first()
 
         if existing_member:
-            print(request.form.get("email"))
             # ensure hashed password matches user input
             if check_password_hash(
                     existing_member.password, request.form.get("password")):
-                session["user"] = request.form.get("email").lower()
-                flash("Welcome, {}".format(request.form.get("fullname")))
+                session["user"] = generate_password_hash(request.form.get(
+                    "email").lower())
+                flash("Welcome, {}".format(existing_member.fullname))
                 if existing_member.is_admin == True:
-                    members = list(Member.query.all())
-                    return redirect(url_for('admin_home', member=existing_member, members=members))
+                    
+                    return redirect(url_for('admin_home', member_id=existing_member.id))
                 elif existing_member.is_volunteer == True:
-                    return render_template('admin_home.html', member=existing_member)
+                    return redirect(url_for('volunteer_home.html', member_id=existing_member.id))
                 else:
-                    members = list(Member.query.all())
-                    return redirect(url_for('admin_home', member=existing_member, members=members))
-                    # return render_template('member_home.html', member=existing_member)
+                    return redirect(url_for('member_home', member_id=existing_member.id))
             else:
                 # invalid password match
-                flash("Incorrect Username and/or Password")
+                flash("Incorrect Username or Password!")
                 return redirect(url_for("signin"))
 
         else:
             # username doesn't exist
-            flash("Incorrect Username and/or Password")
+            flash("Incorrect Username or Password!")
             return redirect(url_for("signin"))
 
     return render_template("signin.html")
 
 
-@app.route("/member_home/<email>", methods=["GET", "POST"])
-def member_home(email):
-    # grab the session user's username from db
-    if "user" in session:
-        member = Member.query.filter(Member.email==email)
-        return render_template("member_home.html", member=member)
+@app.route("/admin_home/<int:member_id>", methods=["GET", "POST"])
+def admin_home(member_id):
+    user = Member.query.filter(Member.id == member_id).first()
 
-    return redirect(url_for("login"))
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+    
+    # grab the session user's hashed email from db
+    if is_logged_in == False or user.is_admin == False:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+    
+    members_list = list(Member.query.all())
+    # query address for each member
+    members = []
+    for member in members_list:
+        place = Place.query.filter(Place.id == member.place_id).first()
+        members.append([member, place])
+
+    return render_template("admin_home.html", user=user, members=members)
+
+
+@app.route("/member_home/<int:member_id>", methods=["GET", "POST"])
+def member_home(member_id):
+    member = Member.query.filter(Member.id == member_id).first()
+
+    # check if user logged in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], member.email)
+    member_place = Place.query.filter(Place.id==member.place_id).first()
+
+    # Sign out unauthorized user
+    if is_logged_in == False:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+   
+    return render_template("member_home.html", member=member, place=member_place)
 
 
 @app.route("/signout")
@@ -113,12 +140,23 @@ def signout():
     return redirect(url_for("signin"))
 
 
-@app.route("/edit_member/<int:member_id>", methods=["GET", "POST"])
-def edit_member(member_id):
+@app.route("/edit_member/<int:user_id>/<int:member_id>", methods=["GET", "POST"])
+def edit_member(user_id, member_id):
     member = Member.query.filter(Member.id==member_id).first()
-    place = Place.query.filter(Place.id==member.place_id).first()
+    user = Member.query.filter(Member.id==user_id).first()
+
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+    
+    is_authorised = user.is_admin or user_id == member_id
+
+    if is_logged_in == False or is_authorised == False:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+    
+    place = Place.query.filter(Place.id == member.place_id).first()
+    
     if request.method == "POST":
-        
         if member == None:
             flash("Member not registered.")
             return redirect(url_for("signin"))
@@ -133,13 +171,22 @@ def edit_member(member_id):
 
         member.fullname = request.form.get("fullname"),
         member.phone_nr = request.form.get("phone_nr"),
-        member.email = request.form.get("email").lower(),
+
+        if user.is_admin:
+            if request.form.get("is_admin") == 'True':
+                member.is_admin = True
+            else:
+                member.is_admin = False
+            if request.form.get("is_volunteer") == 'True':
+                member.is_volunteer = True
+            else:
+                member.is_volunteer = False
 
         db.session.commit()
 
     return render_template(
         'edit_member.html', member=member, member_address=place.address, 
-        member_address_id=place.google_place_id)
+        member_address_id=place.google_place_id, user=user)
 
 
 @app.route("/delete_member/<int:member_id>", methods=["POST"])
