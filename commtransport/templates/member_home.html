@@ -1,6 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h3>Member home page</h3>
+<h3 class="center-align grey-text text-darken-2">{{member.fullname}}'s Data</h3>
+
+<div class="row">
+    <div class="col s12 m10 offset-m1 l8 offset-l2">
+        <div class="card-panel">
+            <!-- name  -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-user my-green-text my-icon"></i>
+                    <strong>Full Name: </strong><em>{{ member.fullname }}</em>
+                </div>
+            </div>
+            <!-- phone -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-phone-alt my-green-text my-icon"></i>
+                    <strong>Phone Number: </strong><em>{{ member.phone }}</em>
+                </div>
+            </div>
+            <!-- address -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-map-marker-alt my-green-text my-icon"></i>
+                    <strong>Address: </strong><em>{{ place.address }}</em>
+                </div>
+            </div>
+            {% if member.is_admin %}
+            <p>
+                <em>You have Admin permissions.</em>
+            </p>
+            {% endif %}
+            {% if member.is_volunteer %}
+            <p>
+                <em>You are registered as a volunteer.</em>
+            </p>
+            {% endif %}
+            
+            <!-- Edit button  -->
+            <div class="row">
+                <a href="{{ url_for('edit_member', user_id=member.id, member_id=member.id) }}"
+                    class="col s12 m10 offset-m1 l8 offset-l2 btn teal">Edit
+                    my Data<i class="fas fa-sign-in-alt"></i></a>
+            </div>
+
+            <div class="row">
+                <a href="{{ url_for('delete_member', user_id=member.id, member_id=member.id) }}"
+                    class="col s12 m10 offset-m1 l8 offset-l2 btn danger-btn">Delete
+                    my Data</a>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 {% endblock %}
