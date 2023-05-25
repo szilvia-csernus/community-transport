@@ -4,7 +4,16 @@
     <li><a class="active my-nav-element grey-text text-darken-2" href="#">Users</a></li>
     <li><a class="my-nav-element grey-text text-darken-2" href="#">Requests</a>
     </li>
-    <li><a class="my-nav-element grey-text text-darken-2" href="#">My Profile</a></li>
+    <li><a class="my-nav-element grey-text text-darken-2" 
+        href="{{ url_for('member_home', member_id=user.id)}}">My Profile</a></li>
+{% endblock %}
+
+{% block sidenav_elements %}
+<li><a class="active my-nav-element grey-text text-darken-2" href="#">Users</a></li>
+<li><a class="my-nav-element grey-text text-darken-2" href="#">Requests</a>
+</li>
+<li><a class="my-nav-element grey-text text-darken-2" 
+    href="{{ url_for('member_home', member_id=user.id)}}">My Profile</a></li>
 {% endblock %}
 
 {% block content %}

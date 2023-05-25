@@ -136,11 +136,20 @@
                     Update <i class="fas fa-sign-in-alt"></i>
                 </button>
             </div>
+            
+            <!-- cancel button  -->
+            <div class="row">
+                <a href="{{ url_for('member_home', member_id=member.id) }}"
+                    class="col s12 btn my-white-blue-btn">
+                    Cancel
+                </a>
+            </div>
 
+            <!-- delete button  -->
             <div class="row">
                 <a href="{{ url_for('delete_member', user_id=user.id, member_id=member.id) }}" 
                 class="col col s12 btn danger-btn">Delete
-                    Member</a>
+                    User</a>
             </div>
 
         </div>
