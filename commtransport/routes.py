@@ -193,18 +193,8 @@ def edit_member(user_id, member_id):
     # either admin can edit profile data or the user herself/himself
     is_authorised = user.is_admin or user_id == member_id
 
-    # if not is_approved or not is_logged_in or not is_authorised:
-    #     flash("Unauthorized access!")
-    #     return redirect(url_for("signout"))
-
-    if not is_approved:
-        flash("user is not approved")
-        return redirect(url_for("signout"))
-    if not is_logged_in:
-        flash("user is not logged in")
-        return redirect(url_for("signout"))
-    if not is_authorised:
-        flash("user is not admin or user = member")
+    if not is_approved or not is_logged_in or not is_authorised:
+        flash("Unauthorized access!")
         return redirect(url_for("signout"))
     
     place = Place.query.filter(Place.id == member.place_id).first()
