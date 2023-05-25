@@ -74,9 +74,9 @@ def signin():
                 flash("Welcome, {}".format(existing_member.fullname))
                 if existing_member.is_admin == True:
                     
-                    return redirect(url_for('admin_home', member_id=existing_member.id))
+                    return redirect(url_for('all_members', member_id=existing_member.id))
                 elif existing_member.is_volunteer == True:
-                    return redirect(url_for('volunteer_home.html', member_id=existing_member.id))
+                    return redirect(url_for('member_home', member_id=existing_member.id))
                 else:
                     return redirect(url_for('member_home', member_id=existing_member.id))
             else:
@@ -92,8 +92,8 @@ def signin():
     return render_template("signin.html")
 
 
-@app.route("/admin_home/<int:member_id>", methods=["GET", "POST"])
-def admin_home(member_id):
+@app.route("/all_members/<int:member_id>", methods=["GET", "POST"])
+def all_members(member_id):
     user = Member.query.filter(Member.id == member_id).first()
 
     is_logged_in = "user" in session and check_password_hash(
@@ -111,7 +111,7 @@ def admin_home(member_id):
         place = Place.query.filter(Place.id == member.place_id).first()
         members.append([member, place])
 
-    return render_template("admin_home.html", user=user, members=members)
+    return render_template("all_members.html", user=user, members=members)
 
 
 @app.route("/member_home/<int:member_id>", methods=["GET", "POST"])
@@ -163,7 +163,7 @@ def edit_member(user_id, member_id):
         
         if place == None:
             flash("Address not recognised.")
-            return redirect(url_for("signin"))
+            return
 
         # update place details in Place model (place_id doesn't change!)
         place.google_place_id=request.form.get("address_id"),
@@ -184,14 +184,34 @@ def edit_member(user_id, member_id):
 
         db.session.commit()
 
+        if user.is_admin:
+            return redirect(url_for('all_members', member_id=user.id))
+        else:
+            return redirect(url_for('member_home', member_id=user.id))
+
     return render_template(
         'edit_member.html', member=member, member_address=place.address, 
         member_address_id=place.google_place_id, user=user)
 
 
-@app.route("/delete_member/<int:member_id>", methods=["POST"])
-def delete_member(member_id):
-    member = Member.query.get_or_404(member_id)
+@app.route("/delete_member/<int:user_id>/<int:member_id>")
+def delete_member(user_id, member_id):
+    member = Member.query.filter(Member.id == member_id).first()
+    user = Member.query.filter(Member.id == user_id).first()
+    
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+
+    is_authorised = user.is_admin or user_id == member_id
+
+    if is_logged_in == False or is_authorised == False:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+    
     db.session.delete(member)
     db.session.commit()
-    return redirect(url_for('home'))
+
+    if user.is_admin:
+        return redirect(url_for('all_members', member_id=user.id))
+    else:
+        return redirect(url_for('home'))

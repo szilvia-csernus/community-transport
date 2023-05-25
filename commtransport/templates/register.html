@@ -28,7 +28,7 @@
 </script>
 
 
-<h3 class="center-align grey-text text-darken-2">Register</h3>
+<h3 class="center-align my-dark-blue-text">Register</h3>
 
 <div class="row">
     <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register') }}">
@@ -36,7 +36,7 @@
             <!-- name input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-user-plus my-green-text prefix"></i>
+                    <i class="fas fa-user-plus my-dark-blue-text prefix"></i>
                     <input id="fullname" name="fullname" type="text" minlength="5" maxlength="100"
                         class="validate" required>
                     <label for="fullname">Full Name</label>
@@ -45,7 +45,7 @@
             <!-- phone input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-phone-alt my-green-text prefix"></i>
+                    <i class="fas fa-phone-alt my-dark-blue-text prefix"></i>
                     <input id="phone_nr" name="phone_nr" type="text" minlength="10" maxlength="20"
                          class="validate" required>
                     <label for="phone_nr">Phone Number</label>
@@ -54,7 +54,7 @@
             <!-- address input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-map-marker-alt my-green-text prefix"></i>
+                    <i class="fas fa-map-marker-alt my-dark-blue-text prefix"></i>
                     <!--
                         Copyright 2021 Google LLC
                     
@@ -79,7 +79,8 @@
                         Please enter a Google-verified address
                     </div>
 
-                    <input id="address" name="address" type="text" placeholder="" autocomplete="off">
+                    <input id="address" name="address" type="text" placeholder="" 
+                    autocomplete="address-line1 address-level1 postal-code">
                     <label for="address" id="addressLabel">Address</label>
                     <input type="hidden" id="address_id" name="address_id">
                     <div id="map"></div>
@@ -88,25 +89,25 @@
             <!-- email input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-at my-green-text prefix"></i>
+                    <i class="fas fa-at my-dark-blue-text prefix"></i>
                     <input id="email" name="email" type="email" minlength="5" maxlength="50"
-                         class="validate" required>
+                         class="validate" autocomplete="email" required>
                     <label for="email">Email</label>
                 </div>
             </div>
             <!-- password input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-key my-green-text prefix"></i>
+                    <i class="fas fa-key my-dark-blue-text prefix"></i>
                     <input id="password" name="password" type="password" 
                         minlength="8" maxlength="25" pattern="^[a-zA-Z0-9]{5,15}$"
-                        class="validate" autocomplete="off" required>
+                        class="validate" autocomplete="new-password" required>
                     <label for="password">New Password</label>
                 </div>
             </div>
             <!-- register button  -->
             <div class="row">
-                <button type="submit" class="col s12 btn-large teal">
+                <button type="submit" class="col s12 btn-large my-dark-blue">
                     Register <i class="fas fa-sign-in-alt"></i>
                 </button>
             </div>
@@ -116,7 +117,7 @@
                 <div class="col s12">
                     <p class="center-align">
                         Already registered?
-                        <a href="{{ url_for('signin') }}" class="grey-text text-darken-2">Sign In</a>
+                        <a href="{{ url_for('signin') }}" class="my-light-grey-text">Sign In</a>
                     </p>
                 </div>
             </div>
