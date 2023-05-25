@@ -1,23 +1,29 @@
 {% extends "base.html" %}
+
+{% block nav_elements %}
+    <li><a class="active my-nav-element grey-text text-darken-2" href="#">Users</a></li>
+    <li><a class="my-nav-element grey-text text-darken-2" href="#">Requests</a>
+    </li>
+    <li><a class="my-nav-element grey-text text-darken-2" href="#">My Profile</a></li>
+{% endblock %}
+
 {% block content %}
 
-<h3>Admin home page</h3>
-
-<h3 class="grey-text text-darken-2 center-align">All Members</h3>
+<h3 class=" center-align">All Members</h3>
 
 <form action="" method="POST" class="col s12">
         <div class="row valign-wrapper center-align card-panel grey lighten-5">
             <div class="input-field col s12 m6">
-                <i class="fas fa-search prefix grey-text text-darken-2"></i>
+                <i class="fas fa-search prefix"></i>
                 <input type="text" name="query" id="query" minllength="3" class="validate" required>
                 <label for="query">Search Members</label>
 
             </div>
             <div class="col s12 m6">
-                <button type="submit" class="my-green btn white-text my-edit-btn">
+                <button type="submit" class="btn my-dark-blue-btn">
                     <i class="fas fa-search left"></i> Search
                 </button>
-                <a href="" class="btn my-cancel-btn">Reset</a>
+                <a href="" class="btn my-white-blue-btn">Reset</a>
             </div>
     </div>
     </form>
@@ -26,11 +32,11 @@
 <ul class="collapsible">
     {% for member in members %}
     <li>
-        <div class="collapsible-header brown lighten-4 grey-text text-darken-4">
+        <div class="collapsible-header brown lighten-4">
 
             <div class="col s12 m9">
                 <i class="fas fa-caret-down"></i>
-                <strong>{{ member[0].fullname }}</strong>
+                <span>{{ member[0].fullname }}</span>
                 
             </div>
             <div>
@@ -43,14 +49,20 @@
             </div>
         </div>
         <div class="collapsible-body brown lighten-5">
-            <strong>{{ member[0].email }}</strong>
-            <em>{{ member[1].address }}</em>
-            <p><em>admin: {{ member[0].is_admin }}</em></p>
-            <p><em>volunteer: {{ member[0].is_volunteer }}</em></p>
+            <p><strong>Address: <em>{{ member[1].address }}</em></strong></p>
+            <p>Email: <em>{{ member[0].email }}</em></p>
+            <p>
+                {% if member[0].is_admin %}
+                    <span class="my-red-text">Has Admin Privilages.</span>
+                {% endif %}</p>
+            <p>
+                {% if member[0].is_volunteer %}
+                    <span class="my-green-text">Registered as a Volunteer.</span>
+                {% endif %}</p>
             <p>
                 <a href="{{ url_for('edit_member', user_id=user.id, member_id=member[0].id) }}"
-                    class="waves-effect waves-light btn-small my-edit-btn">Edit Member Details</a>
-                <a href="{{ url_for('delete_member', user_id=user.id, member_id=member[0].id) }}" class="btn-small waves-effect danger-btn">Delete
+                    class="waves-effect btn-small my-dark-blue-btn">Edit Member Details</a>
+                <a href="{{ url_for('delete_member', user_id=user.id, member_id=member[0].id) }}" class="btn-small danger-btn">Delete
                     Member</a>
             </p>
             

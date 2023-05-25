@@ -40,31 +40,27 @@
     <header>
         <!-- top navbar  -->
         <nav class="brown lighten-4 ">
-                <a href="#" class="logo  grey-text text-darken-2">Community Transport</a>
+                <a href="#" class="logo  my-dark-blue-text">Community Transport 
+                    <img class="red-car-small" src="{{ url_for('static', filename='assets/animated-car.svg')}}" alt="animated car">
+                </a>
+                
                 <!-- <img class="hospital" src="{{ url_for('static', filename='assets/Freepik-hospital.jpg')}}" alt="hospital"> -->
                 <!-- <img class="yellow-car" src="{{ url_for('static', filename='assets/Pngtree-5471979.png')}}" alt="yellow car"> -->
                 
                 <ul class="right hide-on-med-and-down ">
-                    <li><a class="my-nav-element grey-text text-darken-2" href="#">Home</a>
-                    </li>
+                    {% block nav_elements %}
+                    {% endblock %}
                     {% if session.user %}
-                    <li><a class="my-nav-element grey-text text-darken-2"
-                            href="#">Profile</a></li>
-                    <li><a class="my-nav-element grey-text text-darken-2" href="#">New Task</a>
-                    </li>
-                    {% if session.user|lower == 'admin'|lower%}
-                    <li><a class="my-nav-element grey-text text-darken-2" href="#">Manage
-                            Categories</a></li>
-                    {% endif %}
-                    <li><a class="my-nav-element grey-text text-darken-2" href="{{ url_for('signout')}}">Log Out</a>
-                    </li>
+                        <li><a class="my-nav-element" href="{{ url_for('signout')}}">Log Out</a>
+                        </li>
                     {% else %}
-                    <li><a class="my-nav-element grey-text text-darken-2" href="{{ url_for('signin')}}">Log In</a></li>
-                    <li><a class="my-nav-element grey-text text-darken-2" href="{{ url_for('register')}}">Register</a>
-                    </li>
+                        <li><a class="my-nav-element" href="{{ url_for('signin')}}">Log In</a></li>
+                        <li><a class="my-nav-element" href="{{ url_for('register')}}">Register</a>
+                        </li>
                     {% endif %}
                 </ul>
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger grey-text text-darken-2 right"><i class="fas fa-bars"
+                
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger my-dark-blue-text right"><i class="fas fa-bars"
                         aria-label="menu"></i></a>
         </nav>
 
@@ -96,7 +92,7 @@
             {% if messages %}
                 {% for message in messages %}
                 <div class="row flashes">
-                    <h4 class="grey-text text-darken-2 center-align">{{ message }}</h4>
+                    <h4 class="center-align">{{ message }}</h4>
                 </div>
                 {% endfor %}
             {% endif %}
@@ -110,10 +106,10 @@
     </main>
 
     <!-- footer https://materializecss.com/footer.html -->
-    <footer class="brown lighten-4 grey-text text-darken-2">
+    <footer class="brown lighten-4">
         <div class="footer-copyright">
                 *Disclaimer: This website was created for demonstrational purposes only. Please don't enter real data.
-                <a class="grey-text text-darken-2 right" href="https://codeinstitute.net" target="_blank">
+                <a class="right" href="https://codeinstitute.net" target="_blank">
                     &copy; Szilvia Csernusne Berczes, 2023. All rights reserved.</a>
         </div>
     </footer>

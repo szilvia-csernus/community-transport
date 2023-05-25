@@ -1,6 +1,11 @@
 :root {
     --my-green: #408b1e;
+    --my-green-translucent: #418b1e3a;
     --my-red: #941b1b;
+    --my-dark-blue: #20244f;
+    --my-light-grey: rgb(117, 115, 115);
+    /* --my-yellow: #fdce5d;
+    --my-yellow-translucent: #fdcd5d7c; */
 }
 
 body {
@@ -9,12 +14,13 @@ body {
     min-height: 100vh;
     flex-direction: column;
     font-family: 'Quicksand', sans-serif;
-    font-size: 1rem;
+    font-size: 1.2rem;
     background-image: url(../assets/cityscape1.svg);
     background-size: cover;
     background-repeat: repeat-x;
     background-position: -918px;
     animation: moveBackground 50s forwards;
+    color: var(--my-dark-blue);
 }
 
 /* moving the oversized background */
@@ -26,7 +32,6 @@ body {
     100% {
       background-position: left;
     }
-    
   }
 
 .red-car {
@@ -35,6 +40,14 @@ body {
     height: 100px;
     bottom: 70px;
     right: 20px;
+}
+
+.red-car-small {
+    transform: scaleX(-1);
+    width: 70px;
+    height: 35px;
+    position: relative;
+    top: 9px;
 }
 
 main {
@@ -51,6 +64,10 @@ nav {
 
 nav, footer {
     padding: .5rem 1rem;
+}
+
+footer {
+    font-size: .9rem;
 }
 
 strong {
@@ -75,27 +92,38 @@ form {
 
 h3 {
     font-size: 2rem;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 .flashes h4 {
     line-height: 2;
     font-size: 1.5rem;
-    color: white;
-    background-color: rgba(38, 166, 153, 0.147)
+    background-color: var(--my-green-translucent)
 }
 
-.my-edit-btn, .my-cancel-btn {
+.my-dark-blue-btn {
+    background-color: var(--my-dark-blue);
+    font-weight: 700;
+    color: white;
+    border: 1px solid var(--my-dark-blue)
+}
+
+.my-dark-blue-btn:hover {
+    background-color: white;
+    color: var(--my-dark-blue);
+}
+
+.my-white-blue-btn {
     background-color: white;
     font-weight: 700;
-    color: var(--my-green);
+    color: var(--my-dark-blue);
+    border: 1px solid var(--my-dark-blue)
 }
 
-.my-edit-btn:hover, .my-cancel-btn:hover {
+.my-white-blue-btn:hover {
     color: white;
+    background-color: var(--my-dark-blue);
 }
-
-
 
 input[name="address"] {
     position: relative;
@@ -160,6 +188,53 @@ input[name="address"] {
 
 .my-red-text {
     color: var(--my-red);;
+}
+
+button.my-green, a.my-green {
+    border: 1px solid var(--my-green);
+    border-radius: 3px;
+}
+
+button.my-green:hover, a.my-green:hover {
+    background-color: white;
+    color: var(--my-green);
+}
+
+.my-dark-blue {
+    background-color: var(--my-dark-blue);
+}
+
+.my-dark-blue-text {
+    color: var(--my-dark-blue)
+}
+
+button.my-dark-blue, a.my-dark-blue {
+    border: 1px solid var(--my-dark-blue);
+    border-radius: 3px;
+}
+
+button.my-dark-blue:hover, a.my-dark-blue:hover {
+    background-color: white;
+    color: var(--my-dark-blue);
+}
+
+.my-light-grey-text {
+    color: var(--my-light-grey);
+}
+
+.my-light-grey-text:hover {
+    color: var(--my-dark-blue);
+}
+
+.danger-btn {
+    background-color: white;
+    border: 1px solid var(--my-red);
+    color: var(--my-red);
+}
+
+.danger-btn:hover {
+    background-color: var(--my-red);
+    color: white;
 }
 
 /* Google maps styles  */
@@ -243,27 +318,24 @@ input[name="address"] {
 
 /* end of google maps styles  */
 
-.danger-btn {
-    background-color: transparent;
-    border: 1px solid var(--my-red);
-    color: var(--my-red);
-}
 
-.danger-btn:hover {
-    background-color: var(--my-red);
-    color: white;
-}
 
 /* Modifying Materialize's styles  */
 
+.btn {
+    border-radius: 3px;
+}
+
 .btn-small {
-    margin: 5px;
+    margin: 5px 5px 5px 0;
+    border-radius: 3px;
 }
 
 .btn-large {
     width: 14rem;
     margin: .5rem;
     padding: 0 1rem;
+    border-radius: 3px;
 }
 
 .collapsible span.badge {
@@ -284,6 +356,11 @@ input[name="address"] {
 .collapsible-header {
     display: flex;
     justify-content: space-between;
+}
+
+.col .row {
+    margin-left: 0;
+    margin-right: 0;
 }
 
 
