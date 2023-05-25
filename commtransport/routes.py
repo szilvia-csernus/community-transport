@@ -38,20 +38,32 @@ def register():
             return render_template('register.html')
 
         member = Member(
+            # create new member
             fullname=request.form.get("fullname"),
             phone_nr=request.form.get("phone_nr"),
             place_id = place.id,
             email=request.form.get("email").lower(),
             is_admin=True,
             is_volunteer=False,
+            approved=True,
             password=generate_password_hash(request.form.get("password"))
         )
-
         db.session.add(member)
         db.session.commit()
 
-        # put the new member into 'session' cookie
-        session["member"] = request.form.get("member_name")
+        approval = Approval(
+            # create new approval request for new member 
+            requester_id = member.id,
+            status = "outstanding"
+        )
+        db.session.add(approval)
+        db.session.commit()
+
+        # add new approval_id to new member
+        member.approval_id = approval.id
+
+        db.session.commit()
+
         flash("Your registration is yet to be approved. Please wait until we get in touch!")
         return redirect(url_for('home'))
 
@@ -69,16 +81,25 @@ def signin():
             # ensure hashed password matches user input
             if check_password_hash(
                     existing_member.password, request.form.get("password")):
-                session["user"] = generate_password_hash(request.form.get(
-                    "email").lower())
-                flash("Welcome, {}".format(existing_member.fullname))
-                if existing_member.is_admin == True:
-                    
-                    return redirect(url_for('all_members', member_id=existing_member.id))
-                elif existing_member.is_volunteer == True:
-                    return redirect(url_for('member_home', member_id=existing_member.id))
+                
+                if not existing_member.approved:
+                    # if user's registration has not been approved
+                    flash("Your registration is yet to be approved. Please wait until we get in touch.")
+                    return redirect(url_for('home'))
                 else:
-                    return redirect(url_for('member_home', member_id=existing_member.id))
+                    # if approval was granted, create a hashed session cookie
+                    session["user"] = generate_password_hash(request.form.get(
+                        "email").lower())
+                    flash("Welcome, {}".format(existing_member.fullname))
+                    if existing_member.is_admin == True:
+                        # if user is admin, redirect to the admin page
+                        return redirect(url_for('all_members', user_id=existing_member.id))
+                    elif existing_member.is_volunteer == True:
+                        # if user is a volunteer, redirect to the volunteer page
+                        return redirect(url_for('member_home', member_id=existing_member.id))
+                    else:
+                        # all other users redirect to the member's page
+                        return redirect(url_for('member_home', member_id=existing_member.id))
             else:
                 # invalid password match
                 flash("Incorrect Username or Password!")
@@ -92,39 +113,56 @@ def signin():
     return render_template("signin.html")
 
 
-@app.route("/all_members/<int:member_id>", methods=["GET", "POST"])
-def all_members(member_id):
-    user = Member.query.filter(Member.id == member_id).first()
+@app.route("/all_members/<int:user_id>", methods=["GET", "POST"])
+def all_members(user_id):
+    user = Member.query.filter(Member.id == user_id).first()
 
+    # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
         session["user"], user.email)
     
+    # check if user's account is approved
+    is_approved = user.approved
+
     # grab the session user's hashed email from db
-    if is_logged_in == False or user.is_admin == False:
+    if not is_approved or not is_logged_in or not user.is_admin:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
     
     members_list = list(Member.query.all())
-    # query address for each member
-    members = []
+    # query address for each member and sort them into approved & unapproved lists.
+    approved_members = []
+    unapproved_members = []
     for member in members_list:
         place = Place.query.filter(Place.id == member.place_id).first()
-        members.append([member, place])
+        if member.approved:
+            approved_members.append([member, place])
+        else:
+            unapproved_members.append([member, place])
 
-    return render_template("all_members.html", user=user, members=members)
+    return render_template(
+        "all_members.html",
+        user=user,
+        approved_members=approved_members,
+        unapproved_members=unapproved_members
+        )
 
 
 @app.route("/member_home/<int:member_id>", methods=["GET", "POST"])
 def member_home(member_id):
     member = Member.query.filter(Member.id == member_id).first()
 
-    # check if user logged in
+    # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
         session["user"], member.email)
+    # check if user's account is approved
+    is_approved = member.approved
+
+    # grab member's place record
     member_place = Place.query.filter(Place.id==member.place_id).first()
 
     # Sign out unauthorized user
-    if is_logged_in == False:
+    if not is_logged_in or not is_approved:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
    
@@ -145,13 +183,28 @@ def edit_member(user_id, member_id):
     member = Member.query.filter(Member.id==member_id).first()
     user = Member.query.filter(Member.id==user_id).first()
 
+    # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
         session["user"], user.email)
     
+    # check if user's account is approved
+    is_approved = user.approved
+    
+    # either admin can edit profile data or the user herself/himself
     is_authorised = user.is_admin or user_id == member_id
 
-    if is_logged_in == False or is_authorised == False:
-        flash("Unauthorized access!")
+    # if not is_approved or not is_logged_in or not is_authorised:
+    #     flash("Unauthorized access!")
+    #     return redirect(url_for("signout"))
+
+    if not is_approved:
+        flash("user is not approved")
+        return redirect(url_for("signout"))
+    if not is_logged_in:
+        flash("user is not logged in")
+        return redirect(url_for("signout"))
+    if not is_authorised:
+        flash("user is not admin or user = member")
         return redirect(url_for("signout"))
     
     place = Place.query.filter(Place.id == member.place_id).first()
@@ -173,6 +226,11 @@ def edit_member(user_id, member_id):
         member.phone_nr = request.form.get("phone_nr"),
 
         if user.is_admin:
+            if request.form.get("approved") == 'True':
+                member.approved = True
+                member.approved_by = user.id
+            else:
+                member.is_volunteer = False
             if request.form.get("is_admin") == 'True':
                 member.is_admin = True
             else:
@@ -185,7 +243,7 @@ def edit_member(user_id, member_id):
         db.session.commit()
 
         if user.is_admin:
-            return redirect(url_for('all_members', member_id=user.id))
+            return redirect(url_for('all_members', user_id=user.id))
         else:
             return redirect(url_for('member_home', member_id=user.id))
 
@@ -198,20 +256,81 @@ def edit_member(user_id, member_id):
 def delete_member(user_id, member_id):
     member = Member.query.filter(Member.id == member_id).first()
     user = Member.query.filter(Member.id == user_id).first()
+    approvals = Approval.query.filter(Approval.reviewer_id==member.id).all()
     
+    # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
         session["user"], user.email)
+    
+    # check if user's account is approved
+    is_approved = member.approved
 
     is_authorised = user.is_admin or user_id == member_id
 
-    if is_logged_in == False or is_authorised == False:
-        flash("Unauthorized access!")
-        return redirect(url_for("signout"))
+    # if not is_approved or not is_logged_in or not is_authorised:
+    #     flash("Unauthorized access!")
+    #     return redirect(url_for("signout"))
     
+    # for all the approvals the person made in the past, reset the reviewer_id to
+    # none, the status to "outstanding" and the member's approved status to False
+    # so that another admin can approve this person again.
+    for approval in approvals:
+        approval.reviewer_id = None
+        approval.status = "outstanding"
+        approved_person = Member.query.filter(Member.approval_id==approval.id).first()
+        approved_person.approved = False
+
     db.session.delete(member)
     db.session.commit()
 
     if user.is_admin:
-        return redirect(url_for('all_members', member_id=user.id))
+        return redirect(url_for('all_members', user_id=user.id, member_id=user.id))
     else:
         return redirect(url_for('home'))
+    
+
+@app.route("/approve/<int:user_id>/<int:approval_id>/<decision>")
+def approve(user_id, approval_id, decision):
+    approval = Approval.query.filter(Approval.id==approval_id).first()
+    member = Member.query.filter(Member.approval_id==approval_id).first()
+    user = Member.query.filter(Member.id==user_id).first()
+
+    # check if user signed in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+    
+    # check if user's (the admin's) account is approved
+    is_approved = user.approved
+
+    # only admin can approve other accounts, but not her/his own.
+    is_authorised = user.is_admin and user.id != member.id
+
+    if not is_approved:
+        flash("user is not approved")
+        return redirect(url_for("signout"))
+    if not is_logged_in:
+        flash("user is not logged in")
+        return redirect(url_for("signout"))
+    if not is_authorised:
+        flash("user is not admin or user = member")
+        return redirect(url_for("signout"))
+
+    if not approval:
+        flash("Approval request not recognised.")
+        return redirect(url_for('all_members', member_id=user.id))
+
+    if decision == 'decline':
+        approval.status = "declined"
+        member.approved = False
+    elif decision == 'approve':
+        approval.status = "approved"
+        member.approved = True
+    else:
+        flash("Approval request not recognised.")
+        return redirect(url_for('all_members', member_id=user.id))
+    
+    approval.reviewer_id = user.id
+
+    db.session.commit()
+
+    return redirect(url_for('all_members', user_id=user.id, member_id=user.id))
