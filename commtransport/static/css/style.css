@@ -3,9 +3,10 @@
     --my-green-translucent: #418b1e3a;
     --my-red: #941b1b;
     --my-dark-blue: #20244f;
-    --my-light-grey: rgb(117, 115, 115);
-    /* --my-yellow: #fdce5d;
-    --my-yellow-translucent: #fdcd5d7c; */
+    --my-grey: rgb(117, 115, 115);
+    --my-light-grey: rgb(200, 200, 200);
+    --my-yellow: #fdce5d;
+    --my-yellow-translucent: #fdcd5d7c;
 }
 
 body {
@@ -44,10 +45,10 @@ body {
 
 .red-car-small {
     transform: scaleX(-1);
-    width: 70px;
-    height: 35px;
+    width: 60px;
+    height: 30px;
     position: relative;
-    top: 9px;
+    top: 7px;
 }
 
 main {
@@ -79,7 +80,7 @@ form {
 }
 
 .logo {
-    font-size: 2rem;
+    font-size: 1.7rem;
 }
 
 .my-nav-element {
@@ -91,13 +92,13 @@ form {
 }
 
 h3 {
-    font-size: 2rem;
+    font-size: 1.6rem;
     text-transform: capitalize;
 }
 
 .flashes h4 {
     line-height: 2;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     background-color: var(--my-green-translucent)
 }
 
@@ -166,7 +167,7 @@ input[name="address"] {
 }
 
 .row .col.checkboxes-frame {
-    border: .7px solid var(--my-green);;
+    border: .7px solid var(--my-dark-blue);;
     border-radius: 3px;
     display: flex;
     justify-content: space-around;
@@ -205,7 +206,7 @@ button.my-green:hover, a.my-green:hover {
 }
 
 .my-dark-blue-text {
-    color: var(--my-dark-blue)
+    color: var(--my-dark-blue);
 }
 
 button.my-dark-blue, a.my-dark-blue {
@@ -218,11 +219,11 @@ button.my-dark-blue:hover, a.my-dark-blue:hover {
     color: var(--my-dark-blue);
 }
 
-.my-light-grey-text {
-    color: var(--my-light-grey);
+.my-grey-text {
+    color: var(--my-grey);
 }
 
-.my-light-grey-text:hover {
+.my-grey-text:hover {
     color: var(--my-dark-blue);
 }
 
@@ -235,6 +236,18 @@ button.my-dark-blue:hover, a.my-dark-blue:hover {
 .danger-btn:hover {
     background-color: var(--my-red);
     color: white;
+}
+
+a.my-yellow.my-dark-blue-text {
+    background-color: var(--my-yellow);
+    border: 1px solid var(--my-dark-blue);
+    color: var(--my-dark-blue);
+    font-weight: bold;
+}
+
+a.my-yellow.my-dark-blue-text:hover {
+    background-color: var(--my-dark-blue);
+    color: var(--my-yellow);
 }
 
 /* Google maps styles  */
@@ -347,10 +360,29 @@ button.my-dark-blue:hover, a.my-dark-blue:hover {
     margin-left: .5rem;
 }
 
+.collapsible span.badge.my-yellow.my-dark-blue-text {
+    width: 5rem;
+    height: 2rem;
+    min-width: 0;
+    border-radius: 1rem;
+    line-height: 27px;
+    margin-left: .5rem;
+    background-color: var(--my-yellow);
+    color: var(--my-dark-blue);
+    font-weight: 700;
+}
 [type="checkbox"].filled-in:checked+span:not(.lever):after {
 
     border-color: var(--my-green);;
     background-color: var(--my-green);;
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: var(--my-green-translucent);
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: var(--my-green);
 }
 
 .collapsible-header {
@@ -361,6 +393,18 @@ button.my-dark-blue:hover, a.my-dark-blue:hover {
 .col .row {
     margin-left: 0;
     margin-right: 0;
+}
+
+[type="checkbox"].filled-in:not(:checked)+span:not(.lever):after {
+    border-color: var(--my-dark-blue)
+}
+
+.card-panel {
+    padding-top: 2.5rem;
+}
+
+.input-field .prefix.active {
+    color: var(--my-dark-blue);
 }
 
 
