@@ -66,7 +66,7 @@ def register(user_type):
 
         db.session.commit()
 
-        flash("Your registration is yet to be approved. Please wait until we get in touch!")
+        flash("Thank you for signing up! Your registration is yet to be approved. Please wait until we get in touch!")
         return redirect(url_for('home'))
 
     return render_template("register.html", user_type=user_type)
