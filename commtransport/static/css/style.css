@@ -94,6 +94,10 @@
     margin-bottom: 13px;
 }
 
+nav ul a:hover {
+    background-color: unset;
+}
+
 
 /* end of Materialize's modifications  */
 
@@ -397,7 +401,7 @@ span.my-yellow.my-dark-blue-text:hover {
 }
 
 .mission-card {
-    margin-top: 1rem;
+    margin-top: 2rem;
 }
 
 @keyframes appear {
