@@ -1,18 +1,31 @@
 {% extends "base.html" %}
 
-{% block nav_elements %}
-    <li><a class="active my-nav-element grey-text text-darken-2" href="#">Users</a></li>
-    <li><a class="my-nav-element grey-text text-darken-2" href="#">Requests</a>
+{% block left_nav_elements %}
+    <div>
+        <img class="red-car-medium" src="{{ url_for('static', filename='assets/red-car.svg')}}" alt="red car">
+        <em class="my-dark-blue-text">Logged in as: <strong>{{user.fullname}}</strong></em>
+    </div>
+    
+{% endblock %}
+
+{% block right_nav_elements %}
+    <li><a class="active my-nav-element my-dark-blue-text" href="#">
+        <span class="badge my-yellow my-dark-blue-text">{{unapproved_members_count}}</span>
+        Users
+    </a></li>
+    <li><a class="my-nav-element my-dark-blue-text" href="#">Requests</a>
     </li>
-    <li><a class="my-nav-element grey-text text-darken-2" 
+    <li><a class="my-nav-element my-dark-blue-text" 
         href="{{ url_for('member_home', member_id=user.id)}}">My Profile</a></li>
 {% endblock %}
 
 {% block sidenav_elements %}
-<li><a class="active my-nav-element grey-text text-darken-2" href="#">Users</a></li>
-<li><a class="my-nav-element grey-text text-darken-2" href="#">Requests</a>
+<li><a class="active my-nav-element my-dark-blue-text" href="#">
+    <span class="badge my-yellow my-dark-blue-text">{{unapproved_members_count}}</span>
+    Users</a></li>
+<li><a class="my-nav-element my-dark-blue-text" href="#">Requests</a>
 </li>
-<li><a class="my-nav-element grey-text text-darken-2" 
+<li><a class="my-nav-element my-dark-blue-text" 
     href="{{ url_for('member_home', member_id=user.id)}}">My Profile</a></li>
 {% endblock %}
 
@@ -58,7 +71,7 @@
                     <span class="badge my-green white-text">V</span>
                 {% endif %}
                 {% if member[0].approved == False%}
-                    <span class="badge my-yellow my-dark-blue-text">NEW</span>
+                    <span class="badge my-yellow my-dark-blue-text">Awaiting Approval</span>
                 {% endif %}
             </div>
         </div>
@@ -76,7 +89,7 @@
             <p>
                 <a href="{{ url_for('edit_member', user_id=user.id, member_id=member[0].id) }}"
                     class="waves-effect btn-small my-dark-blue-btn">Edit Member Details</a>
-                <a href="{{ url_for('delete_member', user_id=user.id, member_id=member[0].id) }}" class="btn-small danger-btn">Delete
+                <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=member[0].id) }}" class="btn-small danger-btn">Delete
                     Member</a>
             </p>
             
@@ -129,8 +142,7 @@
             <p>
                 <a href="{{ url_for('edit_member', user_id=user.id, member_id=member[0].id) }}"
                     class="waves-effect btn-small my-dark-blue-btn">Edit Member Details</a>
-                <a href="{{ url_for('delete_member', user_id=user.id, member_id=member[0].id) }}"
-                    class="btn-small danger-btn">Delete
+                <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=member[0].id) }}" class="btn-small danger-btn">Delete
                     Member</a>
             </p>
 

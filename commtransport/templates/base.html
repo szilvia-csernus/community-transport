@@ -40,18 +40,20 @@
     <header>
         <!-- top navbar  -->
         <nav class="brown lighten-4">
+                {% block left_nav_elements %}
                 <a href="#" class="logo  my-dark-blue-text">Community Transport&ast; 
-                    <img class="red-car-small" src="{{ url_for('static', filename='assets/animated-car.svg')}}" alt="animated car">
+                    <img class="red-car-small" src="{{ url_for('static', filename='assets/red-car.svg')}}" alt="red car">
                 </a>
+                {% endblock %}
                 
                 <!-- <img class="hospital" src="{{ url_for('static', filename='assets/Freepik-hospital.jpg')}}" alt="hospital"> -->
                 <!-- <img class="yellow-car" src="{{ url_for('static', filename='assets/Pngtree-5471979.png')}}" alt="yellow car"> -->
                 
                 <ul class="right hide-on-med-and-down">
-                    {% block nav_elements %}
+                    {% block right_nav_elements %}
                     {% endblock %}
                     {% if session.user %}
-                        <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('signout')}}">Sign Out</a>
+                        <li><a class="my-nav-element grey-text text-darken-2" href="{{ url_for('signout')}}">Sign Out</a>
                         </li>
                     {% else %}
                         <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('signin')}}">Sign In</a></li>
@@ -72,7 +74,7 @@
             {% block sidenav_elements %}
             {% endblock %}
             {% if session.user %}
-            <li><a class="my-nav-element" href="{{ url_for('signout')}}">Sign Out</a>
+            <li><a class="my-nav-element grey-text text-darken-2" href="{{ url_for('signout')}}">Sign Out</a>
             </li>
             {% else %}
             <li><a class="my-nav-element" href="{{ url_for('signin')}}">Sign In</a></li>
@@ -96,7 +98,7 @@
     </section>
 
     <main class="container">
-        <img class="red-car" src="{{ url_for('static', filename='assets/animated-car.svg')}}" alt="animated car">
+        <img class="red-car-large" src="{{ url_for('static', filename='assets/red-car.svg')}}" alt="red car">
         {% block content%}
         {% endblock %}
     </main>
@@ -104,9 +106,8 @@
     <!-- footer https://materializecss.com/footer.html -->
     <footer class="brown lighten-4">
         <div class="footer-copyright">
-                *Disclaimer: This website was created for demonstrational purposes only. Please don't enter real data.
-                <a class="right my-dark-blue-text" href="https://codeinstitute.net" target="_blank">
-                    &copy; Szilvia Csernusne Berczes, 2023. All rights reserved.</a>
+                <div>*Disclaimer: This website was created for demonstrational purposes only. Please don't enter real data.</div>
+                <div>&copy; Szilvia Csernusne Berczes, 2023. All rights reserved.</div>
         </div>
     </footer>
 
