@@ -6,6 +6,8 @@ from commtransport.models import Member, Place, Approval, Request
 
 @app.route("/")
 def home():
+    if "user" in session:
+        session.pop("user")
     return render_template("base.html")
 
 
@@ -43,9 +45,7 @@ def register():
             phone_nr=request.form.get("phone_nr"),
             place_id = place.id,
             email=request.form.get("email").lower(),
-            is_admin=True,
             is_volunteer=False,
-            approved=True,
             password=generate_password_hash(request.form.get("password"))
         )
         db.session.add(member)
@@ -113,6 +113,15 @@ def signin():
     return render_template("signin.html")
 
 
+@app.route("/signout")
+def signout():
+    # remove user from session cookies
+    flash("You have been signed out.")
+    # session.clear() would clear all cookies related to our app
+    session.pop("user")
+    return redirect(url_for("signin"))
+
+
 @app.route("/all_members/<int:user_id>", methods=["GET", "POST"])
 def all_members(user_id):
     user = Member.query.filter(Member.id == user_id).first()
@@ -130,6 +139,7 @@ def all_members(user_id):
         return redirect(url_for("signout"))
     
     members_list = list(Member.query.all())
+    unapproved_members_count = Member.query.filter(Member.approved==False).count()
     # query address for each member and sort them into approved & unapproved lists.
     approved_members = []
     unapproved_members = []
@@ -144,7 +154,8 @@ def all_members(user_id):
         "all_members.html",
         user=user,
         approved_members=approved_members,
-        unapproved_members=unapproved_members)
+        unapproved_members=unapproved_members,
+        unapproved_members_count=unapproved_members_count)
 
 
 @app.route("/member_home/<int:member_id>", methods=["GET", "POST"])
@@ -167,15 +178,6 @@ def member_home(member_id):
    
     return render_template("member_home.html", member=member, 
                            place=member_place)
-
-
-@app.route("/signout")
-def signout():
-    # remove user from session cookies
-    flash("You have been signed out.")
-    # session.clear() would clear all cookies related to our app
-    session.pop("user")
-    return redirect(url_for("signin"))
 
 
 @app.route("/edit_member/<int:user_id>/<int:member_id>>",
@@ -243,8 +245,7 @@ def edit_member(user_id, member_id):
         member_address_id=place.google_place_id, user=user)
 
 
-@app.route("/cancel_edit_member/<int:user_id>/<int:member_id>",
-           methods=["GET", "POST"])
+@app.route("/cancel_edit_member/<int:user_id>/<int:member_id>")
 def cancel_edit_member(user_id, member_id):
     member = Member.query.filter(Member.id==member_id).first()
     user = Member.query.filter(Member.id==user_id).first()
@@ -280,7 +281,7 @@ def delete_member(user_id, member_id):
         session["user"], user.email)
     
     # check if user's account is approved
-    is_approved = member.approved
+    is_approved = user.approved
 
     is_authorised = user.is_admin or user_id == member_id
 
@@ -304,6 +305,12 @@ def delete_member(user_id, member_id):
         return redirect(url_for('all_members', user_id=user.id, member_id=user.id))
     else:
         return redirect(url_for('home'))
+    
+
+@app.route("/confirm_delete'/<int:user_id>/<int:member_id>")
+def confirm_delete(user_id, member_id):
+    member = Member.query.filter(Member.id==member_id).first()
+    return render_template('confirm_delete.html', user_id=user_id, member=member)
     
 
 @app.route("/approve/<int:user_id>/<int:approval_id>/<decision>")

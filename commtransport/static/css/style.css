@@ -35,12 +35,21 @@ body {
     }
   }
 
-.red-car {
+.red-car-large {
     position: absolute;
     width: 200px;
     height: 100px;
     bottom: 70px;
     right: 20px;
+}
+
+@media screen and (max-width: 414px) {
+    .red-car-large {
+        width: 160px;
+        height: 80px;
+        bottom: 100px;
+        right: 15px;
+    }
 }
 
 .red-car-small {
@@ -49,6 +58,16 @@ body {
     height: 30px;
     position: relative;
     top: 7px;
+    margin-right: 1rem;
+}
+
+.red-car-medium {
+    transform: scaleX(-1);
+    width: 80px;
+    height: 40px;
+    position: relative;
+    top: 7px;
+    margin-right: 1rem;
 }
 
 main {
@@ -64,11 +83,12 @@ nav {
 }
 
 nav, footer {
-    padding: .5rem 1rem;
+    padding: 1rem;
 }
 
 footer {
     font-size: .9rem;
+    text-align: center;
 }
 
 strong {
@@ -100,30 +120,6 @@ h3 {
     line-height: 2;
     font-size: 1.4rem;
     background-color: var(--my-green-translucent)
-}
-
-.my-dark-blue-btn {
-    background-color: var(--my-dark-blue);
-    font-weight: 700;
-    color: white;
-    border: 1px solid var(--my-dark-blue)
-}
-
-.my-dark-blue-btn:hover {
-    background-color: white;
-    color: var(--my-dark-blue);
-}
-
-.my-white-blue-btn {
-    background-color: white;
-    font-weight: 700;
-    color: var(--my-dark-blue);
-    border: 1px solid var(--my-dark-blue)
-}
-
-.my-white-blue-btn:hover {
-    color: white;
-    background-color: var(--my-dark-blue);
 }
 
 input[name="address"] {
@@ -175,6 +171,8 @@ input[name="address"] {
     margin-bottom: 1rem;
 }
 
+/* Background and font colours  */
+
 .my-green {
     background-color: var(--my-green);;
 }
@@ -191,14 +189,12 @@ input[name="address"] {
     color: var(--my-red);;
 }
 
-button.my-green, a.my-green {
-    border: 1px solid var(--my-green);
-    border-radius: 3px;
+.my-grey-text {
+    color: var(--my-grey);
 }
 
-button.my-green:hover, a.my-green:hover {
-    background-color: white;
-    color: var(--my-green);
+.my-grey-text:hover {
+    color: var(--my-dark-blue);
 }
 
 .my-dark-blue {
@@ -207,6 +203,42 @@ button.my-green:hover, a.my-green:hover {
 
 .my-dark-blue-text {
     color: var(--my-dark-blue);
+}
+
+/* Button styles  */
+
+.my-dark-blue-btn {
+    background-color: var(--my-dark-blue);
+    font-weight: 700;
+    color: white;
+    border: 1px solid var(--my-dark-blue)
+}
+
+.my-dark-blue-btn:hover {
+    background-color: white;
+    color: var(--my-dark-blue);
+}
+
+.my-white-blue-btn {
+    background-color: white;
+    font-weight: 700;
+    color: var(--my-dark-blue);
+    border: 1px solid var(--my-dark-blue)
+}
+
+.my-white-blue-btn:hover {
+    color: white;
+    background-color: var(--my-dark-blue);
+}
+
+button.my-green, a.my-green {
+    border: 1px solid var(--my-green);
+    border-radius: 3px;
+}
+
+button.my-green:hover, a.my-green:hover {
+    background-color: white;
+    color: var(--my-green);
 }
 
 button.my-dark-blue, a.my-dark-blue {
@@ -219,13 +251,6 @@ button.my-dark-blue:hover, a.my-dark-blue:hover {
     color: var(--my-dark-blue);
 }
 
-.my-grey-text {
-    color: var(--my-grey);
-}
-
-.my-grey-text:hover {
-    color: var(--my-dark-blue);
-}
 
 .danger-btn {
     background-color: white;
@@ -245,7 +270,16 @@ a.my-yellow.my-dark-blue-text {
     font-weight: bold;
 }
 
-a.my-yellow.my-dark-blue-text:hover {
+span.my-yellow.my-dark-blue-text {
+    background-color: var(--my-yellow);
+    border: 1px solid var(--my-dark-blue);
+    border-radius: 10px;
+    color: var(--my-dark-blue);
+    min-width: 1.5rem;
+}
+
+a.my-yellow.my-dark-blue-text:hover,
+span.my-yellow.my-dark-blue-text:hover {
     background-color: var(--my-dark-blue);
     color: var(--my-yellow);
 }
@@ -358,18 +392,16 @@ a.my-yellow.my-dark-blue-text:hover {
     border-radius: 1rem;
     line-height: 27px;
     margin-left: .5rem;
+    border: 1px solid var(--my-dark-blue);
 }
 
 .collapsible span.badge.my-yellow.my-dark-blue-text {
-    width: 5rem;
+    width: auto;
     height: 2rem;
-    min-width: 0;
-    border-radius: 1rem;
     line-height: 27px;
     margin-left: .5rem;
-    background-color: var(--my-yellow);
-    color: var(--my-dark-blue);
     font-weight: 700;
+    padding: 0 .8rem;
 }
 [type="checkbox"].filled-in:checked+span:not(.lever):after {
 
@@ -405,6 +437,10 @@ a.my-yellow.my-dark-blue-text:hover {
 
 .input-field .prefix.active {
     color: var(--my-dark-blue);
+}
+
+.div.row.flashes {
+    margin: 0;
 }
 
 
