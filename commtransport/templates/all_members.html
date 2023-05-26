@@ -10,7 +10,11 @@
 
 {% block right_nav_elements %}
     <li><a class="active my-nav-element my-dark-blue-text" href="#">
-        <span class="badge my-yellow my-dark-blue-text">{{unapproved_members_count}}</span>
+        {% if unapproved_members_count > 0 %}
+            <span class="badge my-yellow my-dark-blue-text">
+                {{unapproved_members_count}}
+            </span>
+        {% endif %}
         Users
     </a></li>
     <li><a class="my-nav-element my-dark-blue-text" href="#">Requests</a>
@@ -21,7 +25,11 @@
 
 {% block sidenav_elements %}
 <li><a class="active my-nav-element my-dark-blue-text" href="#">
-    <span class="badge my-yellow my-dark-blue-text">{{unapproved_members_count}}</span>
+    {% if unapproved_members_count > 0 %}
+    <span class="badge my-yellow my-dark-blue-text">
+        {{unapproved_members_count}}
+    </span>
+    {% endif %}
     Users</a></li>
 <li><a class="my-nav-element my-dark-blue-text" href="#">Requests</a>
 </li>
@@ -77,6 +85,7 @@
         </div>
         <div class="collapsible-body brown lighten-5">
             <p><strong>Address: <em>{{ member[1].address }}</em></strong></p>
+            <p>Phone: <em>{{ member[0].phone_nr }}</em></p>
             <p>Email: <em>{{ member[0].email }}</em></p>
             <p>
                 {% if member[0].is_admin %}
@@ -128,6 +137,7 @@
         </div>
         <div class="collapsible-body brown lighten-5">
             <p><strong>Address: <em>{{ member[1].address }}</em></strong></p>
+            <p>Phone: <em>{{ member[0].phone_nr }}</em></p>
             <p>Email: <em>{{ member[0].email }}</em></p>
             <p>
                 {% if member[0].is_admin %}

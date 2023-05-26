@@ -31,7 +31,7 @@
 <h3 class="center-align my-dark-blue-text">Register&ast;</h3>
 
 <div class="row">
-    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register') }}">
+    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register', user_type=user_type) }}">
         <div class="card-panel">
             <!-- name input  -->
             <div class="row">
