@@ -43,3 +43,6 @@ Happy coding!
 password validation regex:
 
 https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+
+On how to redirect to a previous url:
+https://stackoverflow.com/questions/65093140/flask-redirect-after-job-done-to-previous-url
