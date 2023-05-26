@@ -16,8 +16,8 @@ def map():
     return render_template("map.html")
 
 
-@app.route("/register", methods=["GET", "POST"])
-def register():
+@app.route("/register/<user_type>", methods=["GET", "POST"])
+def register(user_type):
     if request.method == "POST":
         # check if email/username already exists in db
         existing_member = Member.query.filter(Member.email ==
@@ -38,6 +38,8 @@ def register():
         if place == None:
             flash("Address registration unsucessful.")
             return render_template('register.html')
+        
+        volunteer = True if user_type == "volunteer" else False
 
         member = Member(
             # create new member
@@ -45,7 +47,7 @@ def register():
             phone_nr=request.form.get("phone_nr"),
             place_id = place.id,
             email=request.form.get("email").lower(),
-            is_volunteer=False,
+            is_volunteer=volunteer,
             password=generate_password_hash(request.form.get("password"))
         )
         db.session.add(member)
@@ -67,7 +69,7 @@ def register():
         flash("Your registration is yet to be approved. Please wait until we get in touch!")
         return redirect(url_for('home'))
 
-    return render_template("register.html")
+    return render_template("register.html", user_type=user_type)
 
 
 @app.route("/signin", methods=["GET", "POST"])
@@ -258,7 +260,7 @@ def cancel_edit_member(user_id, member_id):
     is_approved = user.approved
     
     # either admin can edit profile data or the user herself/himself
-    is_authorised = user.is_admin or user_id == member_id
+    is_authorised = user.is_admin or user.id == member.id
 
     if not is_approved or not is_logged_in or not is_authorised:
         flash("Unauthorized access!")

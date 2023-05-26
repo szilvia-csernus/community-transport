@@ -41,7 +41,7 @@
         <!-- top navbar  -->
         <nav class="brown lighten-4">
                 {% block left_nav_elements %}
-                <a href="#" class="logo  my-dark-blue-text">Community Transport&ast; 
+                <a href="{{ url_for('home')}}" class="logo  my-dark-blue-text">Community Transport&ast; 
                     <img class="red-car-small" src="{{ url_for('static', filename='assets/red-car.svg')}}" alt="red car">
                 </a>
                 {% endblock %}
@@ -57,7 +57,7 @@
                         </li>
                     {% else %}
                         <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('signin')}}">Sign In</a></li>
-                        <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('register')}}">Register&ast;</a>
+                        <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('register', user_type='')}}">Register&ast;</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -78,7 +78,7 @@
             </li>
             {% else %}
             <li><a class="my-nav-element" href="{{ url_for('signin')}}">Sign In</a></li>
-            <li><a class="my-nav-element" href="{{ url_for('register')}}">Register&ast;</a>
+            <li><a class="my-nav-element" href="{{ url_for('register', user_type='')}}">Register&ast;</a>
             </li>
             {% endif %}
         </ul>
@@ -100,6 +100,32 @@
     <main class="container">
         <img class="red-car-large" src="{{ url_for('static', filename='assets/red-car.svg')}}" alt="red car">
         {% block content%}
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel brown-text text-darken-2 intro-card mission-card">
+                    <h1>Mission</h1>
+                    <p class="">Our mission is to help vulnerable people with transport by asking the local
+                        community to help! Transports would include trips to sheduled, non-urgent hospital 
+                        or GP visits in and around Egham, Berkshire.
+                    </p>
+                    <p><strong>Interested?</strong></p>
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="card-panel brown-text text-darken-2 intro-card">
+                    <p class="">I need help with transport.
+                    </p>
+                    <a class="my-dark-blue-text" href="{{url_for('register', user_type='')}}">Register here.</a>
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="card-panel brown-text text-darken-2 intro-card">
+                    <p class="">I can offer help with transport.
+                    </p>
+                    <a class="my-dark-blue-text" href="{{url_for('register', user_type='volunteer')}}">Register here.</a>
+                </div>
+            </div>
+        </div>
         {% endblock %}
     </main>
 

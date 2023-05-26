@@ -1,4 +1,14 @@
 {% extends "base.html" %}
+
+{% block left_nav_elements %}
+<div>
+    <img class="red-car-medium" src="{{ url_for('static', filename='assets/red-car.svg')}}" alt="red car">
+    <em class="my-dark-blue-text">Logged in as: <strong>{{member.fullname}}</strong></em>
+</div>
+
+{% endblock %}
+
+
 {% block content %}
 
 <h3 class="center-align grey-text text-darken-2">Your Details</h3>
@@ -29,15 +39,18 @@
             </div>
             {% if member.is_admin %}
             <br>
-            <p>
-                <em>You have Admin permissions.</em>
-            </p>
+            <div class="row">
+                <div class="col s12">
+                    <span class="my-red-text">You have Admin privilages.</span>
+                </div>
+            </div>
             {% endif %}
-            <br>
             {% if member.is_volunteer %}
-            <p>
-                <em>You are registered as a volunteer.</em>
-            </p>
+            <div class="row">
+                <div class="col s12">
+                    <span class="my-green-text">You are registered as a Volunteer.</span>
+                </div>
+            </div>
             {% endif %}
             <br>
 

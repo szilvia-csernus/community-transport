@@ -1,4 +1,14 @@
 {% extends "base.html" %}
+
+{% block left_nav_elements %}
+<div>
+    <img class="red-car-medium" src="{{ url_for('static', filename='assets/red-car.svg')}}" alt="red car">
+    <em class="my-dark-blue-text">Logged in as: <strong>{{user.fullname}}</strong></em>
+</div>
+
+{% endblock %}
+
+
 {% block content %}
 
 <h3>Volunteer home page</h3>

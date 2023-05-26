@@ -9,6 +9,94 @@
     --my-yellow-translucent: #fdcd5d7c;
 }
 
+
+/* Modifying Materialize's styles  */
+
+.btn {
+    border-radius: 3px;
+}
+
+.btn-small {
+    margin: 5px 5px 5px 0;
+    border-radius: 3px;
+}
+
+.btn-large {
+    width: 14rem;
+    margin: .5rem;
+    padding: 0 1rem;
+    border-radius: 3px;
+}
+
+.collapsible span.badge {
+    width: 2rem;
+    height: 2rem;
+    min-width: 0;
+    border-radius: 1rem;
+    line-height: 27px;
+    margin-left: .5rem;
+    border: 1px solid var(--my-dark-blue);
+}
+
+.collapsible span.badge.my-yellow.my-dark-blue-text {
+    width: auto;
+    height: 2rem;
+    line-height: 27px;
+    margin-left: .5rem;
+    font-weight: 700;
+    padding: 0 .8rem;
+}
+[type="checkbox"].filled-in:checked+span:not(.lever):after {
+
+    border-color: var(--my-green);;
+    background-color: var(--my-green);;
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: var(--my-green-translucent);
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: var(--my-green);
+}
+
+.collapsible-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.col .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+[type="checkbox"].filled-in:not(:checked)+span:not(.lever):after {
+    border-color: var(--my-dark-blue)
+}
+
+.card-panel {
+    padding-top: 2.5rem;
+}
+
+.input-field .prefix.active {
+    color: var(--my-dark-blue);
+}
+
+.div.row.flashes {
+    margin: 0;
+}
+
+.input-field .prefix {
+    font-size: 1.8rem;
+}
+
+.row {
+    margin-bottom: 13px;
+}
+
+
+/* end of Materialize's modifications  */
+
 body {
     position: relative;
     display: flex;
@@ -52,6 +140,12 @@ body {
     }
 }
 
+@media screen and (max-width: 400px) {
+    .red-car-large {
+        display: none;
+    }
+}
+
 .red-car-small {
     transform: scaleX(-1);
     width: 60px;
@@ -72,6 +166,11 @@ body {
 
 main {
     flex: 1 0 auto;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin: 0;
 }
 
 nav {
@@ -105,10 +204,6 @@ form {
 
 .my-nav-element {
     font-size: 1.2rem;
-}
-
-.text-shadow {
-    text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.5);
 }
 
 h3 {
@@ -205,6 +300,10 @@ input[name="address"] {
     color: var(--my-dark-blue);
 }
 
+.my-dark-blue-text:hover {
+    color: #3367d6;
+}
+
 /* Button styles  */
 
 .my-dark-blue-btn {
@@ -263,6 +362,8 @@ button.my-dark-blue:hover, a.my-dark-blue:hover {
     color: white;
 }
 
+/* Badges  */
+
 a.my-yellow.my-dark-blue-text {
     background-color: var(--my-yellow);
     border: 1px solid var(--my-dark-blue);
@@ -284,165 +385,114 @@ span.my-yellow.my-dark-blue-text:hover {
     color: var(--my-yellow);
 }
 
+/* Cards  */
+
+.intro-card {
+    padding: 2rem;
+    text-align: center;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    opacity: 0;
+    animation: appear 2s .5s forwards;
+}
+
+.mission-card {
+    margin-top: 1rem;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(3rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Google maps styles  */
 
 
-        .sb-title {
-            position: relative;
-            top: -12px;
-            font-family: Roboto, sans-serif;
-            font-weight: 500;
-        }
+.sb-title {
+    position: relative;
+    top: -12px;
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+}
 
-        .sb-title-icon {
-            position: relative;
-            top: -5px;
-        }
+.sb-title-icon {
+    position: relative;
+    top: -5px;
+}
 
-        .card-container {
-            display: flex;
-            height: 500px;
-            width: 600px;
-        }
+.card-container {
+    display: flex;
+    height: 500px;
+    width: 600px;
+}
 
-        .panel {
-            background: white;
-            width: 300px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-        }
+.panel {
+    background: white;
+    width: 300px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
 
-        .half-input-container {
-            display: flex;
-            justify-content: space-between;
-        }
+.half-input-container {
+    display: flex;
+    justify-content: space-between;
+}
 
-        .half-input {
-            max-width: 120px;
-        }
+.half-input {
+    max-width: 120px;
+}
 
-        .map {
-            width: 300px;
-        }
+.map {
+    width: 300px;
+}
 
-        h2 {
-            margin: 0;
-            font-family: Roboto, sans-serif;
-        }
+h2 {
+    margin: 0;
+    font-family: Roboto, sans-serif;
+}
 
-        input {
-            height: 30px;
-        }
+input {
+    height: 30px;
+}
 
-        input {
-            border: 0;
-            border-bottom: 1px solid black;
-            font-size: 14px;
-            font-family: Roboto, sans-serif;
-            font-style: normal;
-            font-weight: normal;
-        }
+input {
+    border: 0;
+    border-bottom: 1px solid black;
+    font-size: 14px;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+}
 
-        input:focus::placeholder {
-            color: white;
-        }
+input:focus::placeholder {
+    color: white;
+}
 
-        .button-cta {
-            height: 40px;
-            width: 40%;
-            background: #3367d6;
-            color: white;
-            font-size: 15px;
-            text-transform: uppercase;
-            font-family: Roboto, sans-serif;
-            border: 0;
-            border-radius: 3px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
-            cursor: pointer;
-        }
+.button-cta {
+    height: 40px;
+    width: 40%;
+    background: #3367d6;
+    color: white;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-family: Roboto, sans-serif;
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
+    cursor: pointer;
+}
 
 /* end of google maps styles  */
 
 
 
-/* Modifying Materialize's styles  */
-
-.btn {
-    border-radius: 3px;
-}
-
-.btn-small {
-    margin: 5px 5px 5px 0;
-    border-radius: 3px;
-}
-
-.btn-large {
-    width: 14rem;
-    margin: .5rem;
-    padding: 0 1rem;
-    border-radius: 3px;
-}
-
-.collapsible span.badge {
-    width: 2rem;
-    height: 2rem;
-    min-width: 0;
-    border-radius: 1rem;
-    line-height: 27px;
-    margin-left: .5rem;
-    border: 1px solid var(--my-dark-blue);
-}
-
-.collapsible span.badge.my-yellow.my-dark-blue-text {
-    width: auto;
-    height: 2rem;
-    line-height: 27px;
-    margin-left: .5rem;
-    font-weight: 700;
-    padding: 0 .8rem;
-}
-[type="checkbox"].filled-in:checked+span:not(.lever):after {
-
-    border-color: var(--my-green);;
-    background-color: var(--my-green);;
-}
-
-.switch label input[type=checkbox]:checked+.lever {
-    background-color: var(--my-green-translucent);
-}
-
-.switch label input[type=checkbox]:checked+.lever:after {
-    background-color: var(--my-green);
-}
-
-.collapsible-header {
-    display: flex;
-    justify-content: space-between;
-}
-
-.col .row {
-    margin-left: 0;
-    margin-right: 0;
-}
-
-[type="checkbox"].filled-in:not(:checked)+span:not(.lever):after {
-    border-color: var(--my-dark-blue)
-}
-
-.card-panel {
-    padding-top: 2.5rem;
-}
-
-.input-field .prefix.active {
-    color: var(--my-dark-blue);
-}
-
-.div.row.flashes {
-    margin: 0;
-}
-
-
-/* end of Materialize's modifications  */
 
