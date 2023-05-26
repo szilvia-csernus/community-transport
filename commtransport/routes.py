@@ -144,8 +144,7 @@ def all_members(user_id):
         "all_members.html",
         user=user,
         approved_members=approved_members,
-        unapproved_members=unapproved_members
-        )
+        unapproved_members=unapproved_members)
 
 
 @app.route("/member_home/<int:member_id>", methods=["GET", "POST"])
@@ -166,7 +165,8 @@ def member_home(member_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
    
-    return render_template("member_home.html", member=member, place=member_place)
+    return render_template("member_home.html", member=member, 
+                           place=member_place)
 
 
 @app.route("/signout")
@@ -178,7 +178,8 @@ def signout():
     return redirect(url_for("signin"))
 
 
-@app.route("/edit_member/<int:user_id>/<int:member_id>", methods=["GET", "POST"])
+@app.route("/edit_member/<int:user_id>/<int:member_id>>",
+           methods=["GET", "POST"])
 def edit_member(user_id, member_id):
     member = Member.query.filter(Member.id==member_id).first()
     user = Member.query.filter(Member.id==user_id).first()
@@ -238,9 +239,35 @@ def edit_member(user_id, member_id):
             return redirect(url_for('member_home', member_id=user.id))
 
     return render_template(
-        'edit_member.html', member=member, member_address=place.address, 
+        'edit_member.html', member=member, member_address=place.address,
         member_address_id=place.google_place_id, user=user)
 
+
+@app.route("/cancel_edit_member/<int:user_id>/<int:member_id>",
+           methods=["GET", "POST"])
+def cancel_edit_member(user_id, member_id):
+    member = Member.query.filter(Member.id==member_id).first()
+    user = Member.query.filter(Member.id==user_id).first()
+
+    # check if user signed in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+    
+    # check if user's account is approved
+    is_approved = user.approved
+    
+    # either admin can edit profile data or the user herself/himself
+    is_authorised = user.is_admin or user_id == member_id
+
+    if not is_approved or not is_logged_in or not is_authorised:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+    
+    if user.is_admin:
+        return redirect(url_for('all_members', user_id=user.id))
+    else:
+        return redirect(url_for('member_home', member_id=user.id))
+    
 
 @app.route("/delete_member/<int:user_id>/<int:member_id>")
 def delete_member(user_id, member_id):
@@ -257,9 +284,9 @@ def delete_member(user_id, member_id):
 
     is_authorised = user.is_admin or user_id == member_id
 
-    # if not is_approved or not is_logged_in or not is_authorised:
-    #     flash("Unauthorized access!")
-    #     return redirect(url_for("signout"))
+    if not is_approved or not is_logged_in or not is_authorised:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
     
     # for all the approvals the person made in the past, reset the reviewer_id to
     # none, the status to "outstanding" and the member's approved status to False
