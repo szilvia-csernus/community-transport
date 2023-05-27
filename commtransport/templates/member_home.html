@@ -10,6 +10,21 @@
 
 {% endblock %}
 
+{% block right_nav_elements %}
+<li><a class="my-nav-element my-dark-blue-text" href="#">My Requests</a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('new_request', user_id=user.id)}}">New Request</a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_home', user_id=user.id)}}">My Profile</a></li>
+{% endblock %}
+
+{% block sidenav_elements %}
+<li><a class="my-nav-element my-dark-blue-text" href="#">My Requests</a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('new_request', user_id=user.id)}}">New Request</a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_home', user_id=user.id)}}">My Profile</a></li>
+{% endblock %}
 
 {% block content %}
 
