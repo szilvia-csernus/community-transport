@@ -46,3 +46,10 @@ https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-
 
 On how to redirect to a previous url:
 https://stackoverflow.com/questions/65093140/flask-redirect-after-job-done-to-previous-url
+
+red car icon
+https://www.cleanpng.com/png-car-ferrari-f50-honda-civic-clip-art-red-car-clipa-178920/download-png.html
+
+red car picture
+
+background picture

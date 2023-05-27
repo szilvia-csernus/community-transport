@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Favicons  -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='assets/favicon.svg')}}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/favicon.png')}}">
+
     <!-- google font  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,9 +45,14 @@
         <!-- top navbar  -->
         <nav class="brown lighten-4">
                 {% block left_nav_elements %}
-                <a href="{{ url_for('home')}}" class="logo  my-dark-blue-text">Community Transport&ast; 
-                    <img class="red-car-small" src="{{ url_for('static', filename='assets/red-car.svg')}}" alt="red car">
+                
+                <a href="{{ url_for('home')}}" aria-label="link to home page">
+                    <div class="logo center-align my-dark-blue-text">Community Transport&ast;</div> 
+                    <div class="center-align my-dark-blue-text">
+                        <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
+                        <em class="logo-town">Egham, Berkshire</em></div>
                 </a>
+                
                 {% endblock %}
                 
                 <!-- <img class="hospital" src="{{ url_for('static', filename='assets/Freepik-hospital.jpg')}}" alt="hospital"> -->
@@ -57,7 +66,7 @@
                         </li>
                     {% else %}
                         <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('signin')}}">Sign In</a></li>
-                        <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('register', user_type='')}}">Register&ast;</a>
+                        <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('register', user_type='new')}}">Register&ast;</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -78,7 +87,7 @@
             </li>
             {% else %}
             <li><a class="my-nav-element" href="{{ url_for('signin')}}">Sign In</a></li>
-            <li><a class="my-nav-element" href="{{ url_for('register', user_type='')}}">Register&ast;</a>
+            <li><a class="my-nav-element" href="{{ url_for('register', user_type='new')}}">Register&ast;</a>
             </li>
             {% endif %}
         </ul>
@@ -98,7 +107,7 @@
     </section>
 
     <main class="container">
-        <img class="red-car-large" src="{{ url_for('static', filename='assets/red-car.svg')}}" alt="red car">
+        <img class="red-car-large" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
         {% block content%}
         <div class="row">
             <div class="col s12">
@@ -113,16 +122,16 @@
             </div>
             <div class="col s12 m6">
                 <div class="card-panel brown-text text-darken-2 intro-card">
-                    <p class="">I need help with transport.
+                    <p class=""><strong>I need help with transport.</strong>
                     </p>
-                    <a class="my-dark-blue-text" href="{{url_for('register', user_type='')}}">Register here.</a>
+                    <a class="my-grey-text" href="{{url_for('register', user_type='new')}}">Register here.</a>
                 </div>
             </div>
             <div class="col s12 m6">
                 <div class="card-panel brown-text text-darken-2 intro-card">
-                    <p class="">I can offer help with transport.
+                    <p class=""><strong>I can offer help with transport.</strong>
                     </p>
-                    <a class="my-dark-blue-text" href="{{url_for('register', user_type='volunteer')}}">Register here.</a>
+                    <a class="my-grey-text" href="{{url_for('register', user_type='volunteer')}}">Register here.</a>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
     --my-green: #408b1e;
     --my-green-translucent: #418b1e3a;
     --my-red: #941b1b;
+    --my-blue: #3367d6;
     --my-dark-blue: #20244f;
     --my-grey: rgb(117, 115, 115);
     --my-light-grey: rgb(200, 200, 200);
@@ -129,19 +130,10 @@ body {
 
 .red-car-large {
     position: absolute;
-    width: 200px;
-    height: 100px;
-    bottom: 70px;
+    width: 140px;
+    height: 70px;
+    bottom: 90px;
     right: 20px;
-}
-
-@media screen and (max-width: 414px) {
-    .red-car-large {
-        width: 160px;
-        height: 80px;
-        bottom: 100px;
-        right: 15px;
-    }
 }
 
 @media screen and (max-width: 400px) {
@@ -155,16 +147,14 @@ body {
     width: 60px;
     height: 30px;
     position: relative;
-    top: 7px;
+    top: -2px;
     margin-right: 1rem;
 }
 
 .red-car-medium {
     transform: scaleX(-1);
-    width: 80px;
+    width: 75px;
     height: 40px;
-    position: relative;
-    top: 7px;
     margin-right: 1rem;
 }
 
@@ -175,6 +165,8 @@ main {
 h1 {
     font-size: 2.5rem;
     margin: 0;
+    padding-bottom: 1rem;
+    border-bottom: .7px solid var(--my-grey)
 }
 
 nav {
@@ -203,7 +195,15 @@ form {
 }
 
 .logo {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
+    position: relative;
+    left: 10px;
+}
+
+.logo-town {
+    position: relative;
+    top: -7px;
+    left: -12px;
 }
 
 .my-nav-element {
@@ -293,7 +293,7 @@ input[name="address"] {
 }
 
 .my-grey-text:hover {
-    color: var(--my-dark-blue);
+    color: var(--my-blue);
 }
 
 .my-dark-blue {
@@ -302,10 +302,6 @@ input[name="address"] {
 
 .my-dark-blue-text {
     color: var(--my-dark-blue);
-}
-
-.my-dark-blue-text:hover {
-    color: #3367d6;
 }
 
 /* Button styles  */
