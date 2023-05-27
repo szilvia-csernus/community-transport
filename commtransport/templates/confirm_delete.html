@@ -2,8 +2,12 @@
 
 {% block left_nav_elements %}
 <div>
-    <img class="red-car-medium" src="{{ url_for('static', filename='assets/red-car.svg')}}" alt="red car">
-    <em class="my-dark-blue-text">Logged in as: <strong>{{user.fullname}}</strong></em>
+    <a href="{{ url_for('home')}}" aria-label="link to home page">
+        <img class="red-car-medium" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
+    </a>
+    <div>
+        <em class="my-dark-blue-text">Logged in as: <strong>{{user.fullname}}</strong></em>
+    </div>
 </div>
 
 {% endblock %}
