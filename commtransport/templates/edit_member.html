@@ -90,7 +90,7 @@
                     <input id="address" name="address" type="text" placeholder="" 
                       value="{{ member_address }}" autocomplete="off">
                     <label for="address" id="addressLabel">Address</label>
-                    <input type="hidden" id="address_id" name="address_id" value="{{ member_address_id }}" >
+                    <input type="hidden" id="address_id" name="google_place_id" value="{{ google_place_id }}" >
                     <div id="map"></div>
                 </div>
             </div>
@@ -128,7 +128,7 @@
             
             <!-- cancel button  -->
             <div class="row">
-                <a href="{{ url_for('cancel_edit_member', user_id=user.id, member_id=member.id) }}"
+                <a href="{{ request.referrer }}"
                     class="col s12 btn my-white-blue-btn">
                     Cancel
                 </a>
@@ -148,3 +148,5 @@
 <script src="{{ url_for('static', filename='js/address.js')}}"></script>
 
 {% endblock %}
+
+<!-- <a href="{{ url_for('cancel_edit_member', user_id=user.id, member_id=member.id) }}" -->

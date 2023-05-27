@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block left_nav_elements %}
+<a href="{{ url_for('home')}}" aria-label="link to home page">
+    <img class="red-car-medium" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
+</a>
+<div>
+    <em class="my-dark-blue-text">Signed in as: <strong>{{user.fullname}}</strong></em>
+</div>
+
+{% endblock %}
+
+{% block right_nav_elements %}
+<li><a class="my-nav-element my-dark-blue-text" href="#">My Requests</a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('new_request', user_id=user.id)}}">New Request</a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_home', user_id=user.id)}}">My Profile</a></li>
+{% endblock %}
+
+{% block sidenav_elements %}
+<li><a class="my-nav-element my-dark-blue-text" href="#">My Requests</a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('new_request', user_id=user.id)}}">New Request</a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_home', user_id=user.id)}}">My Profile</a></li>
+{% endblock %}
+
+{% block content %}
+
+<!-- Google Maps JavaScript API  -->
+<script src="{{ url_for('static', filename='js/google_maps_api.js')}}"></script>
+
+
+
+<h3 class="center-align">New Request</h3>
+
+<div class="row">
+    <form class="col s12 m10 offset-m1 l8 offset-l2" method="POST"
+        action="{{ url_for('new_request', user_id=user.id) }}">
+        <div class="card-panel">
+            
+            <!-- date  -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-calendar-alt prefix grey-text text-darken-2"></i>
+                    <input id="date" name="date" type="text" class="datepicker validate" required />
+                    <label for="date">Date and Time of Required Pickup</label>
+                </div>
+            </div>
+
+            <!--
+                Copyright 2021 Google LLC
+            
+                Licensed under the Apache License, Version 2.0 (the "License");
+                you may not use this file except in compliance with the License.
+                You may obtain a copy of the License at
+            
+                    https://www.apache.org/licenses/LICENSE-2.0
+            
+                Unless required by applicable law or agreed to in writing, software
+                distributed under the License is distributed on an "AS IS" BASIS,
+                WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+                See the License for the specific language governing permissions and
+                limitations under the License.
+                -->
+            <!-- address input  -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-map-marker-alt my-dark-blue-text prefix"></i>
+                    
+                    <div class="notification" id="addressNotification">
+                        <div class="tooltip"></div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        Please enter a Google-verified address
+                    </div>
+
+                    <input id="pickup_address" name="pickup_address" type="text" placeholder="" value="{{ user_address }}"
+                        autocomplete="off">
+                    <label for="pickup_address" id="pickup_addressLabel">Pick Up Address</label>
+                    <input type="hidden" id="address_id" name="pickup_google_place_id" value="{{ google_place_id }}">
+                    <div id="map"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-map-marker-alt my-dark-blue-text prefix"></i>
+                    
+                    <div class="notification" id="addressNotification_nr2">
+                        <div class="tooltip"></div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        Please enter a Google-verified address
+                    </div>
+
+                    <input id="dropoff_address" name="dropoff_address" type="text" placeholder=""
+                        autocomplete="off">
+                    <label for="dropoff_address" id="dropoff_addressLabel">Drop Off Address</label>
+                    <input type="hidden" id="address_nr2_id" name="dropoff_google_place_id">
+                    
+                </div>
+            </div>
+
+            <!-- Submit button  -->
+            <div class="row">
+                <button type="submit" class="col s12 btn my-dark-blue">
+                    Send request <i class="fas fa-sign-in-alt"></i>
+                </button>
+            </div>
+
+            <!-- cancel button  -->
+            <div class="row">
+                <a href="{{ request.referrer }}" aria-label="cancel button"
+                class="col s12 btn my-white-blue-btn">
+                    Cancel
+                </a>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<script src="{{ url_for('static', filename='js/address.js')}}"></script>
+
+{% endblock %}

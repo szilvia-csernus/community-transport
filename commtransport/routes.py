@@ -29,7 +29,7 @@ def register(user_type):
             return redirect(url_for("signin"))
         
         place = Place(
-            google_place_id = request.form.get("address_id"),
+            google_place_id = request.form.get("google_address_id"),
             address = request.form.get("address"),  
         )
 
@@ -242,7 +242,7 @@ def edit_member(user_id, member_id):
             return
 
         # update place details in Place model (place_id doesn't change!)
-        place.google_place_id=request.form.get("address_id"),
+        place.google_place_id=request.form.get("google_address_id"),
         place.address=request.form.get("address"),
 
         member.fullname = request.form.get("fullname"),
@@ -271,33 +271,33 @@ def edit_member(user_id, member_id):
             return redirect(url_for('member_home', member_id=user.id))
 
     return render_template(
-        'edit_member.html', member=member, member_address=place.address,
-        member_address_id=place.google_place_id, user=user)
+        'edit_member.html', user=user, member=member, member_address=place.address,
+        google_address_id=place.google_place_id)
 
 
-@app.route("/cancel_edit_member/<int:user_id>/<int:member_id>")
-def cancel_edit_member(user_id, member_id):
-    member = Member.query.filter(Member.id==member_id).first()
-    user = Member.query.filter(Member.id==user_id).first()
+# @app.route("/cancel_edit_member/<int:user_id>/<int:member_id>")
+# def cancel_edit_member(user_id, member_id):
+#     member = Member.query.filter(Member.id==member_id).first()
+#     user = Member.query.filter(Member.id==user_id).first()
 
-    # check if user signed in
-    is_logged_in = "user" in session and check_password_hash(
-        session["user"], user.email)
+#     # check if user signed in
+#     is_logged_in = "user" in session and check_password_hash(
+#         session["user"], user.email)
     
-    # check if user's account is approved
-    is_approved = user.approved
+#     # check if user's account is approved
+#     is_approved = user.approved
     
-    # either admin can edit profile data or the user herself/himself
-    is_authorised = user.is_admin or user.id == member.id
+#     # either admin can edit profile data or the user herself/himself
+#     is_authorised = user.is_admin or user.id == member.id
 
-    if not is_approved or not is_logged_in or not is_authorised:
-        flash("Unauthorized access!")
-        return redirect(url_for("signout"))
+#     if not is_approved or not is_logged_in or not is_authorised:
+#         flash("Unauthorized access!")
+#         return redirect(url_for("signout"))
     
-    if user.is_admin:
-        return redirect(url_for('all_members', user_id=user.id))
-    else:
-        return redirect(url_for('member_home', member_id=user.id))
+#     if user.is_admin:
+#         return redirect(url_for('all_members', user_id=user.id))
+#     else:
+#         return redirect(url_for('member_home', member_id=user.id))
     
 
 @app.route("/delete_member/<int:user_id>/<int:member_id>")
@@ -388,3 +388,77 @@ def approve(user_id, approval_id, decision):
     db.session.commit()
 
     return redirect(url_for('all_members', user_id=user.id, member_id=user.id))
+
+
+# Request routes 
+
+@app.route("/new_request/<int:user_id>", methods=["GET", "POST"])
+def new_request(user_id):
+    user = Member.query.filter(Member.id==user_id).first()
+
+    # check if user signed in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+    
+    # check if user's account is approved
+    is_approved = user.approved
+
+    if not is_approved or not is_logged_in:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+    
+    place = Place.query.filter(Place.id == user.place_id).first()
+
+    if place == None:
+        flash("Address not recognised. Please update your address!")
+        return redirect(url_for(
+            'edit_member', user_id=user.id, member_id=user.id))
+    
+    if request.method == "POST":
+        if user == None:
+            flash("User not registered.")
+            return redirect(url_for("signin"))
+        
+        pickup = Place.query.filter(
+            Place.google_place_id==request.form.get('pickup_google_place_id'))
+        
+        # if pickup location isn't in the database yet:
+        if not pickup:
+            pickup = Place(
+                google_place_id = request.form.get('pickup_google_place_id'),
+                address = request.form.get('pickup_address'),
+            )
+
+            db.session.add(pickup)
+            db.session.commit()
+
+        dropoff = Place.query.filter(
+            Place.google_place_id == request.form.get('dropoff_google_place_id'))
+
+        # if dropoff location isn't in the database yet:
+        if not dropoff:
+            dropoff = Place(
+                google_place_id=request.form.get('dropoff_google_place_id'),
+                address=request.form.get('dropoff_address'),
+            )
+
+            db.session.add(dropoff)
+            db.session.commit()
+        
+        new_request = Request(
+            requester_id = user.id,
+            request_time = request.form.get("date"),
+            location_id = pickup.id,
+            destination_id = dropoff.id
+        )
+
+        db.session.add(new_request)
+        db.session.commit()
+
+        flash("We registered your request, our volunteers will be notified. \
+              Please wait until someone gets in touch.")
+        return redirect(url_for(request.referrer))
+
+    return render_template(
+        'new_request.html', user=user, user_address=place.address,
+        google_address_id=place.google_place_id)
