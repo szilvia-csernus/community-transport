@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 
 {% block left_nav_elements %}
+<a href="{{ url_for('home')}}" aria-label="link to home page">
+    <img class="red-car-medium" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
+</a>
 <div>
-    <a href="{{ url_for('home')}}" aria-label="link to home page">
-        <img class="red-car-medium" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
-    </a>
-    <div>
-        <em class="my-dark-blue-text">Logged in as: <strong>{{user.fullname}}</strong></em>
-    </div>
+    <em class="my-dark-blue-text">Signed in as: <strong>{{user.fullname}}</strong></em>
 </div>
 
 {% endblock %}
@@ -24,14 +22,14 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-user my-green-text my-icon"></i>
-                    <strong>Full Name: </strong>{{ member.fullname }}
+                    <strong>Full Name: </strong>{{ user.fullname }}
                 </div>
             </div>
             <!-- phone -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-phone-alt my-green-text my-icon"></i>
-                    <strong>Phone Number: </strong>{{ member.phone_nr }}
+                    <strong>Phone Number: </strong>{{ user.phone_nr }}
                 </div>
             </div>
             <!-- address -->
@@ -41,7 +39,7 @@
                     <strong>Address: </strong>{{ place.address }}
                 </div>
             </div>
-            {% if member.is_admin %}
+            {% if user.is_admin %}
             <br>
             <div class="row">
                 <div class="col s12">
@@ -49,7 +47,7 @@
                 </div>
             </div>
             {% endif %}
-            {% if member.is_volunteer %}
+            {% if user.is_volunteer %}
             <div class="row">
                 <div class="col s12">
                     <span class="my-green-text">You are registered as a Volunteer.</span>
@@ -60,13 +58,13 @@
 
             <!-- Edit button  -->
             <div class="row">
-                <a href="{{ url_for('edit_member', user_id=member.id, member_id=member.id) }}"
+                <a href="{{ url_for('edit_member', user_id=user.id, member_id=user.id) }}"
                     class="col s12 m10 offset-m1 l8 offset-l2 btn my-green">Edit
                     my Data<i class="fas fa-sign-in-alt"></i></a>
             </div>
 
             <div class="row">
-                <a href="{{ url_for('confirm_delete', user_id=member.id, member_id=member.id) }}"
+                <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=user.id) }}"
                     class="col s12 m10 offset-m1 l8 offset-l2 btn danger-btn">Delete
                     my Data</a>
             </div>

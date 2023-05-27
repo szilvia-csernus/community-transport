@@ -7,6 +7,7 @@ from commtransport.models import Member, Place, Approval, Request
 @app.route("/")
 def home():
     if "user" in session:
+        flash("You have been signed out.")
         session.pop("user")
     return render_template("base.html")
 
@@ -98,10 +99,10 @@ def signin():
                         return redirect(url_for('all_members', user_id=existing_member.id))
                     elif existing_member.is_volunteer == True:
                         # if user is a volunteer, redirect to the volunteer page
-                        return redirect(url_for('member_home', member_id=existing_member.id))
+                        return redirect(url_for('volunteer_home', user_id=existing_member.id))
                     else:
                         # all other users redirect to the member's page
-                        return redirect(url_for('member_home', member_id=existing_member.id))
+                        return redirect(url_for('member_home', user_id=existing_member.id))
             else:
                 # invalid password match
                 flash("Incorrect Username or Password!")
@@ -117,15 +118,18 @@ def signin():
 
 @app.route("/signout")
 def signout():
-    # remove user from session cookies
     flash("You have been signed out.")
+    # remove user from session cookies
     # session.clear() would clear all cookies related to our app
     session.pop("user")
     return redirect(url_for("signin"))
 
 
+# Admin pages 
+
 @app.route("/all_members/<int:user_id>", methods=["GET", "POST"])
 def all_members(user_id):
+    """ Page listing all approved & unapproved members """
     user = Member.query.filter(Member.id == user_id).first()
 
     # check if user signed in
@@ -160,9 +164,11 @@ def all_members(user_id):
         unapproved_members_count=unapproved_members_count)
 
 
-@app.route("/member_home/<int:member_id>", methods=["GET", "POST"])
-def member_home(member_id):
-    member = Member.query.filter(Member.id == member_id).first()
+# Member pages 
+
+@app.route("/member_home/<int:user_id>", methods=["GET", "POST"])
+def member_home(user_id):
+    member = Member.query.filter(Member.id == user_id).first()
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -178,7 +184,29 @@ def member_home(member_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
    
-    return render_template("member_home.html", member=member, 
+    return render_template("member_home.html", user=member, 
+                           place=member_place)
+
+
+@app.route("/volunteer_home/<int:user_id>", methods=["GET", "POST"])
+def volunteer_home(user_id):
+    member = Member.query.filter(Member.id == user_id).first()
+
+    # check if user signed in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], member.email)
+    # check if user's account is approved
+    is_approved = member.approved
+
+    # grab member's place record
+    member_place = Place.query.filter(Place.id==member.place_id).first()
+
+    # Sign out unauthorized user
+    if not is_logged_in or not is_approved:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+   
+    return render_template("volunteer_home.html", user=member, 
                            place=member_place)
 
 

@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 
 {% block left_nav_elements %}
+<a href="{{ url_for('home')}}" aria-label="link to home page">
+    <img class="red-car-medium" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
+</a>
 <div>
-    <a href="{{ url_for('home')}}" aria-label="link to home page">
-        <img class="red-car-medium" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
-    </a>
-    <div>
-        <em class="my-dark-blue-text">Logged in as: <strong>{{user.fullname}}</strong></em>
-    </div>
+    <em class="my-dark-blue-text">Signed in as: <strong>{{user.fullname}}</strong></em>
 </div>
 
 {% endblock %}
