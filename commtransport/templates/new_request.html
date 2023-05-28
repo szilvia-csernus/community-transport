@@ -69,24 +69,24 @@
                 <div class="input-field col s12">
                     <i class="fas fa-map-marker-alt my-dark-blue-text prefix"></i>
                     
-                    <div class="notification" id="addressNotification">
+                    <div class="notification" id="pickup_notification">
                         <div class="tooltip"></div>
                         <i class="fas fa-map-marker-alt"></i>
                         Please enter a Google-verified address
                     </div>
-
+                    
                     <input id="pickup_address" name="pickup_address" type="text" placeholder="" value="{{ user_address }}"
                         autocomplete="off">
-                    <label for="pickup_address" id="pickup_addressLabel">Pick Up Address</label>
-                    <input type="hidden" id="address_id" name="pickup_google_place_id" value="{{ google_place_id }}">
-                    <div id="map"></div>
+                    <label for="pickup_address" class="addressLabel">Pick Up Address</label>
+                    <input type="hidden" id="pickup_address_id" name="pickup_google_place_id" value="{{ google_place_id }}">
+                    <div id="pickup_map"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-map-marker-alt my-dark-blue-text prefix"></i>
                     
-                    <div class="notification" id="addressNotification_nr2">
+                    <div class="notification" id="dropoff_notification">
                         <div class="tooltip"></div>
                         <i class="fas fa-map-marker-alt"></i>
                         Please enter a Google-verified address
@@ -94,9 +94,9 @@
 
                     <input id="dropoff_address" name="dropoff_address" type="text" placeholder=""
                         autocomplete="off">
-                    <label for="dropoff_address" id="dropoff_addressLabel">Drop Off Address</label>
-                    <input type="hidden" id="address_nr2_id" name="dropoff_google_place_id">
-                    
+                    <label for="dropoff_address" class="addressLabel">Drop Off Address</label>
+                    <input type="hidden" id="dropoff_address_id" name="dropoff_google_place_id">
+                    <div id="dropoff_map"></div>
                 </div>
             </div>
 
@@ -119,6 +119,6 @@
     </form>
 </div>
 
-<script src="{{ url_for('static', filename='js/address.js')}}"></script>
+<script src="{{ url_for('static', filename='js/new_req_addresses.js')}}"></script>
 
 {% endblock %}
