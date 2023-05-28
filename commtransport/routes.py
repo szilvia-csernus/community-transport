@@ -420,7 +420,8 @@ def new_request(user_id):
             return redirect(url_for("signin"))
         
         pickup = Place.query.filter(
-            Place.google_place_id==request.form.get('pickup_google_place_id'))
+            Place.google_place_id==request.form.get(
+                'pickup_google_place_id')).first()
         
         # if pickup location isn't in the database yet:
         if not pickup:
@@ -433,7 +434,8 @@ def new_request(user_id):
             db.session.commit()
 
         dropoff = Place.query.filter(
-            Place.google_place_id == request.form.get('dropoff_google_place_id'))
+            Place.google_place_id == request.form.get(
+                'dropoff_google_place_id')).first()
 
         # if dropoff location isn't in the database yet:
         if not dropoff:
@@ -457,7 +459,7 @@ def new_request(user_id):
 
         flash("We registered your request, our volunteers will be notified. \
               Please wait until someone gets in touch.")
-        return redirect(url_for(request.referrer))
+        return redirect(url_for('member_home', user_id=user.id))
 
     return render_template(
         'new_request.html', user=user, user_address=place.address,
