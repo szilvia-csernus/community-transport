@@ -339,8 +339,23 @@ def delete_member(user_id, member_id):
 
 @app.route("/confirm_delete'/<int:user_id>/<int:member_id>")
 def confirm_delete(user_id, member_id):
-    member = Member.query.filter(Member.id==member_id).first()
-    return render_template('confirm_delete.html', user_id=user_id, member=member)
+    member = Member.query.filter(Member.id == member_id).first()
+    user = Member.query.filter(Member.id == user_id).first()
+    approvals = Approval.query.filter(Approval.reviewer_id == member.id).all()
+
+    # check if user signed in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+
+    # check if user's account is approved
+    is_approved = user.approved
+
+    is_authorised = user.is_admin or user_id == member_id
+
+    if not is_approved or not is_logged_in or not is_authorised:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+    return render_template('confirm_delete.html', user=user, member=member)
     
 
 @app.route("/approve/<int:user_id>/<int:approval_id>/<decision>")

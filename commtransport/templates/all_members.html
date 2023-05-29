@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+<!-- Header elements  -->
 {% block left_nav_elements %}
     <a href="{{ url_for('home')}}" aria-label="link to home page">
         <img class="red-car-medium" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
@@ -10,6 +11,7 @@
     
 {% endblock %}
 
+<!-- Large screen nav elements  -->
 {% block right_nav_elements %}
     <li><a class="active my-nav-element my-dark-blue-text" href="#">
         {% if unapproved_members_count > 0 %}
@@ -25,6 +27,7 @@
         href="{{ url_for('member_home', user_id=user.id)}}">My Profile</a></li>
 {% endblock %}
 
+<!-- Side nav elements  -->
 {% block sidenav_elements %}
 <li><a class="active my-nav-element my-dark-blue-text" href="#">
     {% if unapproved_members_count > 0 %}
@@ -59,7 +62,7 @@
     </div>
 </form> -->
 
-<!-- List Users Awaiting Approval -->
+<!-- List of Users Awaiting Approval -->
 {% if unapproved_members|length > 0 %}
 
 <h3 class=" center-align">Users Awaiting Approval</h3>
@@ -68,11 +71,13 @@
     <li>
         <div class="collapsible-header brown lighten-4">
 
+            <!-- Name  -->
             <div class="col s12 m9">
                 <i class="fas fa-caret-down"></i>
                 <span>{{ member[0].fullname }}</span>
                 
             </div>
+            <!-- Badges  -->
             <div>
                 {% if member[0].is_admin %}
                 <span class="badge my-red white-text">A</span>
@@ -85,6 +90,7 @@
                 {% endif %}
             </div>
         </div>
+        <!-- Member details  -->
         <div class="collapsible-body brown lighten-5">
             <p><strong>Address: <em>{{ member[1].address }}</em></strong></p>
             <p>Phone: <em>{{ member[0].phone_nr }}</em></p>
@@ -98,6 +104,7 @@
                     <span class="my-green-text">Registered as a Volunteer.</span>
                 {% endif %}</p>
             <p>
+                <!-- Edit & Delete Buttons  -->
                 <a href="{{ url_for('edit_member', user_id=user.id, member_id=member[0].id) }}"
                     class="waves-effect btn-small my-dark-blue-btn">Edit Member Details</a>
                 <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=member[0].id) }}" class="btn-small danger-btn">Delete
@@ -120,11 +127,13 @@
     <li>
         <div class="collapsible-header brown lighten-4">
 
+            <!-- Name  -->
             <div class="col s12 m9">
                 <i class="fas fa-caret-down"></i>
                 <span>{{ member[0].fullname }}</span>
 
             </div>
+            <!-- Badges  -->
             <div>
                 {% if member[0].is_admin %}
                 <span class="badge my-red white-text">A</span>
@@ -137,6 +146,7 @@
                 {% endif %}
             </div>
         </div>
+        <!-- Member details  -->
         <div class="collapsible-body brown lighten-5">
             <p><strong>Address: <em>{{ member[1].address }}</em></strong></p>
             <p>Phone: <em>{{ member[0].phone_nr }}</em></p>
@@ -151,6 +161,7 @@
                 <span class="my-green-text">Registered as a Volunteer.</span>
                 {% endif %}
             </p>
+            <!-- Edit & Delete Buttons  -->
             <p>
                 <a href="{{ url_for('edit_member', user_id=user.id, member_id=member[0].id) }}"
                     class="waves-effect btn-small my-dark-blue-btn">Edit Member Details</a>
