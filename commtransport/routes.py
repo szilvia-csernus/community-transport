@@ -2,6 +2,7 @@ from flask import flash, render_template, request, redirect, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from commtransport import app, db
 from commtransport.models import Member, Place, Approval, Request
+from datetime import datetime
 
 
 @app.route("/")
@@ -48,6 +49,7 @@ def register(user_type):
             phone_nr=request.form.get("phone_nr"),
             place_id = place.id,
             email=request.form.get("email").lower(),
+            approved=True,
             is_volunteer=volunteer,
             password=generate_password_hash(request.form.get("password"))
         )
@@ -56,8 +58,8 @@ def register(user_type):
 
         approval = Approval(
             # create new approval request for new member 
-            requester_id = member.id,
-            status = "outstanding"
+            requestor_id = member.id,
+            status = "approved"
         )
         db.session.add(approval)
         db.session.commit()
@@ -144,6 +146,14 @@ def all_members(user_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
     
+    unapproved_members = list(Member.query.filter(Member.approved==False))
+    declined_members = list(
+        Member.query.filter(Member.own_approval.status=="declined"))
+    unapproved_members_count = Member.query.filter(Member.approved==False).count()
+    
+    approved_members = list(
+        Member.query.filter(Member.approved == False))
+
     members_list = list(Member.query.all())
     unapproved_members_count = Member.query.filter(Member.approved==False).count()
     # query address for each member and sort them into approved & unapproved lists.
@@ -156,13 +166,40 @@ def all_members(user_id):
         else:
             unapproved_members.append([member, place])
 
-    return render_template(
-        "all_members.html",
-        user=user,
-        approved_members=approved_members,
-        unapproved_members=unapproved_members,
-        unapproved_members_count=unapproved_members_count)
 
+
+
+@app.route("/all_requests/<int:user_id>", methods=["GET", "POST"])
+def all_requests(user_id):
+    """ Page listing all future & past requests """
+    user = Member.query.filter(Member.id == user_id).first()
+
+    # check if user signed in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+
+    # check if user's account is approved
+    is_approved = user.approved
+
+    # grab the session user's hashed email from db
+    if not is_approved or not is_logged_in or not user.is_admin:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+
+    now = datetime.now()
+    future_requests_list_arranged = list(Request.query.filter(
+        Request.request_time>now and Request.volunteer_id).all())
+    future_requests_list_outstanding = list(Request.query.filter(
+        Request.request_time>now and not Request.volunteer_id).all())
+    expired_requests_list_arranged = list(Request.query.filter(
+        Request.request_time<now and Request.volunteer_id).all())
+    expired_requests_list_unarranged = list(Request.query.filter(
+        Request.request_time<now and not Request.volunteer_id).all())
+    
+    future_outstanding_requests_count = Request.query.filter(
+        Request.request_time > now and not Request.volunteer_id).count()
+    
+    return
 
 # Member pages 
 
@@ -355,6 +392,7 @@ def confirm_delete(user_id, member_id):
     if not is_approved or not is_logged_in or not is_authorised:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
+    
     return render_template('confirm_delete.html', user=user, member=member)
     
 
