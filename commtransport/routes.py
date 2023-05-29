@@ -40,8 +40,6 @@ def register(user_type):
         if place == None:
             flash("Address registration unsucessful.")
             return render_template('register.html')
-        
-        volunteer = True if user_type == "volunteer" else False
 
         member = Member(
             # create new member
@@ -50,7 +48,8 @@ def register(user_type):
             place_id = place.id,
             email=request.form.get("email").lower(),
             approved=True,
-            is_volunteer=volunteer,
+            is_admin=True,
+            is_volunteer=bool(True if user_type == "volunteer" else False),
             password=generate_password_hash(request.form.get("password"))
         )
         db.session.add(member)
@@ -127,7 +126,7 @@ def signout():
     return redirect(url_for("signin"))
 
 
-# Admin pages 
+# Member routes 
 
 @app.route("/all_members/<int:user_id>", methods=["GET", "POST"])
 def all_members(user_id):
@@ -147,12 +146,15 @@ def all_members(user_id):
         return redirect(url_for("signout"))
     
     unapproved_members = list(Member.query.filter(Member.approved==False))
-    declined_members = list(
-        Member.query.filter(Member.own_approval.status=="declined"))
-    unapproved_members_count = Member.query.filter(Member.approved==False).count()
+    unapproved_members_count = Member.query.filter(
+        Member.approved==False).count()
     
     approved_members = list(
-        Member.query.filter(Member.approved == False))
+        Member.query.filter(Member.approved == True))
+    
+    now = datetime.now()
+    future_outstanding_requests_count = Request.query.filter(
+        Request.request_time > now).count()
 
     # members_list = list(Member.query.all())
     # unapproved_members_count = Member.query.filter(Member.approved==False).count()
@@ -170,44 +172,10 @@ def all_members(user_id):
         "all_members.html",
         user=user,
         approved_members=approved_members,
-        declined_members=declined_members,
         unapproved_members=unapproved_members,
-        unapproved_members_count=unapproved_members_count)
+        unapproved_members_count=unapproved_members_count,
+        future_outstanding_requests_count=future_outstanding_requests_count)
 
-
-@app.route("/all_requests/<int:user_id>", methods=["GET", "POST"])
-def all_requests(user_id):
-    """ Page listing all future & past requests """
-    user = Member.query.filter(Member.id == user_id).first()
-
-    # check if user signed in
-    is_logged_in = "user" in session and check_password_hash(
-        session["user"], user.email)
-
-    # check if user's account is approved
-    is_approved = user.approved
-
-    # grab the session user's hashed email from db
-    if not is_approved or not is_logged_in or not user.is_admin:
-        flash("Unauthorized access!")
-        return redirect(url_for("signout"))
-
-    now = datetime.now()
-    future_requests_list_arranged = list(Request.query.filter(
-        Request.request_time>now and Request.volunteer_id).all())
-    future_requests_list_outstanding = list(Request.query.filter(
-        Request.request_time>now and not Request.volunteer_id).all())
-    expired_requests_list_arranged = list(Request.query.filter(
-        Request.request_time<now and Request.volunteer_id).all())
-    expired_requests_list_unarranged = list(Request.query.filter(
-        Request.request_time<now and not Request.volunteer_id).all())
-    
-    future_outstanding_requests_count = Request.query.filter(
-        Request.request_time > now and not Request.volunteer_id).count()
-    
-    return
-
-# Member pages 
 
 @app.route("/member_home/<int:user_id>", methods=["GET", "POST"])
 def member_home(user_id):
@@ -238,6 +206,7 @@ def volunteer_home(user_id):
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
         session["user"], member.email)
+    
     # check if user's account is approved
     is_approved = member.approved
 
@@ -528,10 +497,10 @@ def new_request(user_id):
             db.session.commit()
         
         new_request = Request(
-            requester_id = user.id,
+            requestor_id = user.id,
             request_time = request.form.get("date"),
-            location_id = pickup.id,
-            destination_id = dropoff.id
+            start_location_id = pickup.id,
+            end_location_id = dropoff.id
         )
 
         db.session.add(new_request)
@@ -544,3 +513,40 @@ def new_request(user_id):
     return render_template(
         'new_request.html', user=user, user_address=user.place.address,
         google_address_id=user.place.google_place_id)
+
+
+@app.route("/all_requests/<int:user_id>")
+def all_requests(user_id):
+    """ Page listing all future & past requests """
+    user = Member.query.filter(Member.id == user_id).first()
+
+    # check if user signed in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+
+    # check if user's account is approved
+    is_approved = user.approved
+
+    # grab the session user's hashed email from db
+    if not is_approved or not is_logged_in or not user.is_admin:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+    
+    unapproved_members_count = Member.query.filter(
+        Member.approved == False).count()
+
+    now = datetime.now()
+    future_requests = list(Request.query.filter(
+        Request.request_time > now).order_by(Request.request_time).all())
+    expired_requests = list(Request.query.filter(
+        Request.request_time < now ).order_by(Request.request_time).all())
+
+    future_outstanding_requests_count = Request.query.filter(
+        Request.request_time > now).count()
+
+    return render_template('all_requests.html',
+        user=user,
+        unapproved_members_count=unapproved_members_count,
+        future_outstanding_requests_count=future_outstanding_requests_count,
+        future_requests=future_requests,
+        expired_requests=expired_requests)

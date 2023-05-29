@@ -25,18 +25,27 @@ class Member(db.Model):
         "Place", back_populates="members_of_address")
     
     # many-to-one relationship, one many requests can belong to one Member
-    requests = relationship("Request", back_populates="requestor")
+    requests = relationship(
+        "Request",
+        primaryjoin="Member.id==Request.requestor_id",
+        back_populates="requestor")
+    
+    # many-to-one relationship, one many requests can belong to one Member
+    voluntary_offers = relationship(
+        "Request",
+        primaryjoin="Member.id==Request.volunteer_id",
+        back_populates="volunteer")
 
     # one-to-one relationship, one Member can have one Approval
-    own_approval = relationship(
-        "Approval",
-        foreign_keys=[approval_id],
-        back_populates="requestor", 
-        uselist=False)
+    # own_approval = relationship(
+    #     "Approval",
+    #     foreign_keys=[approval_id],
+    #     back_populates="requestor", 
+    #     uselist=False)
 
     # one-to-many relationship, one Member can be reviewer of many Approvals
-    reviewed_approvals = relationship(
-        "Approval", back_populates="reviewer")
+    # reviewed_approvals = relationship(
+    #     "Approval", back_populates="reviewer")
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string
@@ -56,11 +65,11 @@ class Place(db.Model):
 
     # many-to-one relationship, one Request has one location, but
     # more requests can be initiated to the same location.
-    start_locations = relationship("Request", back_populates="start_location")
+    # start_locations = relationship("Request", back_populates="start_location")
 
     # many-to-one relationship, one Request has one destination, but
     # more requests can be initiated to the same end_location.
-    end_locations = relationship("Request", back_populates="end_location")
+    # end_locations = relationship("Request", back_populates="end_location")
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string
@@ -79,17 +88,15 @@ class Approval(db.Model):
         db.Integer, db.ForeignKey("member.id"), default=None)
     
     # one-to-one relationship, one Member can have one Approval
-    requestor = relationship(
-        "Member", 
-        foreign_keys=[requestor_id],
-        back_populates="own_approval")
+    # requestor = relationship(
+    #     "Member", 
+    #     foreign_keys=[requestor_id])
 
     # many-to-one relationship, one Member can be reviewer of many Approvals
     # but one Approval can have only one reviewer
-    reviewer = relationship(
-        "Member",
-        foreign_keys=[reviewer_id],
-        back_populates="reviewed_approvals")
+    # reviewer = relationship(
+    #     "Member",
+    #     foreign_keys=[reviewer_id])
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string
@@ -122,21 +129,19 @@ class Request(db.Model):
     volunteer = relationship(
         "Member",
         foreign_keys=[volunteer_id],
-        back_populates="requests")
+        back_populates="voluntary_offers")
 
     # one-to-many relationship, one Request has one location, but
     # more requests can be initiated to the same location. 
     start_location = relationship(
         "Place",
-        foreign_keys=[start_location_id],
-        back_populates="start_locations")
+        foreign_keys=[start_location_id])
 
     # one-to-many relationship, one Request has one location, but
     # more requests can be initiated to the same location.
     end_location = relationship(
         "Place",
-        foreign_keys=[end_location_id],
-        back_populates="end_locations")
+        foreign_keys=[end_location_id])
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string

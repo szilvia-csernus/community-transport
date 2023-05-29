@@ -13,7 +13,7 @@
 
 <!-- Large screen nav elements  -->
 {% block right_nav_elements %}
-    <li><a class="active my-nav-element my-dark-blue-text" href="#">
+    <li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
         {% if unapproved_members_count > 0 %}
             <span class="badge my-yellow my-dark-blue-text">
                 {{unapproved_members_count}}
@@ -21,7 +21,13 @@
         {% endif %}
         Users
     </a></li>
-    <li><a class="my-nav-element my-dark-blue-text" href="#">Requests</a>
+    <li><a class="my-nav-element my-dark-blue-text" href="#">
+        {% if future_outstanding_requests_count > 0 %}
+        <span class="badge my-green my-dark-blue-text">
+            {{future_outstanding_requests_count}}
+        </span>
+        {% endif %}
+        Requests</a>
     </li>
     <li><a class="my-nav-element my-dark-blue-text" 
         href="{{ url_for('member_home', user_id=user.id)}}">My Profile</a></li>
@@ -29,17 +35,23 @@
 
 <!-- Side nav elements  -->
 {% block sidenav_elements %}
-<li><a class="active my-nav-element my-dark-blue-text" href="#">
-    {% if unapproved_members_count > 0 %}
-    <span class="badge my-yellow my-dark-blue-text">
-        {{unapproved_members_count}}
-    </span>
-    {% endif %}
-    Users</a></li>
-<li><a class="my-nav-element my-dark-blue-text" href="#">Requests</a>
+<li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
+        {% if unapproved_members_count > 0 %}
+        <span class="badge my-yellow my-dark-blue-text">
+            {{unapproved_members_count}}
+        </span>
+        {% endif %}
+        Users
+    </a></li>
+<li><a class="my-nav-element my-dark-blue-text" href="#">
+        {% if future_outstanding_requests_count > 0 %}
+        <span class="badge my-green my-dark-blue-text">
+            {{future_outstanding_requests_count}}
+        </span>
+        {% endif %}
+        Requests</a>
 </li>
-<li><a class="my-nav-element my-dark-blue-text" 
-    href="{{ url_for('member_home', user_id=user.id)}}">My Profile</a></li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_home', user_id=user.id)}}">My Profile</a></li>
 {% endblock %}
 
 {% block content %}
@@ -63,112 +75,90 @@
 </form> -->
 
 <!-- List of Current Requests -->
-{% if unapproved_members|length > 0 %}
+{% if future_requests|length > 0 %}
 
-<h3 class=" center-align">All Current Requests</h3>
+<h3 class=" center-align">Requests</h3>
 <ul class="collapsible">
-    {% for member in unapproved_members %}
+    {% for req in future_requests %}
     <li>
         <div class="collapsible-header ">
 
             <!-- Name  -->
             <div class="col s12 m9">
                 <i class="fas fa-caret-down"></i>
-                <span>Request by: {{ member[0].fullname }}</span>
+                <span>Request by: {{ req.requestor.fullname }}</span>
                 
             </div>
             <!-- Badges  -->
             <div>
-                {% if member[0].is_volunteer %}
-                    <span class="badge my-green white-text">Arranged</span>
-                {% endif %}
-                {% if member[0].approved == False%}
-                    <span class="badge my-yellow my-dark-blue-text">Awaiting Volunteer</span>
+                {% if req.status == "outstanding" %}
+                    <span class="badge my-yellow white-text">Awaiting Volunteer</span>
+                {% elif req.status == "arranged" %}
+                    <span class="badge my-green my-dark-blue-text">Arranged</span>
                 {% endif %}
             </div>
         </div>
         <!-- Member details  -->
         <div class="collapsible-body brown lighten-5">
-            <p><strong>Address: <em>{{ member[1].address }}</em></strong></p>
-            <p>Phone: <em>{{ member[0].phone_nr }}</em></p>
-            <p>Email: <em>{{ member[0].email }}</em></p>
-            <p>
-                {% if member[0].is_admin %}
-                    <span class="my-red-text">Has Admin Privilages.</span>
-                {% endif %}</p>
-            <p>
-                {% if member[0].is_volunteer %}
-                    <span class="my-green-text">Registered as a Volunteer.</span>
-                {% endif %}</p>
-            <p>
-                <!-- Edit & Delete Buttons  -->
-                <a href="{{ url_for('edit_member', user_id=user.id, member_id=member[0].id) }}"
-                    class="waves-effect btn-small my-dark-blue-btn">Edit Member Details</a>
-                <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=member[0].id) }}" class="btn-small danger-btn">Delete
-                    Member</a>
-            </p>
+            <p><strong>Date and Time: {{ req.request_time }}</strong></p>
+            <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
+            <p>Dropoff Address: <em>{{ req.start_location.address }}</em></p>
+            {% if req.vounteer %}
+                <p>Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
+            {% else %}
+                <p>No volunteer has come forward yet.</p>
+            {% endif %}
             
         </div>
     </li>
-    
+    {% endfor %}
 </ul>
 {% else %}
-<h3 class="my-green-text text-darken-2 center-align">No Results Found</h3>
+<h3 class="my-green-text text-darken-2 center-align">No outstanding transport request found.</h3>
 
 {% endif%}
 
-<h3 class=" center-align">All Expired Requests</h3>
+<!-- List of Expired Requests  -->
+{% if expired_requests|length > 0 %}
+
+<h3 class=" center-align">Expired Requests</h3>
 <ul class="collapsible">
-    {% for member in unapproved_members %}
+    {% for req in expired_requests %}
     <li>
         <div class="collapsible-header ">
 
             <!-- Name  -->
             <div class="col s12 m9">
                 <i class="fas fa-caret-down"></i>
-                <span>Request by: {{ member[0].fullname }}</span>
+                <span>Request by: {{ req.requestor.fullname }}</span>
 
             </div>
             <!-- Badges  -->
             <div>
-                {% if member[0].is_volunteer %}
-                <span class="badge my-green white-text">Lift Arranged</span>
-                {% endif %}
-                {% if member[0].approved == False%}
-                <span class="badge my-yellow my-dark-blue-text">No Volunteer Found.</span>
+                {% if req.status == "outstanding" %}
+                <span class="badge my-yellow white-text">Unfulfilled</span>
+                {% elif req.status == "arranged" %}
+                <span class="badge my-green my-dark-blue-text">Fulfilled</span>
                 {% endif %}
             </div>
         </div>
         <!-- Member details  -->
         <div class="collapsible-body brown lighten-5">
-            <p><strong>Address: <em>{{ member[1].address }}</em></strong></p>
-            <p>Phone: <em>{{ member[0].phone_nr }}</em></p>
-            <p>Email: <em>{{ member[0].email }}</em></p>
-            <p>
-                {% if member[0].is_admin %}
-                <span class="my-red-text">Has Admin Privilages.</span>
-                {% endif %}
-            </p>
-            <p>
-                {% if member[0].is_volunteer %}
-                <span class="my-green-text">Registered as a Volunteer.</span>
-                {% endif %}
-            </p>
-            <p>
-                <!-- Edit & Delete Buttons  -->
-                <a href="{{ url_for('edit_member', user_id=user.id, member_id=member[0].id) }}"
-                    class="waves-effect btn-small my-dark-blue-btn">Edit Member Details</a>
-                <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=member[0].id) }}"
-                    class="btn-small danger-btn">Delete
-                    Member</a>
-            </p>
+            <p><strong>Date and Time: {{ req.request_time }}</strong></p>
+            <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
+            <p>Dropoff Address: <em>{{ req.start_location.address }}</em></p>
+            {% if req.vounteer %}
+            <p>Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
+            {% else %}
+            <p>No volunteer has come forward yet.</p>
+            {% endif %}
 
         </div>
     </li>
-
+    {% endfor %}
 </ul>
 {% else %}
-<h3 class="my-green-text text-darken-2 center-align">No Results Found</h3>
+<h3 class="my-green-text text-darken-2 center-align">No expired transport request found.</h3>
 
 {% endif%}
 
