@@ -154,19 +154,25 @@ def all_members(user_id):
     approved_members = list(
         Member.query.filter(Member.approved == False))
 
-    members_list = list(Member.query.all())
-    unapproved_members_count = Member.query.filter(Member.approved==False).count()
-    # query address for each member and sort them into approved & unapproved lists.
-    approved_members = []
-    unapproved_members = []
-    for member in members_list:
-        place = Place.query.filter(Place.id == member.place_id).first()
-        if member.approved:
-            approved_members.append([member, place])
-        else:
-            unapproved_members.append([member, place])
+    # members_list = list(Member.query.all())
+    # unapproved_members_count = Member.query.filter(Member.approved==False).count()
+    # # query address for each member and sort them into approved & unapproved lists.
+    # approved_members = []
+    # unapproved_members = []
+    # for member in members_list:
+    #     place = Place.query.filter(Place.id == member.place_id).first()
+    #     if member.approved:
+    #         approved_members.append([member, place])
+    #     else:
+    #         unapproved_members.append([member, place])
 
-
+    return render_template(
+        "all_members.html",
+        user=user,
+        approved_members=approved_members,
+        declined_members=declined_members,
+        unapproved_members=unapproved_members,
+        unapproved_members_count=unapproved_members_count)
 
 
 @app.route("/all_requests/<int:user_id>", methods=["GET", "POST"])
@@ -214,7 +220,7 @@ def member_home(user_id):
     is_approved = member.approved
 
     # grab member's place record
-    member_place = Place.query.filter(Place.id==member.place_id).first()
+    # member_place = Place.query.filter(Place.id==member.place_id).first()
 
     # Sign out unauthorized user
     if not is_logged_in or not is_approved:
@@ -222,7 +228,7 @@ def member_home(user_id):
         return redirect(url_for("signout"))
    
     return render_template("member_home.html", user=member, 
-                           place=member_place)
+                           place=member.place)
 
 
 @app.route("/volunteer_home/<int:user_id>", methods=["GET", "POST"])
@@ -236,7 +242,7 @@ def volunteer_home(user_id):
     is_approved = member.approved
 
     # grab member's place record
-    member_place = Place.query.filter(Place.id==member.place_id).first()
+    # member_place = Place.query.filter(Place.id==member.place_id).first()
 
     # Sign out unauthorized user
     if not is_logged_in or not is_approved:
@@ -244,7 +250,7 @@ def volunteer_home(user_id):
         return redirect(url_for("signout"))
    
     return render_template("volunteer_home.html", user=member, 
-                           place=member_place)
+                           place=member.place)
 
 
 @app.route("/edit_member/<int:user_id>/<int:member_id>>",
@@ -267,20 +273,20 @@ def edit_member(user_id, member_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
     
-    place = Place.query.filter(Place.id == member.place_id).first()
+    # place = Place.query.filter(Place.id == member.place_id).first()
     
     if request.method == "POST":
         if member == None:
             flash("Member not registered.")
             return redirect(url_for("signin"))
         
-        if place == None:
+        if member.place == None:
             flash("Address not recognised.")
             return
 
         # update place details in Place model (place_id doesn't change!)
-        place.google_place_id=request.form.get("google_address_id"),
-        place.address=request.form.get("address"),
+        member.place.google_place_id=request.form.get("google_address_id"),
+        member.place.address=request.form.get("address"),
 
         member.fullname = request.form.get("fullname"),
         member.phone_nr = request.form.get("phone_nr"),
@@ -308,8 +314,8 @@ def edit_member(user_id, member_id):
             return redirect(url_for('member_home', member_id=user.id))
 
     return render_template(
-        'edit_member.html', user=user, member=member, member_address=place.address,
-        google_address_id=place.google_place_id)
+        'edit_member.html', user=user, member=member, member_address=member.place.address,
+        google_address_id=member.place.google_place_id)
 
 
 # @app.route("/cancel_edit_member/<int:user_id>/<int:member_id>")
@@ -352,15 +358,22 @@ def delete_member(user_id, member_id):
 
     is_authorised = user.is_admin or user_id == member_id
 
+    # Superuser's approved status should not be edited
+    is_superuser = member.fullname == "Superuser"
+
     if not is_approved or not is_logged_in or not is_authorised:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
+    
+    if is_superuser:
+        flash("Superuser should not be deleted.")
+        return
     
     # for all the approvals the person made in the past, reset the reviewer_id to
     # none, the status to "outstanding" and the member's approved status to False
     # so that another admin can approve this person again.
     for approval in approvals:
-        approval.reviewer_id = None
+        # approval.reviewer_id = None
         approval.status = "outstanding"
         approved_person = Member.query.filter(Member.approval_id==approval.id).first()
         approved_person.approved = False
@@ -378,7 +391,6 @@ def delete_member(user_id, member_id):
 def confirm_delete(user_id, member_id):
     member = Member.query.filter(Member.id == member_id).first()
     user = Member.query.filter(Member.id == user_id).first()
-    approvals = Approval.query.filter(Approval.reviewer_id == member.id).all()
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -389,16 +401,23 @@ def confirm_delete(user_id, member_id):
 
     is_authorised = user.is_admin or user_id == member_id
 
+    # Superuser's approved status should not be edited
+    is_superuser = member.fullname == "Superuser"
+
     if not is_approved or not is_logged_in or not is_authorised:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
+    
+    if is_superuser:
+        flash("Superuser should not be deleted.")
+        return
     
     return render_template('confirm_delete.html', user=user, member=member)
     
 
 @app.route("/approve/<int:user_id>/<int:approval_id>/<decision>")
 def approve(user_id, approval_id, decision):
-    approval = Approval.query.filter(Approval.id==approval_id).first()
+    # approval = Approval.query.filter(Approval.id==approval_id).first()
     member = Member.query.filter(Member.approval_id==approval_id).first()
     user = Member.query.filter(Member.id==user_id).first()
 
@@ -412,6 +431,10 @@ def approve(user_id, approval_id, decision):
     # only admin can approve other accounts, but not her/his own.
     is_authorised = user.is_admin and user.id != member.id
 
+    # Superuser's approved status should not be edited
+    is_superuser = member.fullname == "Superuser"
+
+
     if not is_approved:
         flash("user is not approved")
         return redirect(url_for("signout"))
@@ -421,22 +444,25 @@ def approve(user_id, approval_id, decision):
     if not is_authorised:
         flash("user is not admin or user = member")
         return redirect(url_for("signout"))
+    if is_superuser:
+        flash("Superuser's status should not be edited.")
+        return
 
-    if not approval:
+    if not member.approval:
         flash("Approval request not recognised.")
         return redirect(url_for('all_members', member_id=user.id))
 
     if decision == 'decline':
-        approval.status = "declined"
+        member.approval.status = "declined"
         member.approved = False
     elif decision == 'approve':
-        approval.status = "approved"
+        member.approval.status = "approved"
         member.approved = True
     else:
         flash("Approval request not recognised.")
         return redirect(url_for('all_members', member_id=user.id))
     
-    approval.reviewer_id = user.id
+    member.approval.reviewer_id = user.id
 
     db.session.commit()
 
@@ -460,10 +486,11 @@ def new_request(user_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
     
-    place = Place.query.filter(Place.id == user.place_id).first()
+    # place = Place.query.filter(Place.id == user.place_id).first()
 
-    if place == None:
-        flash("Address not recognised. Please update your address!")
+    if user.place == None:
+        flash("Your address is not recognised. Please update your address before \
+              initiating new transport request.")
         return redirect(url_for(
             'edit_member', user_id=user.id, member_id=user.id))
     
@@ -515,5 +542,5 @@ def new_request(user_id):
         return redirect(url_for('member_home', user_id=user.id))
 
     return render_template(
-        'new_request.html', user=user, user_address=place.address,
-        google_address_id=place.google_place_id)
+        'new_request.html', user=user, user_address=user.place.address,
+        google_address_id=user.place.google_place_id)
