@@ -91,9 +91,9 @@
             </div>
             <!-- Badges  -->
             <div>
-                {% if req.status == "outstanding" %}
-                    <span class="badge my-yellow white-text">Awaiting Volunteer</span>
-                {% elif req.status == "arranged" %}
+                {% if not req.volunteer_id %}
+                    <span class="badge my-yellow my-dark-blue-text">Awaiting Volunteer</span>
+                {% else %}
                     <span class="badge my-green my-dark-blue-text">Arranged</span>
                 {% endif %}
             </div>
@@ -150,7 +150,7 @@
             {% if req.vounteer %}
             <p>Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
             {% else %}
-            <p>No volunteer has come forward yet.</p>
+            <p>No volunteer came forward.</p>
             {% endif %}
 
         </div>
