@@ -556,3 +556,34 @@ def all_requests(user_id):
         future_outstanding_requests_count=future_outstanding_requests_count,
         future_requests=future_requests,
         expired_requests=expired_requests)
+
+
+@app.route("/member_requests/<int:user_id>")
+def member_requests(user_id):
+    """ Page listing member's future & past requests """
+    user = Member.query.filter(Member.id == user_id).first()
+
+    # check if user signed in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+
+    # check if user's account is approved
+    is_approved = user.approved
+
+    # grab the session user's hashed email from db
+    if not is_approved or not is_logged_in or not user.is_admin:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+
+    now = datetime.now()
+    future_requests = list(Request.query.filter(
+        Request.request_time > now and Request.requestor_id==user.id)
+        .order_by(Request.request_time).all())
+    expired_requests = list(Request.query.filter(
+        Request.request_time < now and Request.requestor_id == user.id)
+        .order_by(Request.request_time).all())
+
+    return render_template('member_requests.html',
+                           user=user,
+                           future_requests=future_requests,
+                           expired_requests=expired_requests)
