@@ -103,7 +103,7 @@
         <div class="collapsible-body brown lighten-5">
             <p><strong>Date and Time: {{ req.request_time }}</strong></p>
             <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
-            <p>Dropoff Address: <em>{{ req.start_location.address }}</em></p>
+            <p>Dropoff Address: <em>{{ req.end_location.address }}</em></p>
             {% if req.vounteer %}
                 <p>Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
             {% else %}
