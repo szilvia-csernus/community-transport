@@ -250,8 +250,6 @@ def admin_profile(user_id):
         place=member.place)
 
 
-
-
 @app.route("/edit_member/<int:user_id>/<int:member_id>>",
            methods=["GET", "POST"])
 def edit_member(user_id, member_id):
@@ -290,12 +288,7 @@ def edit_member(user_id, member_id):
         member.fullname = request.form.get("fullname"),
         member.phone_nr = request.form.get("phone_nr"),
 
-        if user.is_admin:
-            if request.form.get("approved") == 'True':
-                member.approved = True
-                member.approved_by = user.id
-            else:
-                member.is_volunteer = False
+        if user.is_admin and (not member.fullname == "Superuser"):
             if request.form.get("is_admin") == 'True':
                 member.is_admin = True
             else:
@@ -309,8 +302,10 @@ def edit_member(user_id, member_id):
 
         if user.is_admin:
             return redirect(url_for('all_members', user_id=user.id))
+        elif user.is_volunteer:
+            return redirect(url_for('volunteer_profile', user_id=user.id))
         else:
-            return redirect(url_for('member_profile', member_id=user.id))
+            return redirect(url_for('member_profile', user_id=user.id))
 
     return render_template(
         'edit_member.html', user=user, member=member, 
@@ -367,13 +362,13 @@ def delete_member(user_id, member_id):
     
     if is_superuser:
         flash("Superuser should not be deleted.")
-        return
+        return redirect(request.referrer)
     
     # for all the approvals the person made in the past, reset the reviewer_id to
     # none, the status to "outstanding" and the member's approved status to False
     # so that another admin can approve this person again.
     for approval in approvals:
-        # approval.reviewer_id = None
+        approval.reviewer_id = None
         approval.status = "outstanding"
         approved_person = Member.query.filter(
             Member.approval_id==approval.id).first()
@@ -412,13 +407,13 @@ def confirm_delete(user_id, member_id):
     
     if is_superuser:
         flash("Superuser should not be deleted.")
-        return
+        return redirect(request.referrer)
     
     return render_template('confirm_delete.html', user=user, member=member)
     
 
-@app.route("/approve/<int:user_id>/<int:approval_id>/<decision>")
-def approve(user_id, approval_id, decision):
+@app.route("/approve/<int:user_id>/<int:approval_id>/<action>")
+def approve(user_id, approval_id, action):
     approval = Approval.query.filter(Approval.id==approval_id).first()
     member = Member.query.filter(Member.approval_id==approval_id).first()
     user = Member.query.filter(Member.id==user_id).first()
@@ -436,39 +431,32 @@ def approve(user_id, approval_id, decision):
     # Superuser's approved status should not be edited
     is_superuser = member.fullname == "Superuser"
 
-
-    if not is_approved:
-        flash("user is not approved")
-        return redirect(url_for("signout"))
-    if not is_logged_in:
-        flash("user is not logged in")
-        return redirect(url_for("signout"))
-    if not is_authorised:
-        flash("user is not admin or user = member")
+    if not is_approved or not is_logged_in or not is_authorised:
+        flash("Unauthorized access!")
         return redirect(url_for("signout"))
     if is_superuser:
         flash("Superuser's status should not be edited.")
-        return
+        return redirect(request.referrer)
 
     if not approval:
         flash("Approval request not recognised.")
-        return redirect(url_for('all_members', member_id=user.id))
-
-    if decision == 'decline':
+        return redirect(request.referrer)
+    
+    if action == 'decline':
         approval.status = "declined"
-        member.approved = False
-    elif decision == 'approve':
+        member.approved = False 
+        approval.reviewer_id = user.id
+        db.session.commit()
+        return redirect(request.referrer)
+    elif action == 'approve':
         approval.status = "approved"
         member.approved = True
+        approval.reviewer_id = user.id
+        db.session.commit()
+        return redirect(request.referrer)
     else:
         flash("Approval request not recognised.")
-        return redirect(url_for('all_members', member_id=user.id))
-    
-    approval.reviewer_id = user.id
-
-    db.session.commit()
-
-    return redirect(url_for('all_members', user_id=user.id, member_id=user.id))
+        return redirect(request.referrer)
 
 
 # Request routes 

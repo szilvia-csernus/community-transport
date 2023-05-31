@@ -23,31 +23,16 @@
     <form class="col s12 m10 offset-m1 l8 offset-l2" method="POST" 
         action="{{ url_for('edit_member', user_id=user.id, member_id=member.id) }}">
         <div class="card-panel">
-            <!-- Approve & Decline buttons  -->
-            {% if user.is_admin %}
-                {% if not member.approved %}
-                <div class="row">
-                    <div class="col s6">
-                        <a href="{{ url_for('approve', user_id=user.id, approval_id=member.approval_id, decision='approve')}}" 
-                        class="col s12 btn my-yellow my-dark-blue-text">
-                            Approve
-                        </a>
-                    </div>
-                    <div class="col s6">
-                        <a href="{{ url_for('approve', user_id=user.id, approval_id=member.approval_id, decision='decline')}}"
-                            class="col s12 btn my-yellow my-dark-blue-text">
-                            Decline
-                        </a>
-                    </div>
-                </div>
-                {% endif %}
-            {% endif %}
             <!-- name input  -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-user my-dark-blue-text prefix"></i>
                     <input id="fullname" name="fullname" type="text" minlength="5" maxlength="100" class="validate"
-                        value="{{ member.fullname }}" required>
+                        value="{{ member.fullname }}" required
+                        {% if member.fullname == "Superuser" %}
+                        readonly
+                        {% endif %}
+                        >
                     <label for="fullname">Full Name</label>
                 </div>
             </div>
@@ -97,7 +82,7 @@
             </div>
 
             <!-- Admin & Volunteer checkboxes  -->
-            {% if user.is_admin %}    
+            {% if user.is_admin and member.fullname != "Superuser" %}    
             <div class="row ">
             <div class="col s12 checkboxes-frame">
                 <label class="my-dark-blue-text">
@@ -135,12 +120,14 @@
                 </a>
             </div>
 
+            {% if user.fullname != "Superuser"%}
             <!-- delete button  -->
-            <div class="row">
-                <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=member.id) }}" 
-                class="col col s12 btn danger-btn">Delete
-                    User</a>
-            </div>
+                <div class="row">
+                    <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=member.id) }}" 
+                    class="col col s12 btn danger-btn">Delete
+                        User</a>
+                </div>
+            {% endif %}
 
         </div>
     </form>
@@ -149,5 +136,3 @@
 <script src="{{ url_for('static', filename='js/reg_address.js')}}"></script>
 
 {% endblock %}
-
-<!-- <a href="{{ url_for('cancel_edit_member', user_id=user.id, member_id=member.id) }}" -->
