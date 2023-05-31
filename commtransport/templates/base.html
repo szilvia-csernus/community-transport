@@ -47,10 +47,10 @@
                 {% block left_nav_elements %}
                 
                 <a href="{{ url_for('home')}}" aria-label="link to home page">
-                    <div class="logo center-align my-dark-blue-text">Community Transport&ast;</div> 
+                    <div class="logo left-align my-dark-blue-text">Community Transport&ast;</div> 
                     <div class="center-align my-dark-blue-text">
-                        <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
-                        <em class="logo-town">Egham, Surrey</em></div>
+                        <img class="red-car-logo" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
+                        <em class="logo-subtext">Egham, Surrey</em></div>
                 </a>
                 
                 {% endblock %}

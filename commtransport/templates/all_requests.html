@@ -3,11 +3,12 @@
 <!-- Header elements  -->
 {% block left_nav_elements %}
     <a href="{{ url_for('home')}}" aria-label="link to home page">
-        <img class="red-car-medium" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
+        <div class="logo left-align my-dark-blue-text">CT&ast; Egham, Surrey</div>
+        <div class="left-align my-dark-blue-text">
+            <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
+            <em>Signed in as: <strong>{{user.fullname}}</strong></em>
+        </div>
     </a>
-    <div>
-        <em class="my-dark-blue-text">Signed in as: <strong>{{user.fullname}}</strong></em>
-    </div>
     
 {% endblock %}
 
@@ -114,7 +115,7 @@
     {% endfor %}
 </ul>
 {% else %}
-<h3 class="my-green-text text-darken-2 center-align">No outstanding transport request found.</h3>
+<h3 class="center-align">No outstanding transport request found.</h3>
 
 {% endif%}
 
@@ -158,7 +159,7 @@
     {% endfor %}
 </ul>
 {% else %}
-<h3 class="my-green-text text-darken-2 center-align">No expired transport request found.</h3>
+<h3 class="center-align">No expired transport request found.</h3>
 
 {% endif%}
 
