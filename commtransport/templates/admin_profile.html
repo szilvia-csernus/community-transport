@@ -94,7 +94,7 @@
             {% if user.is_volunteer %}
             <div class="row">
                 <div class="col s12">
-                    <span class="my-dark-blue-text">You are registered as a Volunteer.</span>
+                    <span class="my-green-text">You are registered as a Volunteer.</span>
                 </div>
             </div>
             {% endif %}
@@ -103,8 +103,8 @@
             <!-- Edit button  -->
             <div class="row">
                 <a href="{{ url_for('edit_member', user_id=user.id, member_id=user.id) }}"
-                    class="col s12 m10 offset-m1 l8 offset-l2 btn my-green">Edit
-                    my Data<i class="fas fa-sign-in-alt"></i></a>
+                    class="col s12 m10 offset-m1 l8 offset-l2 btn my-dark-blue-btn">Edit
+                    my Data <span><i class="fas fa-sign-in-alt"></i></a></span>
             </div>
 
             <!-- Delete button  -->

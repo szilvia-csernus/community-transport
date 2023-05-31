@@ -74,7 +74,7 @@
                     </div>
 
                     <input id="address" name="address" type="text" placeholder="" 
-                      value="{{ member_address }}" autocomplete="off">
+                      value="{{ member.place.address }}" autocomplete="off">
                     <label for="address" id="addressLabel">Address</label>
                     <input type="hidden" id="address_id" name="google_place_id" value="{{ google_place_id }}" >
                     <div id="map"></div>
@@ -120,7 +120,7 @@
                 </a>
             </div>
 
-            {% if user.fullname != "Superuser"%}
+            {% if member.fullname != "Superuser"%}
             <!-- delete button  -->
                 <div class="row">
                     <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=member.id) }}" 

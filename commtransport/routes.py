@@ -126,9 +126,9 @@ def signin():
 @app.route("/signout")
 def signout():
     flash("You have been signed out.")
-    # remove user from session cookies
-    # session.clear() would clear all cookies related to our app
-    session.pop("user")
+    # clear all cookies related to the app.
+    session.clear()
+    # session.pop("user") would only clear the "user" cookie
     return redirect(url_for("signin"))
 
 
@@ -258,8 +258,6 @@ def edit_member(user_id, member_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
     
-    # place = Place.query.filter(Place.id == member.place_id).first()
-    
     if request.method == "POST":
         if member == None:
             flash("Member not registered.")
@@ -276,7 +274,7 @@ def edit_member(user_id, member_id):
         member.fullname = request.form.get("fullname"),
         member.phone_nr = request.form.get("phone_nr"),
 
-        if user.is_admin and (not member.fullname == "Superuser"):
+        if user.is_admin:
             if request.form.get("is_admin") == 'True':
                 member.is_admin = True
             else:
@@ -296,8 +294,7 @@ def edit_member(user_id, member_id):
             return redirect(url_for('member_profile', user_id=user.id))
 
     return render_template(
-        'edit_member.html', user=user, member=member, 
-        member_address=member.place.address,
+        'edit_member.html', user=user, member=member,
         google_address_id=member.place.google_place_id)
 
 
