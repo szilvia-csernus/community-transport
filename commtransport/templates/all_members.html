@@ -29,7 +29,7 @@
         {% endif %}
         Requests</a>
 </li>
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_home', user_id=user.id)}}">My Profile</a></li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('admin_profile', user_id=user.id)}}">My Profile</a></li>
 {% endblock %}
 
 <!-- Side nav elements  -->
@@ -50,7 +50,7 @@
         {% endif %}
         Requests</a>
 </li>
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_home', user_id=user.id)}}">My Profile</a></li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('admin_profile', user_id=user.id)}}">My Profile</a></li>
 {% endblock %}
 
 {% block content %}
