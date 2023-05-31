@@ -18,7 +18,14 @@
             <!-- Confirmation text  -->
             <div class="row">
                 <div class="col s12 center-align">
-                <p >Are you sure you want to delete <strong>{{ member.fullname }}</strong>'s record?</p>
+                <p >Are you sure you want to delete <strong>
+                    {% if user.id == member.id %}
+                        your own
+                    {% else%}
+                        {{ member.fullname }}'s
+                    {% endif %}
+                </strong> 
+                    record?</p>
                 <p >The deletion will be permanent.</p>
                 </div>
             </div>

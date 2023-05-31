@@ -80,7 +80,7 @@ class Approval(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # delete approval if the requesting person gets deleted
     requestor_id = db.Column(db.Integer, db.ForeignKey(
-        "member.id", ondelete="CASCADE"), nullable=False)
+        "member.id", ondelete="CASCADE"))
     status = db.Column(db.String, default="outstanding")
     # if reviewer gets deleted, update status programmatically!
     reviewer_id = db.Column(
@@ -108,7 +108,7 @@ class Request(db.Model):
     # delete request if the requesting person gets deleted
     request_time = db.Column(db.Date, nullable=False)
     requestor_id = db.Column(db.Integer, db.ForeignKey(
-        "member.id", ondelete="CASCADE"), nullable=False)
+        "member.id", ondelete="CASCADE"))
     # handle programmatically if a place gets deleted!
     start_location_id = db.Column(db.Integer, db.ForeignKey("place.id"))
     end_location_id = db.Column(db.Integer, db.ForeignKey("place.id"))
