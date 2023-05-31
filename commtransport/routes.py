@@ -47,8 +47,8 @@ def register(user_type):
             phone_nr=request.form.get("phone_nr"),
             place_id = place.id,
             email=request.form.get("email").lower(),
-            approved=True,
-            is_admin=True,
+            # approved=True,
+            # is_admin=True,
             is_volunteer=bool(True if user_type == "volunteer" else False),
             password=generate_password_hash(request.form.get("password"))
         )
@@ -58,7 +58,8 @@ def register(user_type):
         approval = Approval(
             # create new approval request for new member 
             requestor_id = member.id,
-            status = "approved"
+            status = "outstanding"
+            # status = "approved"
         )
         db.session.add(approval)
         db.session.commit()
@@ -68,7 +69,8 @@ def register(user_type):
 
         db.session.commit()
 
-        flash("Thank you for signing up! Your registration is yet to be approved. Please wait until we get in touch!")
+        flash("Thank you for signing up! Your registration is yet to be \
+              approved. Please wait until we get in touch!")
         return redirect(url_for('home'))
 
     return render_template("register.html", user_type=user_type)
@@ -88,7 +90,8 @@ def signin():
                 
                 if not existing_member.approved:
                     # if user's registration has not been approved
-                    flash("Your registration is yet to be approved. Please wait until we get in touch.")
+                    flash("Your registration is yet to be approved. \
+                          Please wait until we get in touch.")
                     return redirect(url_for('home'))
                 else:
                     # if approval was granted, create a hashed session cookie
@@ -97,13 +100,16 @@ def signin():
                     flash("Welcome, {}".format(existing_member.fullname))
                     if existing_member.is_admin == True:
                         # if user is admin, redirect to the admin page
-                        return redirect(url_for('all_members', user_id=existing_member.id))
+                        return redirect(
+                            url_for('all_members', user_id=existing_member.id))
                     elif existing_member.is_volunteer == True:
                         # if user is a volunteer, redirect to the volunteer page
-                        return redirect(url_for('volunteer_home', user_id=existing_member.id))
+                        return redirect(
+                            url_for('volunteer_home', user_id=existing_member.id))
                     else:
                         # all other users redirect to the member's page
-                        return redirect(url_for('member_home', user_id=existing_member.id))
+                        return redirect(
+                            url_for('member_home', user_id=existing_member.id))
             else:
                 # invalid password match
                 flash("Incorrect Username or Password!")
@@ -283,7 +289,8 @@ def edit_member(user_id, member_id):
             return redirect(url_for('member_home', member_id=user.id))
 
     return render_template(
-        'edit_member.html', user=user, member=member, member_address=member.place.address,
+        'edit_member.html', user=user, member=member, 
+        member_address=member.place.address,
         google_address_id=member.place.google_place_id)
 
 
@@ -344,14 +351,16 @@ def delete_member(user_id, member_id):
     for approval in approvals:
         # approval.reviewer_id = None
         approval.status = "outstanding"
-        approved_person = Member.query.filter(Member.approval_id==approval.id).first()
+        approved_person = Member.query.filter(
+            Member.approval_id==approval.id).first()
         approved_person.approved = False
 
     db.session.delete(member)
     db.session.commit()
 
     if user.is_admin:
-        return redirect(url_for('all_members', user_id=user.id, member_id=user.id))
+        return redirect(url_for(
+            'all_members', user_id=user.id, member_id=user.id))
     else:
         return redirect(url_for('home'))
     
@@ -370,7 +379,7 @@ def confirm_delete(user_id, member_id):
 
     is_authorised = user.is_admin or user_id == member_id
 
-    # Superuser's approved status should not be edited
+    # Superuser's should not be deleted
     is_superuser = member.fullname == "Superuser"
 
     if not is_approved or not is_logged_in or not is_authorised:
@@ -386,7 +395,7 @@ def confirm_delete(user_id, member_id):
 
 @app.route("/approve/<int:user_id>/<int:approval_id>/<decision>")
 def approve(user_id, approval_id, decision):
-    # approval = Approval.query.filter(Approval.id==approval_id).first()
+    approval = Approval.query.filter(Approval.id==approval_id).first()
     member = Member.query.filter(Member.approval_id==approval_id).first()
     user = Member.query.filter(Member.id==user_id).first()
 
@@ -417,21 +426,21 @@ def approve(user_id, approval_id, decision):
         flash("Superuser's status should not be edited.")
         return
 
-    if not member.approval:
+    if not approval:
         flash("Approval request not recognised.")
         return redirect(url_for('all_members', member_id=user.id))
 
     if decision == 'decline':
-        member.approval.status = "declined"
+        approval.status = "declined"
         member.approved = False
     elif decision == 'approve':
-        member.approval.status = "approved"
+        approval.status = "approved"
         member.approved = True
     else:
         flash("Approval request not recognised.")
         return redirect(url_for('all_members', member_id=user.id))
     
-    member.approval.reviewer_id = user.id
+    approval.reviewer_id = user.id
 
     db.session.commit()
 
@@ -458,8 +467,8 @@ def new_request(user_id):
     # place = Place.query.filter(Place.id == user.place_id).first()
 
     if user.place == None:
-        flash("Your address is not recognised. Please update your address before \
-              initiating new transport request.")
+        flash("Your address is not recognised. Please update your address \
+              before initiating new transport request.")
         return redirect(url_for(
             'edit_member', user_id=user.id, member_id=user.id))
     

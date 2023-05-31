@@ -148,7 +148,7 @@ body {
     height: 30px;
     position: relative;
     top: -2px;
-    margin-right: 1rem;
+    left: -1.5rem;
 }
 
 .red-car-medium {
@@ -203,7 +203,7 @@ form {
 .logo-town {
     position: relative;
     top: -7px;
-    left: -12px;
+    left: -20px;
 }
 
 .my-nav-element {
@@ -385,6 +385,26 @@ span.my-yellow.my-dark-blue-text:hover {
     color: var(--my-yellow);
 }
 
+a.my-green.my-dark-blue-text {
+    background-color: var(--my-green);
+    border: 1px solid var(--my-dark-blue);
+    color: var(--my-dark-blue);
+    font-weight: bold;
+}
+
+span.my-green.my-dark-blue-text {
+    background-color: var(--my-green);
+    border: 1px solid var(--my-dark-blue);
+    border-radius: 10px;
+    color: var(--my-dark-blue);
+    min-width: 1.5rem;
+}
+
+a.my-green.my-dark-blue-text:hover,
+span.my-green.my-dark-blue-text:hover {
+    background-color: var(--my-dark-blue);
+    color: var(--my-green);
+}
 /* Cards  */
 
 .intro-card {
