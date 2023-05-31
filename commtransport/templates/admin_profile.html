@@ -2,17 +2,18 @@
 
 {% block left_nav_elements %}
     <a href="{{ url_for('home')}}" aria-label="link to home page">
-        <img class="red-car-medium" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
+        <div class="logo left-align my-dark-blue-text">CT&ast; Egham, Surrey</div>
+        <div class="left-align my-dark-blue-text">
+            <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
+            <em>Signed in as: <strong>{{user.fullname}}</strong></em>
+        </div>
     </a>
-    <div>
-        <em class="my-dark-blue-text">Signed in as: <strong>{{user.fullname}}</strong></em>
-    </div>
 
 {% endblock %}
 
 <!-- Large screen nav elements  -->
 {% block right_nav_elements %}
-    <li><a class="active my-nav-element my-dark-blue-text" href="">
+    <li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
             {% if unapproved_members_count > 0 %}
             <span class="badge my-yellow my-dark-blue-text">
                 {{unapproved_members_count}}
@@ -57,7 +58,7 @@
 
 {% block content %}
 
-<h3 class="center-align grey-text text-darken-2">Your Details</h3>
+<h3 class="center-align">Your Details</h3>
 
 <div class="row">
     <div class="col s12 m10 offset-m1 l8 offset-l2">

@@ -142,20 +142,21 @@ body {
     }
 }
 
-.red-car-small {
+.red-car-logo {
     transform: scaleX(-1);
-    width: 60px;
-    height: 30px;
+    width: 50px;
+    height: 25px;
     position: relative;
-    top: -2px;
-    left: -1.5rem;
+    top: 4px;
+    left: -2rem
 }
 
-.red-car-medium {
+.red-car-small {
     transform: scaleX(-1);
-    width: 75px;
-    height: 40px;
-    margin-right: 1rem;
+    width: 50px;
+    height: 25px;
+    position: relative;
+    top: 3px;
 }
 
 main {
@@ -196,14 +197,13 @@ form {
 
 .logo {
     font-size: 1.6rem;
-    position: relative;
-    left: 10px;
+    /* position: relative;
+    left: 10px; */
 }
 
-.logo-town {
+.logo-subtext {
     position: relative;
-    top: -7px;
-    left: -20px;
+    left: -23px;
 }
 
 .my-nav-element {
