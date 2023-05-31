@@ -105,11 +105,11 @@ def signin():
                     elif existing_member.is_volunteer == True:
                         # if user is a volunteer, redirect to the volunteer page
                         return redirect(
-                            url_for('volunteer_home', user_id=existing_member.id))
+                            url_for('volunteer_profile', user_id=existing_member.id))
                     else:
                         # all other users redirect to the member's page
                         return redirect(
-                            url_for('member_home', user_id=existing_member.id))
+                            url_for('member_profile', user_id=existing_member.id))
             else:
                 # invalid password match
                 flash("Incorrect Username or Password!")
@@ -183,8 +183,8 @@ def all_members(user_id):
         future_outstanding_requests_count=future_outstanding_requests_count)
 
 
-@app.route("/member_home/<int:user_id>", methods=["GET", "POST"])
-def member_home(user_id):
+@app.route("/member_profile/<int:user_id>", methods=["GET", "POST"])
+def member_profile(user_id):
     member = Member.query.filter(Member.id == user_id).first()
 
     # check if user signed in
@@ -193,20 +193,17 @@ def member_home(user_id):
     # check if user's account is approved
     is_approved = member.approved
 
-    # grab member's place record
-    # member_place = Place.query.filter(Place.id==member.place_id).first()
-
     # Sign out unauthorized user
     if not is_logged_in or not is_approved:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
    
-    return render_template("member_home.html", user=member, 
+    return render_template("member_profile.html", user=member, 
                            place=member.place)
 
 
-@app.route("/volunteer_home/<int:user_id>", methods=["GET", "POST"])
-def volunteer_home(user_id):
+@app.route("/volunteer_profile/<int:user_id>", methods=["GET", "POST"])
+def volunteer_profile(user_id):
     member = Member.query.filter(Member.id == user_id).first()
 
     # check if user signed in
@@ -216,16 +213,43 @@ def volunteer_home(user_id):
     # check if user's account is approved
     is_approved = member.approved
 
-    # grab member's place record
-    # member_place = Place.query.filter(Place.id==member.place_id).first()
-
     # Sign out unauthorized user
     if not is_logged_in or not is_approved:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
    
-    return render_template("volunteer_home.html", user=member, 
+    return render_template("volunteer_profile.html", user=member, 
                            place=member.place)
+
+
+@app.route("/admin_profile/<int:user_id>", methods=["GET", "POST"])
+def admin_profile(user_id):
+    member = Member.query.filter(Member.id == user_id).first()
+
+    # check if user signed in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], member.email)
+    # check if user's account is approved
+    is_approved = member.approved
+
+    # Sign out unauthorized user
+    if not is_logged_in or not is_approved or not member.is_admin:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+    
+    unapproved_members_count = Member.query.filter(
+        Member.approved == False).count()
+
+    now = datetime.now()
+    future_outstanding_requests_count = Request.query.filter(
+        Request.request_time > now).count()
+
+    return render_template("admin_profile.html", user=member,
+        unapproved_members_count=unapproved_members_count,
+        future_outstanding_requests_count=future_outstanding_requests_count,
+        place=member.place)
+
+
 
 
 @app.route("/edit_member/<int:user_id>/<int:member_id>>",
@@ -286,7 +310,7 @@ def edit_member(user_id, member_id):
         if user.is_admin:
             return redirect(url_for('all_members', user_id=user.id))
         else:
-            return redirect(url_for('member_home', member_id=user.id))
+            return redirect(url_for('member_profile', member_id=user.id))
 
     return render_template(
         'edit_member.html', user=user, member=member, 
@@ -316,7 +340,7 @@ def edit_member(user_id, member_id):
 #     if user.is_admin:
 #         return redirect(url_for('all_members', user_id=user.id))
 #     else:
-#         return redirect(url_for('member_home', member_id=user.id))
+#         return redirect(url_for('member_profile', member_id=user.id))
     
 
 @app.route("/delete_member/<int:user_id>/<int:member_id>")
@@ -517,7 +541,7 @@ def new_request(user_id):
 
         flash("We registered your request, our volunteers will be notified. \
               Please wait until someone gets in touch.")
-        return redirect(url_for('member_home', user_id=user.id))
+        return redirect(url_for('member_profile', user_id=user.id))
 
     return render_template(
         'new_request.html', user=user, user_address=user.place.address,
