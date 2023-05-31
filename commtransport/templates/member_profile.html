@@ -79,12 +79,13 @@
             </div>
 
             <!-- Delete button  -->
+            {% if user.fullname != "Superuser"%}
             <div class="row">
                 <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=user.id) }}"
                     class="col s12 m10 offset-m1 l8 offset-l2 btn danger-btn">Delete
                     my Data</a>
             </div>
-
+            {% endif %}
         </div>
     </div>
 </div>

@@ -162,18 +162,6 @@ def all_members(user_id):
     future_outstanding_requests_count = Request.query.filter(
         Request.request_time > now).count()
 
-    # members_list = list(Member.query.all())
-    # unapproved_members_count = Member.query.filter(Member.approved==False).count()
-    # # query address for each member and sort them into approved & unapproved lists.
-    # approved_members = []
-    # unapproved_members = []
-    # for member in members_list:
-    #     place = Place.query.filter(Place.id == member.place_id).first()
-    #     if member.approved:
-    #         approved_members.append([member, place])
-    #     else:
-    #         unapproved_members.append([member, place])
-
     return render_template(
         "all_members.html",
         user=user,
