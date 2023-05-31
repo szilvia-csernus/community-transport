@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block right_nav_elements %}
-<li><a class="my-nav-element my-dark-blue-text" href="#">My Requests</a>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_requests', user_id=user.id)}}">My Requests</a>
 </li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('new_request', user_id=user.id)}}">New Request</a>
 </li>
