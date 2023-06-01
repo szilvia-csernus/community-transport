@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block left_nav_elements %}
+<a href="{{ url_for('home')}}" aria-label="link to home page">
+    <div class="logo left-align my-dark-blue-text">CT&ast; Egham, Surrey</div>
+    <div class="left-align my-dark-blue-text">
+        <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
+        <em class="my-green-text">Signed in as: <strong>{{user.fullname}} (volunteer)</strong></em>
+    </div>
+</a>
+
+{% endblock %}
+
+{% block right_nav_elements %}
+<li>
+    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">
+        {% if outstanding_requests_count > 0 %}
+        <span class="badge my-yellow my-dark-blue-text">
+            {{ outstanding_requests_count }}
+        </span>
+        {% endif %}
+        Outstanding Requests
+    </a>
+</li>
+<li>
+    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">
+        {% if upcoming_trips_count > 0 %}
+        <span class="badge my-green my-dark-blue-text">
+            {{ upcoming_trips_count }}
+        </span>
+        {% endif %}
+        My Trips
+    </a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_profile', user_id=user.id)}}">My Profile</a>
+</li>
+{% endblock %}
+
+{% block sidenav_elements %}
+<li>
+    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">
+        {% if outstanding_requests_count > 0 %}
+        <span class="badge my-yellow my-dark-blue-text">
+            {{ outstanding_requests_count }}
+        </span>
+        {% endif %}
+        Outstanding Requests
+    </a>
+</li>
+<li>
+    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">
+        {% if upcoming_trips_count > 0 %}
+        <span class="badge my-green my-dark-blue-text">
+            {{ upcoming_trips_count }}
+        </span>
+        {% endif %}
+        My Trips
+    </a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_profile', user_id=user.id)}}">My Profile</a>
+</li>
+{% endblock %}
+
+{% block sidenav_elements %}
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">Outstanding
+        Requests</a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">My Trips</a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_profile', user_id=user.id)}}">My Profile</a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+<!-- List of Current Requests -->
+{% if outstanding_requests|length > 0 %}
+
+<h3 class=" center-align">Requests</h3>
+<ul class="collapsible">
+    {% for req in outstanding_requests %}
+    <li>
+        <div class="collapsible-header ">
+
+            <!-- Name  -->
+            <div class="col s12 m9">
+                <i class="fas fa-caret-down"></i>
+                <span>Time: {{ req.request_time }}</span>
+
+            </div>
+            <!-- Badges  -->
+            <div>
+                {% if not req.volunteer_id %}
+                <span class="my-green-text">Awaiting Volunteer</span>
+                {% else %}
+                <span class="my-green-text">Arranged</span>
+                {% endif %}
+            </div>
+        </div>
+        <!-- Member details  -->
+        <div class="collapsible-body brown lighten-5">
+            <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
+            <p>Dropoff Address: <em>{{ req.end_location.address }}</em></p>
+            {% if req.vounteer %}
+            <p>Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
+            {% else %}
+            <p>No volunteer has come forward yet.</p>
+            {% endif %}
+
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<h3 class="center-align">No outstanding transport request found.</h3>
+
+{% endif%}
+
+{% endblock %}

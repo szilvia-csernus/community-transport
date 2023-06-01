@@ -5,15 +5,93 @@
     <div class="logo left-align my-dark-blue-text">CT&ast; Egham, Surrey</div>
     <div class="left-align my-dark-blue-text">
         <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
-        <em>Signed in as: <strong>{{user.fullname}}</strong></em>
+        <em class="my-green-text">Signed in as: <strong>{{user.fullname}} (volunteer)</strong></em>
     </div>
 </a>
 
 {% endblock %}
 
+{% block right_nav_elements %}
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">Current Requests</a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">My Trips</a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_profile', user_id=user.id)}}">My Profile</a>
+</li>
+{% endblock %}
+
+{% block sidenav_elements %}
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">Current
+        Requests</a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">My Trips</a>
+</li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_profile', user_id=user.id)}}">My Profile</a>
+</li>
+{% endblock %}
 
 {% block content %}
 
-<h3>Volunteer home page</h3>
+<h3 class="center-align my-dark-blue-text">Your Details</h3>
+
+<div class="row">
+    <div class="col s12 m10 offset-m1 l8 offset-l2">
+        <div class="card-panel">
+            <!-- name  -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-user my-dark-blue-text my-icon"></i>
+                    <strong>Full Name: </strong>{{ user.fullname }}
+                </div>
+            </div>
+            <!-- phone -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-phone-alt my-dark-blue-text my-icon"></i>
+                    <strong>Phone Number: </strong>{{ user.phone_nr }}
+                </div>
+            </div>
+            <!-- address -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-map-marker-alt my-dark-blue-text my-icon"></i>
+                    <strong>Address: </strong>{{ place.address }}
+                </div>
+            </div>
+            {% if user.is_admin %}
+            <br>
+            <div class="row">
+                <div class="col s12">
+                    <span class="my-red-text">You have Admin privilages.</span>
+                </div>
+            </div>
+            {% endif %}
+            {% if user.is_volunteer %}
+            <div class="row">
+                <div class="col s12">
+                    <span class="my-dark-blue-text">You are registered as a Volunteer.</span>
+                </div>
+            </div>
+            {% endif %}
+            <br>
+
+            <!-- Edit button  -->
+            <div class="row">
+                <a href="{{ url_for('edit_member', user_id=user.id, member_id=user.id) }}"
+                    class="col s12 l8 offset-l2 btn my-green">Edit
+                    my Data<i class="fas fa-sign-in-alt"></i></a>
+            </div>
+
+            <!-- Delete button  -->
+            {% if user.fullname != "Superuser"%}
+            <div class="row">
+                <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=user.id) }}"
+                    class="col s12 l8 offset-l2 btn danger-btn">Delete
+                    my Data</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}
