@@ -570,17 +570,17 @@ def member_requests(user_id):
     # check if user's account is approved
     is_approved = user.approved
 
-    # grab the session user's hashed email from db
-    if not is_approved or not is_logged_in or not user.is_admin:
+    # if unauthorized, sign out
+    if not is_approved or not is_logged_in:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
     now = datetime.now()
     future_requests = list(Request.query.filter(
-        Request.request_time > now and Request.requestor_id==user.id)
+        Request.request_time > now, Request.requestor_id==user.id)
         .order_by(Request.request_time).all())
     expired_requests = list(Request.query.filter(
-        Request.request_time < now and Request.requestor_id == user.id)
+        Request.request_time < now, Request.requestor_id==user.id)
         .order_by(Request.request_time).all())
 
     return render_template('member_requests.html',
