@@ -346,6 +346,38 @@ def volunteer_requests(user_id):
                            upcoming_trips_count=upcoming_trips_count)
 
 
+@app.route("/accept/<int:user_id>/<int:request_id>")
+def accept(user_id, request_id):
+    """ Accepting transport request by volunteers."""
+    user = Member.query.get_or_404(user_id)
+
+    # check if user signed in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+
+    # check if user's account is approved
+    is_approved = user.approved
+
+    # if unauthorized, sign out
+    if not is_approved or not is_logged_in or not user.is_volunteer:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+
+    transport_request = Request.query.get_or_404(request_id)
+
+    if transport_request == None:
+        flash("Request not recognised.")
+        return redirect(request.referrer)
+    
+    if transport_request.volunteer_id:
+        flash("Someone else already volunteered to take this trip!")
+        return redirect(request.referrer)
+    
+    transport_request.volunteer_id = user.id
+    db.session.commit()
+    return redirect(request.referrer)
+
+
 @app.route("/volunteer_trips/<int:user_id>")
 def volunteer_trips(user_id):
     """ Page listing volunteers's future & past trips. """

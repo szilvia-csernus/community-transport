@@ -49,7 +49,7 @@ class Member(db.Model):
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string
-        return f"#{self.id} - Name: #{self.member_name}, - email: #{self.email}"
+        return f"#{self.id} - Name: #{self.fullname}, - email: #{self.email}"
     
 
 class Place(db.Model):
