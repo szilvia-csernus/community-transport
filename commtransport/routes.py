@@ -311,6 +311,80 @@ def volunteer_profile(user_id):
                            place=member.place)
 
 
+@app.route("/volunteer_requests/<int:user_id>")
+def volunteer_requests(user_id):
+    """ Page listing all outstanding requests that need volunteer. """
+    user = Member.query.filter(Member.id == user_id).first()
+
+    # check if user signed in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+
+    # check if user's account is approved
+    is_approved = user.approved
+
+    # if unauthorized, sign out
+    if not is_approved or not is_logged_in or not user.is_volunteer:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+
+    now = datetime.now()
+    outstanding_requests = list(Request.query.filter(
+        Request.request_time > now, Request.volunteer_id==None)
+        .order_by(Request.request_time).all())
+    
+    outstanding_requests_count = len(outstanding_requests)
+    
+    upcoming_trips_count = Request.query.filter(
+        Request.request_time > now, Request.volunteer_id == user.id).order_by(
+        Request.request_time).count()
+
+    return render_template('volunteer_requests.html',
+                           user=user,
+                           outstanding_requests=outstanding_requests,
+                           outstanding_requests_count=outstanding_requests_count,
+                           upcoming_trips_count=upcoming_trips_count)
+
+
+@app.route("/volunteer_trips/<int:user_id>")
+def volunteer_trips(user_id):
+    """ Page listing volunteers's future & past trips. """
+    user = Member.query.filter(Member.id == user_id).first()
+
+    # check if user signed in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+
+    # check if user's account is approved
+    is_approved = user.approved
+
+    # if unauthorized, sign out
+    if not is_approved or not is_logged_in or not user.is_volunteer:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+
+    now = datetime.now()
+    upcoming_trips = list(Request.query.filter(
+        Request.request_time > now, Request.volunteer_id==user.id)
+        .order_by(Request.request_time).all())
+    past_trips = list(Request.query.filter(
+        Request.request_time < now, Request.volunteer_id==user.id)
+        .order_by(Request.request_time).all())
+    
+    upcoming_trips_count = len(upcoming_trips)
+
+    outstanding_requests_count = Request.query.filter(
+        Request.request_time > now, Request.volunteer_id == None).order_by(
+        Request.request_time).count()
+
+    return render_template('volunteer_trips.html',
+                           user=user,
+                           upcoming_trips=upcoming_trips,
+                           past_trips=past_trips,
+                           upcoming_trips_count=upcoming_trips_count,
+                           outstanding_requests_count=outstanding_requests_count)
+
+
 # Member routes 
 
 @app.route("/member_profile/<int:user_id>", methods=["GET", "POST"])
