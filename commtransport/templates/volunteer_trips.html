@@ -88,11 +88,12 @@
             </div>
         </div>
         <!-- Member details  -->
-        <div class="collapsible-body">
+        <div class="collapsible-body white">
             <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
             <p>Dropoff Address: <em>{{ req.end_location.address }}</em></p>
-            {% if req.vounteer %}
-            <p>Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
+            
+            {% if req.vounteer != "" %}
+            <p class="my-green-text">Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
             {% else %}
             <p>No volunteer has come forward yet.</p>
             {% endif %}
