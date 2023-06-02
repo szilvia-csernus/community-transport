@@ -132,8 +132,12 @@ def signout():
     # clear all cookies related to the app.
     session.clear()
     # session.pop("user") would only clear the "user" cookie
-    return redirect(url_for("signin"))
+    return redirect(url_for("home"))
 
+@app.route("/confirm_signout/<int:user_id>")
+def confirm_signout(user_id):
+    user = Member.query.filter(Member.id == user_id).first()
+    return render_template("confirm_signout.html", user=user)
 
 # Admin routes
 
@@ -655,31 +659,6 @@ def edit_member(user_id, member_id):
     return render_template(
         'edit_member.html', user=user, member=member,
         google_address_id=member.place.google_place_id)
-
-
-# @app.route("/cancel_edit_member/<int:user_id>/<int:member_id>")
-# def cancel_edit_member(user_id, member_id):
-#     member = Member.query.filter(Member.id==member_id).first()
-#     user = Member.query.filter(Member.id==user_id).first()
-
-#     # check if user signed in
-#     is_logged_in = "user" in session and check_password_hash(
-#         session["user"], user.email)
-    
-#     # check if user's account is approved
-#     is_approved = user.approved
-    
-#     # either admin can edit profile data or the user herself/himself
-#     is_authorised = user.is_admin or user.id == member.id
-
-#     if not is_approved or not is_logged_in or not is_authorised:
-#         flash("Unauthorized access!")
-#         return redirect(url_for("signout"))
-    
-#     if user.is_admin:
-#         return redirect(url_for('all_members', user_id=user.id))
-#     else:
-#         return redirect(url_for('member_profile', member_id=user.id))
     
 
 @app.route("/delete_member/<int:user_id>/<int:member_id>")
