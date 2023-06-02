@@ -1,64 +1,146 @@
 {% extends "base.html" %}
 
+<!-- Header elements  -->
 {% block left_nav_elements %}
 <a href="{{ url_for('home')}}" aria-label="link to home page">
     <div class="logo left-align my-dark-blue-text">CT&ast; Egham, Surrey</div>
     <div class="left-align my-dark-blue-text">
         <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
-        <em class="my-green-text">Signed in as: <strong>{{user.fullname}} (volunteer)</strong></em>
+        <em>Signed in as: <strong>{{user.fullname}} </strong></em>
     </div>
 </a>
 
 {% endblock %}
 
+<!-- Large screen nav elements  -->
 {% block right_nav_elements %}
+
+{% if user.is_admin %}
+<li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
+        {% if unapproved_members_count > 0 %}
+        <span class="badge btn tooltipped my-red my-white-text" data-tooltip="Number of unapproved member requests.">
+            {{unapproved_members_count}}
+        </span>
+        {% endif %}
+        <span class="my-red-text">Users</span>
+    </a></li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_requests', user_id=user.id)}}">
+        {% if outstanding_requests_count > 0 %}
+        <span class="badge btn tooltipped my-transparent my-red-text"
+            data-tooltip="Number of upcoming trips and transfer requests.">
+            {{outstanding_requests_count}}
+        </span>
+        {% endif %}
+        <span class="my-red-text">Requests</span>
+    </a>
+</li>
+{% endif%}
+
+{% if user.is_volunteer %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">
         {% if outstanding_requests_count > 0 %}
-        <span class="badge my-yellow my-dark-blue-text">
+        <span class="badge btn tooltipped my-green my-white-text"
+            data-tooltip="Number of outstanding transport requests.">
             {{ outstanding_requests_count }}
         </span>
         {% endif %}
-        Current Requests
+        <span class="my-green-text">Current Requests</span>
     </a>
 </li>
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">
         {% if upcoming_trips_count > 0 %}
-        <span class="badge my-green my-dark-blue-text">
+        <span class="badge btn tooltipped my-transparent my-green-text"
+            data-tooltip="Number of upcoming trips you've volunteered for.">
             {{ upcoming_trips_count }}
         </span>
         {% endif %}
-        My Trips
+        <span class="my-green-text">Trips</span>
+
     </a>
 </li>
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_profile', user_id=user.id)}}">My Profile</a>
+{% endif %}
+
+{% if user.is_admin %}
+<li>
+    <a class="my-nav-element my-dark-blue-text " href="{{ url_for('admin_profile', user_id=user.id)}}">Profile
+        <!-- <img class="navbar-icon" src="{{ url_for('static', filename='assets/user.svg')}}"> -->
+    </a>
 </li>
+{% elif user.id_volunteer %}
+<li>
+    <a class="my-nav-element my-dark-blue-text " href="{{ url_for('volunteer_profile', user_id=user.id)}}">Profile
+        <!-- <img class="navbar-icon" src="{{ url_for('static', filename='assets/user.svg')}}"> -->
+    </a>
+</li>
+{% endif %}
+
 {% endblock %}
 
+<!-- Side nav elements  -->
 {% block sidenav_elements %}
+{% if user.is_admin %}
+<li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
+        {% if unapproved_members_count > 0 %}
+        <span class="badge btn tooltipped my-red my-white-text" data-tooltip="Number of unapproved member requests.">
+            {{unapproved_members_count}}
+        </span>
+        {% endif %}
+        <span class="my-red-text">Users</span>
+    </a></li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_requests', user_id=user.id)}}">
+        {% if outstanding_requests_count > 0 %}
+        <span class="badge btn tooltipped my-transparent my-red-text"
+            data-tooltip="Number of upcoming trips and transfer requests.">
+            {{outstanding_requests_count}}
+        </span>
+        {% endif %}
+        <span class="my-red-text">Requests</span>
+    </a>
+</li>
+{% endif%}
+
+{% if user.is_volunteer %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">
         {% if outstanding_requests_count > 0 %}
-        <span class="badge my-yellow my-dark-blue-text">
+        <span class="badge btn tooltipped my-green my-white-text"
+            data-tooltip="Number of outstanding transport requests.">
             {{ outstanding_requests_count }}
         </span>
         {% endif %}
-        Current Requests
+        <span class="my-green-text">Current Requests</span>
     </a>
 </li>
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">
         {% if upcoming_trips_count > 0 %}
-        <span class="badge my-green my-dark-blue-text">
+        <span class="badge btn tooltipped my-transparent my-green-text"
+            data-tooltip="Number of upcoming trips you've volunteered for.">
             {{ upcoming_trips_count }}
         </span>
         {% endif %}
-        My Trips
+        <span class="my-green-text">Trips</span>
+
     </a>
 </li>
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_profile', user_id=user.id)}}">My Profile</a>
+{% endif %}
+
+{% if user.is_admin %}
+<li>
+    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('admin_profile', user_id=user.id)}}">
+        Profile
+    </a>
 </li>
+{% elif user.is_volunteer %}
+<li>
+    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_profile', user_id=user.id)}}">
+        Profile
+    </a>
+</li>
+{% endif %}
+
 {% endblock %}
 
 
@@ -67,53 +149,42 @@
 <!-- List of Current Requests -->
 {% if outstanding_requests|length > 0 %}
 
-<h3 class=" center-align">Requests</h3>
+<h3 class=" center-align my-green-text">Requests</h3>
 <ul class="collapsible">
     {% for req in outstanding_requests %}
     <li>
         <div class="collapsible-header ">
-
-            <!-- Name  -->
+            <!-- Request by  -->
             <div class="col s12 m9">
                 <i class="fas fa-caret-down"></i>
-                <span>Time: {{ req.request_time }}</span>
-
+                <span>Request by: <strong><em>{{ req.requestor.fullname }}</em></strong></span>
             </div>
-            <!-- Badges  -->
+            <!-- Time  -->
             <div>
-                {% if not req.volunteer_id %}
-                <span class="my-green-text">Awaiting Volunteer</span>
-                {% else %}
-                <span class="my-green-text">Arranged</span>
-                {% endif %}
+                <span>Time: {{ req.request_time }}</span>
             </div>
         </div>
         <!-- Member details  -->
-        <div class="collapsible-body brown lighten-5">
+        <div class="collapsible-body white">
             <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
             <p>Dropoff Address: <em>{{ req.end_location.address }}</em></p>
-            {% if req.vounteer %}
-            <p>Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
+            {% if not req.volunteer %}
+            <p class="my-green-text">No volunteer has come forward yet.</p>
             {% else %}
-            <p>No volunteer has come forward yet.</p>
+            <p class="my-green-text">Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
             {% endif %}
 
             <!-- Accept button  -->
-            <div class="row">
-                <div class="col s6">
-                    <a href="{{ url_for('accept', user_id=user.id, request_id=req.id)}}"
-                        class="col s12 btn my-green">
-                        Accept Transport Request
-                    </a>
-                </div>
-                
-            </div>
+            <a href="{{ url_for('accept', user_id=user.id, request_id=req.id)}}"
+                class="col s12 btn my-green">
+                Accept Transport Request
+            </a>
         </div>
     </li>
     {% endfor %}
 </ul>
 {% else %}
-<h3 class="center-align">No outstanding transport request found.</h3>
+<h3 class="center-align my-green-text">No outstanding transport request found.</h3>
 
 {% endif%}
 
