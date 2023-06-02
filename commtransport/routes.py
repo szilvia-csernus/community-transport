@@ -140,16 +140,16 @@ def signout():
 @app.route("/admin_profile/<int:user_id>", methods=["GET", "POST"])
 def admin_profile(user_id):
     """ Admin's own profile page. """
-    member = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.filter(Member.id == user_id).first()
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
-        session["user"], member.email)
+        session["user"], user.email)
     # check if user's account is approved
-    is_approved = member.approved
+    is_approved = user.approved
 
     # Sign out unauthorized user
-    if not is_logged_in or not is_approved or not member.is_admin:
+    if not is_logged_in or not is_approved or not user.is_admin:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
@@ -157,13 +157,20 @@ def admin_profile(user_id):
         Member.approved == False).count()
 
     now = datetime.now()
-    future_outstanding_requests_count = Request.query.filter(
+    outstanding_requests_count = Request.query.filter(
         Request.request_time > now).count()
+    
+    # is admin is a volunteer too, we need this info for the nav element
+    upcoming_trips_count = Request.query.filter(
+        Request.request_time > now, Request.volunteer_id == user.id).order_by(
+        Request.request_time).count()
 
-    return render_template("admin_profile.html", user=member,
+
+    return render_template("admin_profile.html", user=user,
                            unapproved_members_count=unapproved_members_count,
-                           future_outstanding_requests_count=future_outstanding_requests_count,
-                           place=member.place)
+                           outstanding_requests_count=outstanding_requests_count,
+                           upcoming_trips_count=upcoming_trips_count,
+                           place=user.place)
 
 
 @app.route("/approve/<int:user_id>/<int:approval_id>/<action>")
@@ -239,8 +246,13 @@ def all_members(user_id):
         Member.query.filter(Member.approved == True))
     
     now = datetime.now()
-    future_outstanding_requests_count = Request.query.filter(
+    outstanding_requests_count = Request.query.filter(
         Request.request_time > now).count()
+    
+    # is admin is a volunteer too, we need this info for the nav element
+    upcoming_trips_count = Request.query.filter(
+        Request.request_time > now, Request.volunteer_id == user.id).order_by(
+        Request.request_time).count()
 
     return render_template(
         "all_members.html",
@@ -248,7 +260,8 @@ def all_members(user_id):
         approved_members=approved_members,
         unapproved_members=unapproved_members,
         unapproved_members_count=unapproved_members_count,
-        future_outstanding_requests_count=future_outstanding_requests_count)
+        outstanding_requests_count=outstanding_requests_count,
+        upcoming_trips_count=upcoming_trips_count)
 
 
 @app.route("/all_requests/<int:user_id>")
@@ -277,13 +290,19 @@ def all_requests(user_id):
     expired_requests = list(Request.query.filter(
         Request.request_time < now).order_by(Request.request_time).all())
 
-    future_outstanding_requests_count = Request.query.filter(
+    outstanding_requests_count = Request.query.filter(
         Request.request_time > now).count()
+    
+    # is admin is a volunteer too, we need this info for the nav element
+    upcoming_trips_count = Request.query.filter(
+        Request.request_time > now, Request.volunteer_id == user.id).order_by(
+        Request.request_time).count()
 
     return render_template('all_requests.html',
                            user=user,
                            unapproved_members_count=unapproved_members_count,
-                           future_outstanding_requests_count=future_outstanding_requests_count,
+                           outstanding_requests_count=outstanding_requests_count,
+                           upcoming_trips_count=upcoming_trips_count,
                            future_requests=future_requests,
                            expired_requests=expired_requests)
 
@@ -293,22 +312,38 @@ def all_requests(user_id):
 @app.route("/volunteer_profile/<int:user_id>", methods=["GET", "POST"])
 def volunteer_profile(user_id):
     """ Volunteer's profile page. """
-    member = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.filter(Member.id == user_id).first()
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
-        session["user"], member.email)
+        session["user"], user.email)
     
     # check if user's account is approved
-    is_approved = member.approved
+    is_approved = user.approved
 
     # Sign out unauthorized user
     if not is_logged_in or not is_approved:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
+    
+    now = datetime.now()
+    upcoming_trips_count = Request.query.filter(
+        Request.request_time > now, Request.volunteer_id == user.id).order_by(
+        Request.request_time).count()
+    
+    outstanding_requests_count = Request.query.filter(
+        Request.request_time > now, Request.volunteer_id == None).order_by(
+        Request.request_time).count()
+    
+    # if volunteer is admin as well, we need this info for the navbar
+    unapproved_members_count = Member.query.filter(
+        Member.approved == False).count()
    
-    return render_template("volunteer_profile.html", user=member, 
-                           place=member.place)
+    return render_template("volunteer_profile.html", user=user, 
+                           outstanding_requests_count=outstanding_requests_count,
+                           upcoming_trips_count=upcoming_trips_count,
+                           unapproved_members_count=unapproved_members_count,
+                           place=user.place)
 
 
 @app.route("/volunteer_requests/<int:user_id>")
@@ -338,11 +373,16 @@ def volunteer_requests(user_id):
     upcoming_trips_count = Request.query.filter(
         Request.request_time > now, Request.volunteer_id == user.id).order_by(
         Request.request_time).count()
+    
+    # if volunteer is admin as well, we need these pieces of info for the navbar
+    unapproved_members_count = Member.query.filter(
+        Member.approved == False).count()
 
     return render_template('volunteer_requests.html',
                            user=user,
                            outstanding_requests=outstanding_requests,
                            outstanding_requests_count=outstanding_requests_count,
+                           unapproved_members_count=unapproved_members_count,
                            upcoming_trips_count=upcoming_trips_count)
 
 
@@ -408,13 +448,18 @@ def volunteer_trips(user_id):
     outstanding_requests_count = Request.query.filter(
         Request.request_time > now, Request.volunteer_id == None).order_by(
         Request.request_time).count()
+    
+    # if volunteer is admin as well, we need this info for the navbar
+    unapproved_members_count = Member.query.filter(
+        Member.approved == False).count()
 
     return render_template('volunteer_trips.html',
                            user=user,
                            upcoming_trips=upcoming_trips,
                            past_trips=past_trips,
                            upcoming_trips_count=upcoming_trips_count,
-                           outstanding_requests_count=outstanding_requests_count)
+                           outstanding_requests_count=outstanding_requests_count,
+                           unapproved_members_count=unapproved_members_count)
 
 
 # Member routes 

@@ -54,4 +54,25 @@ https://www.cleanpng.com/png-car-ferrari-f50-honda-civic-clip-art-red-car-clipa-
 red car picture
 https://freesvg.org/1526057088
 
+logout svg icon
+https://www.svgrepo.com/svg/499618/logout - PD licence (Public Domain)
+
+user icon
+https://www.svgrepo.com/svg/499663/user
+
+calendar icon
+https://www.svgrepo.com/svg/499578/calendar
+
+house icon
+https://www.svgrepo.com/svg/499611/home
+
+location icon
+https://www.svgrepo.com/svg/499616/location
+
+phone icon
+https://www.svgrepo.com/svg/499633/phone
+
+mail icon
+https://www.svgrepo.com/svg/499621/mail
+
 background picture

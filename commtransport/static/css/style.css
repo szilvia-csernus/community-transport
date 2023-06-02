@@ -8,6 +8,7 @@
     --my-light-grey: rgb(200, 200, 200);
     --my-yellow: #fdce5d;
     --my-yellow-translucent: #fdcd5d7c;
+    --my-transparent: #ffffff00;
 }
 
 
@@ -95,6 +96,10 @@
     margin-bottom: 13px;
 }
 
+nav ul a {
+    padding: 0 0 0 20px;
+}
+
 nav ul a:hover {
     background-color: unset;
 }
@@ -108,7 +113,7 @@ body {
     min-height: 100vh;
     flex-direction: column;
     font-family: 'Quicksand', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
     background-image: url(../assets/cityscape1.svg);
     background-size: cover;
     background-repeat: repeat-x;
@@ -159,6 +164,11 @@ body {
     top: 3px;
 }
 
+.navbar-icon {
+    width: 30px;
+    height: 30px;
+}
+
 main {
     flex: 1 0 auto;
 }
@@ -196,9 +206,7 @@ form {
 }
 
 .logo {
-    font-size: 1.6rem;
-    /* position: relative;
-    left: 10px; */
+    font-size: 1.5rem;
 }
 
 .logo-subtext {
@@ -207,7 +215,7 @@ form {
 }
 
 .my-nav-element {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
 }
 
 h3 {
@@ -350,7 +358,6 @@ button.my-dark-blue:hover, a.my-dark-blue:hover {
     color: var(--my-dark-blue);
 }
 
-
 .danger-btn {
     background-color: white;
     border: 1px solid var(--my-red);
@@ -371,21 +378,59 @@ a.my-yellow.my-dark-blue-text {
     font-weight: bold;
 }
 
-span.my-yellow.my-dark-blue-text {
-    background-color: var(--my-yellow);
-    border: 1px solid var(--my-dark-blue);
-    border-radius: 10px;
-    color: var(--my-dark-blue);
-    min-width: 1.5rem;
-}
 
-a.my-yellow.my-dark-blue-text:hover,
-span.my-yellow.my-dark-blue-text:hover {
+a.my-yellow.my-dark-blue-text:hover {
     background-color: var(--my-dark-blue);
     color: var(--my-yellow);
 }
 
-a.my-green.my-dark-blue-text {
+/* Admin nav badges  */
+
+span.my-red.my-white-text {
+    background-color: var(--my-red);
+    border: 1px solid var(--my-red);
+    border-radius: 10px;
+    color: white;
+    min-width: 1.5rem;
+    font-size: .9rem;
+    line-height: 1.3rem;
+    height: 1.4rem;
+}
+
+span.my-transparent.my-red-text {
+    background-color: var(--my-transparent);
+    border: 1px solid var(--my-red);
+    border-radius: 10px;
+    color: var(--my-red);
+    min-width: 1.5rem;
+    font-size: .9rem;
+    line-height: 1.3rem;
+    height: 1.4rem;
+}
+
+/* Review badge  */
+
+span.my-transparent.my-dark-blue-text {
+    background-color: var(--my-transparent);
+    border: 1px solid var(--my-dark-blue);
+    border-radius: 10px;
+    color: var(--my-dark-blue);
+    min-width: 5rem;
+}
+
+span.my-transparent.my-dark-blue-text:hover {
+    background-color: var(--my-dark-blue);
+    color: white;
+}
+
+
+/* span.my-yellow.my-red-text:hover,
+span.my-transparent.my-red-text:hover {
+    background-color: var(--my-red);
+    color: white;
+} */
+
+/* a.my-green.my-dark-blue-text {
     background-color: var(--my-green);
     border: 1px solid var(--my-dark-blue);
     color: var(--my-dark-blue);
@@ -398,13 +443,45 @@ span.my-green.my-dark-blue-text {
     border-radius: 10px;
     color: var(--my-dark-blue);
     min-width: 1.5rem;
-}
+} */
 
-a.my-green.my-dark-blue-text:hover,
+/* a.my-green.my-dark-blue-text:hover,
 span.my-green.my-dark-blue-text:hover {
     background-color: var(--my-dark-blue);
     color: var(--my-green);
+} */
+
+/* Volunteer nav badges  */
+
+span.my-green.my-white-text {
+    background-color: var(--my-green);
+    border: 1px solid var(--my-green);
+    border-radius: 10px;
+    color: white;
+    min-width: 1.5rem;
+    font-size: .9rem;
+    line-height: 1.3rem;
+    height: 1.4rem;
 }
+
+span.my-transparent.my-green-text {
+    background-color: var(--my-transparent);
+    border: 1px solid var(--my-green);
+    border-radius: 10px;
+    color: var(--my-dark-blue);
+    color: var(--my-green);
+    min-width: 1.5rem;
+    font-size: .9rem;
+    line-height: 1.3rem;
+    height: 1.4rem;
+}
+
+/* span.my-yellow.my-green-text:hover,
+span.my-transparent.my-green-text:hover {
+    background-color: var(--my-green);
+    color: white;
+} */
+
 /* Cards  */
 
 .intro-card {

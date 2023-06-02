@@ -1,34 +1,148 @@
 {% extends "base.html" %}
 
+<!-- Header elements  -->
 {% block left_nav_elements %}
 <a href="{{ url_for('home')}}" aria-label="link to home page">
     <div class="logo left-align my-dark-blue-text">CT&ast; Egham, Surrey</div>
     <div class="left-align my-dark-blue-text">
         <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
-        <em class="my-green-text">Signed in as: <strong>{{user.fullname}} (volunteer)</strong></em>
+        <em>Signed in as: <strong>{{user.fullname}} </strong></em>
     </div>
 </a>
 
 {% endblock %}
 
+<!-- Large screen nav elements  -->
 {% block right_nav_elements %}
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">Current Requests</a>
+
+{% if user.is_admin %}
+<li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
+        {% if unapproved_members_count > 0 %}
+        <span class="badge btn tooltipped my-red my-white-text" data-tooltip="Number of unapproved member requests.">
+            {{unapproved_members_count}}
+        </span>
+        {% endif %}
+        <span class="my-red-text">Users</span>
+    </a></li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_requests', user_id=user.id)}}">
+        {% if outstanding_requests_count > 0 %}
+        <span class="badge btn tooltipped my-transparent my-red-text"
+            data-tooltip="Number of upcoming trips and transfer requests.">
+            {{outstanding_requests_count}}
+        </span>
+        {% endif %}
+        <span class="my-red-text">Requests</span>
+    </a>
 </li>
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">My Trips</a>
+{% endif%}
+
+{% if user.is_volunteer %}
+<li>
+    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">
+        {% if outstanding_requests_count > 0 %}
+        <span class="badge btn tooltipped my-green my-white-text"
+            data-tooltip="Number of outstanding transport requests.">
+            {{ outstanding_requests_count }}
+        </span>
+        {% endif %}
+        <span class="my-green-text">Current Requests</span>
+    </a>
 </li>
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_profile', user_id=user.id)}}">My Profile</a>
+<li>
+    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">
+        {% if upcoming_trips_count > 0 %}
+        <span class="badge btn tooltipped my-transparent my-green-text"
+            data-tooltip="Number of upcoming trips you've volunteered for.">
+            {{ upcoming_trips_count }}
+        </span>
+        {% endif %}
+        <span class="my-green-text">Trips</span>
+
+    </a>
 </li>
+{% endif %}
+
+{% if user.is_admin %}
+<li>
+    <a class="my-nav-element my-dark-blue-text " href="{{ url_for('admin_profile', user_id=user.id)}}">Profile
+        <!-- <img class="navbar-icon" src="{{ url_for('static', filename='assets/user.svg')}}"> -->
+    </a>
+</li>
+{% elif user.id_volunteer %}
+<li>
+    <a class="my-nav-element my-dark-blue-text " href="{{ url_for('volunteer_profile', user_id=user.id)}}">Profile
+        <!-- <img class="navbar-icon" src="{{ url_for('static', filename='assets/user.svg')}}"> -->
+    </a>
+</li>
+{% endif %}
+
 {% endblock %}
 
+<!-- Side nav elements  -->
 {% block sidenav_elements %}
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">Current
-        Requests</a>
+{% if user.is_admin %}
+<li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
+        {% if unapproved_members_count > 0 %}
+        <span class="badge btn tooltipped my-red my-white-text" data-tooltip="Number of unapproved member requests.">
+            {{unapproved_members_count}}
+        </span>
+        {% endif %}
+        <span class="my-red-text">Users</span>
+    </a></li>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_requests', user_id=user.id)}}">
+        {% if outstanding_requests_count > 0 %}
+        <span class="badge btn tooltipped my-transparent my-red-text"
+            data-tooltip="Number of upcoming trips and transfer requests.">
+            {{outstanding_requests_count}}
+        </span>
+        {% endif %}
+        <span class="my-red-text">Requests</span>
+    </a>
 </li>
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">My Trips</a>
+{% endif%}
+
+{% if user.is_volunteer %}
+<li>
+    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">
+        {% if outstanding_requests_count > 0 %}
+        <span class="badge btn tooltipped my-green my-white-text"
+            data-tooltip="Number of outstanding transport requests.">
+            {{ outstanding_requests_count }}
+        </span>
+        {% endif %}
+        <span class="my-green-text">Current Requests</span>
+    </a>
 </li>
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_profile', user_id=user.id)}}">My Profile</a>
+<li>
+    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">
+        {% if upcoming_trips_count > 0 %}
+        <span class="badge btn tooltipped my-transparent my-green-text"
+            data-tooltip="Number of upcoming trips you've volunteered for.">
+            {{ upcoming_trips_count }}
+        </span>
+        {% endif %}
+        <span class="my-green-text">Trips</span>
+
+    </a>
 </li>
+{% endif %}
+
+{% if user.is_admin %}
+<li>
+    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('admin_profile', user_id=user.id)}}">
+        Profile
+    </a>
+</li>
+{% elif user.is_volunteer %}
+<li>
+    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_profile', user_id=user.id)}}">
+        Profile
+    </a>
+</li>
+{% endif %}
+
 {% endblock %}
+
 
 {% block content %}
 
