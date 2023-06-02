@@ -93,9 +93,9 @@
             <!-- Badges  -->
             <div>
                 {% if not req.volunteer_id %}
-                    <span class="badge my-yellow my-dark-blue-text">Awaiting Volunteer</span>
+                    <span class="my-green-text">Awaiting Volunteer</span>
                 {% else %}
-                    <span class="badge my-green my-dark-blue-text">Arranged</span>
+                    <span class="my-green-text">Arranged</span>
                 {% endif %}
             </div>
         </div>
@@ -104,10 +104,10 @@
             <p><strong>Date and Time: {{ req.request_time }}</strong></p>
             <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
             <p>Dropoff Address: <em>{{ req.end_location.address }}</em></p>
-            {% if req.vounteer %}
-                <p>Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
+            {% if req.vounteer != "" %}
+            <p class="my-green-text">Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
             {% else %}
-                <p>No volunteer has come forward yet.</p>
+            <p>No volunteer has come forward yet.</p>
             {% endif %}
             
         </div>
