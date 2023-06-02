@@ -223,6 +223,11 @@ h3 {
     text-transform: capitalize;
 }
 
+.callout {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
 .flashes h4 {
     line-height: 2;
     font-size: 1.4rem;
@@ -495,6 +500,12 @@ span.my-transparent.my-green-text:hover {
 
 .mission-card {
     margin-top: 2rem;
+}
+
+
+.small-card {
+    padding: .5rem;
+    height: 9rem;
 }
 
 @keyframes appear {

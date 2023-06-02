@@ -63,7 +63,7 @@
                     {% endblock %}
                     {% if session.user %}
                         <li>
-                            <a class="my-nav-element my-dark-blue-text" href="{{ url_for('signout')}}">
+                            <a class="my-nav-element my-dark-blue-text" href="{{ url_for('confirm_signout', user_id=user.id)}}">
                                 Sign Out
                             </a>
                         </li>
@@ -117,27 +117,25 @@
         {% block content%}
         <div class="row">
             <div class="col s12">
-                <div class="card-panel brown-text text-darken-2 intro-card mission-card">
+                <div class="card-panel intro-card mission-card">
                     <h1>Mission</h1>
                     <p class="">Our mission is to help vulnerable people with transport by asking the local
                         community to help! Transports would include trips to sheduled, non-urgent hospital 
                         or GP visits in and around Egham, Surrey. All our volunteers are DBS checked and have
                         clean driving licences to ensure the safety of our members.
                     </p>
-                    <p><strong>Interested?</strong></p>
+                    <p class="callout">Interested?</p>
                 </div>
             </div>
             <div class="col s12 m6">
-                <div class="card-panel brown-text text-darken-2 intro-card">
-                    <p class=""><strong>I need help with transport.</strong>
-                    </p>
+                <div class="card-panel intro-card small-card">
+                    <p class="callout">I need help with transport.</p>
                     <a class="my-grey-text" href="{{url_for('register', user_type='new')}}">Register here.</a>
                 </div>
             </div>
             <div class="col s12 m6">
-                <div class="card-panel brown-text text-darken-2 intro-card">
-                    <p class=""><strong>I can offer help with transport.</strong>
-                    </p>
+                <div class="card-panel intro-card small-card">
+                    <p class="callout">I can offer help with transport.</p>
                     <a class="my-grey-text" href="{{url_for('register', user_type='volunteer')}}">Register here.</a>
                 </div>
             </div>
