@@ -1,5 +1,6 @@
 :root {
     --my-green: #408b1e;
+    --my-green-text: #287f00;
     --my-green-translucent: #418b1e3a;
     --my-red: #941b1b;
     --my-blue: #3367d6;
@@ -21,6 +22,7 @@
 .btn-small {
     margin: 5px 5px 5px 0;
     border-radius: 3px;
+    width: 11rem;
 }
 
 .btn-large {
@@ -102,6 +104,9 @@ nav ul a {
 
 nav ul a:hover {
     background-color: unset;
+}
+.collapsible-header i {
+    margin-right: 0.2rem;
 }
 
 
@@ -290,7 +295,7 @@ input[name="address"] {
 }
 
 .my-green-text {
-    color: var(--my-green);;
+    color: var(--my-green-text);;
 }
 
 .my-red {
