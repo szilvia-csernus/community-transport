@@ -1,6 +1,11 @@
 // Materialize code for initialisation
 
 $(document).ready(function () {
+	let minDate = new Date();
+	minDate.setDate(minDate.getDate() + 1);
+	let maxDate = new Date();
+	maxDate.setDate(maxDate.getDate() + 90);
+
 	$('.sidenav').sidenav({ edge: 'right' });
 	$('.collapsible').collapsible();
 	$('.tooltipped').tooltip();
@@ -9,14 +14,19 @@ $(document).ready(function () {
 		format: 'dd mmmm, yyyy',
 		yearRange: 3,
 		showClearBtn: true,
+		minDate: minDate,
+		maxDate: maxDate,
+		yearRange: 1,
 		i18n: {
 			done: 'Select',
 		},
 	});
+	$('.timepicker').timepicker({
+		defaultTime: 'now',
+	});
 
 	// custom validation for the Materialize select element. (The select element is replaced by Materialize to a <ul> element
 	// hence the 'required' property will be ignored and does not get proper validation.)
-
 	validateMaterializeSelect();
 	function validateMaterializeSelect() {
 		let classValid = {

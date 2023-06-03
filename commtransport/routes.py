@@ -59,7 +59,6 @@ def register(user_type):
         approval = Approval(
             # create new approval request for new member 
             requestor_id = member.id,
-            status = "outstanding"
             # status = "approved"
         )
         db.session.add(approval)
@@ -107,11 +106,11 @@ def signin():
                     elif existing_member.is_volunteer == True:
                         # if user is a volunteer, redirect to the volunteer page
                         return redirect(
-                            url_for('volunteer_profile', user_id=existing_member.id))
+                            url_for('volunteer_requests', user_id=existing_member.id))
                     else:
                         # all other users redirect to the member's page
                         return redirect(
-                            url_for('member_profile', user_id=existing_member.id))
+                            url_for('new_request', user_id=existing_member.id))
             else:
                 # invalid password match
                 flash("Incorrect Username or Password!")
@@ -166,12 +165,11 @@ def admin_profile(user_id):
 
     now = datetime.now()
     outstanding_requests_count = Request.query.filter(
-        Request.request_time > now).count()
+        Request.request_date > now).count()
     
     # is admin is a volunteer too, we need this info for the nav element
     upcoming_trips_count = Request.query.filter(
-        Request.request_time > now, Request.volunteer_id == user.id).order_by(
-        Request.request_time).count()
+        Request.request_date > now, Request.volunteer_id == user.id).count()
 
 
     return render_template("admin_profile.html", user=user,
@@ -246,12 +244,11 @@ def all_members(user_id):
     
     now = datetime.now()
     outstanding_requests_count = Request.query.filter(
-        Request.request_time > now).count()
+        Request.request_date > now).count()
     
     # is admin is a volunteer too, we need this info for the nav element
     upcoming_trips_count = Request.query.filter(
-        Request.request_time > now, Request.volunteer_id == user.id).order_by(
-        Request.request_time).count()
+        Request.request_date > now, Request.volunteer_id == user.id).count()
 
     return render_template(
         "all_members.html",
@@ -285,17 +282,16 @@ def all_requests(user_id):
 
     now = datetime.now()
     future_requests = list(Request.query.filter(
-        Request.request_time > now).order_by(Request.request_time).all())
+        Request.request_date > now).order_by(Request.request_date).all())
     expired_requests = list(Request.query.filter(
-        Request.request_time < now).order_by(Request.request_time).all())
+        Request.request_date < now).order_by(Request.request_date).all())
 
     outstanding_requests_count = Request.query.filter(
-        Request.request_time > now).count()
+        Request.request_date > now).count()
     
     # is admin is a volunteer too, we need this info for the nav element
     upcoming_trips_count = Request.query.filter(
-        Request.request_time > now, Request.volunteer_id == user.id).order_by(
-        Request.request_time).count()
+        Request.request_date > now, Request.volunteer_id == user.id).count()
 
     return render_template('all_requests.html',
                            user=user,
@@ -327,12 +323,10 @@ def volunteer_profile(user_id):
     
     now = datetime.now()
     upcoming_trips_count = Request.query.filter(
-        Request.request_time > now, Request.volunteer_id == user.id).order_by(
-        Request.request_time).count()
+        Request.request_date > now, Request.volunteer_id == user.id).count()
     
     outstanding_requests_count = Request.query.filter(
-        Request.request_time > now, Request.volunteer_id == None).order_by(
-        Request.request_time).count()
+        Request.request_date > now, Request.volunteer_id == None).count()
     
     # if volunteer is admin as well, we need this info for the navbar
     unapproved_members_count = Member.query.filter(
@@ -364,14 +358,14 @@ def volunteer_requests(user_id):
 
     now = datetime.now()
     outstanding_requests = list(Request.query.filter(
-        Request.request_time > now, Request.volunteer_id==None)
-        .order_by(Request.request_time).all())
+        Request.request_date > now, Request.volunteer_id==None)
+        .order_by(Request.request_date).all())
     
     outstanding_requests_count = len(outstanding_requests)
     
     upcoming_trips_count = Request.query.filter(
-        Request.request_time > now, Request.volunteer_id == user.id).order_by(
-        Request.request_time).count()
+        Request.request_date > now, Request.volunteer_id == user.id).count()
+
     
     # if volunteer is admin as well, we need these pieces of info for the navbar
     unapproved_members_count = Member.query.filter(
@@ -436,17 +430,16 @@ def volunteer_trips(user_id):
 
     now = datetime.now()
     upcoming_trips = list(Request.query.filter(
-        Request.request_time > now, Request.volunteer_id==user.id)
-        .order_by(Request.request_time).all())
+        Request.request_date > now, Request.volunteer_id==user.id)
+        .order_by(Request.request_date).all())
     past_trips = list(Request.query.filter(
-        Request.request_time < now, Request.volunteer_id==user.id)
-        .order_by(Request.request_time).all())
+        Request.request_date < now, Request.volunteer_id==user.id)
+        .order_by(Request.request_date).all())
     
     upcoming_trips_count = len(upcoming_trips)
 
     outstanding_requests_count = Request.query.filter(
-        Request.request_time > now, Request.volunteer_id == None).order_by(
-        Request.request_time).count()
+        Request.request_date > now, Request.volunteer_id == None).count()
     
     # if volunteer is admin as well, we need this info for the navbar
     unapproved_members_count = Member.query.filter(
@@ -542,7 +535,8 @@ def new_request(user_id):
 
         new_request = Request(
             requestor_id=user.id,
-            request_time=request.form.get("date"),
+            request_date=request.form.get("date"),
+            request_time=request.form.get("time"),
             start_location_id=pickup.id,
             end_location_id=dropoff.id
         )
@@ -578,11 +572,11 @@ def member_requests(user_id):
 
     now = datetime.now()
     future_requests = list(Request.query.filter(
-        Request.request_time > now, Request.requestor_id == user.id)
-        .order_by(Request.request_time).all())
+        Request.request_date > now, Request.requestor_id == user.id)
+        .order_by(Request.request_date).all())
     expired_requests = list(Request.query.filter(
-        Request.request_time < now, Request.requestor_id == user.id)
-        .order_by(Request.request_time).all())
+        Request.request_date < now, Request.requestor_id == user.id)
+        .order_by(Request.request_date).all())
 
     return render_template('member_requests.html',
                            user=user,
@@ -663,7 +657,6 @@ def delete_member(user_id, member_id):
     """
     member = Member.query.filter(Member.id == member_id).first()
     user = Member.query.filter(Member.id == user_id).first()
-    approvals = Approval.query.filter(Approval.reviewer_id==member.id).all()
     
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -685,6 +678,7 @@ def delete_member(user_id, member_id):
         flash("Superuser should not be deleted.")
         return redirect(request.referrer)
     
+    approvals = Approval.query.filter(Approval.reviewer_id == member.id).all()
     # for all the approvals the person made in the past, reset the reviewer_id to
     # none, the status to "outstanding" and the member's approved status to False
     # so that another admin can approve this person again.
@@ -695,6 +689,16 @@ def delete_member(user_id, member_id):
             Member.approval_id==approval.id).first()
         approved_person.approved = False
 
+    volunteer_offers = Request.query.filter(
+        Request.volunteer_id == member.id).all()
+    
+    for offer in volunteer_offers:
+        offer.volunteer_id = None
+    
+    db.session.commit()
+
+    member_place = Place.query.filter(Place.id==member.place_id).first()
+    db.session.delete(member_place)
     # make a note of the member's name before it gets deleted.
     flash_name = "Your" if user.id == member.id else f"{member.fullname}'s"
     db.session.delete(member)

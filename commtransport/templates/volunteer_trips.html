@@ -70,12 +70,14 @@
 
 {% if user.is_admin %}
 <li>
-    <a class="my-nav-element my-dark-blue-text " href="{{ url_for('admin_profile', user_id=user.id)}}">Profile
+    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('admin_profile', user_id=user.id)}}">
+        Profile
     </a>
 </li>
-{% elif user.id_volunteer %}
+{% elif user.is_volunteer %}
 <li>
-    <a class="my-nav-element my-dark-blue-text " href="{{ url_for('volunteer_profile', user_id=user.id)}}">Profile
+    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_profile', user_id=user.id)}}">
+        Profile
     </a>
 </li>
 {% endif %}
@@ -163,9 +165,9 @@
                 <i class="fas fa-caret-down"></i>
                 <span>Request by: <strong><em>{{ req.requestor.fullname }}</em></strong></span>
             </div>
-            <!-- Time  -->
+            <!-- Date and Time  -->
             <div>
-                <span>Time: {{ req.request_time }}</span>
+                <span>Date and Time:{{ req.request_date}} - {{ req.request_time }}</span>
             </div>
         </div>
         <!-- Request details  -->
@@ -196,9 +198,9 @@
                 <i class="fas fa-caret-down"></i>
                 <span>Request by: <strong><em>{{ req.requestor.fullname }}</em></strong></span>
             </div>
-            <!-- Time  -->
+            <!-- Date and time  -->
             <div>
-                <span>Time: {{ req.request_time }}</span>
+                <span>Date and Time:{{ req.request_date}} - {{ req.request_time }}</span>
             </div>
         </div>
         <!-- Request details  -->
