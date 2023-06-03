@@ -64,13 +64,11 @@
 {% if user.is_admin %}
 <li>
     <a class="my-nav-element my-dark-blue-text " href="{{ url_for('admin_profile', user_id=user.id)}}">Profile
-        <!-- <img class="navbar-icon" src="{{ url_for('static', filename='assets/user.svg')}}"> -->
     </a>
 </li>
 {% elif user.id_volunteer %}
 <li>
     <a class="my-nav-element my-dark-blue-text " href="{{ url_for('volunteer_profile', user_id=user.id)}}">Profile
-        <!-- <img class="navbar-icon" src="{{ url_for('static', filename='assets/user.svg')}}"> -->
     </a>
 </li>
 {% endif %}
@@ -152,23 +150,23 @@
         <div class="card-panel">
             <!-- name  -->
             <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-user-alt my-dark-blue-text my-icon"></i>
-                    <strong>Full Name: </strong>{{ user.fullname }}
+                <div class="col s12">
+                    <img class="my-icon-user" src="{{ url_for('static', filename='assets/user.svg')}}">
+                    {{ user.fullname }}
                 </div>
             </div>
             <!-- phone -->
             <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-phone-alt my-dark-blue-text my-icon"></i>
-                    <strong>Phone Number: </strong>{{ user.phone_nr }}
+                <div class="col s12">
+                    <img class="my-icon" src="{{ url_for('static', filename='assets/phone.svg')}}">
+                    {{ user.phone_nr }}
                 </div>
             </div>
             <!-- address -->
             <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-map-marker-alt my-dark-blue-text my-icon"></i>
-                    <strong>Address: </strong>{{ place.address }}
+                <div class="col s12">
+                    <img class="my-icon" src="{{ url_for('static', filename='assets/house.svg')}}">
+                    {{ place.address }}
                 </div>
             </div>
             {% if user.is_admin %}
@@ -180,6 +178,7 @@
             </div>
             {% endif %}
             {% if user.is_volunteer %}
+            <br>
             <div class="row">
                 <div class="col s12">
                     <span class="my-green-text">You are registered as a Volunteer.</span>
