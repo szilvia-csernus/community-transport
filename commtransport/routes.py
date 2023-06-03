@@ -128,16 +128,20 @@ def signin():
 @app.route("/signout")
 def signout():
     """ Signing out of an account. """
-    flash("You have been signed out.")
-    # clear all cookies related to the app.
-    session.clear()
-    # session.pop("user") would only clear the "user" cookie
+
+    if "user" in session:
+        flash("You have been signed out.")
+        # session.clear() would clear all cookies related to the app, as well as
+        # all flash content!
+        session.pop("user")
     return redirect(url_for("home"))
+
 
 @app.route("/confirm_signout/<int:user_id>")
 def confirm_signout(user_id):
     user = Member.query.filter(Member.id == user_id).first()
     return render_template("confirm_signout.html", user=user)
+
 
 # Admin routes
 
@@ -178,7 +182,7 @@ def admin_profile(user_id):
 
 
 @app.route("/approve/<int:user_id>/<int:approval_id>")
-def approve(user_id, approval_id, action):
+def approve(user_id, approval_id):
     """ Approving or Declining newly signed up users. """
     approval = Approval.query.filter(Approval.id == approval_id).first()
     member = Member.query.filter(Member.approval_id == approval_id).first()

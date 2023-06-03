@@ -362,7 +362,8 @@ button.my-dark-blue, a.my-dark-blue {
     border-radius: 3px;
 }
 
-button.my-dark-blue:hover, a.my-dark-blue:hover {
+button.my-dark-blue:hover, a.my-dark-blue:hover,
+button.my-dark-blue:focus, a.my-dark-blue:focus {
     background-color: white;
     color: var(--my-dark-blue);
 }

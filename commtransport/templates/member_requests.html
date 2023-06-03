@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
+<!-- Header elements  -->
 {% block left_nav_elements %}
-<a href="{{ url_for('home')}}" aria-label="link to home page">
+<a href="{{ url_for('confirm_signout', user_id=user.id)}}" aria-label="link to home page">
     <div class="logo left-align my-dark-blue-text">CT&ast; Egham, Surrey</div>
     <div class="left-align my-dark-blue-text">
         <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
-        <em>Signed in as: <strong>{{user.fullname}}</strong></em>
+        <em>Signed in as: <strong>{{user.fullname}} </strong></em>
     </div>
 </a>
-
 {% endblock %}
 
 {% block right_nav_elements %}
