@@ -6,7 +6,14 @@
     <div class="logo left-align my-dark-blue-text">CT&ast; Egham, Surrey</div>
     <div class="left-align my-dark-blue-text">
         <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
-        <em>Signed in as: <strong>{{user.fullname}} </strong></em>
+        {{user.fullname}}
+        {% if user.is_admin and user.is_volunteer %}
+        (<span class="my-red-text">admin</span> and <span class="my-green-text">volunteer</span>)
+        {% elif user.is_admin %}
+        (<span class="my-red-text">admin</span>)
+        {% elif user.is_volunteer %}
+        (<span class="my-green-text">volunteer</span>)
+        {% endif %}
     </div>
 </a>
 {% endblock %}
@@ -27,6 +34,18 @@
                     {% endif %}
                 </strong> 
                     record?</p>
+                    {% if user.is_admin %}
+                    All members approved by 
+                        {% if user.id == member.id %}
+                        you
+                        {% else %}
+                        this person 
+                        {% endif %}
+                    will need to be approved again by another admin.
+                    {% endif %}
+                    {% if user.is_volunteer %}
+                    All accepted transports will be cancelled.
+                    {% endif %}
                 <p >The deletion will be permanent.</p>
                 </div>
             </div>

@@ -6,7 +6,14 @@
     <div class="logo left-align my-dark-blue-text">CT&ast; Egham, Surrey</div>
     <div class="left-align my-dark-blue-text">
         <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
-        <em>Signed in as: <strong>{{user.fullname}} </strong></em>
+        {{user.fullname}}
+        {% if user.is_admin and user.is_volunteer %}
+        (<span class="my-red-text">admin</span> and <span class="my-green-text">volunteer</span>)
+        {% elif user.is_admin %}
+        (<span class="my-red-text">admin</span>)
+        {% elif user.is_volunteer %}
+        (<span class="my-green-text">volunteer</span>)
+        {% endif %}
     </div>
 </a>
 {% endblock %}
@@ -161,67 +168,44 @@
                 <span>Time: {{ req.request_time }}</span>
             </div>
         </div>
-        <!-- Member details  -->
+        <!-- Request details  -->
         <div class="collapsible-body white">
             
             <p>Pickup Address: <strong><em>{{ req.start_location.address }}</em></strong></p>
             <p>Dropoff Address: <strong><em>{{ req.end_location.address }}</em></p></strong>
-            
-            {% if not req.volunteer %}
-            <p class="my-green-text">No volunteer has come forward yet.</p>
-            {% else %}
-            <p class="my-green-text">Volunteer: 
-                <em>{{ req.volunteer.fullname }}
-                    {% if req.volunteer_id == user.id %}
-                    (you)
-                    {% endif %}
-                </em></p>
-            {% endif %}
 
         </div>
     </li>
     {% endfor %}
 </ul>
 {% else %}
-<h3 class="center-align my-green-text">No upcoming trip found.</h3>
+<h3 class="center-align">No upcoming trip found.</h3>
 
 {% endif%}
 
 <!-- List of Past Trips -->
 {% if past_trips|length > 0 %}
 
-<h3 class=" center-align my-green-text">Completed Trips</h3>
+<h3 class=" center-align my-green-text">Past / Completed Trips</h3>
 <ul class="collapsible popout">
     {% for req in past_trips %}
     <li>
         <div class="collapsible-header ">
-
-            <!-- Name  -->
+            <!-- Request by  -->
             <div class="col s12 m9">
                 <i class="fas fa-caret-down"></i>
-                <span>Time: {{ req.request_time }}</span>
-
+                <span>Request by: <strong><em>{{ req.requestor.fullname }}</em></strong></span>
             </div>
-            <!-- Badges  -->
+            <!-- Time  -->
             <div>
-                {% if not req.volunteer_id %}
-                <span class="badge my-yellow my-dark-blue-text">Awaiting Volunteer</span>
-                {% else %}
-                <span class="badge my-green my-dark-blue-text">Arranged</span>
-                {% endif %}
+                <span>Time: {{ req.request_time }}</span>
             </div>
         </div>
-        <!-- Member details  -->
+        <!-- Request details  -->
         <div class="collapsible-body brown lighten-5">
             <p>Request by: <strong><em>{{ req.requestor.fullname }}</em></strong></p>
             <p>Pickup Address: <strong><em>{{ req.start_location.address }}</em></strong></p>
             <p>Dropoff Address: <strong><em>{{ req.end_location.address }}</em></p></strong>
-            {% if req.vounteer %}
-            <p>Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
-            {% else %}
-            <p>No volunteer has come forward yet.</p>
-            {% endif %}
-
         </div>
     </li>
     {% endfor %}
