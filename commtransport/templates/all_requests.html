@@ -6,7 +6,14 @@
     <div class="logo left-align my-dark-blue-text">CT&ast; Egham, Surrey</div>
     <div class="left-align my-dark-blue-text">
         <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
-        <em>Signed in as: <strong>{{user.fullname}} </strong></em>
+        {{user.fullname}}
+        {% if user.is_admin and user.is_volunteer %}
+        (<span class="my-red-text">admin</span> and <span class="my-green-text">volunteer</span>)
+        {% elif user.is_admin %}
+        (<span class="my-red-text">admin</span>)
+        {% elif user.is_volunteer %}
+        (<span class="my-green-text">volunteer</span>)
+        {% endif %}
     </div>
 </a>
 {% endblock %}
@@ -66,7 +73,7 @@
     <a class="my-nav-element my-dark-blue-text " href="{{ url_for('admin_profile', user_id=user.id)}}">Profile
     </a>
 </li>
-{% elif user.id_volunteer %}
+{% elif user.is_volunteer %}
 <li>
     <a class="my-nav-element my-dark-blue-text " href="{{ url_for('volunteer_profile', user_id=user.id)}}">Profile
     </a>
@@ -230,16 +237,10 @@
             </div>
         </div>
         <!-- Member details  -->
-        <div class="collapsible-body brown lighten-5">
+        <div class="collapsible-body white">
             <p><strong>Date and Time: {{ req.request_time }}</strong></p>
             <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
             <p>Dropoff Address: <em>{{ req.start_location.address }}</em></p>
-            {% if not req.vounteer %}
-            <p class="my-green-text">No volunteer has come forward.</p>
-            {% else %}
-            <p class="my-green-text">Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
-            {% endif %}
-
         </div>
     </li>
     {% endfor %}

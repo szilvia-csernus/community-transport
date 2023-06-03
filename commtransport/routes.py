@@ -8,7 +8,7 @@ from datetime import datetime
 @app.route("/")
 def home():
     if "user" in session:
-        flash("You have been signed out.")
+        # flash("You have been signed out.")
         session.pop("user")
     return render_template("base.html")
 
@@ -695,8 +695,12 @@ def delete_member(user_id, member_id):
             Member.approval_id==approval.id).first()
         approved_person.approved = False
 
+    # make a note of the member's name before it gets deleted.
+    flash_name = "Your" if user.id == member.id else f"{member.fullname}'s"
     db.session.delete(member)
     db.session.commit()
+
+    flash(f"{flash_name} record has been deleted.")
 
     if user.is_admin:
         return redirect(url_for(

@@ -49,10 +49,16 @@
     font-weight: 700;
     padding: 0 .8rem;
 }
-[type="checkbox"].filled-in:checked+span:not(.lever):after {
 
-    border-color: var(--my-green);;
-    background-color: var(--my-green);;
+[type="checkbox"].filled-in:checked+span:not(.lever):after {
+    border-color: var(--my-dark-blue);
+    background-color: var(--my-yellow);
+    color: var(--my-dark-blue);
+}
+
+[type="checkbox"].filled-in:checked+span:not(.lever):before {
+    border-right: 2px solid var(--my-dark-blue);
+    border-bottom: 2px solid var(--my-dark-blue);
 }
 
 .switch label input[type=checkbox]:checked+.lever {
@@ -179,7 +185,7 @@ body {
     width: 50px;
     height: 25px;
     position: relative;
-    top: 3px;
+    top: 4px;
 }
 
 main {
@@ -254,7 +260,7 @@ h2 {
 
 .flashes h4 {
     line-height: 2;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     background-color: var(--my-green-translucent)
 }
 
@@ -540,7 +546,7 @@ span.my-transparent.my-green-text:hover {
 
 .small-card {
     padding: .5rem;
-    height: 9rem;
+    height: 9.5rem;
 }
 
 @keyframes appear {
