@@ -22,19 +22,20 @@ class Member(db.Model):
     # one-to-many relationship, one Member can have one address but one address
     # can belong to more Members.
     place = relationship(
-        "Place", back_populates="members_of_address")
+        "Place", back_populates="member_of_address")
     
     # many-to-one relationship, one many requests can belong to one Member
     requests = relationship(
         "Request",
         primaryjoin="Member.id==Request.requestor_id",
+        cascade="all, delete",
         back_populates="requestor")
     
     # many-to-one relationship, one many requests can belong to one Member
-    voluntary_offers = relationship(
-        "Request",
-        primaryjoin="Member.id==Request.volunteer_id",
-        back_populates="volunteer")
+    # voluntary_offers = relationship(
+    #     "Request",
+    #     primaryjoin="Member.id==Request.volunteer_id",
+    #     back_populates="volunteer")
 
     # one-to-one relationship, one Member can have one Approval
     # own_approval = relationship(
@@ -59,8 +60,8 @@ class Place(db.Model):
     google_place_id = db.Column(db.String)
     address = db.Column(db.String(300))
 
-    # many-to-one relationship, many members can have the same address
-    members_of_address = relationship("Member", back_populates="place")
+    # one-to-one relationship, many members can have the same address
+    member_of_address = relationship("Member", back_populates="place")
 
     # many-to-one relationship, one Request has one location, but
     # more requests can be initiated to the same location.
@@ -81,21 +82,10 @@ class Approval(db.Model):
     # delete approval if the requesting person gets deleted
     requestor_id = db.Column(db.Integer, db.ForeignKey(
         "member.id", ondelete="CASCADE"))
-    status = db.Column(db.String, default="outstanding")
+    status = db.Column(db.String, default="new")
     # if reviewer gets deleted, update status programmatically!
     reviewer_id = db.Column(
         db.Integer, db.ForeignKey("member.id"), default=None)
-    
-    # one-to-one relationship, one Member can have one Approval
-    # requestor = relationship(
-    #     "Member", 
-    #     foreign_keys=[requestor_id])
-
-    # many-to-one relationship, one Member can be reviewer of many Approvals
-    # but one Approval can have only one reviewer
-    # reviewer = relationship(
-    #     "Member",
-    #     foreign_keys=[reviewer_id])
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string
@@ -106,9 +96,12 @@ class Request(db.Model):
     # schema for transport requests
     id = db.Column(db.Integer, primary_key=True)
     # delete request if the requesting person gets deleted
-    request_time = db.Column(db.Date, nullable=False)
-    requestor_id = db.Column(db.Integer, db.ForeignKey(
-        "member.id", ondelete="CASCADE"))
+    request_date = db.Column(db.Date, nullable=False)
+    request_time = db.Column(db.String, nullable=False)
+    requestor_id = db.Column(
+        db.Integer, 
+        db.ForeignKey("member.id", ondelete="CASCADE")
+        )
     # handle programmatically if a place gets deleted!
     start_location_id = db.Column(db.Integer, db.ForeignKey("place.id"))
     end_location_id = db.Column(db.Integer, db.ForeignKey("place.id"))
@@ -127,8 +120,7 @@ class Request(db.Model):
     # but many requests can belong to one Volunteer
     volunteer = relationship(
         "Member",
-        foreign_keys=[volunteer_id],
-        back_populates="voluntary_offers")
+        foreign_keys=[volunteer_id])
 
     # one-to-many relationship, one Request has one location, but
     # more requests can be initiated to the same location. 

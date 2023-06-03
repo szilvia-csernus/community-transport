@@ -34,7 +34,7 @@
                     {% endif %}
                 </strong> 
                     record?</p>
-                    {% if user.is_admin %}
+                    {% if member.is_admin %}
                     All members approved by 
                         {% if user.id == member.id %}
                         you
@@ -43,7 +43,7 @@
                         {% endif %}
                     will need to be approved again by another admin.
                     {% endif %}
-                    {% if user.is_volunteer %}
+                    {% if member.is_volunteer %}
                     All accepted transports will be cancelled.
                     {% endif %}
                 <p >The deletion will be permanent.</p>

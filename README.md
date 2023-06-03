@@ -84,6 +84,9 @@ https://www.svgrepo.com/svg/499667/user-remove
 lock icon
 https://www.svgrepo.com/svg/499617/lock
 
+clock icon
+https://www.svgrepo.com/svg/499655/time
+
 login icon
 https://www.svgrepo.com/svg/499619/login
 

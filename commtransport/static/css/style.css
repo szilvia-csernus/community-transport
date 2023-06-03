@@ -83,6 +83,11 @@
     border-color: var(--my-dark-blue)
 }
 
+.datepicker-date-display,
+.timepicker-digital-display {
+    background-color: var(--my-dark-blue);
+}
+
 .card-panel {
     padding-top: 2.5rem;
 }
