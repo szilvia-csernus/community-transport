@@ -13,7 +13,7 @@
     <!-- google font  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Oswald:wght@200;500&display=swap" rel="stylesheet">
 
     <!-- Font Awesome Icons  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
@@ -50,7 +50,7 @@
                     <div class="logo left-align my-dark-blue-text">Community Transport&ast;</div> 
                     <div class="center-align my-dark-blue-text">
                         <img class="red-car-logo" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
-                        <em class="logo-subtext">Egham, Surrey</em></div>
+                        <span class="logo-subtext">Egham, Surrey</span></div>
                 </a>
                 
                 {% endblock %}
@@ -81,7 +81,7 @@
         <!-- mobile side navbar  -->
         <ul class="sidenav" id="mobile-demo">
             <li>
-                <h4 class="center-align">Community Transport</h4>
+                <h2 class="center-align">Community Transport</h2>
             </li>
             {% block sidenav_elements %}
             {% endblock %}

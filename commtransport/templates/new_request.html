@@ -37,14 +37,14 @@
 <h3 class="center-align">New Request</h3>
 
 <div class="row">
-    <form class="col s12 m10 offset-m1 l8 offset-l2" method="POST"
+    <form class="col s12 l10 offset-l1" method="POST"
         action="{{ url_for('new_request', user_id=user.id) }}">
         <div class="card-panel">
             
             <!-- date  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-calendar-alt prefix grey-text text-darken-2"></i>
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/calendar.svg')}}">
                     <input id="date" name="date" type="text" class="datepicker validate" required />
                     <label for="date">Date and Time of Required Pickup</label>
                 </div>
@@ -68,7 +68,7 @@
             <!-- address input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-map-marker-alt my-dark-blue-text prefix"></i>
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/location.svg')}}">
                     
                     <div class="notification" id="pickup_notification">
                         <div class="tooltip"></div>
@@ -85,7 +85,7 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-map-marker-alt my-dark-blue-text prefix"></i>
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/location.svg')}}">
                     
                     <div class="notification" id="dropoff_notification">
                         <div class="tooltip"></div>

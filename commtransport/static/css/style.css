@@ -104,8 +104,22 @@ nav ul a {
 nav ul a:hover {
     background-color: unset;
 }
+
 .collapsible-header i {
     margin-right: 0.2rem;
+}
+
+.input-field .prefix ~ input {
+    margin-left: 2rem;
+    width: calc(100% - 1.5rem);
+}
+
+.input-field.col label {
+    left: -3px;
+}
+
+.sidenav li>a.my-dark-blue-text {
+    color: var(--my-dark-blue);
 }
 
 
@@ -157,7 +171,7 @@ body {
     height: 25px;
     position: relative;
     top: 4px;
-    left: -2rem
+    left: -1.4rem
 }
 
 .red-car-small {
@@ -168,16 +182,12 @@ body {
     top: 3px;
 }
 
-.navbar-icon {
-    width: 30px;
-    height: 30px;
-}
-
 main {
     flex: 1 0 auto;
 }
 
 h1 {
+    font-family: 'Oswald';
     font-size: 2.5rem;
     margin: 0;
     padding-bottom: 1rem;
@@ -210,12 +220,13 @@ form {
 }
 
 .logo {
+    font-family: 'Oswald';
     font-size: 1.5rem;
 }
 
 .logo-subtext {
     position: relative;
-    left: -23px;
+    left: -15px;
 }
 
 .my-nav-element {
@@ -223,8 +234,17 @@ form {
 }
 
 h3 {
+    font-family: 'Oswald';
     font-size: 1.6rem;
     text-transform: capitalize;
+}
+
+h2 {
+    font-family: 'Oswald';
+    font-size: 1.7rem;
+    margin: 2rem;
+    padding: 1.5rem;
+    border-bottom: .7px solid var(--my-dark-blue);
 }
 
 .callout {
@@ -274,8 +294,19 @@ input[name="address"] {
 }
 
 .my-icon {
-    font-size: 2rem;
-    margin-right: .7rem;
+    width: 35px;
+    height: 35px;
+    position: relative;
+    top: 5px;
+    left: -5px;
+}
+
+.my-icon-user {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    top: 5px;
+    left: -5px;
 }
 
 .row .col.checkboxes-frame {
@@ -534,11 +565,6 @@ span.my-transparent.my-green-text:hover {
     font-weight: 500;
 }
 
-.sb-title-icon {
-    position: relative;
-    top: -5px;
-}
-
 .card-container {
     display: flex;
     height: 500px;
@@ -565,11 +591,6 @@ span.my-transparent.my-green-text:hover {
 
 .map {
     width: 300px;
-}
-
-h2 {
-    margin: 0;
-    font-family: Roboto, sans-serif;
 }
 
 input {

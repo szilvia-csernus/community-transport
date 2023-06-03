@@ -75,4 +75,20 @@ https://www.svgrepo.com/svg/499633/phone
 mail icon
 https://www.svgrepo.com/svg/499621/mail
 
+edit icon
+https://www.svgrepo.com/svg/499600/edit
+
+user-remove icon
+https://www.svgrepo.com/svg/499667/user-remove
+
+lock icon
+https://www.svgrepo.com/svg/499617/lock
+
+login icon
+https://www.svgrepo.com/svg/499619/login
+
 background picture
+
+
+Bugs
+Address label on google address autocomplete fields
