@@ -1,6 +1,5 @@
 :root {
-    --my-green: #408b1e;
-    --my-green-text: #287f00;
+    --my-green: #287f00;
     --my-green-translucent: #418b1e3a;
     --my-red: #941b1b;
     --my-blue: #3367d6;
@@ -22,7 +21,7 @@
 .btn-small {
     margin: 5px 5px 5px 0;
     border-radius: 3px;
-    width: 11rem;
+    min-width: 11rem;
 }
 
 .btn-large {
@@ -295,7 +294,7 @@ input[name="address"] {
 }
 
 .my-green-text {
-    color: var(--my-green-text);;
+    color: var(--my-green);;
 }
 
 .my-red {
@@ -478,7 +477,6 @@ span.my-transparent.my-green-text {
     background-color: var(--my-transparent);
     border: 1px solid var(--my-green);
     border-radius: 10px;
-    color: var(--my-dark-blue);
     color: var(--my-green);
     min-width: 1.5rem;
     font-size: .9rem;
