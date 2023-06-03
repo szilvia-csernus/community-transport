@@ -166,8 +166,8 @@
         </div>
         <!-- Member details  -->
         <div class="collapsible-body white">
-            <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
-            <p>Dropoff Address: <em>{{ req.end_location.address }}</em></p>
+            <p>Pickup Address: <strong><em>{{ req.start_location.address }}</em></strong></p>
+            <p>Dropoff Address: <strong><em>{{ req.end_location.address }}</em></strong></p>
             {% if not req.volunteer %}
             <p class="my-green-text">No volunteer has come forward yet.</p>
             {% else %}
@@ -176,7 +176,7 @@
 
             <!-- Accept button  -->
             <a href="{{ url_for('accept', user_id=user.id, request_id=req.id)}}"
-                class="col s12 btn my-green">
+                class="col s12 btn-small my-green">
                 Accept Transport Request
             </a>
         </div>
