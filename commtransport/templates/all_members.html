@@ -167,7 +167,7 @@
 {% if unapproved_members|length > 0 %}
 
 <h3 class="center-align my-red-text">Users Awaiting Approval</h3>
-<ul class="collapsible">
+<ul class="collapsible popout">
     {% for member in unapproved_members %}
     <li>
         <div class="collapsible-header ">
@@ -192,7 +192,7 @@
             </div>
         </div>
         <!-- Member details  -->
-        <div class="collapsible-body brown lighten-5">
+        <div class="collapsible-body white">
             <p><strong>Address: <em>{{ member.place.address }}</em></strong></p>
             <p>Phone: <em>{{ member.phone_nr }}</em></p>
             <p>Email: <em>{{ member.email }}</em></p>
@@ -206,21 +206,15 @@
                 {% endif %}</p>
             <p>
                 <!-- Approve & Decline buttons  -->
-                
-                <div class="row">
-                    <div class="col s6">
-                        <a href="{{ url_for('approve', user_id=user.id, approval_id=member.approval_id, action='approve')}}"
-                            class="col s12 btn my-yellow my-dark-blue-text">
-                            Approve
-                        </a>
-                    </div>
-                    <div class="col s6">
-                        <a href="{{ url_for('approve', user_id=user.id, approval_id=member.approval_id, action='decline')}}"
-                            class="col s12 btn my-yellow my-dark-blue-text">
-                            Decline
-                        </a>
-                    </div>
-                </div>
+                <a href="{{ url_for('approve', user_id=user.id, approval_id=member.approval_id)}}"
+                    class="col s12 btn-small my-yellow my-dark-blue-text">
+                    Approve
+                </a>
+
+                <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=member.id)}}"
+                    class="col s12 btn-small danger-btn">
+                    Delete Member
+                </a>
             </p>
             
         </div>
@@ -234,7 +228,7 @@
 <!-- List All Approved Members  -->
 <h3 class=" center-align my-red-text">Approved Users</h3>
 {% if approved_members|length > 0 %}
-<ul class="collapsible">
+<ul class="collapsible popout">
     {% for member in approved_members %}
     <li>
         <div class="collapsible-header ">
@@ -259,7 +253,7 @@
             </div>
         </div>
         <!-- Member details  -->
-        <div class="collapsible-body brown lighten-5">
+        <div class="collapsible-body white">
             <p><strong>Address: <em>{{ member.place.address }}</em></strong></p>
             <p>Phone: <em>{{ member.phone_nr }}</em></p>
             <p>Email: <em>{{ member.email }}</em></p>

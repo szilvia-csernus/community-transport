@@ -150,7 +150,7 @@
 {% if upcoming_trips|length > 0 %}
 
 <h3 class=" center-align my-green-text">Your Upcoming Trips</h3>
-<ul class="collapsible">
+<ul class="collapsible popout">
     {% for req in upcoming_trips %}
     <li>
         <div class="collapsible-header ">
@@ -194,7 +194,7 @@
 {% if past_trips|length > 0 %}
 
 <h3 class=" center-align my-green-text">Completed Trips</h3>
-<ul class="collapsible">
+<ul class="collapsible popout">
     {% for req in past_trips %}
     <li>
         <div class="collapsible-header ">
