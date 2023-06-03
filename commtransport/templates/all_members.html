@@ -22,7 +22,7 @@
             {{unapproved_members_count}}
         </span>
         {% endif %}
-        <span class="my-red-text">Users</span>
+        <span class="my-red-text">All Users</span>
     </a></li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_requests', user_id=user.id)}}">
         {% if outstanding_requests_count > 0 %}
@@ -31,7 +31,7 @@
             {{outstanding_requests_count}}
         </span>
         {% endif %}
-        <span class="my-red-text">Requests</span>
+        <span class="my-red-text">All Requests</span>
     </a>
 </li>
 {% endif%}
@@ -45,7 +45,7 @@
             {{ outstanding_requests_count }}
         </span>
         {% endif %}
-        <span class="my-green-text">Current Requests</span>
+        <span class="my-green-text">Outstanding Requests</span>
     </a>
 </li>
 <li>
@@ -87,7 +87,7 @@
             {{unapproved_members_count}}
         </span>
         {% endif %}
-        <span class="my-red-text">Users</span>
+        <span class="my-red-text">All Users</span>
     </a></li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_requests', user_id=user.id)}}">
         {% if outstanding_requests_count > 0 %}
@@ -96,7 +96,7 @@
             {{outstanding_requests_count}}
         </span>
         {% endif %}
-        <span class="my-red-text">Requests</span>
+        <span class="my-red-text">All Requests</span>
     </a>
 </li>
 {% endif%}
@@ -110,7 +110,7 @@
             {{ outstanding_requests_count }}
         </span>
         {% endif %}
-        <span class="my-green-text">Current Requests</span>
+        <span class="my-green-text">Outstanding Requests</span>
     </a>
 </li>
 <li>
