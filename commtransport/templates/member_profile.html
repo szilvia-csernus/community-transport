@@ -74,19 +74,24 @@
 
             <!-- Edit button  -->
             <div class="row">
-                <a href="{{ url_for('edit_member', user_id=user.id, member_id=user.id) }}"
-                    class="col s12 l8 offset-l2 btn my-green">Edit
-                    my Data<i class="fas fa-sign-in-alt"></i></a>
+                <a href="{{ url_for('edit_member', user_id=user.id, member_id=user.id) }}" 
+                class="col s12 btn my-dark-blue-btn">Edit
+                    my Data <span><i class="fas fa-sign-in-alt"></i></a></span>
             </div>
 
             <!-- Delete button  -->
-            {% if user.fullname != "Superuser"%}
+            {% if user.email != "superuser@gmail.com"%}
             <div class="row">
-                <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=user.id) }}"
-                    class="col s12 l8 offset-l2 btn danger-btn">Delete
+                <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=user.id) }}" 
+                class="col s12 btn danger-btn">Delete
                     my Data</a>
             </div>
             {% endif %}
+
+            
+            
+            <!-- Delete button  -->
+            
         </div>
     </div>
 </div>

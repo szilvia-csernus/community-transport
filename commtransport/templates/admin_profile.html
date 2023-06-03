@@ -196,12 +196,13 @@
             </div>
 
             <!-- Delete button  -->
+            {% if user.email != "superuser@gmail.com"%}
             <div class="row">
                 <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=user.id) }}"
                     class="col s12 btn danger-btn">Delete
                     my Data</a>
             </div>
-
+            {% endif %}
         </div>
     </div>
 </div>

@@ -196,7 +196,7 @@
             </div>
 
             <!-- Delete button  -->
-            {% if user.fullname != "Superuser"%}
+            {% if user.email != "superuser@gmail.com"%}
             <div class="row">
                 <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=user.id) }}"
                     class="col s12 btn danger-btn">Delete
