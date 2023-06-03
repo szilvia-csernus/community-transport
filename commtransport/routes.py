@@ -177,7 +177,7 @@ def admin_profile(user_id):
                            place=user.place)
 
 
-@app.route("/approve/<int:user_id>/<int:approval_id>/<action>")
+@app.route("/approve/<int:user_id>/<int:approval_id>")
 def approve(user_id, approval_id, action):
     """ Approving or Declining newly signed up users. """
     approval = Approval.query.filter(Approval.id == approval_id).first()
@@ -208,21 +208,12 @@ def approve(user_id, approval_id, action):
         flash("Approval request not recognised.")
         return redirect(request.referrer)
 
-    if action == 'decline':
-        approval.status = "declined"
-        member.approved = False
-        approval.reviewer_id = user.id
-        db.session.commit()
-        return redirect(request.referrer)
-    elif action == 'approve':
-        approval.status = "approved"
-        member.approved = True
-        approval.reviewer_id = user.id
-        db.session.commit()
-        return redirect(request.referrer)
-    else:
-        flash("Approval request not recognised.")
-        return redirect(request.referrer)
+    approval.status = "approved"
+    member.approved = True
+    approval.reviewer_id = user.id
+    db.session.commit()
+    
+    return redirect(request.referrer)
 
 
 @app.route("/all_members/<int:user_id>", methods=["GET", "POST"])
