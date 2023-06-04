@@ -8,7 +8,6 @@ from datetime import datetime
 @app.route("/")
 def home():
     if "user" in session:
-        # flash("You have been signed out.")
         session.pop("user")
     return render_template("base.html")
 
