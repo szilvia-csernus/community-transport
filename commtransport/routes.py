@@ -18,13 +18,13 @@ def register(user_type):
     """ Register a new account. """
     if request.method == "POST":
         # check if email/username already exists in db
-        existing_member = Member.query.filter(Member.email ==
-                                           request.form.get("email").lower()).all()
+        existing_member = Member.query.filter(
+            Member.email == request.form.get("email").lower()).all()
 
         if existing_member:
             flash("This email has already been registered. Please sign in.")
             return redirect(url_for("signin"))
-        
+
         place = Place(
             google_place_id = request.form.get("google_address_id"),
             address = request.form.get("address")
@@ -192,7 +192,7 @@ def approve(user_id, approval_id):
     is_authorised = user.is_admin and user.id != member.id
 
     # Superuser's approved status should not be edited
-    is_superuser = member.fullname == "Superuser"
+    is_superuser = member.email == "superuser@superuser.super"
 
     if not is_approved or not is_logged_in or not is_authorised:
         flash("Unauthorized access!")
@@ -663,7 +663,7 @@ def delete_member(user_id, member_id):
     is_authorised = user.is_admin or user_id == member_id
 
     # Superuser should not be deleted
-    is_superuser = member.fullname == "Superuser"
+    is_superuser = member.email == "superuser@superuser.super"
 
     if not is_approved or not is_logged_in or not is_authorised:
         flash("Unauthorized access!")
@@ -724,7 +724,7 @@ def confirm_delete(user_id, member_id):
     is_authorised = user.is_admin or user_id == member_id
 
     # Superuser should not be deleted
-    is_superuser = member.fullname == "Superuser"
+    is_superuser = member.email == "superuser@superuser.super"
 
     if not is_approved or not is_logged_in or not is_authorised:
         flash("Unauthorized access!")
