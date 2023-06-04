@@ -12,6 +12,7 @@ autopep8 = "*"
 pylint = "*"
 pylint-flask = "*"
 heroku = "*"
+pylint-flask-sqlalchemy = "*"
 
 [dev-packages]
 
