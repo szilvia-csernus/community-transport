@@ -1,20 +1,16 @@
+from datetime import datetime
 from flask import flash, render_template, request, redirect, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from commtransport import app, db
 from commtransport.models import Member, Place, Approval, Request
-from datetime import datetime
 
 
 @app.route("/")
 def home():
+    """ Home page """
     if "user" in session:
         session.pop("user")
     return render_template("base.html")
-
-
-@app.route("/map")
-def map():
-    return render_template("map.html")
 
 
 @app.route("/register/<user_type>", methods=["GET", "POST"])
@@ -31,18 +27,17 @@ def register(user_type):
         
         place = Place(
             google_place_id = request.form.get("google_address_id"),
-            address = request.form.get("address"),  
-        )
+            address = request.form.get("address")
+            )
 
         db.session.add(place)
         db.session.commit()
 
-        if place == None:
+        if place is None:
             flash("Address registration unsucessful.")
             return render_template('register.html')
 
         member = Member(
-            # create new member
             fullname=request.form.get("fullname"),
             phone_nr=request.form.get("phone_nr"),
             place_id = place.id,
@@ -137,6 +132,7 @@ def signout():
 
 @app.route("/confirm_signout/<int:user_id>")
 def confirm_signout(user_id):
+    """ Confirming signout process. """
     user = Member.query.filter(Member.id == user_id).first()
     return render_template("confirm_signout.html", user=user)
 
