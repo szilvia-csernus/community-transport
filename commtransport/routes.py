@@ -5,7 +5,7 @@ from commtransport import app, db
 from commtransport.models import Member, Place, Approval, Request
 
 
-@app.route("/home")
+@app.route("/")
 def home():
     """ Home page """
     if "user" in session:
