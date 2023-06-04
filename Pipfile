@@ -11,6 +11,7 @@ pep8 = "*"
 autopep8 = "*"
 pylint = "*"
 pylint-flask = "*"
+heroku = "*"
 
 [dev-packages]
 
