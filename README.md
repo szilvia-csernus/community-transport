@@ -95,3 +95,6 @@ background picture
 
 Bugs
 Address label on google address autocomplete fields
+
+Schema Link (by LucidChart)
+https://lucid.app/lucidchart/55d32dd7-0602-401b-8492-4d5bce45d4cb/edit?viewport_loc=-34%2C-1175%2C2263%2C1092%2C0_0&invitationId=inv_b0df2289-d582-4b8f-8740-c7cafb034218
