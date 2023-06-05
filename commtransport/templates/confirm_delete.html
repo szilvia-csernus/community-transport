@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col s12 center-align">
                 <p >Are you sure you want to delete <strong>
-                    {% if user.id == member.id %}
+                    {% if user.id==member.id %}
                         your own
                     {% else%}
                         {{ member.fullname }}'s
@@ -36,7 +36,7 @@
                     record?</p>
                     {% if member.is_admin %}
                     All members approved by 
-                        {% if user.id == member.id %}
+                        {% if user.id==member.id %}
                         you
                         {% else %}
                         this person 

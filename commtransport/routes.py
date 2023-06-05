@@ -32,8 +32,8 @@ def register(user_type):
             return redirect(url_for("signin"))
 
         place = Place(
-            google_place_id = request.form.get("google_address_id"),
-            address = request.form.get("address")
+            google_place_id=request.form.get("google_address_id"),
+            address=request.form.get("address")
             )
 
         db.session.add(place)
@@ -46,7 +46,7 @@ def register(user_type):
         member = Member(
             fullname=request.form.get("fullname"),
             phone_nr=request.form.get("phone_nr"),
-            place_id = place.id,
+            place_id=place.id,
             email=request.form.get("email").lower(),
             # approved=True,
             # is_admin=True,
@@ -57,9 +57,9 @@ def register(user_type):
         db.session.commit()
 
         approval = Approval(
-            # create new approval request for new member 
-            requestor_id = member.id,
-            # status = "approved"
+            # create new approval request for new member
+            requestor_id=member.id,
+            # status="approved"
         )
         db.session.add(approval)
         db.session.commit()
@@ -82,13 +82,13 @@ def signin():
     if request.method == "POST":
         # check if email/username exists in db
         existing_member = Member.query.filter(
-            Member.email==request.form.get("email").lower()).first()
+            Member.email == request.form.get("email").lower()).first()
 
         if existing_member:
             # ensure hashed password matches user input
             if check_password_hash(
                     existing_member.password, request.form.get("password")):
-                
+
                 if not existing_member.approved:
                     # if user's registration has not been approved
                     flash("Your registration is yet to be approved. \
@@ -104,9 +104,12 @@ def signin():
                         return redirect(
                             url_for('all_members', user_id=existing_member.id))
                     elif existing_member.is_volunteer == True:
-                        # if user is a volunteer, redirect to the volunteer page
+                        # if user is a volunteer, redirect to the volunteer
+                        # main page
                         return redirect(
-                            url_for('volunteer_requests', user_id=existing_member.id))
+                            url_for(
+                                'volunteer_requests',
+                                user_id=existing_member.id))
                     else:
                         # all other users redirect to the member's page
                         return redirect(
@@ -130,8 +133,8 @@ def signout():
 
     if "user" in session:
         flash("You have been signed out.")
-        # session.clear() would clear all cookies related to the app, as well as
-        # all flash content!
+        # session.clear() would clear all cookies related to the app,
+        # as well as all flash content!
         session.pop("user")
     return redirect(url_for("home"))
 
@@ -167,17 +170,18 @@ def admin_profile(user_id):
     now = datetime.now()
     outstanding_requests_count = Request.query.filter(
         Request.request_date > now).count()
-    
+
     # is admin is a volunteer too, we need this info for the nav element
     upcoming_trips_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == user.id).count()
 
-
-    return render_template("admin_profile.html", user=user,
-                           unapproved_members_count=unapproved_members_count,
-                           outstanding_requests_count=outstanding_requests_count,
-                           upcoming_trips_count=upcoming_trips_count,
-                           place=user.place)
+    return render_template(
+        "admin_profile.html",
+        user=user,
+        unapproved_members_count=unapproved_members_count,
+        outstanding_requests_count=outstanding_requests_count,
+        upcoming_trips_count=upcoming_trips_count,
+        place=user.place)
 
 
 @app.route("/approve/<int:user_id>/<int:approval_id>")
@@ -215,7 +219,7 @@ def approve(user_id, approval_id):
     member.approved = True
     approval.reviewer_id = user.id
     db.session.commit()
-    
+
     return redirect(request.referrer)
 
 
@@ -227,7 +231,7 @@ def all_members(user_id):
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
         session["user"], user.email)
-    
+
     # check if user's account is approved
     is_approved = user.approved
 
@@ -235,18 +239,18 @@ def all_members(user_id):
     if not is_approved or not is_logged_in or not user.is_admin:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
-    
-    unapproved_members = list(Member.query.filter(Member.approved==False))
+
+    unapproved_members = list(Member.query.filter(Member.approved == False))
     unapproved_members_count = Member.query.filter(
-        Member.approved==False).count()
-    
+        Member.approved == False).count()
+
     approved_members = list(
         Member.query.filter(Member.approved == True))
-    
+
     now = datetime.now()
     outstanding_requests_count = Request.query.filter(
         Request.request_date > now).count()
-    
+
     # is admin is a volunteer too, we need this info for the nav element
     upcoming_trips_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == user.id).count()
@@ -289,21 +293,22 @@ def all_requests(user_id):
 
     outstanding_requests_count = Request.query.filter(
         Request.request_date > now).count()
-    
+
     # is admin is a volunteer too, we need this info for the nav element
     upcoming_trips_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == user.id).count()
 
-    return render_template('all_requests.html',
-                           user=user,
-                           unapproved_members_count=unapproved_members_count,
-                           outstanding_requests_count=outstanding_requests_count,
-                           upcoming_trips_count=upcoming_trips_count,
-                           future_requests=future_requests,
-                           expired_requests=expired_requests)
+    return render_template(
+        'all_requests.html',
+        user=user,
+        unapproved_members_count=unapproved_members_count,
+        outstanding_requests_count=outstanding_requests_count,
+        upcoming_trips_count=upcoming_trips_count,
+        future_requests=future_requests,
+        expired_requests=expired_requests)
 
 
-# Volunteer routes 
+# Volunteer routes
 
 @app.route("/volunteer_profile/<int:user_id>", methods=["GET", "POST"])
 def volunteer_profile(user_id):
@@ -313,7 +318,7 @@ def volunteer_profile(user_id):
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
         session["user"], user.email)
-    
+
     # check if user's account is approved
     is_approved = user.approved
 
@@ -321,23 +326,25 @@ def volunteer_profile(user_id):
     if not is_logged_in or not is_approved:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
-    
+
     now = datetime.now()
     upcoming_trips_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == user.id).count()
-    
+
     outstanding_requests_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == None).count()
-    
+
     # if volunteer is admin as well, we need this info for the navbar
     unapproved_members_count = Member.query.filter(
         Member.approved == False).count()
-   
-    return render_template("volunteer_profile.html", user=user, 
-                           outstanding_requests_count=outstanding_requests_count,
-                           upcoming_trips_count=upcoming_trips_count,
-                           unapproved_members_count=unapproved_members_count,
-                           place=user.place)
+
+    return render_template(
+        "volunteer_profile.html", 
+        user=user, 
+        outstanding_requests_count=outstanding_requests_count,
+        upcoming_trips_count=upcoming_trips_count,
+        unapproved_members_count=unapproved_members_count,
+        place=user.place)
 
 
 @app.route("/volunteer_requests/<int:user_id>")
@@ -361,23 +368,23 @@ def volunteer_requests(user_id):
     outstanding_requests = list(Request.query.filter(
         Request.request_date > now, Request.volunteer_id==None)
         .order_by(Request.request_date).all())
-    
+
     outstanding_requests_count = len(outstanding_requests)
-    
+
     upcoming_trips_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == user.id).count()
-
     
-    # if volunteer is admin as well, we need these pieces of info for the navbar
+    # if volunteer is admin as well, we need this info for the navbar
     unapproved_members_count = Member.query.filter(
         Member.approved == False).count()
 
-    return render_template('volunteer_requests.html',
-                           user=user,
-                           outstanding_requests=outstanding_requests,
-                           outstanding_requests_count=outstanding_requests_count,
-                           unapproved_members_count=unapproved_members_count,
-                           upcoming_trips_count=upcoming_trips_count)
+    return render_template(
+        'volunteer_requests.html',
+        user=user,
+        outstanding_requests=outstanding_requests,
+        outstanding_requests_count=outstanding_requests_count,
+        unapproved_members_count=unapproved_members_count,
+        upcoming_trips_count=upcoming_trips_count)
 
 
 @app.route("/accept/<int:user_id>/<int:request_id>")
@@ -402,11 +409,11 @@ def accept(user_id, request_id):
     if transport_request == None:
         flash("Request not recognised.")
         return redirect(request.referrer)
-    
+
     if transport_request.volunteer_id:
         flash("Someone else already volunteered to take this trip!")
         return redirect(request.referrer)
-    
+
     transport_request.volunteer_id = user.id
     db.session.commit()
     return redirect(request.referrer)
@@ -436,23 +443,24 @@ def volunteer_trips(user_id):
     past_trips = list(Request.query.filter(
         Request.request_date < now, Request.volunteer_id==user.id)
         .order_by(Request.request_date).all())
-    
+
     upcoming_trips_count = len(upcoming_trips)
 
     outstanding_requests_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == None).count()
-    
+
     # if volunteer is admin as well, we need this info for the navbar
     unapproved_members_count = Member.query.filter(
         Member.approved == False).count()
 
-    return render_template('volunteer_trips.html',
-                           user=user,
-                           upcoming_trips=upcoming_trips,
-                           past_trips=past_trips,
-                           upcoming_trips_count=upcoming_trips_count,
-                           outstanding_requests_count=outstanding_requests_count,
-                           unapproved_members_count=unapproved_members_count)
+    return render_template(
+        'volunteer_trips.html',
+        user=user,
+        upcoming_trips=upcoming_trips,
+        past_trips=past_trips,
+        upcoming_trips_count=upcoming_trips_count,
+        outstanding_requests_count=outstanding_requests_count,
+        unapproved_members_count=unapproved_members_count)
 
 
 # Member routes 
@@ -579,13 +587,14 @@ def member_requests(user_id):
         Request.request_date < now, Request.requestor_id == user.id)
         .order_by(Request.request_date).all())
 
-    return render_template('member_requests.html',
-                           user=user,
-                           future_requests=future_requests,
-                           expired_requests=expired_requests)
+    return render_template(
+        'member_requests.html',
+        user=user,
+        future_requests=future_requests,
+        expired_requests=expired_requests)
 
 
-# Shared routes 
+# Shared routes
 
 @app.route("/edit_member/<int:user_id>/<int:member_id>>",
            methods=["GET", "POST"])
@@ -600,22 +609,22 @@ def edit_member(user_id, member_id):
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
         session["user"], user.email)
-    
+
     # check if user's account is approved
     is_approved = user.approved
-    
+
     # either admin can edit profile data or the user herself/himself
     is_authorised = user.is_admin or user_id == member_id
 
     if not is_approved or not is_logged_in or not is_authorised:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
-    
+
     if request.method == "POST":
         if member == None:
             flash("Member not registered.")
             return redirect(url_for("signin"))
-        
+
         if member.place == None:
             flash("Address not recognised.")
             return
@@ -649,7 +658,7 @@ def edit_member(user_id, member_id):
     return render_template(
         'edit_member.html', user=user, member=member,
         google_address_id=member.place.google_place_id)
-    
+
 
 @app.route("/delete_member/<int:user_id>/<int:member_id>")
 def delete_member(user_id, member_id):
@@ -658,11 +667,11 @@ def delete_member(user_id, member_id):
     """
     member = Member.query.filter(Member.id == member_id).first()
     user = Member.query.filter(Member.id == user_id).first()
-    
+
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
         session["user"], user.email)
-    
+
     # check if user's account is approved
     is_approved = user.approved
 
@@ -674,11 +683,11 @@ def delete_member(user_id, member_id):
     if not is_approved or not is_logged_in or not is_authorised:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
-    
+
     if is_superuser:
         flash("Superuser should not be deleted.")
         return redirect(request.referrer)
-    
+
     approvals = Approval.query.filter(Approval.reviewer_id == member.id).all()
     # for all the approvals the person made in the past, reset the reviewer_id to
     # none, the status to "outstanding" and the member's approved status to False
@@ -692,10 +701,10 @@ def delete_member(user_id, member_id):
 
     volunteer_offers = Request.query.filter(
         Request.volunteer_id == member.id).all()
-    
+
     for offer in volunteer_offers:
         offer.volunteer_id = None
-    
+
     db.session.commit()
 
     member_place = Place.query.filter(Place.id==member.place_id).first()
@@ -712,7 +721,7 @@ def delete_member(user_id, member_id):
             'all_members', user_id=user.id, member_id=user.id))
     else:
         return redirect(url_for('home'))
-    
+
 
 @app.route("/confirm_delete'/<int:user_id>/<int:member_id>")
 def confirm_delete(user_id, member_id):
@@ -735,10 +744,9 @@ def confirm_delete(user_id, member_id):
     if not is_approved or not is_logged_in or not is_authorised:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
-    
+
     if is_superuser:
         flash("Superuser should not be deleted.")
         return redirect(request.referrer)
-    
+
     return render_template('confirm_delete.html', user=user, member=member)
-    
