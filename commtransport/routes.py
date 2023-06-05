@@ -287,9 +287,11 @@ def all_requests(user_id):
 
     now = datetime.now()
     future_requests = list(Request.query.filter(
-        Request.request_date > now).order_by(Request.request_date).all())
+        Request.request_date > now).order_by(
+            Request.request_date, Request.request_time).all())
     expired_requests = list(Request.query.filter(
-        Request.request_date < now).order_by(Request.request_date).all())
+        Request.request_date < now).order_by(
+        Request.request_date, Request.request_time).all())
 
     outstanding_requests_count = Request.query.filter(
         Request.request_date > now).count()
@@ -349,7 +351,7 @@ def volunteer_profile(user_id):
 
 @app.route("/volunteer_requests/<int:user_id>")
 def volunteer_requests(user_id):
-    """ Page listing all outstanding requests that need volunteer. """
+    """ Page listing all outstanding requests that need volunteers. """
     user = Member.query.filter(Member.id == user_id).first()
 
     # check if user signed in
@@ -366,8 +368,8 @@ def volunteer_requests(user_id):
 
     now = datetime.now()
     outstanding_requests = list(Request.query.filter(
-        Request.request_date > now, Request.volunteer_id == None)
-        .order_by(Request.request_date).all())
+        Request.request_date > now, Request.volunteer_id == None).order_by(
+            Request.request_date, Request.request_time).all())
 
     outstanding_requests_count = len(outstanding_requests)
 
@@ -438,11 +440,11 @@ def volunteer_trips(user_id):
 
     now = datetime.now()
     upcoming_trips = list(Request.query.filter(
-        Request.request_date > now, Request.volunteer_id == user.id)
-        .order_by(Request.request_date).all())
+        Request.request_date > now, Request.volunteer_id == user.id).order_by(
+            Request.request_date, Request.request_time).all())
     past_trips = list(Request.query.filter(
-        Request.request_date < now, Request.volunteer_id == user.id)
-        .order_by(Request.request_date).all())
+        Request.request_date < now, Request.volunteer_id == user.id).order_by(
+            Request.request_date, Request.request_time).all())
 
     upcoming_trips_count = len(upcoming_trips)
 
@@ -581,11 +583,11 @@ def member_requests(user_id):
 
     now = datetime.now()
     future_requests = list(Request.query.filter(
-        Request.request_date > now, Request.requestor_id == user.id)
-        .order_by(Request.request_date).all())
+        Request.request_date > now, Request.requestor_id == user.id).order_by(
+            Request.request_date, Request.request_time).all())
     expired_requests = list(Request.query.filter(
-        Request.request_date < now, Request.requestor_id == user.id)
-        .order_by(Request.request_date).all())
+        Request.request_date < now, Request.requestor_id == user.id).order_by(
+            Request.request_date, Request.request_time).all())
 
     return render_template(
         'member_requests.html',
