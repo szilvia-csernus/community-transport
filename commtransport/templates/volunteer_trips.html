@@ -31,12 +31,6 @@
         <span class="my-red-text">All Users</span>
     </a></li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_requests', user_id=user.id)}}">
-        {% if outstanding_requests_count > 0 %}
-        <span class="badge btn tooltipped my-transparent my-red-text"
-            data-tooltip="Number of upcoming trips and transfer requests.">
-            {{outstanding_requests_count}}
-        </span>
-        {% endif %}
         <span class="my-red-text">All Requests</span>
     </a>
 </li>
@@ -96,12 +90,6 @@
         <span class="my-red-text">All Users</span>
     </a></li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_requests', user_id=user.id)}}">
-        {% if outstanding_requests_count > 0 %}
-        <span class="badge btn tooltipped my-transparent my-red-text"
-            data-tooltip="Number of upcoming trips and transfer requests.">
-            {{outstanding_requests_count}}
-        </span>
-        {% endif %}
         <span class="my-red-text">All Requests</span>
     </a>
 </li>
@@ -163,25 +151,27 @@
             <!-- Request by  -->
             <div class="col s12 m9">
                 <i class="fas fa-caret-down"></i>
-                <span>Request by: <strong><em>{{ req.requestor.fullname }}</em></strong></span>
+                <span>Request by: <strong>{{ req.requestor.fullname }}</strong></span>
             </div>
             <!-- Date and Time  -->
             <div>
-                <span>Date and Time:{{ req.request_date}} - {{ req.request_time }}</span>
+                <span>{{ req.request_date.strftime("%d %b, %Y")}} - {{ req.request_time }}</span>
             </div>
         </div>
         <!-- Request details  -->
         <div class="collapsible-body white">
-            
+            <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
+            <p>Pickup Time: <strong>{{ req.request_time }}</strong></p>
             <p>Pickup Address: <strong><em>{{ req.start_location.address }}</em></strong></p>
             <p>Dropoff Address: <strong><em>{{ req.end_location.address }}</em></p></strong>
-
+            <p>Phone: {{ req.requestor.phone_nr}}</p>
+            <p>Email: {{req.requestor.email}}</p>
         </div>
     </li>
     {% endfor %}
 </ul>
 {% else %}
-<h3 class="center-align">No upcoming trip found.</h3>
+<h3 class="center-align my-green-text">No upcoming trips found.</h3>
 
 {% endif%}
 
@@ -200,14 +190,18 @@
             </div>
             <!-- Date and time  -->
             <div>
-                <span>Date and Time:{{ req.request_date}} - {{ req.request_time }}</span>
+                <span>Date and Time: {{ req.request_date}} - {{ req.request_time }}</span>
             </div>
         </div>
         <!-- Request details  -->
         <div class="collapsible-body brown lighten-5">
+            <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
+            <p>Pickup Time: <strong>{{ req.request_time }}</strong></p>
             <p>Request by: <strong><em>{{ req.requestor.fullname }}</em></strong></p>
             <p>Pickup Address: <strong><em>{{ req.start_location.address }}</em></strong></p>
             <p>Dropoff Address: <strong><em>{{ req.end_location.address }}</em></p></strong>
+            <p>Phone: {{ req.requestor.phone_nr}}</p>
+            <p>Email: {{req.requestor.email}}</p>
         </div>
     </li>
     {% endfor %}

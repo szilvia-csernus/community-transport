@@ -48,7 +48,7 @@
             <!-- Date and Time  -->
             <div class="col s12 m9">
                 <i class="fas fa-caret-down"></i>
-                <span>Date and Time: {{ req.request_date}} - {{ req.request_time }}</span>
+                <span>{{ req.request_date.strftime("%d %b, %Y")}} - {{ req.request_time }}</span>
 
             </div>
             <!-- Badges  -->
@@ -60,14 +60,18 @@
                 {% endif %}
             </div>
         </div>
-        <!-- Member details  -->
+        <!-- Request details  -->
         <div class="collapsible-body white">
+            <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
+            <p>Pickup Time: <strong>{{ req.request_time }}</strong></p>
             <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
             <p>Dropoff Address: <em>{{ req.end_location.address }}</em></p>
             {% if not req.volunteer %}
             <p class="my-green-text">No volunteer has come forward yet.</p>
             {% else %}
-            <p class="my-green-text">Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
+            <p class="my-green-text">Volunteer: 
+                {{ req.volunteer.fullname }}, {{req.volunteer.phone_nr}}, {{req.volunteer.email}}
+            </p>
             {% endif %}
 
         </div>
@@ -91,12 +95,14 @@
             <!-- Date and time  -->
             <div class="col s12 m9">
                 <i class="fas fa-caret-down"></i>
-                <span>Date and Time: {{ req.request_date}} - {{ req.request_time }}</span>
+                <span>{{ req.request_date.strftime("%d %b, %Y")}} - {{ req.request_time }}</span>
 
             </div>
         </div>
-        <!-- Member details  -->
+        <!-- Request details  -->
         <div class="collapsible-body white">
+            <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
+            <p>Pickup Time: <strong>{{ req.request_time }}</strong></p>
             <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
             <p>Dropoff Address: <em>{{ req.end_location.address }}</em></p>
 

@@ -266,7 +266,8 @@ h2 {
 .flashes h4 {
     line-height: 2;
     font-size: 1.2rem;
-    background-color: var(--my-green-translucent)
+    background-color: var(--my-green-translucent);
+    padding: 1rem;
 }
 
 input[name="address"] {

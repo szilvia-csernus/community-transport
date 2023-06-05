@@ -142,7 +142,7 @@ def signout():
 @app.route("/confirm_signout/<int:user_id>")
 def confirm_signout(user_id):
     """ Confirming signout process. """
-    user = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.get_or_404(user_id)
     return render_template("confirm_signout.html", user=user)
 
 
@@ -151,7 +151,7 @@ def confirm_signout(user_id):
 @app.route("/admin_profile/<int:user_id>", methods=["GET", "POST"])
 def admin_profile(user_id):
     """ Admin's own profile page. """
-    user = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.get_or_404(user_id)
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -187,9 +187,9 @@ def admin_profile(user_id):
 @app.route("/approve/<int:user_id>/<int:approval_id>")
 def approve(user_id, approval_id):
     """ Approving or Declining newly signed up users. """
-    approval = Approval.query.filter(Approval.id == approval_id).first()
+    approval = Approval.get_or_404(approval_id)
     member = Member.query.filter(Member.approval_id == approval_id).first()
-    user = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.get_or_404(user_id)
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -226,7 +226,7 @@ def approve(user_id, approval_id):
 @app.route("/all_members/<int:user_id>", methods=["GET", "POST"])
 def all_members(user_id):
     """ Listing all approved & unapproved members """
-    user = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.get_or_404(user_id)
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -249,7 +249,7 @@ def all_members(user_id):
 
     now = datetime.now()
     outstanding_requests_count = Request.query.filter(
-        Request.request_date > now).count()
+        Request.request_date > now, Request.volunteer_id == None).count()
 
     # is admin is a volunteer too, we need this info for the nav element
     upcoming_trips_count = Request.query.filter(
@@ -268,7 +268,7 @@ def all_members(user_id):
 @app.route("/all_requests/<int:user_id>")
 def all_requests(user_id):
     """ Page listing all future & past requests """
-    user = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.get_or_404(user_id)
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -294,7 +294,7 @@ def all_requests(user_id):
         Request.request_date, Request.request_time).all())
 
     outstanding_requests_count = Request.query.filter(
-        Request.request_date > now).count()
+        Request.request_date > now, Request.volunteer_id == None).count()
 
     # is admin is a volunteer too, we need this info for the nav element
     upcoming_trips_count = Request.query.filter(
@@ -315,7 +315,7 @@ def all_requests(user_id):
 @app.route("/volunteer_profile/<int:user_id>", methods=["GET", "POST"])
 def volunteer_profile(user_id):
     """ Volunteer's profile page. """
-    user = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.get_or_404(user_id)
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -352,7 +352,7 @@ def volunteer_profile(user_id):
 @app.route("/volunteer_requests/<int:user_id>")
 def volunteer_requests(user_id):
     """ Page listing all outstanding requests that need volunteers. """
-    user = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.get_or_404(user_id)
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -407,24 +407,26 @@ def accept(user_id, request_id):
         return redirect(url_for("signout"))
 
     transport_request = Request.query.get_or_404(request_id)
+    requestor = Member.query.get_or_404(transport_request.requestor_id)
 
     if transport_request == None:
         flash("Request not recognised.")
         return redirect(request.referrer)
 
     if transport_request.volunteer_id:
-        flash("Someone else already volunteered to take this trip!")
+        flash("Someone else has already volunteered to take this trip!")
         return redirect(request.referrer)
 
     transport_request.volunteer_id = user.id
     db.session.commit()
-    return redirect(request.referrer)
+    flash(f"Thank you for offering help, {requestor.fullname} will be notified!")
+    return redirect(url_for('volunteer_trips', user_id=user.id))
 
 
 @app.route("/volunteer_trips/<int:user_id>")
 def volunteer_trips(user_id):
     """ Page listing volunteers's future & past trips. """
-    user = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.get_or_404(user_id)
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -470,7 +472,7 @@ def volunteer_trips(user_id):
 @app.route("/member_profile/<int:user_id>", methods=["GET", "POST"])
 def member_profile(user_id):
     """ Member's profile page (NOT admin or volunteer)."""
-    member = Member.query.filter(Member.id == user_id).first()
+    member = Member.query.get_or_404(user_id)
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -490,7 +492,7 @@ def member_profile(user_id):
 @app.route("/new_request/<int:user_id>", methods=["GET", "POST"])
 def new_request(user_id):
     """ New transport request by a member. """
-    user = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.get_or_404(user_id)
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -567,7 +569,7 @@ def new_request(user_id):
 @app.route("/member_requests/<int:user_id>")
 def member_requests(user_id):
     """ Page listing member's future & past requests """
-    user = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.get_or_404(user_id)
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -605,8 +607,8 @@ def edit_member(user_id, member_id):
         while Admin can edit any member's details as well as
         grant admin or volunteer privilages.
     """
-    member = Member.query.filter(Member.id == member_id).first()
-    user = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.get_or_404(user_id)
+    member = Member.query.get_or_404(member_id)
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -667,8 +669,8 @@ def delete_member(user_id, member_id):
     """ Delete member's data. Members can delete their own account,
         while Admin can delete any member's account.
     """
-    member = Member.query.filter(Member.id == member_id).first()
-    user = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.get_or_404(user_id)
+    member = Member.query.get_or_404(member_id)
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -728,8 +730,8 @@ def delete_member(user_id, member_id):
 @app.route("/confirm_delete'/<int:user_id>/<int:member_id>")
 def confirm_delete(user_id, member_id):
     """ Confirming deletion request. """
-    member = Member.query.filter(Member.id == member_id).first()
-    user = Member.query.filter(Member.id == user_id).first()
+    user = Member.query.get_or_404(user_id)
+    member = Member.query.get_or_404(member_id)
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
