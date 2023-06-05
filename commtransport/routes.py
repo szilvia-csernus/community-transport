@@ -339,8 +339,8 @@ def volunteer_profile(user_id):
         Member.approved == False).count()
 
     return render_template(
-        "volunteer_profile.html", 
-        user=user, 
+        "volunteer_profile.html",
+        user=user,
         outstanding_requests_count=outstanding_requests_count,
         upcoming_trips_count=upcoming_trips_count,
         unapproved_members_count=unapproved_members_count,
@@ -366,14 +366,14 @@ def volunteer_requests(user_id):
 
     now = datetime.now()
     outstanding_requests = list(Request.query.filter(
-        Request.request_date > now, Request.volunteer_id==None)
+        Request.request_date > now, Request.volunteer_id == None)
         .order_by(Request.request_date).all())
 
     outstanding_requests_count = len(outstanding_requests)
 
     upcoming_trips_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == user.id).count()
-    
+
     # if volunteer is admin as well, we need this info for the navbar
     unapproved_members_count = Member.query.filter(
         Member.approved == False).count()
@@ -438,10 +438,10 @@ def volunteer_trips(user_id):
 
     now = datetime.now()
     upcoming_trips = list(Request.query.filter(
-        Request.request_date > now, Request.volunteer_id==user.id)
+        Request.request_date > now, Request.volunteer_id == user.id)
         .order_by(Request.request_date).all())
     past_trips = list(Request.query.filter(
-        Request.request_date < now, Request.volunteer_id==user.id)
+        Request.request_date < now, Request.volunteer_id == user.id)
         .order_by(Request.request_date).all())
 
     upcoming_trips_count = len(upcoming_trips)
@@ -463,7 +463,7 @@ def volunteer_trips(user_id):
         unapproved_members_count=unapproved_members_count)
 
 
-# Member routes 
+# Member routes
 
 @app.route("/member_profile/<int:user_id>", methods=["GET", "POST"])
 def member_profile(user_id):
@@ -603,8 +603,8 @@ def edit_member(user_id, member_id):
         while Admin can edit any member's details as well as
         grant admin or volunteer privilages.
     """
-    member = Member.query.filter(Member.id==member_id).first()
-    user = Member.query.filter(Member.id==user_id).first()
+    member = Member.query.filter(Member.id == member_id).first()
+    user = Member.query.filter(Member.id == user_id).first()
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
@@ -630,8 +630,8 @@ def edit_member(user_id, member_id):
             return
 
         # update place details in Place model (place_id doesn't change!)
-        member.place.google_place_id=request.form.get("google_address_id"),
-        member.place.address=request.form.get("address"),
+        member.place.google_place_id = request.form.get("google_address_id"),
+        member.place.address = request.form.get("address"),
 
         member.fullname = request.form.get("fullname"),
         member.phone_nr = request.form.get("phone_nr"),
@@ -689,14 +689,14 @@ def delete_member(user_id, member_id):
         return redirect(request.referrer)
 
     approvals = Approval.query.filter(Approval.reviewer_id == member.id).all()
-    # for all the approvals the person made in the past, reset the reviewer_id to
-    # none, the status to "outstanding" and the member's approved status to False
-    # so that another admin can approve this person again.
+    # for all the approvals the person made in the past, reset the reviewer_id
+    # to none, the status to "outstanding" and the member's approved status
+    # to False so that another admin can approve this person again.
     for approval in approvals:
         approval.reviewer_id = None
         approval.status = "outstanding"
         approved_person = Member.query.filter(
-            Member.approval_id==approval.id).first()
+            Member.approval_id == approval.id).first()
         approved_person.approved = False
 
     volunteer_offers = Request.query.filter(
@@ -707,7 +707,7 @@ def delete_member(user_id, member_id):
 
     db.session.commit()
 
-    member_place = Place.query.filter(Place.id==member.place_id).first()
+    member_place = Place.query.filter(Place.id == member.place_id).first()
     db.session.delete(member_place)
     # make a note of the member's name before it gets deleted.
     flash_name = "Your" if user.id == member.id else f"{member.fullname}'s"
