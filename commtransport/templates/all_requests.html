@@ -229,9 +229,9 @@
             </div>
             <!-- Badges  -->
             <div>
-                {% if req.status == "outstanding" %}
+                {% if req.status=="outstanding" %}
                 <span class="badge my-yellow white-text">Unfulfilled</span>
-                {% elif req.status == "arranged" %}
+                {% elif req.status=="arranged" %}
                 <span class="badge my-green my-dark-blue-text">Fulfilled</span>
                 {% endif %}
             </div>

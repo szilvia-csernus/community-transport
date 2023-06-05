@@ -37,7 +37,7 @@
                     <i class="fas fa-user my-dark-blue-text prefix"></i>
                     <input id="fullname" name="fullname" type="text" minlength="5" maxlength="100" class="validate"
                         value="{{ member.fullname }}" required
-                        {% if member.email == "superuser@superuser.super" %}
+                        {% if member.email=="superuser@superuser.super" %}
                         readonly
                         {% endif %}
                         >
