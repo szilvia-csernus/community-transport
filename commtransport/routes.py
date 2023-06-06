@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 from flask import flash, render_template, request, redirect, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -523,8 +523,6 @@ def new_request(user_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
-    # place = Place.query.filter(Place.id == user.place_id).first()
-
     if user.place is None:
         flash("Your address is not recognised. Please update your address \
               before initiating new transport request.")
@@ -554,7 +552,7 @@ def new_request(user_id):
             Place.google_place_id == request.form.get(
                 'dropoff_google_place_id')).first()
 
-        # if dropoff location isn't in the database yet:
+        # if dropoff location isn't in the database yet, add it as a new place:
         if not dropoff:
             dropoff = Place(
                 google_place_id=request.form.get('dropoff_google_place_id'),
@@ -629,6 +627,46 @@ def member_requests(user_id):
         future_requests=future_requests,
         expired_requests=expired_requests,
         upcoming_trips_count=upcoming_trips_count)
+
+
+@app.route("/cancel_transport_request/<int:user_id>/<int:request_id>")
+def cancel_transport_request(user_id, request_id):
+    """ Cancelling transport request by a member. """
+    user = Member.query.get_or_404(user_id)
+
+    # check if user signed in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+
+    # check if user's account is approved
+    is_approved = user.approved
+
+    if not is_approved or not is_logged_in:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+
+    transport_req = Request.query.get_or_404(request_id)
+    arranged = transport_req.volunteer is not None
+
+    now = datetime.now()
+    too_short_notice = timedelta(days=1)
+    req_datetime = datetime.combine(
+        transport_req.request_date, transport_req.request_time)
+    within_one_day = now + too_short_notice > req_datetime
+
+    if (arranged and within_one_day):
+        flash(f"We are unable to cancel this trip request as the date is\
+              within 24 hours and {transport_req.volunteer.fullname} has already \
+              offered a lift for it. Please get in touch with \
+              {transport_req.volunteer.fullname} so he/she knows you don't need \
+              this transport anymore.")
+        return redirect(url_for('member_requests', user_id=user.id))
+    else:
+        db.session.delete(transport_req)
+        db.session.commit()
+
+        flash("Your tranport request has been cancelled.")
+        return redirect(url_for('member_requests', user_id=user.id))
 
 
 # Shared routes
