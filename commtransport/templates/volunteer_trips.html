@@ -172,6 +172,11 @@
             <p>Dropoff Address: <strong><em>{{ req.end_location.address }}</em></p></strong>
             <p>Phone: {{ req.requestor.phone_nr}}</p>
             <p>Email: {{req.requestor.email}}</p>
+            <!-- Cancel button  -->
+            <a href="{{ url_for('cancel_volunteer_trip', user_id=user.id, request_id=req.id)}}"
+                class="col s12 btn-small danger-btn">
+                Cancel Trip
+            </a>
         </div>
     </li>
     {% endfor %}
