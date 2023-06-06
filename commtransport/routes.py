@@ -293,16 +293,20 @@ def all_requests(user_id):
 
     now = datetime.now()
     future_requests = list(Request.query.filter(
+        Request.request_date >= now,
         Request.request_date > now).order_by(
             Request.request_date, Request.request_time).all())
     expired_requests = list(Request.query.filter(
+        Request.request_date <= now,
         Request.request_date < now).order_by(
         Request.request_date, Request.request_time).all())
 
     outstanding_requests_count = Request.query.filter(
-        Request.request_date > now, Request.volunteer_id == None).count()
+        Request.request_date > now,
+        Request.request_date > now,
+        Request.volunteer_id == None).count()
 
-    # is admin is a volunteer too, we need this info for the nav element
+    # if admin is a volunteer too, we need this info for the nav element
     upcoming_trips_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == user.id).count()
 
