@@ -577,7 +577,7 @@ def new_request(user_id):
 
         flash("We registered your request, our volunteers will be notified. \
               Please wait until someone gets in touch.")
-        return redirect(url_for('member_profile', user_id=user.id))
+        return redirect(url_for('member_requests', user_id=user.id))
 
     upcoming_trips_count = Request.query.filter(
         Request.requestor_id == user.id,
