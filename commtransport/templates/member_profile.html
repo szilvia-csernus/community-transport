@@ -18,16 +18,31 @@
 </a>
 {% endblock %}
 
+<!-- Large screen nav elements  -->
 {% block right_nav_elements %}
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_requests', user_id=user.id)}}">My Requests</a>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_requests', user_id=user.id)}}">
+    {% if upcoming_trips_count > 0 %}
+    <span class="badge btn tooltipped my-dark-blue my-white-text"
+        data-tooltip="Number of upcoming, arranged trips.">
+        {{ upcoming_trips_count }}
+    </span>
+    {% endif %}
+    My Requests</a>
 </li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('new_request', user_id=user.id)}}">New Request</a>
 </li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_profile', user_id=user.id)}}">Profile</a></li>
 {% endblock %}
 
+<!-- Side nav elements  -->
 {% block sidenav_elements %}
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_requests', user_id=user.id)}}">My Requests</a>
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_requests', user_id=user.id)}}">
+    {% if upcoming_trips_count > 0 %}
+    <span class="badge btn tooltipped my-dark-blue my-white-text" data-tooltip="Number of upcoming, arranged trips.">
+        {{ upcoming_trips_count }}
+    </span>
+    {% endif %}
+    My Requests</a>
 </li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('new_request', user_id=user.id)}}">New Request</a>
 </li>
