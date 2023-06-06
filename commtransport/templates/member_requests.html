@@ -2,10 +2,12 @@
 
 <!-- Header elements  -->
 {% block left_nav_elements %}
-<a href="{{ url_for('confirm_signout', user_id=user.id)}}" aria-label="link to home page">
+<div>
     <div class="logo left-align my-dark-blue-text">CT&ast; Egham, Surrey</div>
     <div class="left-align my-dark-blue-text">
-        <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
+        <a href="{{ url_for('confirm_signout', user_id=user.id)}}" aria-label="link to home page">
+            <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
+        </a>
         {{user.fullname}}
         {% if user.is_admin and user.is_volunteer %}
         (<span class="my-red-text">admin</span> and <span class="my-green-text">volunteer</span>)
@@ -15,7 +17,7 @@
         (<span class="my-green-text">volunteer</span>)
         {% endif %}
     </div>
-</a>
+</div>
 {% endblock %}
 
 <!-- Large screen nav elements  -->
