@@ -158,13 +158,13 @@
             </div>
             <!-- Date and Time  -->
             <div>
-                <span>{{ req.request_date.strftime("%d %b, %Y")}} - {{ req.request_time }}</span>
+                <span>{{ req.request_date.strftime("%d %b, %Y")}} - {{ req.request_time.strftime("%H:%M") }}</span>
             </div>
         </div>
         <!-- Request details  -->
         <div class="collapsible-body white">
             <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
-            <p>Pickup Time: <strong>{{ req.request_time }}</strong></p>
+            <p>Pickup Time: <strong>{{ req.request_time.strftime("%H:%M") }}</strong></p>
             {% if req == upcoming_trips[0] %}
             <div class="trip-map"></div>
             {% endif %}
@@ -196,13 +196,13 @@
             </div>
             <!-- Date and time  -->
             <div>
-                <span>Date and Time: {{ req.request_date}} - {{ req.request_time }}</span>
+                <span>Date and Time: {{ req.request_date}} - {{ req.request_time.strftime("%H:%M") }}</span>
             </div>
         </div>
         <!-- Request details  -->
         <div class="collapsible-body brown lighten-5">
             <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
-            <p>Pickup Time: <strong>{{ req.request_time }}</strong></p>
+            <p>Pickup Time: <strong>{{ req.request_time.strftime("%H:%M") }}</strong></p>
             <p>Request by: <strong><em>{{ req.requestor.fullname }}</em></strong></p>
             <p>Pickup Address: <strong><em>{{ req.start_location.address }}</em></strong></p>
             <p>Dropoff Address: <strong><em>{{ req.end_location.address }}</em></p></strong>

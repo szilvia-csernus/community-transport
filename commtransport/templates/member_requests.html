@@ -68,7 +68,7 @@
             <!-- Date and Time  -->
             <div class="col s12 m9">
                 <i class="fas fa-caret-down"></i>
-                <span>{{ req.request_date.strftime("%d %b, %Y")}} - {{ req.request_time }}</span>
+                <span>{{ req.request_date.strftime("%d %b, %Y")}} - {{ req.request_time.strftime("%H:%M") }}</span>
 
             </div>
             <!-- Badges  -->
@@ -83,7 +83,7 @@
         <!-- Request details  -->
         <div class="collapsible-body white">
             <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
-            <p>Pickup Time: <strong>{{ req.request_time }}</strong></p>
+            <p>Pickup Time: <strong>{{ req.request_time.strftime("%H:%M") }}</strong></p>
             <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
             <p>Dropoff Address: <em>{{ req.end_location.address }}</em></p>
             {% if not req.volunteer %}
@@ -93,8 +93,13 @@
                 {{ req.volunteer.fullname }}, {{req.volunteer.phone_nr}}, {{req.volunteer.email}}
             </p>
             {% endif %}
-
+            <!-- Cancel button  -->
+            <a href="{{ url_for('cancel_transport_request', user_id=user.id, request_id=req.id)}}"
+                class="col s12 btn-small danger-btn">
+                Cancel Transport Request
+            </a>
         </div>
+        
     </li>
     {% endfor %}
 </ul>
@@ -115,14 +120,14 @@
             <!-- Date and time  -->
             <div class="col s12 m9">
                 <i class="fas fa-caret-down"></i>
-                <span>{{ req.request_date.strftime("%d %b, %Y")}} - {{ req.request_time }}</span>
+                <span>{{ req.request_date.strftime("%d %b, %Y")}} - {{ req.request_time.strftime("%H:%M") }}</span>
 
             </div>
         </div>
         <!-- Request details  -->
         <div class="collapsible-body white">
             <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
-            <p>Pickup Time: <strong>{{ req.request_time }}</strong></p>
+            <p>Pickup Time: <strong>{{ req.request_time.strftime("%H:%M") }}</strong></p>
             <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
             <p>Dropoff Address: <em>{{ req.end_location.address }}</em></p>
 
