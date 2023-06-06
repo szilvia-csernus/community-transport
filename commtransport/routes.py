@@ -478,6 +478,50 @@ def volunteer_trips(user_id):
         unapproved_members_count=unapproved_members_count)
 
 
+@app.route("/cancel_volunteer_trip/<int:user_id>/<int:request_id>")
+def cancel_volunteer_trip(user_id, request_id):
+    """ Cancelling transport request by a member. """
+    user = Member.query.get_or_404(user_id)
+
+    # check if user signed in
+    is_logged_in = "user" in session and check_password_hash(
+        session["user"], user.email)
+
+    # check if user's account is approved
+    is_approved = user.approved
+
+    transport_req = Request.query.get_or_404(request_id)
+
+    # check if the transport request was accepted by this volunteer
+    belongs_to_volunteer = transport_req.volunteer_id = user.id
+
+    if not is_approved or not is_logged_in or not belongs_to_volunteer:
+        flash("Unauthorized access!")
+        return redirect(url_for("signout"))
+
+    now = datetime.now()
+    too_short_notice = timedelta(days=1)
+    req_datetime = datetime.combine(
+        transport_req.request_date, transport_req.request_time)
+    within_one_day = now + too_short_notice > req_datetime
+
+    if within_one_day is True:
+        flash(f"Your transport offer has been cancelled. \n Please note, that \
+              this trip was due within 24 hours! Please contact \
+              {transport_req.requestor.fullname} (\
+              {transport_req.requestor.phone_nr}, \
+              {transport_req.requestor.email}) to let him/her know that you\
+              are no more able to offer this transport.")
+    else:
+        flash("Your transport offer has been cancelled.")
+    
+    transport_req.volunteer_id = None
+    db.session.commit()
+    
+    return redirect(url_for('volunteer_trips', user_id=user.id))
+
+
+
 # Member routes
 
 @app.route("/member_profile/<int:user_id>", methods=["GET", "POST"])
@@ -665,7 +709,7 @@ def cancel_transport_request(user_id, request_id):
         db.session.delete(transport_req)
         db.session.commit()
 
-        flash("Your tranport request has been cancelled.")
+        flash("Your transport request has been cancelled.")
         return redirect(url_for('member_requests', user_id=user.id))
 
 
