@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 from flask import flash, render_template, request, redirect, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from commtransport import app, db
@@ -72,8 +73,13 @@ def register(user_type):
         flash("Thank you for signing up! Your registration is yet to be \
               approved. Please wait until we get in touch!")
         return redirect(url_for('home'))
+    
+    google_maps_key = os.environ.get("GOOGLE_MAPS_KEY")
 
-    return render_template("register.html", user_type=user_type)
+    return render_template(
+        "register.html",
+        user_type=user_type,
+        google_maps_key=google_maps_key)
 
 
 @app.route("/signin", methods=["GET", "POST"])
@@ -99,11 +105,11 @@ def signin():
                     session["user"] = generate_password_hash(request.form.get(
                         "email").lower())
                     flash("Welcome, {}".format(existing_member.fullname))
-                    if existing_member.is_admin == True:
+                    if existing_member.is_admin is True:
                         # if user is admin, redirect to the admin page
                         return redirect(
                             url_for('all_members', user_id=existing_member.id))
-                    elif existing_member.is_volunteer == True:
+                    elif existing_member.is_volunteer is True:
                         # if user is a volunteer, redirect to the volunteer
                         # main page
                         return redirect(
@@ -187,7 +193,7 @@ def admin_profile(user_id):
 @app.route("/approve/<int:user_id>/<int:approval_id>")
 def approve(user_id, approval_id):
     """ Approving or Declining newly signed up users. """
-    approval = Approval.get_or_404(approval_id)
+    approval = Approval.query.get_or_404(approval_id)
     member = Member.query.filter(Member.approval_id == approval_id).first()
     user = Member.query.get_or_404(user_id)
 
@@ -409,17 +415,18 @@ def accept(user_id, request_id):
     transport_request = Request.query.get_or_404(request_id)
     requestor = Member.query.get_or_404(transport_request.requestor_id)
 
-    if transport_request == None:
+    if transport_request is None:
         flash("Request not recognised.")
         return redirect(request.referrer)
 
-    if transport_request.volunteer_id:
+    if transport_request.volunteer_id is not None:
         flash("Someone else has already volunteered to take this trip!")
         return redirect(request.referrer)
 
     transport_request.volunteer_id = user.id
     db.session.commit()
-    flash(f"Thank you for offering help, {requestor.fullname} will be notified!")
+    flash(f"Thank you for offering help, \
+          {requestor.fullname} will be notified!")
     return redirect(url_for('volunteer_trips', user_id=user.id))
 
 
@@ -472,21 +479,28 @@ def volunteer_trips(user_id):
 @app.route("/member_profile/<int:user_id>", methods=["GET", "POST"])
 def member_profile(user_id):
     """ Member's profile page (NOT admin or volunteer)."""
-    member = Member.query.get_or_404(user_id)
+    user = Member.query.get_or_404(user_id)
 
     # check if user signed in
     is_logged_in = "user" in session and check_password_hash(
-        session["user"], member.email)
+        session["user"], user.email)
     # check if user's account is approved
-    is_approved = member.approved
+    is_approved = user.approved
 
     # Sign out unauthorized user
     if not is_logged_in or not is_approved:
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
-    return render_template("member_profile.html", user=member,
-                           place=member.place)
+    upcoming_trips_count = Request.query.filter(
+        Request.requestor_id == user.id,
+        Request.volunteer_id is not None).count()
+
+    return render_template(
+        "member_profile.html",
+        user=user,
+        place=user.place,
+        upcoming_trips_count=upcoming_trips_count)
 
 
 @app.route("/new_request/<int:user_id>", methods=["GET", "POST"])
@@ -507,14 +521,14 @@ def new_request(user_id):
 
     # place = Place.query.filter(Place.id == user.place_id).first()
 
-    if user.place == None:
+    if user.place is None:
         flash("Your address is not recognised. Please update your address \
               before initiating new transport request.")
         return redirect(url_for(
             'edit_member', user_id=user.id, member_id=user.id))
 
     if request.method == "POST":
-        if user == None:
+        if user is None:
             flash("User not registered.")
             return redirect(url_for("signin"))
 
@@ -561,9 +575,19 @@ def new_request(user_id):
               Please wait until someone gets in touch.")
         return redirect(url_for('member_profile', user_id=user.id))
 
+    upcoming_trips_count = Request.query.filter(
+        Request.requestor_id == user.id,
+        Request.volunteer_id is not None).count()
+    
+    google_maps_key = os.environ.get("GOOGLE_MAPS_KEY")
+
     return render_template(
-        'new_request.html', user=user, user_address=user.place.address,
-        google_address_id=user.place.google_place_id)
+        'new_request.html',
+        user=user,
+        user_address=user.place.address,
+        google_address_id=user.place.google_place_id,
+        upcoming_trips_count=upcoming_trips_count,
+        google_maps_key=google_maps_key)
 
 
 @app.route("/member_requests/<int:user_id>")
@@ -591,11 +615,16 @@ def member_requests(user_id):
         Request.request_date < now, Request.requestor_id == user.id).order_by(
             Request.request_date, Request.request_time).all())
 
+    upcoming_trips_count = Request.query.filter(
+        Request.requestor_id == user.id,
+        Request.volunteer_id is not None).count()
+
     return render_template(
         'member_requests.html',
         user=user,
         future_requests=future_requests,
-        expired_requests=expired_requests)
+        expired_requests=expired_requests,
+        upcoming_trips_count=upcoming_trips_count)
 
 
 # Shared routes
@@ -625,11 +654,11 @@ def edit_member(user_id, member_id):
         return redirect(url_for("signout"))
 
     if request.method == "POST":
-        if member == None:
+        if member is None:
             flash("Member not registered.")
             return redirect(url_for("signin"))
 
-        if member.place == None:
+        if member.place is None:
             flash("Address not recognised.")
             return
 
@@ -658,10 +687,13 @@ def edit_member(user_id, member_id):
             return redirect(url_for('volunteer_profile', user_id=user.id))
         else:
             return redirect(url_for('member_profile', user_id=user.id))
+        
+    google_maps_key = os.environ.get("GOOGLE_MAPS_KEY")
 
     return render_template(
         'edit_member.html', user=user, member=member,
-        google_address_id=member.place.google_place_id)
+        google_address_id=member.place.google_place_id,
+        google_maps_key=google_maps_key)
 
 
 @app.route("/delete_member/<int:user_id>/<int:member_id>")
