@@ -389,6 +389,8 @@ def volunteer_requests(user_id):
     # if volunteer is admin as well, we need this info for the navbar
     unapproved_members_count = Member.query.filter(
         Member.approved == False).count()
+    
+    google_maps_key = os.environ.get("GOOGLE_MAPS_KEY")
 
     return render_template(
         'volunteer_requests.html',
@@ -396,7 +398,8 @@ def volunteer_requests(user_id):
         outstanding_requests=outstanding_requests,
         outstanding_requests_count=outstanding_requests_count,
         unapproved_members_count=unapproved_members_count,
-        upcoming_trips_count=upcoming_trips_count)
+        upcoming_trips_count=upcoming_trips_count,
+        google_maps_key=google_maps_key)
 
 
 @app.route("/accept/<int:user_id>/<int:request_id>")
@@ -467,6 +470,8 @@ def volunteer_trips(user_id):
     # if volunteer is admin as well, we need this info for the navbar
     unapproved_members_count = Member.query.filter(
         Member.approved == False).count()
+    
+    google_maps_key = os.environ.get("GOOGLE_MAPS_KEY")
 
     return render_template(
         'volunteer_trips.html',
@@ -475,7 +480,8 @@ def volunteer_trips(user_id):
         past_trips=past_trips,
         upcoming_trips_count=upcoming_trips_count,
         outstanding_requests_count=outstanding_requests_count,
-        unapproved_members_count=unapproved_members_count)
+        unapproved_members_count=unapproved_members_count,
+        google_maps_key=google_maps_key)
 
 
 @app.route("/cancel_volunteer_trip/<int:user_id>/<int:request_id>")
@@ -517,7 +523,7 @@ def cancel_volunteer_trip(user_id, request_id):
     
     transport_req.volunteer_id = None
     db.session.commit()
-    
+
     return redirect(url_for('volunteer_trips', user_id=user.id))
 
 

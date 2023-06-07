@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 
+{% block headscripts %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/mapstyle.css') }}">
+{% endblock %}
+
 <!-- Header elements  -->
 {% block left_nav_elements %}
 <div>
@@ -143,7 +151,7 @@
 <!-- List of Current Requests -->
 {% if outstanding_requests|length > 0 %}
 
-<h3 class=" center-align my-green-text">Outstanding Requests</h3>
+<h2 class=" center-align my-green-text">Outstanding Requests</h2>
 <ul class="collapsible popout">
     {% for req in outstanding_requests %}
     <li>
@@ -180,8 +188,14 @@
     {% endfor %}
 </ul>
 {% else %}
-<h3 class="center-align my-green-text">No outstanding transport request found.</h3>
+<h2 class="center-align my-green-text">No outstanding transport request found.</h2>
 
 {% endif%}
+
+{% if outstanding_requests_count > 0 %}
+    <script src="{{ url_for('static', filename='js/trip_map.js')}}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{google_maps_key}}&callback=initMap&v=weekly" async
+        defer></script>
+{% endif %}
 
 {% endblock %}
