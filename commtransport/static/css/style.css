@@ -248,9 +248,17 @@ h3 {
     font-family: 'Oswald';
     font-size: 1.6rem;
     text-transform: capitalize;
+    margin-top: 0;
 }
 
 h2 {
+    font-family: 'Oswald';
+    font-size: 1.7rem;
+    margin: 1rem;
+    padding: 1.5rem;
+}
+
+h2.sidenav-title {
     font-family: 'Oswald';
     font-size: 1.7rem;
     margin: 2rem;
@@ -270,6 +278,9 @@ h2 {
     padding: 1rem;
 }
 
+a {
+    color: var(--my-blue);
+}
 input[name="address"] {
     position: relative;
 }
@@ -431,7 +442,6 @@ a.my-yellow.my-dark-blue-text {
     font-weight: bold;
 }
 
-
 a.my-yellow.my-dark-blue-text:hover {
     background-color: var(--my-dark-blue);
     color: var(--my-yellow);
@@ -487,34 +497,6 @@ span.my-transparent.my-dark-blue-text:hover {
     color: white;
 }
 
-
-/* span.my-yellow.my-red-text:hover,
-span.my-transparent.my-red-text:hover {
-    background-color: var(--my-red);
-    color: white;
-} */
-
-/* a.my-green.my-dark-blue-text {
-    background-color: var(--my-green);
-    border: 1px solid var(--my-dark-blue);
-    color: var(--my-dark-blue);
-    font-weight: bold;
-}
-
-span.my-green.my-dark-blue-text {
-    background-color: var(--my-green);
-    border: 1px solid var(--my-dark-blue);
-    border-radius: 10px;
-    color: var(--my-dark-blue);
-    min-width: 1.5rem;
-} */
-
-/* a.my-green.my-dark-blue-text:hover,
-span.my-green.my-dark-blue-text:hover {
-    background-color: var(--my-dark-blue);
-    color: var(--my-green);
-} */
-
 /* Volunteer nav badges  */
 
 span.my-green.my-white-text {
@@ -538,12 +520,6 @@ span.my-transparent.my-green-text {
     line-height: 1.3rem;
     height: 1.4rem;
 }
-
-/* span.my-yellow.my-green-text:hover,
-span.my-transparent.my-green-text:hover {
-    background-color: var(--my-green);
-    color: white;
-} */
 
 /* Cards  */
 
@@ -578,76 +554,6 @@ span.my-transparent.my-green-text:hover {
     }
 }
 
-/* Google maps styles  */
-
-
-.sb-title {
-    position: relative;
-    top: -12px;
-    font-family: Roboto, sans-serif;
-    font-weight: 500;
-}
-
-.card-container {
-    display: flex;
-    height: 500px;
-    width: 600px;
-}
-
-.panel {
-    background: white;
-    width: 300px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.half-input-container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.half-input {
-    max-width: 120px;
-}
-
-.map {
-    width: 300px;
-}
-
-input {
-    height: 30px;
-}
-
-input {
-    border: 0;
-    border-bottom: 1px solid black;
-    font-size: 14px;
-    font-family: Roboto, sans-serif;
-    font-style: normal;
-    font-weight: normal;
-}
-
-input:focus::placeholder {
-    color: white;
-}
-
-.button-cta {
-    height: 40px;
-    width: 40%;
-    background: #3367d6;
-    color: white;
-    font-size: 15px;
-    text-transform: uppercase;
-    font-family: Roboto, sans-serif;
-    border: 0;
-    border-radius: 3px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.48);
-    cursor: pointer;
-}
-
-/* end of google maps styles  */
 
 
 

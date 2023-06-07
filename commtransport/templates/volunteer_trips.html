@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 
+{% block headscripts %}
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mapstyle.css') }}">
+{% endblock %}
+
 <!-- Header elements  -->
 {% block left_nav_elements %}
 <div>
@@ -145,7 +153,7 @@
 <!-- List of Current Requests -->
 {% if upcoming_trips|length > 0 %}
 
-<h3 class=" center-align my-green-text">Your Upcoming Trips</h3>
+<h2 class=" center-align my-green-text">Your Upcoming Trips</h2>
 <ul class="collapsible popout">
     {% for req in upcoming_trips %}
     <li
@@ -166,14 +174,20 @@
         <!-- Request details  -->
         <div class="collapsible-body white">
             <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
-            <p>Pickup Time: <strong>{{ req.request_time.strftime("%H:%M") }}</strong></p>
+            <h3>Pickup time: {{ req.request_time.strftime("%H:%M") }}</h3>
+            <p><strong><span id="distance"></span>  <span id="duration"></span></strong></p>
             {% if req == upcoming_trips[0] %}
-            <div class="trip-map"></div>
+            <div id="map" 
+                data-start="{{req.start_location.google_place_id}}"
+                data-end="{{req.end_location.google_place_id}}">
+            </div>
+            
+ 
             {% endif %}
-            <p>Pickup Address: <strong><em>{{ req.start_location.address }}</em></strong></p>
-            <p>Dropoff Address: <strong><em>{{ req.end_location.address }}</em></p></strong>
-            <p>Phone: {{ req.requestor.phone_nr}}</p>
-            <p>Email: {{req.requestor.email}}</p>
+            <p>Pickup Address: <strong>{{ req.start_location.address }}</strong></p>
+            <p>Dropoff Address: <strong>{{ req.end_location.address }}</p></strong>
+            <p>Phone: <a href="tel:{{ req.requestor.phone_nr}}">{{ req.requestor.phone_nr}}</a></p>
+            <p>Email: <a href="mailto:{{req.requestor.email}}">{{req.requestor.email}}</a></p>
             <!-- Cancel button  -->
             <a href="{{ url_for('cancel_volunteer_trip', user_id=user.id, request_id=req.id)}}"
                 class="col s12 btn-small danger-btn">
@@ -184,14 +198,14 @@
     {% endfor %}
 </ul>
 {% else %}
-<h3 class="center-align my-green-text">No upcoming trips found.</h3>
+<h2 class="center-align my-green-text">No upcoming trips found.</h2>
 
 {% endif%}
 
 <!-- List of Past Trips -->
 {% if past_trips|length > 0 %}
 
-<h3 class=" center-align my-green-text">Past / Completed Trips</h3>
+<h2 class=" center-align my-green-text">Past / Completed Trips</h2>
 <ul class="collapsible popout">
     {% for req in past_trips %}
     <li>
@@ -199,7 +213,7 @@
             <!-- Request by  -->
             <div class="col s12 m9">
                 <i class="fas fa-caret-down"></i>
-                <span>Request by: <strong><em>{{ req.requestor.fullname }}</em></strong></span>
+                <span>Request by: <strong>{{ req.requestor.fullname }}</strong></span>
             </div>
             <!-- Date and time  -->
             <div>
@@ -207,14 +221,13 @@
             </div>
         </div>
         <!-- Request details  -->
-        <div class="collapsible-body brown lighten-5">
+        <div class="collapsible-body white">
             <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
             <p>Pickup Time: <strong>{{ req.request_time.strftime("%H:%M") }}</strong></p>
-            <p>Request by: <strong><em>{{ req.requestor.fullname }}</em></strong></p>
-            <p>Pickup Address: <strong><em>{{ req.start_location.address }}</em></strong></p>
-            <p>Dropoff Address: <strong><em>{{ req.end_location.address }}</em></p></strong>
-            <p>Phone: {{ req.requestor.phone_nr}}</p>
-            <p>Email: {{req.requestor.email}}</p>
+            <p>Pickup Address: <strong>{{ req.start_location.address }}</strong></p>
+            <p>Dropoff Address: <strong>{{ req.end_location.address }}</p></strong>
+            <p>Phone: <a href="tel:{{ req.requestor.phone_nr}}">{{ req.requestor.phone_nr}}</a></p>
+            <p>Email: <a href="mailto:{{req.requestor.email}}">{{req.requestor.email}}</a></p>
         </div>
     </li>
     {% endfor %}
@@ -222,5 +235,10 @@
 
 {% endif%}
 
+{% if upcoming_trips_count > 0 %}
+<script src="{{ url_for('static', filename='js/trip_map.js')}}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{google_maps_key}}&callback=initMap&v=weekly" async
+    defer></script>
+{% endif %}
 
 {% endblock %}
