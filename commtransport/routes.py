@@ -296,6 +296,13 @@ def all_requests(user_id):
         Request.request_date >= now,
         Request.request_date > now).order_by(
             Request.request_date, Request.request_time).all())
+    
+    future_requests_place_ids = list()
+    for req in future_requests:
+        future_requests_place_ids.append(req.start_location.google_place_id)
+    
+    future_requests_count = len(future_requests)
+
     expired_requests = list(Request.query.filter(
         Request.request_date <= now,
         Request.request_date < now).order_by(
@@ -309,6 +316,8 @@ def all_requests(user_id):
     # if admin is a volunteer too, we need this info for the nav element
     upcoming_trips_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == user.id).count()
+    
+    google_maps_key = os.environ.get("GOOGLE_MAPS_KEY")
 
     return render_template(
         'all_requests.html',
@@ -317,7 +326,10 @@ def all_requests(user_id):
         outstanding_requests_count=outstanding_requests_count,
         upcoming_trips_count=upcoming_trips_count,
         future_requests=future_requests,
-        expired_requests=expired_requests)
+        future_requests_count=future_requests_count,
+        future_requests_place_ids=future_requests_place_ids,
+        expired_requests=expired_requests,
+        google_maps_key=google_maps_key)
 
 
 # Volunteer routes

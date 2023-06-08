@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
+<!-- Google Maps JavaScript API polyfill for markerClusterer -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/mapstyle.css') }}">
+{% endblock %}
+
 <!-- Header elements  -->
 {% block left_nav_elements %}
 <div>
@@ -161,7 +168,11 @@
 <!-- List of Current Requests -->
 {% if future_requests|length > 0 %}
 
-<h3 class=" center-align my-red-text">Current Requests</h3>
+<h2 class=" center-align my-red-text">Current Requests</h2>
+
+<div id="map" data-locations="{{future_requests_place_ids}}">
+</div>
+
 <ul class="collapsible popout">
     {% for req in future_requests %}
     <li>
@@ -198,14 +209,14 @@
     {% endfor %}
 </ul>
 {% else %}
-<h3 class="center-align my-red-text">No outstanding transport request found.</h3>
+<h2 class="center-align my-red-text">No outstanding transport request found.</h2>
 
 {% endif%}
 
 <!-- List of Expired Requests  -->
 {% if expired_requests|length > 0 %}
 
-<h3 class=" center-align my-red-text">Expired Requests</h3>
+<h2 class=" center-align my-red-text">Expired Requests</h2>
 <ul class="collapsible popout">
     {% for req in expired_requests %}
     <li>
@@ -236,8 +247,18 @@
     {% endfor %}
 </ul>
 {% else %}
-<h3 class="center-align my-red-text">No expired transport request found.</h3>
+<h2 class="center-align my-red-text">No expired transport request found.</h2>
 
 {% endif%}
+
+{% if future_requests|length > 0 %}
+
+<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+<script src="{{ url_for('static', filename='js/cluster_trips_map.js')}}"></script>
+
+<!-- Google Maps JavaScript API initialisation -->
+<script src="https://maps.googleapis.com/maps/api/js?key={{google_maps_key}}&callback=initMap&v=weekly" async
+    defer></script>
+{% endif %}
 
 {% endblock %}

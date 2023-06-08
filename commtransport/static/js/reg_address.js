@@ -35,8 +35,7 @@ async function initMap() {
 
 	map = new Map(document.getElementById('map'), {
 		zoom: 4,
-		center: center,
-		mapId: 'DEMO_MAP_ID',
+		center: center
 	});
 
 
@@ -46,7 +45,6 @@ async function initMap() {
 
 	autocomplete.addListener('place_changed', function () {
 				const place = autocomplete.getPlace();
-				console.log('place changed', place)
 				if (!place?.place_id) {
 					// User entered the name of a Place that was not suggested and
 					// pressed the Enter key, or the Place Details request failed.
@@ -59,15 +57,14 @@ async function initMap() {
 					addressInput.style['box-shadow'] = '0 1px 0 0 #4caf50';
 					notification.style.display = 'none';
 					addressInput.value = place.formatted_address;
-					addressId.value = place.place_id
+					addressId.value = place.place_id;
 				}
 				// renderAddress(place);
 				// fillInAddress(place);
 			});
 
 	addressInput.addEventListener('focusout', function () {
-		
-		console.log(addressId.value)
+		const place = autocomplete.getPlace();
 		if (!addressId.value) {
 			// User entered the name of a Place that was not suggested and
 			// pressed the Enter key, or the Place Details request failed.
@@ -79,17 +76,26 @@ async function initMap() {
 			addressInput.style['border-bottom'] = '1px solid #4caf50';
 			addressInput.style['box-shadow'] = '0 1px 0 0 #4caf50';
 			notification.style.display = 'none';
+			addressInput.value = place.formatted_address;
+			addressId.value = place.place_id;
 		}
 	})
 
 	addressInput.addEventListener('focusin', function () {
-				
+		const place = autocomplete.getPlace();		
 		if (!addressId.value) {
 			// User entered the name of a Place that was not suggested and
 			// pressed the Enter key, or the Place Details request failed.
 			notification.style.display = 'none';
 			addressInput.style['border-bottom'] = '';
 			addressInput.style['box-shadow'] = '';
+		} 
+		else {
+			addressInput.style['border-bottom'] = '1px solid #4caf50';
+			addressInput.style['box-shadow'] = '0 1px 0 0 #4caf50';
+			notification.style.display = 'none';
+			addressInput.value = place.formatted_address;
+			addressId.value = place.place_id;
 		}
 	});
 
