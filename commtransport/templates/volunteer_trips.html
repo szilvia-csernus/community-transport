@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block headscripts %}
+<!-- Google Maps JavaScript API polyfill -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 {% endblock %}
 
@@ -237,6 +238,8 @@
 
 {% if upcoming_trips_count > 0 %}
 <script src="{{ url_for('static', filename='js/trip_map.js')}}"></script>
+
+<!-- Google Maps JavaScript API initialisation -->
 <script src="https://maps.googleapis.com/maps/api/js?key={{google_maps_key}}&callback=initMap&v=weekly" async
     defer></script>
 {% endif %}
