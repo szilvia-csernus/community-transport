@@ -154,7 +154,7 @@
 <h2 class=" center-align my-green-text">Outstanding Requests</h2>
 <ul class="collapsible popout">
     {% for req in outstanding_requests %}
-    <li>
+    <li {% if req==outstanding_requests[0] %} class="active" {% endif %}>
         <div class="collapsible-header ">
             <!-- Request by  -->
             <div class="col s12 m9">
@@ -169,13 +169,26 @@
         <!-- Request details  -->
         <div class="collapsible-body white">
             <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
-            <p>Pickup Time: <strong>{{ req.request_time.strftime("%H:%M") }}</strong></p>
-            <p>Pickup Address: <strong><em>{{ req.start_location.address }}</em></strong></p>
-            <p>Dropoff Address: <strong><em>{{ req.end_location.address }}</em></strong></p>
+            <h3>Pickup time: {{ req.request_time.strftime("%H:%M") }}</h3>
+            
+            <!-- Map for the first element  -->
+            {% if req == outstanding_requests[0] %}
+            <p><strong><span id="distance"></span> <span id="duration"></span></strong></p>
+            <div id="map" 
+                data-start="{{req.start_location.google_place_id}}" 
+                data-end="{{req.end_location.google_place_id}}">
+            </div>
+            {% endif %}
+            
+            <p>Pickup Address: <strong>{{ req.start_location.address }}</strong></p>
+            <p>Dropoff Address: <strong>{{ req.end_location.address }}</p></strong>
+            <p>Phone: <a href="tel:{{ req.requestor.phone_nr}}">{{ req.requestor.phone_nr}}</a></p>
+            <p>Email: <a href="mailto:{{req.requestor.email}}">{{req.requestor.email}}</a></p>
+            
             {% if not req.volunteer %}
-            <p class="my-green-text">No volunteer has come forward yet.</p>
+            <h3 class="my-green-text left-align">Awaiting Volunteer</h3>
             {% else %}
-            <p class="my-green-text">Volunteer: <em>{{ req.volunteer.fullname }}</em></p>
+            <h3 class="my-green-text">Volunteer: <em>{{ req.volunteer.fullname }}</em></h3>
             {% endif %}
 
             <!-- Accept button  -->
@@ -193,9 +206,11 @@
 {% endif%}
 
 {% if outstanding_requests_count > 0 %}
-    <script src="{{ url_for('static', filename='js/trip_map.js')}}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{google_maps_key}}&callback=initMap&v=weekly" async
-        defer></script>
+<script src="{{ url_for('static', filename='js/trip_map.js')}}"></script>
+
+<!-- Google Maps JavaScript API initialisation -->
+<script src="https://maps.googleapis.com/maps/api/js?key={{google_maps_key}}&callback=initMap&v=weekly" async
+    defer></script>
 {% endif %}
 
 {% endblock %}

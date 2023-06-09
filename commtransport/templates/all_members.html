@@ -160,7 +160,7 @@
 <!-- List of Users Awaiting Approval -->
 {% if unapproved_members|length > 0 %}
 
-<h3 class="center-align my-red-text">Users Awaiting Approval</h3>
+<h2 class="center-align my-red-text">Users Awaiting Approval</h2>
 <ul class="collapsible popout">
     {% for member in unapproved_members %}
     <li>
@@ -220,7 +220,7 @@
 
 
 <!-- List All Approved Members  -->
-<h3 class=" center-align my-red-text">Approved Users</h3>
+<h2 class=" center-align my-red-text">Approved Users</h2>
 {% if approved_members|length > 0 %}
 <ul class="collapsible popout">
     {% for member in approved_members %}
@@ -276,7 +276,7 @@
     {% endfor %}
 </ul>
 {% else %}
-<h3 class=" my-red-text center-align">No Results Found</h3>
+<h2 class=" my-red-text center-align">No Approved Members Found</h2>
 
 {% endif%}
 
