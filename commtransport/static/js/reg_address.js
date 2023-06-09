@@ -6,7 +6,8 @@ let map;
 async function initMap() {
 	let addressIsVerified = false;
 
-	const center = { lat: 51.478543, lng: -0.647224 };
+	// Put Egham in the centre of the map
+	const center = { lat: 51.432274, lng: -0.544086 };
 	// Create a bounding box with sides ~10km away from the center point
 	const defaultBounds = {
 		north: center.lat + 0.1,
@@ -22,9 +23,9 @@ async function initMap() {
 	// but they are all billed individually!
 	const options = {
 		bounds: defaultBounds,
-		componentRestrictions: { country: 'uk' },
+		// componentRestrictions: { country: 'uk' },
 		fields: ['place_id', 'formatted_address'],
-		strictBounds: false,
+		strictBounds: true,
 		types: ['address'],
 	};
 
@@ -41,8 +42,13 @@ async function initMap() {
 		center: center,
 	});
 
-	// Bind autocomplete instance to map
-	autocomplete.bindTo('bounds', map);
+	// set bounds +/- 10 km from the centre of Egham
+	const southwest = { lat: 51.32274, lng: -0.644086 };
+	const northeast = { lat: 51.532274, lng: -0.444086 };
+	const newBounds = new google.maps.LatLngBounds(southwest, northeast);
+
+	// Bind autocomplete bounds
+	autocomplete.setBounds(newBounds);
 
 	// Grab notification HTML element
 	const notification = document.getElementById('addressNotification');
@@ -70,7 +76,7 @@ async function initMap() {
 					} else {
 						// if id is verified but doesn't match the typed in
 						// address (because it was newly typed in wrongly)
-						console.log("Id okay but address not.")
+						console.log('Id okay but address not.');
 						addressIsVerified = false;
 						callback(false);
 					}
@@ -82,12 +88,14 @@ async function initMap() {
 			},
 			// display an error message if verification was unsuccessful
 			(error) => {
-				alert("We could not verify the address because either \
+				alert(
+					"We could not verify the address because either \
 				Google's Autocomplete Place service is down or your \
-				internet connection is not reliable. Please try again later.");
+				internet connection is not reliable. Please try again later."
+				);
 				addressIsVerified = false;
 				callback(false);
-				}
+			}
 		);
 	}
 
@@ -102,12 +110,11 @@ async function initMap() {
 			// entered address, clear out addressId.
 			addressId.value = '';
 		} else {
-			// if verification was successful set the underline to 
+			// if verification was successful set the underline to
 			// green and hide the notification
 			addressInput.style['border-bottom'] = '1px solid #4caf50';
 			addressInput.style['box-shadow'] = '0 1px 0 0 #4caf50';
 			notification.style.display = 'none';
-			
 		}
 	}
 
@@ -120,7 +127,6 @@ async function initMap() {
 			notification.style.display = 'block';
 			addressInput.style['border-bottom'] = '1px solid #f44336';
 			addressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
-			
 		} else {
 			// if place is verified, add green underline
 			addressInput.style['border-bottom'] = '1px solid #4caf50';
@@ -153,26 +159,31 @@ async function initMap() {
 		}
 	});
 
-	const form = document.getElementById('form')
-
-	form.addEventListener('submit', (e) => {
-		console.log(e)
-		e.preventDefault();
-		console.log("is address verified: ", addressIsVerified)
+	// prevent form subbmission unless address is verified
+	const form = document.getElementById('form');
+	form.addEventListener(
+		'submit',
+		(e) => {
+			console.log(e);
+			e.preventDefault();
 			if (addressIsVerified) {
 				form.submit();
-			}
-			else {
+			} else {
 				if (addressId.value) {
-					getVerification(addressId.value, addressInput.value, renderInputField);
+					getVerification(
+						addressId.value,
+						addressInput.value,
+						renderInputField
+					);
 				} else {
 					notification.style.display = 'block';
 					addressInput.style['border-bottom'] = '1px solid #f44336';
 					addressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
 				}
 			}
-		}, true)
-	
+		},
+		true
+	);
 }
 
 initMap();
