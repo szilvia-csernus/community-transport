@@ -33,7 +33,7 @@ def register(user_type):
             return redirect(url_for("signin"))
 
         place = Place(
-            google_place_id=request.form.get("google_address_id"),
+            google_place_id=request.form.get("google_place_id"),
             address=request.form.get("address")
             )
 
@@ -108,18 +108,18 @@ def signin():
                     if existing_member.is_admin is True:
                         # if user is admin, redirect to the admin page
                         return redirect(
-                            url_for('all_members', user_id=existing_member.id))
+                            url_for('all_requests', user_id=existing_member.id))
                     elif existing_member.is_volunteer is True:
                         # if user is a volunteer, redirect to the volunteer
                         # main page
                         return redirect(
                             url_for(
-                                'volunteer_requests',
+                                'volunteer_trips',
                                 user_id=existing_member.id))
                     else:
                         # all other users redirect to the member's page
                         return redirect(
-                            url_for('new_request', user_id=existing_member.id))
+                            url_for('member_requests', user_id=existing_member.id))
             else:
                 # invalid password match
                 flash("Incorrect Username or Password!")
@@ -682,13 +682,16 @@ def member_requests(user_id):
     upcoming_trips_count = Request.query.filter(
         Request.requestor_id == user.id,
         Request.volunteer_id is not None).count()
+    
+    google_maps_key = os.environ.get("GOOGLE_MAPS_KEY")
 
     return render_template(
         'member_requests.html',
         user=user,
         future_requests=future_requests,
         expired_requests=expired_requests,
-        upcoming_trips_count=upcoming_trips_count)
+        upcoming_trips_count=upcoming_trips_count,
+        google_maps_key=google_maps_key)
 
 
 @app.route("/cancel_transport_request/<int:user_id>/<int:request_id>")
@@ -767,7 +770,7 @@ def edit_member(user_id, member_id):
             return
 
         # update place details in Place model (place_id doesn't change!)
-        member.place.google_place_id = request.form.get("google_address_id"),
+        member.place.google_place_id = request.form.get("google_place_id"),
         member.place.address = request.form.get("address"),
 
         member.fullname = request.form.get("fullname"),
@@ -796,7 +799,6 @@ def edit_member(user_id, member_id):
 
     return render_template(
         'edit_member.html', user=user, member=member,
-        google_address_id=member.place.google_place_id,
         google_maps_key=google_maps_key)
 
 
