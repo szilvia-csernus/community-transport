@@ -648,8 +648,6 @@ def new_request(user_id):
     return render_template(
         'new_request.html',
         user=user,
-        user_address=user.place.address,
-        google_address_id=user.place.google_place_id,
         upcoming_trips_count=upcoming_trips_count,
         google_maps_key=google_maps_key)
 

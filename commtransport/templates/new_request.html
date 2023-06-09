@@ -62,7 +62,7 @@
 <h2 class="center-align">New Request</h2>
 
 <div class="row">
-    <form class="col s12 l10 offset-l1" method="POST"
+    <form id="form" class="col s12 l10 offset-l1" method="POST"
         action="{{ url_for('new_request', user_id=user.id) }}">
         <div class="card-panel">
             
@@ -92,14 +92,14 @@
                     <div class="notification" id="pickup_notification">
                         <div class="tooltip"></div>
                         <i class="fas fa-map-marker-alt"></i>
-                        Please enter a Google-verified address
+                        Please enter a Google-verified address in or around Egham.
                     </div>
                     
-                    <input id="pickup_address" name="pickup_address" type="text" placeholder="" value="{{ user_address }}"
+                    <input id="pickup_address" name="pickup_address" type="text" placeholder="" value="{{ user.place.address }}"
                         required>
                     <label for="pickup_address" class="addressLabel">Pick Up Address</label>
-                    <input type="hidden" id="pickup_address_id" name="pickup_google_place_id" value="{{ google_place_id }}">
-                    <div id="pickup_map"></div>
+                    <input type="hidden" id="pickup_address_id" name="pickup_google_place_id" value="{{ user.place.google_place_id }}">
+                    <div id="map"></div>
                 </div>
             </div>
             <div class="row">
@@ -109,14 +109,13 @@
                     <div class="notification" id="dropoff_notification">
                         <div class="tooltip"></div>
                         <i class="fas fa-map-marker-alt"></i>
-                        Please enter a Google-verified address
+                        Please enter a Google-verified address in or around Egham.
                     </div>
 
                     <input id="dropoff_address" name="dropoff_address" type="text" placeholder=""
                         required>
                     <label for="dropoff_address" class="addressLabel">Drop Off Address</label>
                     <input type="hidden" id="dropoff_address_id" name="dropoff_google_place_id">
-                    <div id="dropoff_map"></div>
                 </div>
             </div>
 
