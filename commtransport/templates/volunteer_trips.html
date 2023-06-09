@@ -176,19 +176,21 @@
         <div class="collapsible-body white">
             <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
             <h3>Pickup time: {{ req.request_time.strftime("%H:%M") }}</h3>
-            <p><strong><span id="distance"></span>  <span id="duration"></span></strong></p>
+
+            <!-- Map for the first element  -->
             {% if req == upcoming_trips[0] %}
+            <p><strong><span id="distance"></span> <span id="duration"></span></strong></p>
             <div id="map" 
                 data-start="{{req.start_location.google_place_id}}"
                 data-end="{{req.end_location.google_place_id}}">
             </div>
-            
- 
             {% endif %}
+
             <p>Pickup Address: <strong>{{ req.start_location.address }}</strong></p>
             <p>Dropoff Address: <strong>{{ req.end_location.address }}</p></strong>
             <p>Phone: <a href="tel:{{ req.requestor.phone_nr}}">{{ req.requestor.phone_nr}}</a></p>
             <p>Email: <a href="mailto:{{req.requestor.email}}">{{req.requestor.email}}</a></p>
+            
             <!-- Cancel button  -->
             <a href="{{ url_for('cancel_volunteer_trip', user_id=user.id, request_id=req.id)}}"
                 class="col s12 btn-small danger-btn">
