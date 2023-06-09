@@ -46,14 +46,15 @@ function initMap() {
         center: locationsData[0],
       });
 
-      const markers = locationsData.map(function (location, i) {
+      const markers = []
+      locationsData.forEach( (location, i) => {
 				const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         // empty values will not get marked.
-        if (location) {
-          return new google.maps.Marker({
+        if (typeof location !== 'undefined' ) {
+          markers.push( new google.maps.Marker({
 						position: location,
 						label: labels[i % labels.length],
-					});
+					}));
         }
 				
 			});
