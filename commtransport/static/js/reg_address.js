@@ -4,6 +4,8 @@
 let map;
 
 async function initMap() {
+	let addressIsVerified = false;
+
 	const center = { lat: 51.478543, lng: -0.647224 };
 	// Create a bounding box with sides ~10km away from the center point
 	const defaultBounds = {
@@ -39,13 +41,13 @@ async function initMap() {
 		center: center,
 	});
 
-	// bind autocomplete instance to map
+	// Bind autocomplete instance to map
 	autocomplete.bindTo('bounds', map);
 
-	// grab notification HTML element
+	// Grab notification HTML element
 	const notification = document.getElementById('addressNotification');
 
-	// look up placeId if it is a verified place in Google Maps
+	// Look up placeId: is it a verified place in Google Maps?
 	async function getVerification(placeId, placeAddress, callback) {
 		const service = new google.maps.places.PlacesService(map);
 		const request = {
@@ -63,15 +65,18 @@ async function initMap() {
 					// if place_id matches the address currently in the
 					// address input element
 					if (place.formatted_address == placeAddress) {
+						addressIsVerified = true;
 						callback(true);
 					} else {
 						// if id is verified but doesn't match the typed in
 						// address (because it was newly typed in wrongly)
 						console.log("Id okay but address not.")
+						addressIsVerified = false;
 						callback(false);
 					}
 				} else {
 					console.log('FALSE', place);
+					addressIsVerified = false;
 					callback(false);
 				}
 			},
@@ -80,24 +85,29 @@ async function initMap() {
 				alert("We could not verify the address because either \
 				Google's Autocomplete Place service is down or your \
 				internet connection is not reliable. Please try again later.");
+				addressIsVerified = false;
 				callback(false);
 				}
 		);
 	}
 
-	function checkAddress(is_verified) {
+	function renderInputField(is_verified) {
 		if (!is_verified) {
-			// The value in the input field is not recognised by google 
+			// The value in the input field is not recognised by google
+			// display a notification and set red underline
 			notification.style.display = 'block';
 			addressInput.style['border-bottom'] = '1px solid #f44336';
 			addressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
-		} else {
-			addressInput.style['border-bottom'] = '1px solid #4caf50';
-			addressInput.style['box-shadow'] = '0 1px 0 0 #4caf50';
-			notification.style.display = 'none';
 			// if addressId is not verified or addressId doesn't match the
 			// entered address, clear out addressId.
 			addressId.value = '';
+		} else {
+			// if verification was successful set the underline to 
+			// green and hide the notification
+			addressInput.style['border-bottom'] = '1px solid #4caf50';
+			addressInput.style['box-shadow'] = '0 1px 0 0 #4caf50';
+			notification.style.display = 'none';
+			
 		}
 	}
 
@@ -118,13 +128,14 @@ async function initMap() {
 			notification.style.display = 'none';
 			addressInput.value = place.formatted_address;
 			addressId.value = place.place_id;
+			addressIsVerified = true;
 		}
 	}
 
 	autocomplete.addListener('place_changed', () => {
 		// every time the address input changes
 		if (addressId.value) {
-			getVerification(addressId.value, addressInput.value, checkAddress);
+			getVerification(addressId.value, addressInput.value, renderInputField);
 		} else {
 			autocompleteInput();
 		}
@@ -134,7 +145,7 @@ async function initMap() {
 		// Every time the user clicks out of the address input field, perform
 		// this verification.
 		if (addressId.value) {
-			getVerification(addressId.value, addressInput.value, checkAddress);
+			getVerification(addressId.value, addressInput.value, renderInputField);
 		} else {
 			notification.style.display = 'block';
 			addressInput.style['border-bottom'] = '1px solid #f44336';
@@ -142,6 +153,26 @@ async function initMap() {
 		}
 	});
 
+	const form = document.getElementById('form')
+
+	form.addEventListener('submit', (e) => {
+		console.log(e)
+		e.preventDefault();
+		console.log("is address verified: ", addressIsVerified)
+			if (addressIsVerified) {
+				form.submit();
+			}
+			else {
+				if (addressId.value) {
+					getVerification(addressId.value, addressInput.value, renderInputField);
+				} else {
+					notification.style.display = 'block';
+					addressInput.style['border-bottom'] = '1px solid #f44336';
+					addressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
+				}
+			}
+		}, true)
+	
 }
 
 initMap();
