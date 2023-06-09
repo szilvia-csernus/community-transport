@@ -1,4 +1,4 @@
-// Starter code from google maps
+// Starter code from google maps api documentation
 
 // Initialize and add the map
 let map;
@@ -23,7 +23,6 @@ async function initMap() {
 	// but they are all billed individually!
 	const options = {
 		bounds: defaultBounds,
-		// componentRestrictions: { country: 'uk' },
 		fields: ['place_id', 'formatted_address'],
 		strictBounds: true,
 		types: ['address'],
@@ -36,7 +35,8 @@ async function initMap() {
 	// Initializing a new Autocomplete object intance
 	const autocomplete = new Autocomplete(addressInput, options);
 
-	// Initializing a new Map object instance
+	// Initializing a new Map object instance (this seems to be
+	// necessary even though no map gets rendered!).
 	map = new Map(document.getElementById('map'), {
 		zoom: 4,
 		center: center,
@@ -47,7 +47,7 @@ async function initMap() {
 	const northeast = { lat: 51.532274, lng: -0.444086 };
 	const newBounds = new google.maps.LatLngBounds(southwest, northeast);
 
-	// Bind autocomplete bounds
+	// Bind autocomplete bounds to autocomplate
 	autocomplete.setBounds(newBounds);
 
 	// Grab notification HTML element
@@ -136,6 +136,16 @@ async function initMap() {
 			addressId.value = place.place_id;
 			addressIsVerified = true;
 		}
+	}
+
+	// if address is already filled in, get it verified straight away.
+	console.log(addressId);
+	if (addressId.value) {
+		getVerification(addressId.value, addressInput.value, renderInputField);
+	} else {
+		notification.style.display = 'block';
+		addressInput.style['border-bottom'] = '1px solid #f44336';
+		addressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
 	}
 
 	autocomplete.addListener('place_changed', () => {
