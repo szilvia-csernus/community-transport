@@ -1,12 +1,27 @@
-import { validateDateTime, showInvalid, showValid } from "./datetime_validation.js";
+import { showInvalid, showValid } from "./validation_helper.js";
+import { pickupAddressId, 
+	pickupAddressInput, 
+	pickupNotification, 
+	dropoffAddressId, 
+	dropoffAddressInput, 
+	dropoffNotification 
+} from "./new_req_form_validation.js";
+
+export let pickupAddressIsVerified = false;
+export let dropoffAddressIsVerified = false;
+
+
+// These functions will be overwritten in the initMap() function
+export let getVerification = () => {};
+export let renderPickupInputField = () => {};
+export let renderDropoffInputField = () => {};
+
 
 // Initialize and add the map - after Google Maps Api documentation
 let map;
 
-async function initMap() {
-	let pickupAddressIsVerified = false;
-	let dropoffAddressIsVerified = false;
-
+export async function initMap() {
+	
 	// Put Egham in the centre of the map
 	const center = { lat: 51.432274, lng: -0.544086 };
 	// Create a bounding box with sides ~10km away from the center point
@@ -16,11 +31,6 @@ async function initMap() {
 		east: center.lng + 0.1,
 		west: center.lng - 0.1,
 	};
-
-	const pickupAddressInput = document.getElementById('pickup_address');
-	const pickupAddressId = document.getElementById('pickup_address_id');
-	const dropoffAddressInput = document.getElementById('dropoff_address');
-	const dropoffAddressId = document.getElementById('dropoff_address_id');
 
 	// address_components and geometry fields can potentially be helpful too.
 	// but they are all billed individually!
@@ -55,16 +65,13 @@ async function initMap() {
 	pickupAutocomplete.setBounds(bounds);
 	dropoffAutocomplete.setBounds(bounds);
 
-	const pickupNotification = document.getElementById('pickup_notification');
-	const dropoffNotification = document.getElementById('dropoff_notification');
-
 	// Look up placeId: is it a verified place in Google Maps?
-	async function getVerification(
+	getVerification = async (
 		placeId,
 		placeAddress,
 		whichAddress,
 		callback
-	) {
+	) => {
 		const service = new google.maps.places.PlacesService(map);
 		const request = {
 			placeId: placeId,
@@ -136,16 +143,16 @@ async function initMap() {
 			// User entered the name of a Place that was not suggested
 			// or the Place Details request failed,
 			// display notification and red underlie
-			notification.style.display = 'block';
-			addressInput.style['border-bottom'] = '1px solid #f44336';
-			addressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
+			showInvalid(addressInput, notification)
+
 		} else {
 			// if place is verified, add green underline
-			addressInput.style['border-bottom'] = '1px solid #4caf50';
-			addressInput.style['box-shadow'] = '0 1px 0 0 #4caf50';
-			notification.style.display = 'none';
+			showValid(addressInput, notification)
+			// Add verified address to input field's value
 			addressInput.value = place.formatted_address;
+			// Add Google Place Id to hidden addressId field
 			addressId.value = place.place_id;
+
 			if (whichAddress === 'pickup') {
 				pickupAddressIsVerified = true;
 			} else if (whichAddress === 'dropoff') {
@@ -154,41 +161,33 @@ async function initMap() {
 		}
 	}
 
-	function renderPickupInputField(is_verified) {
+	renderPickupInputField = (is_verified) => {
 		if (!is_verified) {
 			// The value in the input field is not recognised by google
 			// display a notification and set red underline
-			pickupNotification.style.display = 'block';
-			pickupAddressInput.style['border-bottom'] = '1px solid #f44336';
-			pickupAddressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
+			showInvalid(pickupAddressInput, pickupNotification)
 			// if addressId is not verified or addressId doesn't match the
 			// entered address, clear out addressId.
 			pickupAddressId.value = '';
 		} else {
 			// if verification was successful set the underline to
 			// green and hide the notification
-			pickupAddressInput.style['border-bottom'] = '1px solid #4caf50';
-			pickupAddressInput.style['box-shadow'] = '0 1px 0 0 #4caf50';
-			pickupNotification.style.display = 'none';
+			showValid(pickupAddressInput, pickupNotification)
 		}
 	}
 
-	function renderDropoffInputField(is_verified) {
+	renderDropoffInputField = (is_verified) => {
 		if (!is_verified) {
 			// The value in the input field is not recognised by google
 			// display a notification and set red underline
-			dropoffNotification.style.display = 'block';
-			dropoffAddressInput.style['border-bottom'] = '1px solid #f44336';
-			dropoffAddressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
+			showInvalid(dropoffAddressInput, dropoffNotification)
 			// if addressId is not verified or addressId doesn't match the
 			// entered address, clear out addressId.
 			dropoffAddressId.value = '';
 		} else {
 			// if verification was successful set the underline to
 			// green and hide the notification
-			dropoffAddressInput.style['border-bottom'] = '1px solid #4caf50';
-			dropoffAddressInput.style['box-shadow'] = '0 1px 0 0 #4caf50';
-			dropoffNotification.style.display = 'none';
+			showValid(dropoffAddressInput, dropoffNotification)
 		}
 	}
 
@@ -201,10 +200,10 @@ async function initMap() {
 			renderPickupInputField
 		);
 	} else {
-		pickupNotification.style.display = 'block';
-		pickupAddressInput.style['border-bottom'] = '1px solid #f44336';
-		pickupAddressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
+		showInvalid(pickupAddressInput, pickupNotification)
 	}
+
+	// Event Listeners 
 
 	pickupAutocomplete.addListener('place_changed', () => {
 		// every time the address input changes
@@ -237,9 +236,7 @@ async function initMap() {
 				renderPickupInputField
 			);
 		} else {
-			pickupNotification.style.display = 'block';
-			pickupAddressInput.style['border-bottom'] = '1px solid #f44336';
-			pickupAddressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
+			showInvalid(pickupAddressInput, pickupNotification);
 		}
 	});
 
@@ -274,63 +271,8 @@ async function initMap() {
 				renderDropoffInputField
 			);
 		} else {
-			dropoffNotification.style.display = 'block';
-			dropoffAddressInput.style['border-bottom'] = '1px solid #f44336';
-			dropoffAddressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
+			showInvalid(dropoffAddressInput, dropoffNotification);
 		}
 	});
 
-	// prevent form subbmission unless address is verified
-	const form = document.getElementById('form');
-	form.addEventListener(
-		'submit',
-		(e) => {
-			// Don't submit the form before validation.
-			e.preventDefault();
-
-			// Validate Date and Time inputs
-			const dateAndTimeValidated = validateDateTime();
-
-			if (
-				dateAndTimeValidated &&
-				pickupAddressIsVerified && 
-				dropoffAddressIsVerified) {
-				// form.submit();
-			} else {
-				if (!pickupAddressIsVerified) {
-					if (pickupAddressId.value) {
-						getVerification(
-							pickupAddressId.value,
-							pickupAddressInput.value,
-							'pickup',
-							renderPickupInputField
-						);
-					} else {
-						pickupNotification.style.display = 'block';
-						pickupAddressInput.style['border-bottom'] = '1px solid #f44336';
-						pickupAddressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
-						pickupAddressInput.focus();
-					}
-				}
-				if (!dropoffAddressIsVerified) {
-					if (dropoffAddressId.value) {
-						getVerification(
-							dropoffAddressId.value,
-							dropoffAddressInput.value,
-							'dropoff',
-							renderDropoffInputField
-						);
-					} else {
-						dropoffNotification.style.display = 'block';
-						dropoffAddressInput.style['border-bottom'] = '1px solid #f44336';
-						dropoffAddressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
-						dropoffAddressInput.focus();
-					}
-				}
-			}
-		},
-		true
-	);
 }
-
-initMap();

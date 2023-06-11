@@ -1,15 +1,4 @@
-export const showInvalid = (inputField, notificationField, message) => {
-	inputField.style['border-bottom'] = '1px solid #f44336';
-	inputField.style['box-shadow'] = '0 1px 0 0 #f44336';
-	notificationField.style.display = 'block';
-	notificationField.lastElementChild.textContent = message;
-};
-
-export const showValid = (inputField, notificationField) => {
-	inputField.style['border-bottom'] = '1px solid #4caf50';
-	inputField.style['box-shadow'] = '0 1px 0 0 #4caf50';
-	notificationField.style.display = 'none';
-};
+import { showInvalid, showValid } from "./validation_helper.js";
 
 /** Validate Date input */
 function validateDate(dateInput, dateInputField, dateNotification) {
@@ -97,23 +86,25 @@ function validateTime(timeInput, timeInputField, timeNotification) {
 
 /** Validate Date and Time inputs of form */
 export function validateDateTime() {
-    // Grab all form data
-    const formData = new FormData(form);
-    
-    // Validate Date input 
-    const dateInput = formData.get('date');
-    console.log(dateInput);
-    const dateNotification = document.getElementById('date-notification');
-    const dateInputField = document.getElementById('date');
-    const isDateValid = validateDate(dateInput, dateInputField, dateNotification)
-    
-    // Validate Time input
-    const timeNotification = document.getElementById('time-notification');
+	// Grab all form data
+	const formData = new FormData(form);
+
+    // Grab Date data
+	const dateInput = formData.get('date');
+	console.log(dateInput);
+	const dateNotification = document.getElementById('date-notification');
+	const dateInputField = document.getElementById('date');
+	// Validate Date input
+	const isDateValid = validateDate(dateInput, dateInputField, dateNotification);
+
+    // Grab Time data
+	const timeNotification = document.getElementById('time-notification');
 	const timeInputField = document.getElementById('time');
-    const timeInput = formData.get('time');
+	const timeInput = formData.get('time');
 	console.log(timeInput);
-    const isTimeValid = validateTime(timeInput, timeInputField, timeNotification)
-        
-    // Return value is true if both Date & Time are valid
-    return (isDateValid && isTimeValid) ? true : false         
-    }
+	// Validate Time input
+	const isTimeValid = validateTime(timeInput, timeInputField, timeNotification);
+
+	// Return value is true if both Date & Time are valid
+	return isDateValid && isTimeValid ? true : false;
+}

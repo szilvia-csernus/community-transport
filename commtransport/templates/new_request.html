@@ -80,7 +80,7 @@
 
                     <!-- Date input  -->
                     <input id="date" name="date" type="text" class="datepicker validate" required />
-                    <label for="date">Date of Required Pickup</label>
+                    <label for="date">Date of Required Pickup (within 3 months)</label>
                 </div>
             </div>
 
@@ -161,6 +161,6 @@
 </div>
 
 
-<script type="module" src="{{ url_for('static', filename='js/new_req_validation.js')}}"></script>
+<script type="module" src="{{ url_for('static', filename='js/new_req_form_validation.js')}}"></script>
 
 {% endblock %}
