@@ -66,10 +66,18 @@
         action="{{ url_for('new_request', user_id=user.id) }}">
         <div class="card-panel">
             
-            <!-- date  -->
+            <!-- Date  -->
             <div class="row">
                 <div class="input-field col s12">
                     <img class="my-icon prefix" src="{{ url_for('static', filename='assets/calendar.svg')}}">
+
+                    <!-- Notification for invalid date input  -->
+                    <div class="notification" id="date-notification">
+                        <div class="tooltip"></div>
+                        Pickup date should be in the upcoming 3 months.
+                    </div>
+
+                    <!-- Date input  -->
                     <input id="date" name="date" type="text" class="datepicker validate" required />
                     <label for="date">Date of Required Pickup</label>
                 </div>
@@ -78,23 +86,33 @@
             <!-- time  -->
             <div class="row">
                 <div class="input-field col s12">
+
+                    <!-- Notification for invalid time input  -->
+                    <div class="notification" id="time-notification">
+                        <div class="tooltip"></div>
+                        Please enter a valid time in '9:00 AM' format, or use the time picker.
+                    </div>
+
+                    <!-- Time input  -->
                     <img class="my-icon prefix" src="{{ url_for('static', filename='assets/clock.svg')}}">
                     <input id="time" name="time" type="text" class="timepicker valitime" required />
                     <label for="time">Time of Required Pickup</label>
                 </div>
             </div>
 
-            <!-- address input - Google Autocomplete -->
+            <!-- Address input - Google Autocomplete -->
             <div class="row">
                 <div class="input-field col s12">
                     <img class="my-icon prefix" src="{{ url_for('static', filename='assets/location.svg')}}">
                     
+                    <!-- Notification for invalid address input  -->
                     <div class="notification" id="pickup_notification">
                         <div class="tooltip"></div>
                         <i class="fas fa-map-marker-alt"></i>
                         Please enter a Google-verified address in or around Egham.
                     </div>
                     
+                    <!-- Pickup address input -->
                     <input id="pickup_address" name="pickup_address" type="text" placeholder="" value="{{ user.place.address }}"
                         required>
                     <label for="pickup_address" class="addressLabel">Pick Up Address</label>
@@ -106,12 +124,14 @@
                 <div class="input-field col s12">
                     <img class="my-icon prefix" src="{{ url_for('static', filename='assets/location.svg')}}">
                     
+                    <!-- Notification for invalid address input  -->
                     <div class="notification" id="dropoff_notification">
                         <div class="tooltip"></div>
                         <i class="fas fa-map-marker-alt"></i>
                         Please enter a Google-verified address in or around Egham.
                     </div>
 
+                    <!-- Dropoff address input  -->
                     <input id="dropoff_address" name="dropoff_address" type="text" placeholder=""
                         required>
                     <label for="dropoff_address" class="addressLabel">Drop Off Address</label>
