@@ -74,7 +74,8 @@
                     <!-- Notification for invalid date input  -->
                     <div class="notification" id="date-notification">
                         <div class="tooltip"></div>
-                        Pickup date should be in the upcoming 3 months.
+                        <!-- This field gets overwritten by JS with a specified message.  -->
+                        <div>Invalid date.</div>
                     </div>
 
                     <!-- Date input  -->
@@ -90,7 +91,8 @@
                     <!-- Notification for invalid time input  -->
                     <div class="notification" id="time-notification">
                         <div class="tooltip"></div>
-                        Please enter a valid time in '9:00 AM' format, or use the time picker.
+                        <!-- This field gets overwritten by JS with a specified message.  -->
+                        <div>Invalid time.</div>
                     </div>
 
                     <!-- Time input  -->
@@ -158,6 +160,7 @@
     </form>
 </div>
 
-<script src="{{ url_for('static', filename='js/new_req_addresses.js')}}"></script>
+
+<script type="module" src="{{ url_for('static', filename='js/new_req_validation.js')}}"></script>
 
 {% endblock %}
