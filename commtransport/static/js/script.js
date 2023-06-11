@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	M.Datepicker.init(datepicker, {
 		format: 'dd mmmm, yyyy',
-		// parse: "%Y-%m-%d",
 		yearRange: 3,
 		showClearBtn: true,
 		minDate: minDate,
