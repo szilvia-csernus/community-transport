@@ -4,7 +4,6 @@ from flask import flash, render_template, request, redirect, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from commtransport import app, db
 from commtransport.models import Member, Place, Approval, Request
-from commtransport.validate_form import validate_form_data
 
 
 @app.route("/")
@@ -26,12 +25,8 @@ def register(user_type):
     """ Register a new account. """
     if request.method == "POST":
 
-        # validate form inputs
+        # Request form data
         form_data = request.form
-        is_valid, message = validate_form_data(form_data, "register")
-        if not is_valid:
-            flash(message)
-            return redirect(request.referrer)
 
         # check if email/username already exists in db
         existing_member = Member.query.filter(
@@ -58,8 +53,6 @@ def register(user_type):
             phone_nr=form_data.get("phone_nr"),
             place_id=place.id,
             email=form_data.get("email").lower(),
-            # approved=True,
-            # is_admin=True,
             is_volunteer=bool(True if user_type == "volunteer" else False),
             password=generate_password_hash(form_data.get("password"))
         )
@@ -69,7 +62,6 @@ def register(user_type):
         approval = Approval(
             # create new approval request for new member
             requestor_id=member.id,
-            # status="approved"
         )
         db.session.add(approval)
         db.session.commit()
@@ -96,12 +88,8 @@ def signin():
     """ Sign in into an existing account. """
     if request.method == "POST":
         
-        # Validate form inputs
+        # Request form data
         form_data = request.form
-        # is_valid, message = validate_form_data(form_data, "signin")
-        # if not is_valid:
-        #     flash(message)
-        #     return redirect(request.referrer)
         
         # check if email/username exists in db
         existing_member = Member.query.filter(
@@ -156,8 +144,6 @@ def signout():
 
     if "user" in session:
         flash("You have been signed out.")
-        # session.clear() would clear all cookies related to the app,
-        # as well as all flash content!
         session.pop("user")
     return redirect(url_for("home"))
 
@@ -611,19 +597,28 @@ def new_request(user_id):
 
     if request.method == "POST":
 
-        # validate form inputs
+        # Request form data
         form_data = request.form
-        is_valid, message = validate_form_data(form_data, "transport_request")
-        if not is_valid:
-            flash(message)
+
+        # Check if date is in the required format
+        try: 
+            datetime.strptime(form_data.get("date"), "%d %B, %Y")
+        except ValueError:
+            flash(f"Invalid date format. Please use the date \
+                  picker for choosing pickup date!")
             return redirect(request.referrer)
-        else: 
-            flash(message)
+        
+        # Check if time is in the required format
+        try:
+            datetime.strptime(form_data.get("time"), "%I:%M %p")
+        except ValueError:
+            flash(f"Invalid time format. Please use the time \
+                  selector for time input!")
+            return redirect(request.referrer)
 
         # Check if the date is in the future timeframe of 3 months
         now = datetime.utcnow().date()
         request_date = form_data.get("date")
-        request_time = form_data.get("time")
 
         # Check if entered date is not  earlier than tomorrow
         too_early = datetime.strptime(
@@ -807,12 +802,8 @@ def edit_member(user_id, member_id):
 
     if request.method == "POST":
         
-        # validate form inputs
+        # Request form data
         form_data = request.form
-        is_valid, message = validate_form_data(form_data, "edit_member")
-        if not is_valid:
-            flash(message)
-            return redirect(request.referrer)
         
         if member is None:
             flash("Member not registered.")
