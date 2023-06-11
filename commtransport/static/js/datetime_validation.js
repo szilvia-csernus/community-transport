@@ -1,47 +1,119 @@
-// Validate date input field - after Materialize validation - which is not
-// complete (it's possible to overwrite the date manually witha any text.)
+export const showInvalid = (inputField, notificationField, message) => {
+	inputField.style['border-bottom'] = '1px solid #f44336';
+	inputField.style['box-shadow'] = '0 1px 0 0 #f44336';
+	notificationField.style.display = 'block';
+	notificationField.lastElementChild.textContent = message;
+};
 
-let minDate = new Date();
-minDate.setDate(minDate.getDate() + 1);
-let maxDate = new Date();
-maxDate.setDate(maxDate.getDate() + 90);
+export const showValid = (inputField, notificationField) => {
+	inputField.style['border-bottom'] = '1px solid #4caf50';
+	inputField.style['box-shadow'] = '0 1px 0 0 #4caf50';
+	notificationField.style.display = 'none';
+};
 
-// const dateInput = document.getElementById('date');
-// dateInput.setAttribute('min', minDate);
-// dateInput.setAttribute('max', maxDate);
-// dateInput.value = minDate.toDateString();
+/** Validate Date input */
+function validateDate(dateInput, dateInputField, dateNotification) {
+    const datePattern =
+			/^(\d{1,2})\s(January|February|March|April|May|June|July|August|September|October|November|December),\s\d{4}$/;
+    let isDateValid = datePattern.test(dateInput);
 
-const dateNotification = document.getElementById('date-notification');
+    console.log('Date is Valid:', isDateValid);
 
-function renderInputField(is_verified, inputField, inputNotification) {
-	if (!is_verified) {
-		// The value in the input field is not recognised by google
-		// display a notification and set red underline
-		inputNotification.style.display = 'block';
-		inputField.style['border-bottom'] = '1px solid #f44336';
-		inputField.style['box-shadow'] = '0 1px 0 0 #f44336';
+    // Show notification if date is invalid
+    if (!isDateValid) {
+        showInvalid(
+            dateInputField,
+            dateNotification,
+            'Please use the Popup Calendar to select date.'
+        );
+        dateInputField.focus();
+    } else {
+        showValid(dateInputField, dateNotification);
+    }
+
+    if (isDateValid) {
+
+        // calculate if request time is in the past
+        const dateInputInDateFormat = new Date(dateInput);
+        console.log(dateInputInDateFormat);
+        let now = new Date();
+        let inThePast = dateInputInDateFormat < now;
+        console.log('in the past: ', inThePast);
+        
+        // calculate if request time is too far
+        const threeMonthsLater = new Date();
+        threeMonthsLater.setDate(now.getDate() + 90);
+        let tooFar = dateInputInDateFormat > threeMonthsLater;
+        console.log('too far: ', tooFar);
+        
+        // if date is in the past, show notification
+        if (inThePast) {
+            showInvalid(
+                dateInputField,
+                dateNotification,
+                'Pickup date can not be in the past.'
+                );
+                dateInputField.focus();
+                isDateValid = false;
+            }
+            // if date too far show notification
+            else if (tooFar) {
+                showInvalid(
+                    dateInputField,
+                    dateNotification,
+                    'Pickup date should be within 3 months.'
+                    );
+                    dateInputField.focus();
+                    isDateValid = false;
+                }
+    }
+
+    return isDateValid
+}
+    
+/** Validate Time input */
+function validateTime(timeInput, timeInputField, timeNotification) {
+	
+    // Validate Time input against pattern
+	const timePattern = /^(0?[1-9]|1[0-2]):[0-5][0-9] [AP]M$/;
+	let isTimeValid = timePattern.test(timeInput);
+
+	console.log('Time is valid', isTimeValid);
+
+	// Show notification if time is invalid
+	if (!isTimeValid) {
+		showInvalid(
+			timeInputField,
+			timeNotification,
+			'Please use the Popup Clock to select time.'
+		);
+		timeInputField.focus();
 	} else {
-		// if verification was successful set the underline to
-		// green and hide the notification
-		inputField.style['border-bottom'] = '1px solid #4caf50';
-		inputField.style['box-shadow'] = '0 1px 0 0 #4caf50';
-		inputNotification.style.display = 'none';
+		showValid(timeInputField, timeNotification);
 	}
+
+    return isTimeValid
 }
 
-function verifyDate(dateInput) {
-	let is_verified = false;
-
-	return is_verified;
-}
-
-// dateInput.addEventListener('focusout', (e) => {
-	// Every time the user clicks out of the date input field, perform
-	// this verification.
-	// console.log(dateInput);
-	// const is_verified = verifyDate(dateInput.value);
-	// renderInputField(is_verified, dateInput, dateNotification);
-	// if (!is_verified) {
-	// 	dateInput.focus();
-	// }
-// });
+/** Validate Date and Time inputs of form */
+export function validateDateTime() {
+    // Grab all form data
+    const formData = new FormData(form);
+    
+    // Validate Date input 
+    const dateInput = formData.get('date');
+    console.log(dateInput);
+    const dateNotification = document.getElementById('date-notification');
+    const dateInputField = document.getElementById('date');
+    const isDateValid = validateDate(dateInput, dateInputField, dateNotification)
+    
+    // Validate Time input
+    const timeNotification = document.getElementById('time-notification');
+	const timeInputField = document.getElementById('time');
+    const timeInput = formData.get('time');
+	console.log(timeInput);
+    const isTimeValid = validateTime(timeInput, timeInputField, timeNotification)
+        
+    // Return value is true if both Date & Time are valid
+    return (isDateValid && isTimeValid) ? true : false         
+    }

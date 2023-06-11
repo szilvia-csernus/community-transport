@@ -1,6 +1,6 @@
-// Starter code from google maps api documentation
+import { validateDateTime, showInvalid, showValid } from "./datetime_validation.js";
 
-// Initialize and add the map
+// Initialize and add the map - after Google Maps Api documentation
 let map;
 
 async function initMap() {
@@ -288,47 +288,14 @@ async function initMap() {
 			// Don't submit the form before validation.
 			e.preventDefault();
 
-			// Grab all form data
-			const formData = new FormData(form);
+			// Validate Date and Time inputs
+			const dateAndTimeValidated = validateDateTime();
 
-			// Validate Date input
-			const dateInput = formData.get('date');
-			console.log(dateInput);
-			const dateNotification = document.getElementById('date-notification');
-			const dateInputField = document.getElementById('date');
-			const transformedDate = new Date(dateInput);
-			console.log("transformed Date", transformedDate);
-
-			if (!transformedDate) {
-				dateNotification.style.display = 'block';
-				dateInputField.style['border-bottom'] = '1px solid #f44336';
-				dateInputField.style['box-shadow'] = '0 1px 0 0 #f44336';
-				dateInputField.focus()
-				return;
-			}
-
-			// Validate Time input
-			const timeInput = formData.get('time');
-			console.log(timeInput);
-			const timeNotification = document.getElementById('time-notification');
-			const timeInputField = document.getElementById('time');
-			const timeArr = timeInput.split(':');
-			const calculatedTime = (timeArr[0] * 60 + timeArr[1]) * 60000
-			var newDateTime = new Date(calculatedTime);
-			console.log(calculatedTime);
-		
-			console.log('transformed Time', newDateTime);
-
-			if (!newDateTime) {
-				timeNotification.style.display = 'block';
-				timeInputField.style['border-bottom'] = '1px solid #f44336';
-				timeInputField.style['box-shadow'] = '0 1px 0 0 #f44336';
-				timeInputField.focus()
-				return;
-			}
-
-			if (pickupAddressIsVerified && dropoffAddressIsVerified) {
-				form.submit();
+			if (
+				dateAndTimeValidated &&
+				pickupAddressIsVerified && 
+				dropoffAddressIsVerified) {
+				// form.submit();
 			} else {
 				if (!pickupAddressIsVerified) {
 					if (pickupAddressId.value) {
@@ -342,7 +309,7 @@ async function initMap() {
 						pickupNotification.style.display = 'block';
 						pickupAddressInput.style['border-bottom'] = '1px solid #f44336';
 						pickupAddressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
-						pickupAddressInput.focus()
+						pickupAddressInput.focus();
 					}
 				}
 				if (!dropoffAddressIsVerified) {
@@ -357,7 +324,7 @@ async function initMap() {
 						dropoffNotification.style.display = 'block';
 						dropoffAddressInput.style['border-bottom'] = '1px solid #f44336';
 						dropoffAddressInput.style['box-shadow'] = '0 1px 0 0 #f44336';
-						dropoffAddressInput.focus()
+						dropoffAddressInput.focus();
 					}
 				}
 			}
