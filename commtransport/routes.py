@@ -4,6 +4,7 @@ from flask import flash, render_template, request, redirect, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from commtransport import app, db
 from commtransport.models import Member, Place, Approval, Request
+from commtransport.validate_form import validate_form_data
 
 
 @app.route("/")
@@ -24,6 +25,14 @@ def map():
 def register(user_type):
     """ Register a new account. """
     if request.method == "POST":
+
+        # validate form inputs
+        form_data = request.form
+        is_valid, message = validate_form_data(form_data, "register")
+        if not is_valid:
+            flash(message)
+            return redirect(request.referrer)
+
         # check if email/username already exists in db
         existing_member = Member.query.filter(
             Member.email == request.form.get("email").lower()).all()
@@ -45,14 +54,14 @@ def register(user_type):
             return render_template('register.html')
 
         member = Member(
-            fullname=request.form.get("fullname"),
-            phone_nr=request.form.get("phone_nr"),
+            fullname=form_data.get("fullname"),
+            phone_nr=form_data.get("phone_nr"),
             place_id=place.id,
-            email=request.form.get("email").lower(),
+            email=form_data.get("email").lower(),
             # approved=True,
             # is_admin=True,
             is_volunteer=bool(True if user_type == "volunteer" else False),
-            password=generate_password_hash(request.form.get("password"))
+            password=generate_password_hash(form_data.get("password"))
         )
         db.session.add(member)
         db.session.commit()
@@ -86,14 +95,22 @@ def register(user_type):
 def signin():
     """ Sign in into an existing account. """
     if request.method == "POST":
+        
+        # Validate form inputs
+        form_data = request.form
+        # is_valid, message = validate_form_data(form_data, "signin")
+        # if not is_valid:
+        #     flash(message)
+        #     return redirect(request.referrer)
+        
         # check if email/username exists in db
         existing_member = Member.query.filter(
-            Member.email == request.form.get("email").lower()).first()
+            Member.email == form_data.get("email").lower()).first()
 
         if existing_member:
             # ensure hashed password matches user input
             if check_password_hash(
-                    existing_member.password, request.form.get("password")):
+                    existing_member.password, form_data.get("password")):
 
                 if not existing_member.approved:
                     # if user's registration has not been approved
@@ -102,7 +119,7 @@ def signin():
                     return redirect(url_for('home'))
                 else:
                     # if approval was granted, create a hashed session cookie
-                    session["user"] = generate_password_hash(request.form.get(
+                    session["user"] = generate_password_hash(form_data.get(
                         "email").lower())
                     flash("Welcome, {}".format(existing_member.fullname))
                     if existing_member.is_admin is True:
@@ -173,7 +190,7 @@ def admin_profile(user_id):
     unapproved_members_count = Member.query.filter(
         Member.approved == False).count()
 
-    now = datetime.now()
+    now = datetime.utcnow()
     outstanding_requests_count = Request.query.filter(
         Request.request_date > now).count()
 
@@ -253,7 +270,7 @@ def all_members(user_id):
     approved_members = list(
         Member.query.filter(Member.approved == True))
 
-    now = datetime.now()
+    now = datetime.utcnow()
     outstanding_requests_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == None).count()
 
@@ -291,7 +308,7 @@ def all_requests(user_id):
     unapproved_members_count = Member.query.filter(
         Member.approved == False).count()
 
-    now = datetime.now()
+    now = datetime.utcnow()
     future_requests = list(Request.query.filter(
         Request.request_date >= now,
         Request.request_date > now).order_by(
@@ -351,7 +368,7 @@ def volunteer_profile(user_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
-    now = datetime.now()
+    now = datetime.utcnow()
     upcoming_trips_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == user.id).count()
 
@@ -388,7 +405,7 @@ def volunteer_requests(user_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
-    now = datetime.now()
+    now = datetime.utcnow()
     outstanding_requests = list(Request.query.filter(
         Request.request_date > now, Request.volunteer_id == None).order_by(
             Request.request_date, Request.request_time).all())
@@ -466,7 +483,7 @@ def volunteer_trips(user_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
-    now = datetime.now()
+    now = datetime.utcnow()
     upcoming_trips = list(Request.query.filter(
         Request.request_date > now, Request.volunteer_id == user.id).order_by(
             Request.request_date, Request.request_time).all())
@@ -517,7 +534,7 @@ def cancel_volunteer_trip(user_id, request_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
-    now = datetime.now()
+    now = datetime.utcnow()
     too_short_notice = timedelta(days=1)
     req_datetime = datetime.combine(
         transport_req.request_date, transport_req.request_time)
@@ -585,40 +602,70 @@ def new_request(user_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
-    if user.place is None:
-        flash("Your address is not recognised. Please update your address \
-              before initiating new transport request.")
+    # Check if user's address is in the database with a google_place_id
+    if not user.place.google_place_id :
+        flash(f"Your address is not recognised. Please update your address \
+              before initiating a new transport request.")
         return redirect(url_for(
             'edit_member', user_id=user.id, member_id=user.id))
 
     if request.method == "POST":
-        if user is None:
-            flash("User not registered.")
-            return redirect(url_for("signin"))
 
+        # validate form inputs
+        form_data = request.form
+        is_valid, message = validate_form_data(form_data, "transport_request")
+        if not is_valid:
+            flash(message)
+            return redirect(request.referrer)
+        else: 
+            flash(message)
+
+        # Check if the date is in the future timeframe of 3 months
+        now = datetime.utcnow().date()
+        request_date = form_data.get("date")
+        request_time = form_data.get("time")
+
+        # Check if entered date is not  earlier than tomorrow
+        too_early = datetime.strptime(
+            request_date, "%d %B, %Y").date() < \
+            now + timedelta(days=1)
+        
+        # Check if entered date is not later than 90 days
+        too_late = datetime.strptime(
+            request_date,  "%d %B, %Y").date() > now + timedelta(days=90)
+        flash(f"too_early: {too_early}, too_late: {too_late}")
+
+        # If date is not in the required timeframe
+        if (too_early or too_late):
+            flash("The earliest date can be tomorrow and the latest in \
+                  three months' time. Please enter a date in this timeframe.")
+            return redirect(request.referrer)
+
+        # Check if pickup place is in the database
         pickup = Place.query.filter(
-            Place.google_place_id == request.form.get(
+            Place.google_place_id == form_data.get(
                 'pickup_google_place_id')).first()
 
-        # if pickup location isn't in the database yet:
+        # if pickup location isn't in the database yet, add to the database
         if not pickup:
             pickup = Place(
-                google_place_id=request.form.get('pickup_google_place_id'),
-                address=request.form.get('pickup_address'),
+                google_place_id=form_data.get('pickup_google_place_id'),
+                address=form_data.get('pickup_address'),
             )
 
             db.session.add(pickup)
             db.session.commit()
 
+        # Check if dropoff place is in the database
         dropoff = Place.query.filter(
-            Place.google_place_id == request.form.get(
+            Place.google_place_id == form_data.get(
                 'dropoff_google_place_id')).first()
 
         # if dropoff location isn't in the database yet, add it as a new place:
         if not dropoff:
             dropoff = Place(
-                google_place_id=request.form.get('dropoff_google_place_id'),
-                address=request.form.get('dropoff_address'),
+                google_place_id=form_data.get('dropoff_google_place_id'),
+                address=form_data.get('dropoff_address'),
             )
 
             db.session.add(dropoff)
@@ -626,8 +673,8 @@ def new_request(user_id):
 
         new_request = Request(
             requestor_id=user.id,
-            request_date=request.form.get("date"),
-            request_time=request.form.get("time"),
+            request_date=form_data.get("date"),
+            request_time=form_data.get("time"),
             start_location_id=pickup.id,
             end_location_id=dropoff.id
         )
@@ -669,7 +716,7 @@ def member_requests(user_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
-    now = datetime.now()
+    now = datetime.utcnow()
     future_requests = list(Request.query.filter(
         Request.request_date > now, Request.requestor_id == user.id).order_by(
             Request.request_date, Request.request_time).all())
@@ -711,7 +758,7 @@ def cancel_transport_request(user_id, request_id):
     transport_req = Request.query.get_or_404(request_id)
     arranged = transport_req.volunteer is not None
 
-    now = datetime.now()
+    now = datetime.utcnow()
     too_short_notice = timedelta(days=1)
     req_datetime = datetime.combine(
         transport_req.request_date, transport_req.request_time)
@@ -759,6 +806,14 @@ def edit_member(user_id, member_id):
         return redirect(url_for("signout"))
 
     if request.method == "POST":
+        
+        # validate form inputs
+        form_data = request.form
+        is_valid, message = validate_form_data(form_data, "edit_member")
+        if not is_valid:
+            flash(message)
+            return redirect(request.referrer)
+        
         if member is None:
             flash("Member not registered.")
             return redirect(url_for("signin"))
@@ -768,18 +823,18 @@ def edit_member(user_id, member_id):
             return
 
         # update place details in Place model (place_id doesn't change!)
-        member.place.google_place_id = request.form.get("google_place_id"),
-        member.place.address = request.form.get("address"),
+        member.place.google_place_id = form_data.get("google_place_id"),
+        member.place.address = form_data.get("address"),
 
-        member.fullname = request.form.get("fullname"),
-        member.phone_nr = request.form.get("phone_nr"),
+        member.fullname = form_data.get("fullname"),
+        member.phone_nr = form_data.get("phone_nr"),
 
         if user.is_admin:
-            if request.form.get("is_admin") == 'True':
+            if form_data.get("is_admin") == 'True':
                 member.is_admin = True
             else:
                 member.is_admin = False
-            if request.form.get("is_volunteer") == 'True':
+            if form_data.get("is_volunteer") == 'True':
                 member.is_volunteer = True
             else:
                 member.is_volunteer = False
