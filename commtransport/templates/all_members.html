@@ -269,7 +269,7 @@
                 {% if member.fullname != "Superuser"%}
                 <!-- delete-button class is used by JS to attach event listeners to these buttons  -->
                 <button data-modal-id="modal-{{member.id}}" data-cancel-id="cancel-{{member.id}}" class="btn-small danger-btn delete-button">Delete
-                    Member</a>
+                    Member</button>
                 {% endif %}
             </p>
 
@@ -279,47 +279,40 @@
         <div id="modal-{{member.id}}" class="modal">
             <div  class="modal-body">
         
-                <div class="card-panel">
-                    <!-- Confirmation text  -->
-                    <div class="row">
-                        <div class="col s12 center-align">
-                            <p>Are you sure you want to delete <strong>
-                                    {% if user.id==member.id %}
-                                    your own
-                                    {% else%}
-                                    {{ member.fullname }}'s
-                                    {% endif %}
-                                </strong>
-                                record?</p>
-                            {% if member.is_admin %}
-                            All members approved by
+            <!-- Confirmation text  -->
+                    <p>Are you sure you want to delete <strong>
                             {% if user.id==member.id %}
-                            you
-                            {% else %}
-                            this person
+                            your own
+                            {% else%}
+                            {{ member.fullname }}'s
                             {% endif %}
-                            will need to be approved again by another admin.
-                            {% endif %}
-                            {% if member.is_volunteer %}
-                            All accepted transports will be cancelled.
-                            {% endif %}
-                            <p>The deletion will be permanent.</p>
-                            <br>
-                        </div>
-                        
-        
-                        <!-- Cancel & Delete Buttons  -->
-                        <div class="row">
-                            <button id="cancel-{{member.id}}"
-                                class="col s12 m10 offset-m1 l8 offset-l2 btn my-white-blue-btn">Cancel</button>
-                        </div>
-                        <div class="row">
-                            <a href="{{ url_for('delete_member', user_id=user.id, member_id=member.id) }}"
-                                class="col s12 m10 offset-m1 l8 offset-l2 btn danger-btn">Delete</a>
-                        </div>
-                    </div>
+                        </strong>
+                        record?</p>
+                    {% if member.is_admin %}
+                    All members approved by
+                    {% if user.id==member.id %}
+                    you
+                    {% else %}
+                    this person
+                    {% endif %}
+                    will need to be approved again by another admin.
+                    {% endif %}
+                    {% if member.is_volunteer %}
+                    All accepted transports will be cancelled.
+                    {% endif %}
+                    <p>The deletion will be permanent.</p>
+                    <br>
+                
+
+                <!-- Cancel & Delete Buttons  -->
+                <div class="row">
+                    <button id="cancel-{{member.id}}"
+                        class="col s12 btn my-white-blue-btn">Cancel</button>
                 </div>
-        
+                <div class="row">
+                    <a href="{{ url_for('delete_member', user_id=user.id, member_id=member.id) }}"
+                        class="col s12 btn danger-btn">Delete</a>
+                </div>
             </div>
         </div>
     </li>
