@@ -36,7 +36,7 @@
             <!-- name input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-user my-dark-blue-text prefix"></i>
+                    <img class="my-icon-user prefix" src="{{ url_for('static', filename='assets/user.svg')}}">
                     <input id="fullname" name="fullname" type="text" minlength="5" maxlength="100" class="validate"
                         value="{{ member.fullname }}" required
                         {% if member.email=="superuser@superuser.super" %}
@@ -49,35 +49,17 @@
             <!-- phone input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-phone-alt my-dark-blue-text prefix"></i>
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/phone.svg')}}">
                     <input id="phone_nr" name="phone_nr" type="text" minlength="10" maxlength="20" class="validate"
                         value="{{ member.phone_nr }}" required>
                     <label for="phone_nr">Phone Number</label>
                 </div>
             </div>
-            <!-- address input  -->
+            <!-- Address input - Google Autocomplete -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fa-map-marker-alt my-dark-blue-text prefix"></i>
-                    <!--
-                        Copyright 2021 Google LLC
-                    
-                        Licensed under the Apache License, Version 2.0 (the "License");
-                        you may not use this file except in compliance with the License.
-                        You may obtain a copy of the License at
-                    
-                            https://www.apache.org/licenses/LICENSE-2.0
-                    
-                        Unless required by applicable law or agreed to in writing, software
-                        distributed under the License is distributed on an "AS IS" BASIS,
-                        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-                        See the License for the specific language governing permissions and
-                        limitations under the License.
-                      -->
-
-
-
-                    <div class="notification" id="addressNotification">
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/house.svg')}}">
+                    <div class="notification" id="address-notification">
                         <div class="tooltip"></div>
                         <i class="fas fa-map-marker-alt"></i>
                         Please enter a Google-verified address in or around Egham.
@@ -144,6 +126,6 @@
     </form>
 </div>
 
-<script src="{{ url_for('static', filename='js/reg_address.js')}}"></script>
+<script type="module" src="{{ url_for('static', filename='js/edit_member_form_validation.js')}}"></script>
 
 {% endblock %}

@@ -137,14 +137,6 @@ export async function initMap() {
 		}
 	}
 
-	// if address is already filled in, get it verified straight away.
-	// console.log(addressId.value);
-	// if (addressId.value != '') {
-	// 	getVerification(addressId.value, addressInput.value, renderInputField);
-	// } else {
-	// 	showInvalid(addressInput, notification);
-	// }
-
 	autocomplete.addListener('place_changed', () => {
 		// every time the address input changes
 		if (addressId.value) {
