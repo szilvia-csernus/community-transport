@@ -14,9 +14,7 @@
 <div>
     <div class="logo left-align my-dark-blue-text">CT&ast; Egham, Surrey</div>
     <div class="left-align my-dark-blue-text">
-        <a href="{{ url_for('confirm_signout', user_id=user.id)}}" aria-label="link to home page">
-            <img class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
-        </a>
+        <img id="red-car-icon" class="red-car-small" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
         {{user.fullname}}
         {% if user.is_admin and user.is_volunteer %}
         (<span class="my-red-text">admin</span> and <span class="my-green-text">volunteer</span>)
@@ -172,6 +170,7 @@
                 <span>{{ req.request_date.strftime("%d %b, %Y")}} - {{ req.request_time.strftime("%H:%M") }}</span>
             </div>
         </div>
+        
         <!-- Request details  -->
         <div class="collapsible-body white">
             <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
@@ -190,7 +189,7 @@
             <p>Dropoff Address: <strong>{{ req.end_location.address }}</p></strong>
             <p>Phone: <a href="tel:{{ req.requestor.phone_nr}}">{{ req.requestor.phone_nr}}</a></p>
             <p>Email: <a href="mailto:{{req.requestor.email}}">{{req.requestor.email}}</a></p>
-            
+
             <!-- Cancel button  -->
             <a href="{{ url_for('cancel_volunteer_trip', user_id=user.id, request_id=req.id)}}"
                 class="col s12 btn-small danger-btn">

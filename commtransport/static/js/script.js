@@ -40,3 +40,19 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 });
+
+// General Scripts
+
+// Add event listener to the red car icon to allow signout
+const redCarIcon = document.getElementById('red-car-icon');
+redCarIcon?.addEventListener('click', () => {
+	const signoutModal = document.getElementById('signout-modal');
+	console.log(signoutModal)
+	signoutModal.style.display = "block"
+	// import a deep-copy of this HTML element
+	const signoutCancel = document.getElementById('signout-cancel');
+	signoutCancel.addEventListener(
+		'click',
+		() => (signoutModal.style.display = 'none')
+	);
+})
