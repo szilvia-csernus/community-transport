@@ -1,4 +1,18 @@
 {% extends "base.html" %}
+
+{% block left_nav_elements %}
+
+<a href="{{ url_for('home')}}" aria-label="link to home page">
+    <div class="logo left-align my-dark-blue-text">Community Transport&ast;</div>
+    <div class="center-align my-dark-blue-text">
+        <img class="red-car-logo" src="{{ url_for('static', filename='assets/new-red-car.svg')}}"
+            alt="red car">
+        <span class="logo-subtext">Egham, Surrey, UK</span>
+    </div>
+</a>
+
+{% endblock %}
+
 {% block content %}
 
 <!-- Google Maps JavaScript API initialisation -->

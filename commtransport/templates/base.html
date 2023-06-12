@@ -14,7 +14,8 @@
     <!-- google font  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Oswald:wght@200;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Oswald:wght@200;500&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome Icons  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
@@ -39,38 +40,39 @@
     <header>
         <!-- top navbar  -->
         <nav class="white">
-                {% block left_nav_elements %}
-                
-                <a href="{{ url_for('home')}}" aria-label="link to home page">
-                    <div class="logo left-align my-dark-blue-text">Community Transport&ast;</div> 
-                    <div class="center-align my-dark-blue-text">
-                        <img class="red-car-logo" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
-                        <span class="logo-subtext">Egham, Surrey, UK</span></div>
-                </a>
-                
+            {% block left_nav_elements %}
+
+            <div>
+                <div class="logo left-align my-dark-blue-text">Community Transport&ast;</div>
+                <div class="center-align my-dark-blue-text">
+                    <img class="red-car-logo" src="{{ url_for('static', filename='assets/new-red-car.svg')}}"
+                        alt="red car">
+                    <span class="logo-subtext">Egham, Surrey, UK</span>
+                </div>
+            </div>
+
+            {% endblock %}
+
+
+            <ul class="right hide-on-med-and-down">
+                {% block right_nav_elements %}
                 {% endblock %}
-                
-                <!-- <img class="hospital" src="{{ url_for('static', filename='assets/Freepik-hospital.jpg')}}" alt="hospital"> -->
-                <!-- <img class="yellow-car" src="{{ url_for('static', filename='assets/Pngtree-5471979.png')}}" alt="yellow car"> -->
-                
-                <ul class="right hide-on-med-and-down">
-                    {% block right_nav_elements %}
-                    {% endblock %}
-                    {% if session.user %}
-                        <li>
-                            <a class="my-nav-element my-dark-blue-text" href="{{ url_for('signout')}}">
-                                Sign Out
-                            </a>
-                        </li>
-                    {% else %}
-                        <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('signin')}}">Sign In</a></li>
-                        <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('register', user_type='new')}}">Register&ast;</a>
-                        </li>
-                    {% endif %}
-                </ul>
-                
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger my-dark-blue-text right"><i class="fas fa-bars"
-                        aria-label="menu"></i></a>
+                {% if session.user %}
+                <li>
+                    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('signout')}}">
+                        Sign Out
+                    </a>
+                </li>
+                {% else %}
+                <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('signin')}}">Sign In</a></li>
+                <li><a class="my-nav-element my-dark-blue-text"
+                        href="{{ url_for('register', user_type='new')}}">Register&ast;</a>
+                </li>
+                {% endif %}
+            </ul>
+
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger my-dark-blue-text right"><i class="fas fa-bars"
+                    aria-label="menu"></i></a>
         </nav>
 
         <!-- mobile side navbar  -->
@@ -83,7 +85,7 @@
             {% if session.user %}
             <li>
                 <a class="my-nav-element my-dark-blue-text" href="{{ url_for('signout')}}">
-                Sign Out
+                    Sign Out
                 </a>
             </li>
             {% else %}
@@ -97,17 +99,17 @@
     <section>
         <!-- Flash messages  -->
         {% with messages=get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                <div class="row flashes">
-                    <h4 class="center-align">{{ message }}</h4>
-                </div>
-                {% endfor %}
-            {% endif %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="row flashes">
+            <h4 class="center-align">{{ message }}</h4>
+        </div>
+        {% endfor %}
+        {% endif %}
         {% endwith %}
     </section>
 
-    <main class="container">
+    <main id="main" class="container">
         {% block content%}
         <img class="red-car-large" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
         <div class="row">
@@ -115,7 +117,7 @@
                 <div class="card-panel intro-card mission-card">
                     <h1>Mission</h1>
                     <p class="">Our mission is to help vulnerable people with transport by asking the local
-                        community to help! Transports would include trips to sheduled, non-urgent hospital 
+                        community to help! Transports would include trips to sheduled, non-urgent hospital
                         or GP visits in and around Egham, Surrey. All our volunteers are DBS checked and have
                         clean driving licences to ensure the safety of our members.
                     </p>
@@ -141,17 +143,43 @@
     <!-- footer https://materializecss.com/footer.html -->
     <footer class="white">
         <div class="footer-copyright">
-                <div><strong>*Disclaimer: This website was created for demonstrational purposes only. Please don't enter real data.</strong></div>
-                <div>&copy; Szilvia Csernusne Berczes, 2023. All rights reserved.</div>
+            <div><strong>*Disclaimer: This website was created for demonstrational purposes only. Please don't enter
+                    real data.</strong></div>
+            <div>&copy; Szilvia Csernusne Berczes, 2023. All rights reserved.</div>
         </div>
     </footer>
+
+    <div id="signout-modal" class="signout-modal">
+        <div class="signout-modal-body">
+            <div class="row">
+                <div class="col s12 m10 offset-m1 l8 offset-l2">
+                    <div class="card-panel">
+                        <!-- Confirmation text  -->
+                        <div class="row">
+                            <div class="col s12 center-align">
+                                <p>Are you sure you want to sign out and return to home page?</p>
+                            </div>
+                        </div>
+                        <!-- Cancel & Delete Buttons  -->
+                        <div class="row">
+                            <button id="signout-cancel" class="col s12 btn my-white-blue-btn">Cancel</button>
+                        </div>
+                        <div class="row">
+                            <a href="{{ url_for('signout') }}" class="col s12 btn danger-btn">Sign Out</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Script for Materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
+
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    
+
     {% block bodyscripts %}
     {% endblock %}
 </body>
