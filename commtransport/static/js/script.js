@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Initialize Date Picker
 	const datepicker = document.querySelector('.datepicker');
-	console.log(datepicker);
 
 	let minDate = new Date();
 	minDate.setDate(minDate.getDate() + 1);

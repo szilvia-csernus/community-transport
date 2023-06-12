@@ -17,7 +17,8 @@ export let renderPickupInputField = () => {};
 export let renderDropoffInputField = () => {};
 
 
-// Initialize and add the map - after Google Maps Api documentation
+// Initialize map function with Autotocomplete and PlacesService
+// using Google Maps Api documentation
 let map;
 
 export async function initMap() {
@@ -61,7 +62,8 @@ export async function initMap() {
 	const northeast = { lat: 51.532274, lng: -0.444086 };
 	const bounds = new google.maps.LatLngBounds(southwest, northeast);
 
-	// Bind autocomplete bounds to autocomplate
+	// Bind autocomplete bounds to autocomplate. This, whith strictBounds:true
+	// will makes sure that results are restricted to this area.
 	pickupAutocomplete.setBounds(bounds);
 	dropoffAutocomplete.setBounds(bounds);
 

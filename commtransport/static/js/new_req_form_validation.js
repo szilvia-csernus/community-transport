@@ -48,34 +48,34 @@ form.addEventListener(
 		) {
 			// form.submit();
 		} else {
-            if (!dropoffAddressIsVerified) {
-                if (dropoffAddressId.value) {
-                    getVerification(
-                        dropoffAddressId.value,
-                        dropoffAddressInput.value,
-                        'dropoff',
-                        renderDropoffInputField
-                    );
-                } else {
-                    showInvalid(dropoffAddressInput, dropoffNotification);
-                    dropoffAddressInput.focus();
-                }
-            }
-            if (!pickupAddressIsVerified) {
-                if (pickupAddressId.value) {
-                    getVerification(
-                        pickupAddressId.value,
-                        pickupAddressInput.value,
-                        'pickup',
-                        renderPickupInputField
-                    );
-                } else {
-                    showInvalid(pickupAddressInput, pickupNotification);
-                    pickupAddressInput.focus();
-                }
-            }
-
+			// if user didn't touch the address fields (e.g. it was filled in by
+			// the browser's autocompletion, it has to be verified before submission.)
+			if (!dropoffAddressIsVerified) {
+				if (dropoffAddressId.value) {
+					getVerification(
+						dropoffAddressId.value,
+						dropoffAddressInput.value,
+						'dropoff',
+						renderDropoffInputField
+					);
+				} else {
+					showInvalid(dropoffAddressInput, dropoffNotification);
+					dropoffAddressInput.focus();
+				}
+			}
+			if (!pickupAddressIsVerified) {
+				if (pickupAddressId.value) {
+					getVerification(
+						pickupAddressId.value,
+						pickupAddressInput.value,
+						'pickup',
+						renderPickupInputField
+					);
+				} else {
+					showInvalid(pickupAddressInput, pickupNotification);
+					pickupAddressInput.focus();
+				}
+			}
 		}
-	},
-	true
+	}
 );

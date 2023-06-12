@@ -61,10 +61,17 @@
             <div class="row">
                 <div class="input-field col s12">
                     <img class="my-icon prefix" src="{{ url_for('static', filename='assets/lock.svg')}}">
+
+                    <div class="notification" id="password-notification">
+                        <div class="tooltip"></div>
+                        <i class="fas fa-lock-alt"></i>
+                        Password should include at least one lowercase and one uppercase character, one number and one special character. It also has to be between 8-25 characters long.
+                    </div>
+
                     <input id="password" name="password" type="password" 
-                        minlength="8" maxlength="25" pattern="^[a-zA-Z0-9]{8,25}$"
-                        class="validate" autocomplete="new-password" required>
-                    <label for="password">New Password</label>
+                        minlength="8" maxlength="25"
+                        autocomplete="new-password" required>
+                    <label for="password">New Strong Password (8-25 character long)</label>
                 </div>
             </div>
             <!-- register button  -->
@@ -87,7 +94,7 @@
     </form>
 </div>
 
-<script src="{{ url_for('static', filename='js/reg_address.js')}}"></script>
+<script type="module" src="{{ url_for('static', filename='js/reg_form_validation.js')}}"></script>
 
 {% endblock %}
 
