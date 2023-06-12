@@ -30,23 +30,6 @@ class Member(db.Model):
         primaryjoin="Member.id==Request.requestor_id",
         cascade="all, delete",
         back_populates="requestor")
-    
-    # many-to-one relationship, one many requests can belong to one Member
-    # voluntary_offers=relationship(
-    #     "Request",
-    #     primaryjoin="Member.id==Request.volunteer_id",
-    #     back_populates="volunteer")
-
-    # one-to-one relationship, one Member can have one Approval
-    # own_approval=relationship(
-    #     "Approval",
-    #     foreign_keys=[approval_id],
-    #     back_populates="requestor", 
-    #     uselist=False)
-
-    # one-to-many relationship, one Member can be reviewer of many Approvals
-    # reviewed_approvals=relationship(
-    #     "Approval", back_populates="reviewer")
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string
@@ -62,14 +45,6 @@ class Place(db.Model):
 
     # one-to-one relationship, many members can have the same address
     member_of_address=relationship("Member", back_populates="place")
-
-    # many-to-one relationship, one Request has one location, but
-    # more requests can be initiated to the same location.
-    # start_locations=relationship("Request", back_populates="start_location")
-
-    # many-to-one relationship, one Request has one destination, but
-    # more requests can be initiated to the same end_location.
-    # end_locations=relationship("Request", back_populates="end_location")
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string
