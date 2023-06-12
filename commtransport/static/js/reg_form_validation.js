@@ -8,7 +8,7 @@ initMap();
 // Grab HTML elements
 export const addressInput = document.getElementById('address');
 export const addressId = document.getElementById('address_id');
-export const notification = document.getElementById('addressNotification');
+export const notification = document.getElementById('address-notification');
 export const form = document.getElementById('form');
 
 passwordInputField.addEventListener('focusout', validateStrongPassword);

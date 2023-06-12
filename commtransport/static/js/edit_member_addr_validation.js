@@ -1,5 +1,9 @@
 import { showInvalid, showValid } from './validation_helper.js';
-import { addressId, addressInput, notification } from './reg_form_validation.js';
+import {
+	addressId,
+	addressInput,
+	notification,
+} from './edit_member_form_validation.js';
 
 // Initialize map function with Autotocomplete and PlacesService
 // using Google Maps Api documentation
@@ -11,7 +15,6 @@ export let renderInputField = () => {};
 export let addressIsVerified = false;
 
 export async function initMap() {
-	
 	// Put Egham in the centre of the map
 	const center = { lat: 51.432274, lng: -0.544086 };
 	// Create a bounding box with sides ~10km away from the center point
@@ -64,24 +67,25 @@ export async function initMap() {
 		await service.getDetails(
 			request,
 			(place, status) => {
+
 				// if place_id exist
 				if (status == google.maps.places.PlacesServiceStatus.OK) {
-					console.log('TRUE');
-					console.log(place.formatted_address);
+	
 					// if place_id matches the address currently in the
 					// address input element
 					if (place.formatted_address == placeAddress) {
 						addressIsVerified = true;
 						callback(true);
+
 					} else {
 						// if id is verified but doesn't match the typed in
 						// address (because it was newly typed in wrongly)
-						console.log('Id okay but address not.');
+
 						addressIsVerified = false;
 						callback(false);
 					}
 				} else {
-					console.log('FALSE', place);
+
 					addressIsVerified = false;
 					callback(false);
 				}
@@ -97,7 +101,7 @@ export async function initMap() {
 				callback(false);
 			}
 		);
-	}
+	};
 	/** Underline the input with red or green and display notification
 	 * if necessary. */
 	renderInputField = (is_verified) => {
@@ -115,12 +119,12 @@ export async function initMap() {
 			// if verification was successful set the underline to
 			// green and hide the notification
 			showValid(addressInput, notification);
-			
 		}
-	}
+	};
 
 	function autocompleteInput() {
 		const place = autocomplete.getPlace();
+
 		if (!place || !place?.place_id) {
 			// User entered the name of a Place that was not suggested
 			// or the Place Details request failed,
@@ -135,6 +139,13 @@ export async function initMap() {
 			addressId.value = place.place_id;
 			addressIsVerified = true;
 		}
+	}
+
+	// if address is already filled in, get it verified straight away.
+	if (addressId.value != '') {
+		getVerification(addressId.value, addressInput.value, renderInputField);
+	} else {
+		showInvalid(addressInput, notification);
 	}
 
 	autocomplete.addListener('place_changed', () => {
@@ -155,6 +166,8 @@ export async function initMap() {
 			showInvalid(addressInput, notification);
 		}
 	});
-
 }
 
+// The difference between this address validation and the registration form's
+// address validation is that in this case, an already filled in address input
+// will be verified upon load.
