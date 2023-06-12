@@ -363,11 +363,12 @@ input[name="address"] {
 }
 
 .modal-body {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	padding: 2.5rem;
+    background-color: white;
+    max-width: 30rem;
     animation: form-appear 300ms;
+    margin: 1rem;
+    text-align: center;
 }
 
 @keyframes form-appear {
@@ -467,7 +468,7 @@ button.my-dark-blue:focus, a.my-dark-blue:focus {
     color: var(--my-red);
 }
 
-.danger-btn:hover {
+.danger-btn:hover, .danger-btn:focus {
     background-color: var(--my-red);
     color: white;
 }

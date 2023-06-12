@@ -81,7 +81,6 @@ if (deleteButtons) {
 
 			cancelBtn.addEventListener('click', handleCancel);
 
-			return deleteBtn.removeEventListener('click', handleDelete)
 		}
 		
 		deleteBtn.addEventListener('click', handleDelete);
