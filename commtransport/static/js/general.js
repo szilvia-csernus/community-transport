@@ -48,11 +48,44 @@ const redCarIcon = document.getElementById('red-car-icon');
 redCarIcon?.addEventListener('click', () => {
 	const signoutModal = document.getElementById('signout-modal');
 	console.log(signoutModal)
-	signoutModal.style.display = "block"
-	// import a deep-copy of this HTML element
+	signoutModal.style.display = "flex"
+
 	const signoutCancel = document.getElementById('signout-cancel');
 	signoutCancel.addEventListener(
 		'click',
 		() => (signoutModal.style.display = 'none')
 	);
 })
+
+// Add event listener to delete-button icons if they exist
+const deleteButtons = document.querySelectorAll('.delete-button');
+console.log(deleteButtons)
+if (deleteButtons) {
+	for (deleteBtn of deleteButtons) {
+		const modalId = deleteBtn.dataset.modalId;
+		const confirmDeleteModal = document.getElementById(modalId);
+		const cancelId = deleteBtn.dataset.cancelId;
+		console.log('cancel id:', cancelId);
+		const cancelBtn = document.getElementById(cancelId);
+		console.log(cancelBtn);
+
+		const handleDelete = () => {
+			
+			confirmDeleteModal.style.display = 'flex';
+
+			const handleCancel = () => {
+				confirmDeleteModal.style.display = 'none';
+
+				return cancelBtn.removeEventListener('click', handleCancel);
+			}
+
+			cancelBtn.addEventListener('click', handleCancel);
+
+			return deleteBtn.removeEventListener('click', handleDelete)
+		}
+		
+		deleteBtn.addEventListener('click', handleDelete);
+
+		
+	}
+}
