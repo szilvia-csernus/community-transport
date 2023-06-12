@@ -148,13 +148,6 @@ def signout():
     return redirect(url_for("home"))
 
 
-@app.route("/confirm_signout/<int:user_id>")
-def confirm_signout(user_id):
-    """ Confirming signout process. """
-    user = Member.query.get_or_404(user_id)
-    return render_template("confirm_signout.html", user=user)
-
-
 # Admin routes
 
 @app.route("/admin_profile/<int:user_id>", methods=["GET", "POST"])
@@ -524,7 +517,8 @@ def cancel_volunteer_trip(user_id, request_id):
     too_short_notice = timedelta(days=1)
     req_datetime = datetime.combine(
         transport_req.request_date, transport_req.request_time)
-    within_one_day = now + too_short_notice > req_datetime
+    within_one_day = (now + too_short_notice > req_datetime) and \
+        (req_datetime > now)
 
     if within_one_day is True:
         flash(f"Your transport offer has been cancelled. \n Please note, that \
@@ -533,7 +527,7 @@ def cancel_volunteer_trip(user_id, request_id):
               {transport_req.requestor.phone_nr}, \
               {transport_req.requestor.email}) to let him/her know that you\
               are no more able to offer this transport.")
-    else:
+    elif (req_datetime > now):
         flash("Your transport offer has been cancelled.")
     
     transport_req.volunteer_id = None
@@ -757,7 +751,8 @@ def cancel_transport_request(user_id, request_id):
     too_short_notice = timedelta(days=1)
     req_datetime = datetime.combine(
         transport_req.request_date, transport_req.request_time)
-    within_one_day = now + too_short_notice > req_datetime
+    within_one_day = (now + too_short_notice > req_datetime) and \
+                        (req_datetime > now)
 
     if (arranged and within_one_day):
         flash(f"We are unable to cancel this trip request as the date is\
@@ -770,7 +765,9 @@ def cancel_transport_request(user_id, request_id):
         db.session.delete(transport_req)
         db.session.commit()
 
-        flash("Your transport request has been cancelled.")
+        if (req_datetime > now):
+            flash("Your transport request has been cancelled.")
+
         return redirect(url_for('member_requests', user_id=user.id))
 
 
@@ -908,31 +905,3 @@ def delete_member(user_id, member_id):
     else:
         return redirect(url_for('home'))
 
-
-@app.route("/confirm_delete'/<int:user_id>/<int:member_id>")
-def confirm_delete(user_id, member_id):
-    """ Confirming deletion request. """
-    user = Member.query.get_or_404(user_id)
-    member = Member.query.get_or_404(member_id)
-
-    # check if user signed in
-    is_logged_in = "user" in session and check_password_hash(
-        session["user"], user.email)
-
-    # check if user's account is approved
-    is_approved = user.approved
-
-    is_authorised = user.is_admin or user_id == member_id
-
-    # Superuser should not be deleted
-    is_superuser = member.email == "superuser@superuser.super"
-
-    if not is_approved or not is_logged_in or not is_authorised:
-        flash("Unauthorized access!")
-        return redirect(url_for("signout"))
-
-    if is_superuser:
-        flash("Superuser should not be deleted.")
-        return redirect(request.referrer)
-
-    return render_template('confirm_delete.html', user=user, member=member)

@@ -160,6 +160,12 @@
             <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
             <p>Dropoff Address: <em>{{ req.end_location.address }}</em></p>
 
+            <!-- Clear button  -->
+            <a href="{{ url_for('cancel_transport_request', user_id=user.id, request_id=req.id)}}"
+                class="col s12 btn-small danger-btn">
+                Clear
+            </a>
+
         </div>
     </li>
     {% endfor %}
