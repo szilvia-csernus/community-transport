@@ -1,3 +1,5 @@
+// Google's route planning is written using the Google Api Documentation
+
 /** Google map displaying a route between two locations */
 function initMap() {
 		// New instances of DirectionsService and DirectionsRenderer
@@ -14,7 +16,7 @@ function initMap() {
         directionsRenderer.setMap(map);
 
 		// Collect data from the HTML document
-        const mapDiv = document.getElementById('map')
+        const mapDiv = document.getElementById('map');
         const startLocation = mapDiv.dataset.start;
         const endLocation = mapDiv.dataset.end;
 
@@ -37,8 +39,7 @@ function initMap() {
 						distance.innerText = response.routes[0].legs[0].distance.text;
 						duration.innerText = response.routes[0].legs[0].duration.text;
 						
-					})
-					.catch((e) => console.log('Directions request failed due to ' + e));
+					});
     }
 
 

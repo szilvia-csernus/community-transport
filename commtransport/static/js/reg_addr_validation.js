@@ -66,8 +66,6 @@ export async function initMap() {
 			(place, status) => {
 				// if place_id exist
 				if (status == google.maps.places.PlacesServiceStatus.OK) {
-					console.log('TRUE');
-					console.log(place.formatted_address);
 					// if place_id matches the address currently in the
 					// address input element
 					if (place.formatted_address == placeAddress) {
@@ -76,12 +74,10 @@ export async function initMap() {
 					} else {
 						// if id is verified but doesn't match the typed in
 						// address (because it was newly typed in wrongly)
-						console.log('Id okay but address not.');
 						addressIsVerified = false;
 						callback(false);
 					}
 				} else {
-					console.log('FALSE', place);
 					addressIsVerified = false;
 					callback(false);
 				}
@@ -89,15 +85,15 @@ export async function initMap() {
 			// display an error message if verification was unsuccessful
 			(error) => {
 				alert(
-					"We could not verify the address because either \
-				Google's Autocomplete Place service is down or your \
-				internet connection is not reliable. Please try again later."
+					`We could not verify the address because either 
+				Google's Autocomplete Place service is down or your 
+				internet connection is not reliable. Please try again later.`
 				);
 				addressIsVerified = false;
 				callback(false);
 			}
 		);
-	}
+	};
 	/** Underline the input with red or green and display notification
 	 * if necessary. */
 	renderInputField = (is_verified) => {
@@ -117,7 +113,7 @@ export async function initMap() {
 			showValid(addressInput, notification);
 			
 		}
-	}
+	};
 
 	function autocompleteInput() {
 		const place = autocomplete.getPlace();

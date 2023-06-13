@@ -93,9 +93,9 @@ export async function initMap() {
 			// display an error message if verification was unsuccessful
 			(error) => {
 				alert(
-					"We could not verify the address because either \
-				Google's Autocomplete Place service is down or your \
-				internet connection is not reliable. Please try again later."
+					`We could not verify the address because either 
+				Google's Autocomplete Place service is down or your 
+				internet connection is not reliable. Please try again later.`
 				);
 				addressIsVerified = false;
 				callback(false);
