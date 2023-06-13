@@ -1,7 +1,7 @@
 :root {
     --my-green: #287f00;
     --my-green-translucent: #418b1e3a;
-    --my-red: #941b1b;
+    --my-red: rgb(239, 50, 50);
     --my-blue: #3367d6;
     --my-dark-blue: #20244f;
     --my-grey: rgb(117, 115, 115);
@@ -233,8 +233,8 @@ body {
 }
 
 .animated-car {
-    position: fixed;
-    bottom: 96px;
+    position: absolute;
+    bottom: 105px;
     right: 16px;
 }
 
@@ -291,7 +291,7 @@ body {
     right: 17px;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 374px) {
     .red-car-body, .red-car-wheel {
         display: none;
     }
