@@ -14,12 +14,12 @@ function initMap() {
     // geocode one place id
     async function getOneLocation(placeId) {
       try {
-        const result = await geocoder.geocode({ placeId: placeId })
+        const result = await geocoder.geocode({ placeId: placeId });
 			  return result.results[0].geometry.location.toJSON();
       }
       catch (error) {
         // if location was not found, return with no value
-        return 
+        return;
       }
 		}
 
@@ -32,7 +32,7 @@ function initMap() {
 				resultsArray.push(result);
 			}
 
-      return resultsArray
+      return resultsArray;
     }
 
     // create a map with cluster markers with the geocoded locations
@@ -40,13 +40,12 @@ function initMap() {
 
       const locationsData = await getLocations(myPlaceIdsArray);
 
-      console.log(locationsData)
       const map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
         center: locationsData[0],
       });
 
-      const markers = []
+      const markers = [];
       locationsData.forEach( (location, i) => {
 				const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         // empty values will not get marked.
@@ -59,13 +58,13 @@ function initMap() {
 				
 			});
 
-      new markerClusterer.MarkerClusterer({
+      const markerCluster = new markerClusterer.MarkerClusterer({
         map,
         markers,
       });
     }
 
-    createMapWithMarkers()
+    createMapWithMarkers();
   
 }
 

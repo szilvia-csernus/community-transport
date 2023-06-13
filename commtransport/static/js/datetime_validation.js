@@ -13,8 +13,6 @@ export function validateDate(dateInput) {
 		/^(\d{1,2})\s(January|February|March|April|May|June|July|August|September|October|November|December),\s\d{4}$/;
 	let isDateValid = datePattern.test(dateInput);
 
-	console.log('Date is Valid:', isDateValid);
-
 	// Show notification if date is invalid
 	if (!isDateValid) {
 		showInvalid(
@@ -30,16 +28,13 @@ export function validateDate(dateInput) {
 	if (isDateValid) {
 		// calculate if request time is in the past
 		const dateInputInDateFormat = new Date(dateInput);
-		console.log(dateInputInDateFormat);
 		let now = new Date();
 		let inThePast = dateInputInDateFormat < now;
-		console.log('in the past: ', inThePast);
 
 		// calculate if request time is too far
 		const threeMonthsLater = new Date();
 		threeMonthsLater.setDate(now.getDate() + 90);
 		let tooFar = dateInputInDateFormat > threeMonthsLater;
-		console.log('too far: ', tooFar);
 
 		// if date is in the past, show notification
 		if (inThePast) {
@@ -62,7 +57,7 @@ export function validateDate(dateInput) {
 			isDateValid = false;
 		}
 	}
-    return isDateValid
+    return isDateValid;
 }
 
 /** Validate Time input */
@@ -71,8 +66,6 @@ export function validateTime(timeInput) {
 	// Validate Time input against pattern
 	const timePattern = /^(0?[1-9]|1[0-2]):[0-5][0-9] [AP]M$/;
 	let isTimeValid = timePattern.test(timeInput);
-
-	console.log('Time is valid', isTimeValid);
 
 	// Show notification if time is invalid
 	if (!isTimeValid) {
@@ -85,7 +78,7 @@ export function validateTime(timeInput) {
 	} else {
 		showValid(timeInputField, timeNotification);
 	}
-    return isTimeValid
+    return isTimeValid;
 }
 
 // Date and Time validation happens only when the form gets submitted. That is because

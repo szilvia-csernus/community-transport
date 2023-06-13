@@ -27,7 +27,6 @@ export function validateStrongPassword() {
 		/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&:;£^(){}=§±€_|'"<>,.`~\\\#\[\]\-\+])[A-Za-z0-9@$!%*?&:;£^(){}=§±€_|'"<>,.`~\\\#\[\]\-\+]{8,25}$/;
 
 	const test = passwordPattern.test(pwInput);
-	console.log(pwInput, test);
 
 	if (test) {
 		// if (pwInput.length > 5) {

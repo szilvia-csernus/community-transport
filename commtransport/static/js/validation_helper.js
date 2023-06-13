@@ -1,3 +1,4 @@
+/** Render field with red underline and displaying error message.*/
 export const showInvalid = (inputField, notificationField, message) => {
 	inputField.style['border-bottom'] = '1px solid #f44336';
 	inputField.style['box-shadow'] = '0 1px 0 0 #f44336';
@@ -7,6 +8,7 @@ export const showInvalid = (inputField, notificationField, message) => {
 	}
 };
 
+/** Render field with green underline. */
 export const showValid = (inputField, notificationField) => {
 	inputField.style['border-bottom'] = '1px solid #4caf50';
 	inputField.style['box-shadow'] = '0 1px 0 0 #4caf50';

@@ -97,7 +97,6 @@ export async function initMap() {
 					} else {
 						// if id is verified but doesn't match the typed in
 						// address (because it was newly typed in wrongly)
-						console.log('Id okay but address not.');
 						if (whichAddress === 'pickup') {
 							pickupAddressIsVerified = false;
 						} else if (whichAddress === 'dropoff') {
@@ -107,7 +106,6 @@ export async function initMap() {
 						callback(false);
 					}
 				} else {
-					console.log('FALSE', place);
 					if (whichAddress === 'pickup') {
 						pickupAddressIsVerified = true;
 					} else if (whichAddress === 'dropoff') {
@@ -119,9 +117,9 @@ export async function initMap() {
 			// display an error message if verification was unsuccessful
 			(error) => {
 				alert(
-					"We could not verify the address because either \
-				Google's Autocomplete Place service is down or your \
-				internet connection is not reliable. Please try again later."
+					`We could not verify the address because either 
+				Google's Autocomplete Place service is down or your 
+				internet connection is not reliable. Please try again later.`
 				);
 				if (whichAddress === 'pickup') {
 					pickupAddressIsVerified = false;
@@ -131,7 +129,7 @@ export async function initMap() {
 				callback(false);
 			}
 		);
-	}
+	};
 
 	function autocompleteInput(
 		autocomplete,
@@ -145,11 +143,11 @@ export async function initMap() {
 			// User entered the name of a Place that was not suggested
 			// or the Place Details request failed,
 			// display notification and red underlie
-			showInvalid(addressInput, notification)
+			showInvalid(addressInput, notification);
 
 		} else {
 			// if place is verified, add green underline
-			showValid(addressInput, notification)
+			showValid(addressInput, notification);
 			// Add verified address to input field's value
 			addressInput.value = place.formatted_address;
 			// Add Google Place Id to hidden addressId field
@@ -167,31 +165,31 @@ export async function initMap() {
 		if (!is_verified) {
 			// The value in the input field is not recognised by google
 			// display a notification and set red underline
-			showInvalid(pickupAddressInput, pickupNotification)
+			showInvalid(pickupAddressInput, pickupNotification);
 			// if addressId is not verified or addressId doesn't match the
 			// entered address, clear out addressId.
 			pickupAddressId.value = '';
 		} else {
 			// if verification was successful set the underline to
 			// green and hide the notification
-			showValid(pickupAddressInput, pickupNotification)
+			showValid(pickupAddressInput, pickupNotification);
 		}
-	}
+	};
 
 	renderDropoffInputField = (is_verified) => {
 		if (!is_verified) {
 			// The value in the input field is not recognised by google
 			// display a notification and set red underline
-			showInvalid(dropoffAddressInput, dropoffNotification)
+			showInvalid(dropoffAddressInput, dropoffNotification);
 			// if addressId is not verified or addressId doesn't match the
 			// entered address, clear out addressId.
 			dropoffAddressId.value = '';
 		} else {
 			// if verification was successful set the underline to
 			// green and hide the notification
-			showValid(dropoffAddressInput, dropoffNotification)
+			showValid(dropoffAddressInput, dropoffNotification);
 		}
-	}
+	};
 
 	// Check already filled in pickup address, get it verified straight away.
 	if (pickupAddressId.value) {
@@ -202,7 +200,7 @@ export async function initMap() {
 			renderPickupInputField
 		);
 	} else {
-		showInvalid(pickupAddressInput, pickupNotification)
+		showInvalid(pickupAddressInput, pickupNotification);
 	}
 
 	// Event Listeners 
