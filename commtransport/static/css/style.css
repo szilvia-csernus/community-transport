@@ -202,15 +202,47 @@ body {
 .red-car-body {
     position: relative;
     left: 7rem;
+    animation: move-car-body 1s ease-in-out infinite;
+}
+
+@keyframes move-car-body {
+    0% {
+        transform: translateY(1.4px);
+    }
+    50% {
+        transform: translateY(-1.4px);
+    }
+    100% {
+        transform: translateY(1.4px);
+    }
 }
 
 .red-car-wheel {
-    
+    transform: scale(1.02, 0.98);
+    animation: rotate-wheel 2s linear infinite;
+}
+
+@keyframes rotate-wheel {
+    0% {
+        rotate: 0deg;
+    }
+    25% {
+        rotate: 90deg;
+    }
+    50% {
+        rotate: 180deg;
+    }
+    75% {
+        rotate: 270deg;
+    }
+    100% {
+        rotate: 360deg;
+    }
 }
 
 .wheel-left {
     position: relative;
-    right: 6rem;
+    right: 5.5rem;
     top: 1.3rem;
 }
 
