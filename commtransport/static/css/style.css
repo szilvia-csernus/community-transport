@@ -148,20 +148,58 @@ body {
     background-size: cover;
     background-repeat: repeat-x;
     background-position: -918px;
-    animation: moveBackground 50s forwards;
+    animation: moveBackground 30s linear forwards;
     color: var(--my-dark-blue);
 }
 
-/* moving the oversized background */
+@keyframes moveBackground {
+    0% {
+      background-position: right;
+    }
+
+    100% {
+      background-position: -40%;
+    }
+  }
+
+@media screen and (min-width: 700px) {
+    /* moving the oversized background */
   @keyframes moveBackground {
     0% {
       background-position: right;
     }
 
     100% {
-      background-position: left;
+      background-position: -80%;
     }
   }
+}
+
+@media screen and (min-width: 1000px) {
+    /* moving the oversized background */
+  @keyframes moveBackground {
+    0% {
+      background-position: right;
+    }
+
+    100% {
+      background-position: -140%;
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+    /* moving the oversized background */
+  @keyframes moveBackground {
+    0% {
+      background-position: right;
+    }
+
+    100% {
+      background-position: -540%;
+    }
+  }
+}
 
 .red-car-large {
     position: absolute;
@@ -171,11 +209,7 @@ body {
     right: 20px;
 }
 
-@media screen and (max-width: 400px) {
-    .red-car-large {
-        display: none;
-    }
-}
+
 
 .red-car-logo {
     width: 50px;
@@ -202,7 +236,7 @@ body {
 .red-car-body {
     position: relative;
     left: 112px;
-    animation: move-car-body 1s ease-out infinite;
+    animation: move-car-body 1s ease-out 30;
 }
 
 @keyframes move-car-body {
@@ -218,8 +252,8 @@ body {
 }
 
 .red-car-wheel {
-    transform: scale(1.018, 0.982);
-    animation: rotate-wheel 2s linear infinite;
+    transform: scale(1.02, 0.98);
+    animation: rotate-wheel 2s linear 15;
 }
 
 @keyframes rotate-wheel {
@@ -250,6 +284,12 @@ body {
     position: relative;
     top: 21px;
     right: 17px;
+}
+
+@media screen and (max-width: 400px) {
+    .red-car-body, .red-car-wheel {
+        display: none;
+    }
 }
 
 main {
