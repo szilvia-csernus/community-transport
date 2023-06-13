@@ -45,7 +45,7 @@
             <div>
                 <div class="logo left-align my-dark-blue-text">Community Transport&ast;</div>
                 <div class="center-align my-dark-blue-text">
-                    <img class="red-car-logo" src="{{ url_for('static', filename='assets/new-red-car.svg')}}"
+                    <img class="red-car-logo" src="{{ url_for('static', filename='assets/red-car-small.svg')}}"
                         alt="red car">
                     <span class="logo-subtext">Egham, Surrey, UK</span>
                 </div>
@@ -111,7 +111,11 @@
 
     <main id="main" class="container">
         {% block content%}
-        <img class="red-car-large" src="{{ url_for('static', filename='assets/new-red-car.svg')}}" alt="red car">
+        <div class="animated-car">
+            <img class="red-car-body" src="{{ url_for('static', filename='assets/red-car-body.svg')}}" alt="red car body">
+            <img class="red-car-wheel wheel-left" src="{{ url_for('static', filename='assets/red-car-wheel.svg')}}" alt="red car wheel">
+            <img class="red-car-wheel wheel-right" src="{{ url_for('static', filename='assets/red-car-wheel.svg')}}" alt="red car wheel">
+        </div>
         <div class="row">
             <div class="col s12">
                 <div class="card-panel intro-card mission-card">
@@ -151,26 +155,21 @@
 
     <div id="signout-modal" class="modal">
         <div class="modal-body">
+            
+            <!-- Confirmation text  -->
             <div class="row">
-                <div class="col s12 m10 offset-m1 l8 offset-l2">
-                    <div class="card-panel">
-                        <!-- Confirmation text  -->
-                        <div class="row">
-                            <div class="col s12 center-align">
-                                <p>Are you sure you want to sign out and return to home page?</p>
-                            </div>
-                        </div>
-                        <!-- Cancel & Delete Buttons  -->
-                        <div class="row">
-                            <button id="signout-cancel" class="col s12 btn my-white-blue-btn">Cancel</button>
-                        </div>
-                        <div class="row">
-                            <a href="{{ url_for('signout') }}" class="col s12 btn danger-btn">Sign Out</a>
-                        </div>
-
-                    </div>
+                <div class="col s12 center-align">
+                    <p>Are you sure you want to sign out and return to home page?</p>
                 </div>
             </div>
+            <!-- Cancel & Delete Buttons  -->
+            <div class="row">
+                <button id="signout-cancel" class="col s12 btn my-white-blue-btn">Cancel</button>
+            </div>
+            <div class="row">
+                <a href="{{ url_for('signout') }}" class="col s12 btn danger-btn">Sign Out</a>
+            </div>
+           
         </div>
     </div>
 
