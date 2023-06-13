@@ -178,12 +178,10 @@ body {
 }
 
 .red-car-logo {
-    transform: scaleX(-1);
     width: 50px;
     height: 25px;
     position: relative;
     top: 4px;
-    left: -1.4rem;
 }
 
 .red-car-small {
@@ -193,6 +191,33 @@ body {
     position: relative;
     top: 4px;
     cursor: pointer;
+}
+
+.animated-car {
+    position: fixed;
+    bottom: 6rem;
+    right: 1rem;
+}
+
+.red-car-body {
+    position: relative;
+    left: 7rem;
+}
+
+.red-car-wheel {
+    
+}
+
+.wheel-left {
+    position: relative;
+    right: 6rem;
+    top: 1.3rem;
+}
+
+.wheel-right {
+    position: relative;
+    top: 1.3rem;
+    right: 2.5rem;
 }
 
 main {
@@ -239,7 +264,6 @@ form {
 
 .logo-subtext {
     position: relative;
-    left: -15px;
 }
 
 .my-nav-element {
