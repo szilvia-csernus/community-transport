@@ -74,7 +74,7 @@ def register(user_type):
         flash("Thank you for signing up! Your registration is yet to be \
               approved. Please wait until we get in touch!")
         return redirect(url_for('home'))
-    
+
     google_maps_key = os.environ.get("GOOGLE_MAPS_KEY")
 
     return render_template(
@@ -87,10 +87,10 @@ def register(user_type):
 def signin():
     """ Sign in into an existing account. """
     if request.method == "POST":
-        
+
         # Request form data
         form_data = request.form
-        
+
         # check if email/username exists in db
         existing_member = Member.query.filter(
             Member.email == form_data.get("email").lower()).first()
@@ -113,7 +113,8 @@ def signin():
                     if existing_member.is_admin is True:
                         # if user is admin, redirect to the admin page
                         return redirect(
-                            url_for('all_requests', user_id=existing_member.id))
+                            url_for(
+                                'all_requests', user_id=existing_member.id))
                     elif existing_member.is_volunteer is True:
                         # if user is a volunteer, redirect to the volunteer
                         # main page
@@ -124,7 +125,8 @@ def signin():
                     else:
                         # all other users redirect to the member's page
                         return redirect(
-                            url_for('member_requests', user_id=existing_member.id))
+                            url_for(
+                                'member_requests', user_id=existing_member.id))
             else:
                 # invalid password match
                 flash("Incorrect Username or Password!")
@@ -292,11 +294,11 @@ def all_requests(user_id):
         Request.request_date >= now,
         Request.request_date > now).order_by(
             Request.request_date, Request.request_time).all())
-    
+
     future_requests_place_ids = list()
     for req in future_requests:
         future_requests_place_ids.append(req.start_location.google_place_id)
-    
+
     future_requests_count = len(future_requests)
 
     expired_requests = list(Request.query.filter(
@@ -312,7 +314,7 @@ def all_requests(user_id):
     # if admin is a volunteer too, we need this info for the nav element
     upcoming_trips_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == user.id).count()
-    
+
     google_maps_key = os.environ.get("GOOGLE_MAPS_KEY")
 
     return render_template(
@@ -397,7 +399,7 @@ def volunteer_requests(user_id):
     # if volunteer is admin as well, we need this info for the navbar
     unapproved_members_count = Member.query.filter(
         Member.approved == False).count()
-    
+
     google_maps_key = os.environ.get("GOOGLE_MAPS_KEY")
 
     return render_template(
@@ -478,7 +480,7 @@ def volunteer_trips(user_id):
     # if volunteer is admin as well, we need this info for the navbar
     unapproved_members_count = Member.query.filter(
         Member.approved == False).count()
-    
+
     google_maps_key = os.environ.get("GOOGLE_MAPS_KEY")
 
     return render_template(
@@ -529,12 +531,11 @@ def cancel_volunteer_trip(user_id, request_id):
               are no more able to offer this transport.")
     elif (req_datetime > now):
         flash("Your transport offer has been cancelled.")
-    
+
     transport_req.volunteer_id = None
     db.session.commit()
 
     return redirect(url_for('volunteer_trips', user_id=user.id))
-
 
 
 # Member routes
@@ -583,7 +584,7 @@ def new_request(user_id):
         return redirect(url_for("signout"))
 
     # Check if user's address is in the database with a google_place_id
-    if not user.place.google_place_id :
+    if not user.place.google_place_id:
         flash(f"Your address is not recognised. Please update your address \
               before initiating a new transport request.")
         return redirect(url_for(
@@ -595,13 +596,13 @@ def new_request(user_id):
         form_data = request.form
 
         # Check if date is in the required format
-        try: 
+        try:
             datetime.strptime(form_data.get("date"), "%d %B, %Y")
         except ValueError:
             flash(f"Invalid date format. Please use the date \
                   picker for choosing pickup date!")
             return redirect(request.referrer)
-        
+
         # Check if time is in the required format
         try:
             datetime.strptime(form_data.get("time"), "%I:%M %p")
@@ -618,7 +619,7 @@ def new_request(user_id):
         too_early = datetime.strptime(
             request_date, "%d %B, %Y").date() < \
             now + timedelta(days=1)
-        
+
         # Check if entered date is not later than 90 days
         too_late = datetime.strptime(
             request_date,  "%d %B, %Y").date() > now + timedelta(days=90)
@@ -678,7 +679,7 @@ def new_request(user_id):
     upcoming_trips_count = Request.query.filter(
         Request.requestor_id == user.id,
         Request.volunteer_id is not None).count()
-    
+
     google_maps_key = os.environ.get("GOOGLE_MAPS_KEY")
 
     return render_template(
@@ -716,7 +717,7 @@ def member_requests(user_id):
     upcoming_trips_count = Request.query.filter(
         Request.requestor_id == user.id,
         Request.volunteer_id is not None).count()
-    
+
     google_maps_key = os.environ.get("GOOGLE_MAPS_KEY")
 
     return render_template(
@@ -752,14 +753,14 @@ def cancel_transport_request(user_id, request_id):
     req_datetime = datetime.combine(
         transport_req.request_date, transport_req.request_time)
     within_one_day = (now + too_short_notice > req_datetime) and \
-                        (req_datetime > now)
+        (req_datetime > now)
 
     if (arranged and within_one_day):
-        flash(f"We are unable to cancel this trip request as the date is\
-              within 24 hours and {transport_req.volunteer.fullname} has already \
-              offered a lift for it. Please get in touch with \
-              {transport_req.volunteer.fullname} so he/she knows you don't need \
-              this transport anymore.")
+        flash(f"We are unable to cancel this trip request as the date is \
+            within 24 hours and {transport_req.volunteer.fullname} has \
+            already offered a lift for it. Please get in touch with \
+            {transport_req.volunteer.fullname} so he/she knows you don't \
+            need this transport anymore.")
         return redirect(url_for('member_requests', user_id=user.id))
     else:
         db.session.delete(transport_req)
@@ -798,10 +799,10 @@ def edit_member(user_id, member_id):
         return redirect(url_for("signout"))
 
     if request.method == "POST":
-        
+
         # Request form data
         form_data = request.form
-        
+
         if member is None:
             flash("Member not registered.")
             return redirect(url_for("signin"))
@@ -835,7 +836,7 @@ def edit_member(user_id, member_id):
             return redirect(url_for('volunteer_profile', user_id=user.id))
         else:
             return redirect(url_for('member_profile', user_id=user.id))
-        
+
     google_maps_key = os.environ.get("GOOGLE_MAPS_KEY")
 
     return render_template(
@@ -904,4 +905,3 @@ def delete_member(user_id, member_id):
             'all_members', user_id=user.id, member_id=user.id))
     else:
         return redirect(url_for('home'))
-
