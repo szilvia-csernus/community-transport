@@ -48,11 +48,11 @@ On how to redirect to a previous url:
 https://stackoverflow.com/questions/65093140/flask-redirect-after-job-done-to-previous-url
 https://itecnote.com/tecnote/python-redirect-back-in-flask/
 
-red car icon
+red car icon (own drawing after this picture)
 https://www.cleanpng.com/png-car-ferrari-f50-honda-civic-clip-art-red-car-clipa-178920/download-png.html
 
-red car picture
-https://freesvg.org/1526057088
+animation inspiration:
+https://developer.mozilla.org/en-US/docs/Web/CSS/transform
 
 logout svg icon
 https://www.svgrepo.com/svg/499618/logout - PD licence (Public Domain)
