@@ -195,30 +195,30 @@ body {
 
 .animated-car {
     position: fixed;
-    bottom: 6rem;
-    right: 1rem;
+    bottom: 96px;
+    right: 16px;
 }
 
 .red-car-body {
     position: relative;
-    left: 7rem;
-    animation: move-car-body 1s ease-in-out infinite;
+    left: 112px;
+    animation: move-car-body 1s ease-out infinite;
 }
 
 @keyframes move-car-body {
     0% {
-        transform: translateY(1.4px);
+        transform: translateY(1.2px);
     }
     50% {
-        transform: translateY(-1.4px);
+        transform: translateY(-1.2px);
     }
     100% {
-        transform: translateY(1.4px);
+        transform: translateY(1.2px);
     }
 }
 
 .red-car-wheel {
-    transform: scale(1.02, 0.98);
+    transform: scale(1.018, 0.982);
     animation: rotate-wheel 2s linear infinite;
 }
 
@@ -242,14 +242,14 @@ body {
 
 .wheel-left {
     position: relative;
-    right: 5.5rem;
-    top: 1.3rem;
+    right: 66px;
+    top: 21px;
 }
 
 .wheel-right {
     position: relative;
-    top: 1.3rem;
-    right: 2.5rem;
+    top: 21px;
+    right: 17px;
 }
 
 main {
