@@ -53,6 +53,7 @@ https://www.cleanpng.com/png-car-ferrari-f50-honda-civic-clip-art-red-car-clipa-
 
 animation inspiration:
 https://developer.mozilla.org/en-US/docs/Web/CSS/transform
+https://developer.mozilla.org/en-US/docs/Web/CSS/animation
 
 logout svg icon
 https://www.svgrepo.com/svg/499618/logout - PD licence (Public Domain)
