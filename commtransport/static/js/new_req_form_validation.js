@@ -46,7 +46,7 @@ form.addEventListener(
 			pickupAddressIsVerified &&
 			dropoffAddressIsVerified
 		) {
-			// form.submit();
+			form.submit();
 		} else {
 			// if user didn't touch the address fields (e.g. it was filled in by
 			// the browser's autocompletion, it has to be verified before submission.)
