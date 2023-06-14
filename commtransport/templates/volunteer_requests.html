@@ -88,7 +88,7 @@
 
 <!-- If user is admin display the admin menu elements  -->
 {% if user.is_admin %}
-<li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
         {% if unapproved_members_count > 0 %}
         <span class="badge btn tooltipped my-red my-white-text" data-tooltip="Number of unapproved member requests.">
             {{unapproved_members_count}}
