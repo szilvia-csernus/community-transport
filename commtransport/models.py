@@ -82,7 +82,6 @@ class Request(db.Model):
     end_location_id = db.Column(db.Integer, db.ForeignKey("place.id"))
     volunteer_id = db.Column(
         db.Integer, db.ForeignKey("member.id"), default=None)
-    message = db.Column(db.String(500))
 
     # one-to-many relationship, one Request can have only one requestor
     # but many requests can belong to one Member

@@ -136,16 +136,16 @@
                         </strong>
                         record?</p>
                     {% if member.is_admin %}
-                    All members approved by
-                    {% if user.id==member.id %}
-                    you
-                    {% else %}
-                    this person
-                    {% endif %}
-                    will need to be approved again by another admin.
+                        All members approved by
+                        {% if user.id==member.id %}
+                            you
+                        {% else %}
+                            this person
+                        {% endif %}
+                            will need to be approved again by another admin.
                     {% endif %}
                     {% if member.is_volunteer %}
-                    All accepted transports will be cancelled.
+                        <p>All accepted transports will be cancelled.</p>
                     {% endif %}
                     <p>The deletion will be permanent.</p>
                     <br>
