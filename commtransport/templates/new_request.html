@@ -29,7 +29,7 @@
         {% endif %}
         My Requests</a>
 </li>
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('new_request', user_id=user.id)}}">New Request</a>
+<li><a class="active-nav-element my-nav-element my-dark-blue-text" href="{{ url_for('new_request', user_id=user.id)}}">New Request</a>
 </li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_profile', user_id=user.id)}}">Profile</a></li>
 {% endblock %}
@@ -45,7 +45,7 @@
         {% endif %}
         My Requests</a>
 </li>
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('new_request', user_id=user.id)}}">New Request</a>
+<li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('new_request', user_id=user.id)}}">New Request</a>
 </li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_profile', user_id=user.id)}}">Profile</a></li>
 {% endblock %}
@@ -57,6 +57,7 @@
         ({ key: "{{google_maps_key}}", v: "weekly" });</script>
 
 
+<!-- New request  -->
 <h2 class="center-align">New Request</h2>
 
 <div class="row">
@@ -67,7 +68,7 @@
             <!-- Date  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/calendar.svg')}}">
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/calendar.svg')}}" alt="calendar icon">
 
                     <!-- Notification for invalid date input  -->
                     <div class="notification" id="date-notification">
@@ -94,7 +95,7 @@
                     </div>
 
                     <!-- Time input  -->
-                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/clock.svg')}}">
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/clock.svg')}}" alt="clock icon">
                     <input id="time" name="time" type="text" class="timepicker valitime" required />
                     <label for="time">Time of Required Pickup</label>
                 </div>
@@ -103,13 +104,13 @@
             <!-- Address input - Google Autocomplete -->
             <div class="row">
                 <div class="input-field col s12">
-                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/location.svg')}}">
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/location.svg')}}" alt="location icon">
                     
                     <!-- Notification for invalid address input  -->
                     <div class="notification" id="pickup_notification">
                         <div class="tooltip"></div>
                         <i class="fas fa-map-marker-alt"></i>
-                        Please enter a Google-verified address in or around Egham.
+                        Please enter a Google-verified address in or around Egham, UK.
                     </div>
                     
                     <!-- Pickup address input -->
@@ -122,13 +123,13 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/location.svg')}}">
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/location.svg')}}" alt="location icon">
                     
                     <!-- Notification for invalid address input  -->
                     <div class="notification" id="dropoff_notification">
                         <div class="tooltip"></div>
                         <i class="fas fa-map-marker-alt"></i>
-                        Please enter a Google-verified address in or around Egham.
+                        Please enter a Google-verified address in or around Egham, UK.
                     </div>
 
                     <!-- Dropoff address input  -->

@@ -26,6 +26,7 @@
 <!-- Large screen nav elements  -->
 {% block right_nav_elements %}
 
+<!-- If user is admin, display the admin menu elements  -->
 {% if user.is_admin %}
 <li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
         {% if unapproved_members_count > 0 %}
@@ -41,6 +42,7 @@
 </li>
 {% endif%}
 
+<!-- If user is volunteer display the volunteer menu elements  -->
 {% if user.is_volunteer %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">
@@ -61,12 +63,13 @@
             {{ upcoming_trips_count }}
         </span>
         {% endif %}
-        <span class="my-green-text">Trips</span>
+        <span class="active-nav-element my-green-text">Trips</span>
 
     </a>
 </li>
 {% endif %}
 
+<!-- Profile page's route depends on the privilages of the user  -->
 {% if user.is_admin %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('admin_profile', user_id=user.id)}}">
@@ -85,6 +88,8 @@
 
 <!-- Side nav elements  -->
 {% block sidenav_elements %}
+
+<!-- If user is admin display the admin menu elements  -->
 {% if user.is_admin %}
 <li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
         {% if unapproved_members_count > 0 %}
@@ -100,6 +105,7 @@
 </li>
 {% endif%}
 
+<!-- If user is volunteer display the volunteer menu elements  -->
 {% if user.is_volunteer %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">
@@ -113,7 +119,7 @@
     </a>
 </li>
 <li>
-    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">
+    <a class="active my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">
         {% if upcoming_trips_count > 0 %}
         <span class="badge btn tooltipped my-transparent my-green-text"
             data-tooltip="Number of upcoming trips you've volunteered for.">
@@ -126,6 +132,7 @@
 </li>
 {% endif %}
 
+<!-- Profile page's route depends on the privilages of the user  -->
 {% if user.is_admin %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('admin_profile', user_id=user.id)}}">
@@ -145,7 +152,7 @@
 
 {% block content %}
 
-<!-- List of Current Requests -->
+<!-- List of Upcoming Trips -->
 {% if upcoming_trips|length > 0 %}
 
 <h2 class=" center-align my-green-text">Your Upcoming Trips</h2>
@@ -181,6 +188,7 @@
             </div>
             {% endif %}
 
+            <!-- Trip and Requestor details  -->
             <p>Pickup Address: <strong>{{ req.start_location.address }}</strong></p>
             <p>Dropoff Address: <strong>{{ req.end_location.address }}</p></strong>
             <p>Phone: <a href="tel:{{ req.requestor.phone_nr}}">{{ req.requestor.phone_nr}}</a></p>

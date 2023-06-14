@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
+<!-- Header elements  -->
 {% block left_nav_elements %}
-
 <a href="{{ url_for('home')}}" aria-label="link to home page">
     <div class="logo left-align my-dark-blue-text">Community Transport&ast;</div>
     <div class="center-align my-dark-blue-text">
@@ -10,7 +10,6 @@
         <span class="logo-subtext">Egham, Surrey, UK</span>
     </div>
 </a>
-
 {% endblock %}
 
 {% block content %}
@@ -19,6 +18,7 @@
 <script>(g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
         ({ key: "{{google_maps_key}}", v: "weekly" });</script>
 
+<!-- Register -->
 <h2 class="center-align my-dark-blue-text">Register&ast;</h2>
 
 <div class="row">
@@ -27,7 +27,7 @@
             <!-- name input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <img class="my-icon-user prefix" src="{{ url_for('static', filename='assets/user.svg')}}">
+                    <img class="my-icon-user prefix" src="{{ url_for('static', filename='assets/user.svg')}}" alt="user icon">
                     <input id="fullname" name="fullname" type="text" minlength="5" maxlength="30"
                         class="validate" required>
                     <label for="fullname">Full Name</label>
@@ -36,7 +36,7 @@
             <!-- phone input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/phone.svg')}}">
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/phone.svg')}}" alt="phone icon">
                     <input id="phone_nr" name="phone_nr" type="text" minlength="10" maxlength="20"
                          class="validate" required>
                     <label for="phone_nr">Phone Number</label>
@@ -45,7 +45,7 @@
             <!-- address input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/house.svg')}}">
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/house.svg')}}" alt="house icon">
                     
                     <!--  Google Autocomplete -->
                     
@@ -59,13 +59,13 @@
                     autocomplete="address-line1 address-level1 postal-code" required>
                     <label for="address" id="addressLabel">Address</label>
                     <input type="hidden" id="address_id" name="google_place_id">
-                    <div id="map"></div>
+                    <div id="map" class="hidemap"></div>
                 </div>
             </div>
             <!-- email input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/mail.svg')}}">
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/mail.svg')}}" alt="mail icon">
                     <input id="email" name="email" type="email" minlength="5" maxlength="50"
                          class="validate" autocomplete="email" required>
                     <label for="email">Email</label>
@@ -74,7 +74,7 @@
             <!-- password input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/lock.svg')}}">
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/lock.svg')}}" alt="lock icon">
 
                     <div class="notification" id="password-notification">
                         <div class="tooltip"></div>

@@ -34,7 +34,7 @@
             <!-- name input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <img class="my-icon-user prefix" src="{{ url_for('static', filename='assets/user.svg')}}">
+                    <img class="my-icon-user prefix" src="{{ url_for('static', filename='assets/user.svg')}}" alt="user icon">
                     <input id="fullname" name="fullname" type="text" minlength="5" maxlength="100" class="validate"
                         value="{{ member.fullname }}" required
                         {% if member.email=="superuser@superuser.super" %}
@@ -47,7 +47,7 @@
             <!-- phone input  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/phone.svg')}}">
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/phone.svg')}}" alt="phone icon">
                     <input id="phone_nr" name="phone_nr" type="text" minlength="10" maxlength="20" class="validate"
                         value="{{ member.phone_nr }}" required>
                     <label for="phone_nr">Phone Number</label>
@@ -56,11 +56,11 @@
             <!-- Address input - Google Autocomplete -->
             <div class="row">
                 <div class="input-field col s12">
-                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/house.svg')}}">
+                    <img class="my-icon prefix" src="{{ url_for('static', filename='assets/house.svg')}}" alt="house icon">
                     <div class="notification" id="address-notification">
                         <div class="tooltip"></div>
                         <i class="fas fa-map-marker-alt"></i>
-                        Please enter a Google-verified address in or around Egham.
+                        Please enter a Google-verified address in or around Egham, UK.
                     </div>
 
                     <input id="address" name="address" type="text" placeholder="" 
