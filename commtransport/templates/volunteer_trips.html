@@ -28,7 +28,7 @@
 
 <!-- If user is admin, display the admin menu elements  -->
 {% if user.is_admin %}
-<li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
         {% if unapproved_members_count > 0 %}
         <span class="badge btn tooltipped my-red my-white-text" data-tooltip="Number of unapproved member requests.">
             {{unapproved_members_count}}
@@ -56,14 +56,14 @@
     </a>
 </li>
 <li>
-    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">
+    <a class="active-nav-element my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_trips', user_id=user.id)}}">
         {% if upcoming_trips_count > 0 %}
         <span class="badge btn tooltipped my-transparent my-green-text"
             data-tooltip="Number of upcoming trips you've volunteered for.">
             {{ upcoming_trips_count }}
         </span>
         {% endif %}
-        <span class="active-nav-element my-green-text">Trips</span>
+        <span class=" my-green-text">Trips</span>
 
     </a>
 </li>
@@ -91,7 +91,7 @@
 
 <!-- If user is admin display the admin menu elements  -->
 {% if user.is_admin %}
-<li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
         {% if unapproved_members_count > 0 %}
         <span class="badge btn tooltipped my-red my-white-text" data-tooltip="Number of unapproved member requests.">
             {{unapproved_members_count}}

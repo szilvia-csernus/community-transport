@@ -8,7 +8,7 @@
     --my-dark-blue: #20244f;
     --my-grey: rgb(117, 115, 115);
     --my-grey-translucent: rgba(48, 48, 48, 0.6);
-    --my-light-grey: rgb(200, 200, 200);
+    --my-light-grey: rgba(0,0,0,0.05);
     --my-yellow: #fdce5d;
     --my-yellow-translucent: #fdcd5d7c;
     --my-transparent: #ffffff00;
@@ -43,6 +43,11 @@
     line-height: 27px;
     margin-left: .5rem;
     border: 1px solid var(--my-dark-blue);
+}
+
+nav span.badge {
+    position: relative;
+    bottom: 0.1rem;
 }
 
 .collapsible span.badge.my-yellow.my-dark-blue-text {
@@ -351,6 +356,10 @@ form {
     font-weight: bold;
 }
 
+.active {
+    background-color: var(--my-light-grey);
+}
+
 h3 {
     font-family: 'Oswald';
     font-size: 1.6rem;
@@ -454,7 +463,7 @@ input[name="address"] {
 
 /* Modal styles  */
 
-.modal {
+.my-modal {
 	position: fixed;
 	width: 100dvw;
 	height: 100dvh;
@@ -468,7 +477,7 @@ input[name="address"] {
     align-items: center;
 }
 
-.modal-body {
+.my-modal-body {
 	padding: 2.5rem;
     background-color: white;
     max-width: 30rem;
