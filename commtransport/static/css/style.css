@@ -1,3 +1,5 @@
+/* General colours */
+
 :root {
     --my-green: #287f00;
     --my-green-translucent: #418b1e3a;
@@ -14,7 +16,7 @@
 }
 
 
-/* Modifying Materialize's styles  */
+/* Modifying Materialize styles  */
 
 .btn {
     border-radius: 3px;
@@ -135,8 +137,6 @@ nav ul a:hover {
     color: var(--my-dark-blue);
 }
 
-/* end of Materialize's modifications  */
-
 
 /* General styles  */
 
@@ -151,13 +151,12 @@ body {
     background-image: url(../assets/cityscape1.svg);
     background-size: auto 100%;
     background-repeat: repeat-x;
-    background-position: -918px;
     background-position-y: bottom 5rem;
     animation: moveBackground 30s linear forwards;
     color: var(--my-dark-blue);
 }
 
-/* moving the oversized background */
+/* moving background to the right */
 @keyframes moveBackground {
     0% {
       background-position: right;
@@ -173,7 +172,6 @@ body {
     0% {
       background-position: right;
     }
-
     100% {
       background-position: -80%;
     }
@@ -185,7 +183,6 @@ body {
     0% {
       background-position: right;
     }
-
     100% {
       background-position: -140%;
     }
@@ -197,7 +194,6 @@ body {
     0% {
       background-position: right;
     }
-
     100% {
       background-position: -540%;
     }
@@ -231,7 +227,7 @@ body {
 @media screen and (max-width: 500px) {
     .animated-car {
         right: -2rem;
-        transform: scale(.7);
+        scale: 0.7;
         bottom: 85px
     }
 }
@@ -239,7 +235,7 @@ body {
 @media screen and (max-width: 389px) {
     .animated-car {
         right: -4.5rem;
-        transform: scale(.5);
+        scale: 0.5;
         bottom: 100px;
     }
 }
@@ -252,18 +248,18 @@ body {
 
 @keyframes move-car-body {
     0% {
-        transform: translateY(1.2px);
+        translate: 0 1.2px;
     }
     50% {
-        transform: translateY(-1.2px);
+        translate: 0 -1.2px;
     }
     100% {
-        transform: translateY(1.2px);
+        translate: 0 1.2px;
     }
 }
 
 .red-car-wheel {
-    transform: scale(1.02, 0.98);
+    scale: 1.02 0.98;
     animation: rotate-wheel 2s linear 15;
 }
 
@@ -349,6 +345,10 @@ form {
 
 .my-nav-element {
     font-size: 1.05rem;
+}
+
+.active-nav-element {
+    font-weight: bold;
 }
 
 h3 {
@@ -451,6 +451,7 @@ input[name="address"] {
     margin-bottom: 1rem;
 }
 
+
 /* Modal styles  */
 
 .modal {
@@ -480,7 +481,6 @@ input[name="address"] {
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
@@ -519,6 +519,7 @@ input[name="address"] {
 .my-dark-blue-text {
     color: var(--my-dark-blue);
 }
+
 
 /* Button styles  */
 
@@ -578,6 +579,7 @@ button.my-dark-blue:focus, a.my-dark-blue:focus {
     color: white;
 }
 
+
 /* Badges  */
 
 a.my-yellow.my-dark-blue-text {
@@ -591,6 +593,7 @@ a.my-yellow.my-dark-blue-text:hover {
     background-color: var(--my-dark-blue);
     color: var(--my-yellow);
 }
+
 
 /* Admin nav badges  */
 
@@ -627,6 +630,7 @@ span.my-dark-blue.my-white-text {
     height: 1.4rem;
 }
 
+
 /* Review badge  */
 
 span.my-transparent.my-dark-blue-text {
@@ -641,6 +645,7 @@ span.my-transparent.my-dark-blue-text:hover {
     background-color: var(--my-dark-blue);
     color: white;
 }
+
 
 /* Volunteer nav badges  */
 
@@ -666,6 +671,7 @@ span.my-transparent.my-green-text {
     height: 1.4rem;
 }
 
+
 /* Cards  */
 
 .intro-card {
@@ -673,7 +679,6 @@ span.my-transparent.my-green-text {
     text-align: center;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.9);
-    
 }
 
 @media screen and (min-width: 602px) {
@@ -687,7 +692,6 @@ span.my-transparent.my-green-text {
     margin-top: 2rem;
 }
 
-
 .small-card {
     padding: .5rem;
     height: 9.5rem;
@@ -696,14 +700,14 @@ span.my-transparent.my-green-text {
 @keyframes appear {
     from {
         opacity: 0;
-        transform: translateY(3rem);
+        translate: 0 3rem;
     }
-
     to {
         opacity: 1;
-        transform: translateY(0);
+        translate: 0 0;
     }
 }
+
 
 /* Google map  */
 
@@ -711,7 +715,6 @@ span.my-transparent.my-green-text {
   height: 250px;
 }
 
-
-
-
-
+#map.hidemap {
+    display: none;
+}

@@ -21,14 +21,15 @@
 <!-- Large screen nav elements  -->
 {% block right_nav_elements %}
 
+<!-- If user is admin, display the admin menu elements  -->
 {% if user.is_admin %}
-<li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
         {% if unapproved_members_count > 0 %}
         <span class="badge btn tooltipped my-red my-white-text" data-tooltip="Number of unapproved member requests.">
             {{unapproved_members_count}}
         </span>
         {% endif %}
-        <span class="my-red-text">All Users</span>
+        <span class="active-nav-element my-red-text">All Users</span>
     </a></li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_requests', user_id=user.id)}}">
         <span class="my-red-text">All Requests</span>
@@ -36,6 +37,7 @@
 </li>
 {% endif%}
 
+<!-- If user is volunteer display the volunteer menu elements  -->
 {% if user.is_volunteer %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">
@@ -62,6 +64,7 @@
 </li>
 {% endif %}
 
+<!-- Profile page's route depends on the privilages of the user  -->
 {% if user.is_admin %}
 <li>
     <a class="my-nav-element my-dark-blue-text " href="{{ url_for('admin_profile', user_id=user.id)}}">Profile
@@ -78,6 +81,7 @@
 
 <!-- Side nav elements  -->
 {% block sidenav_elements %}
+<!-- If user is admin display the admin menu elements  -->
 {% if user.is_admin %}
 <li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
         {% if unapproved_members_count > 0 %}
@@ -93,6 +97,7 @@
 </li>
 {% endif%}
 
+<!-- If user is volunteer display the volunteer menu elements  -->
 {% if user.is_volunteer %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">
@@ -119,6 +124,7 @@
 </li>
 {% endif %}
 
+<!-- Profile page's route depends on the privilages of the user  -->
 {% if user.is_admin %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('admin_profile', user_id=user.id)}}">
@@ -136,24 +142,6 @@
 {% endblock %}
 
 {% block content %}
-
-
-<!-- <form action="" method="POST" class="col s12">
-    <div class="row valign-wrapper center-align card-panel grey lighten-5">
-        <div class="input-field col s12 m6">
-            <i class="fas fa-search prefix"></i>
-            <input type="text" name="query" id="query" minllength="3" class="validate" required>
-            <label for="query">Search Members</label>
-
-        </div>
-        <div class="col s12 m6">
-            <button type="submit" class="btn my-dark-blue-btn">
-                <i class="fas fa-search left"></i> Search
-            </button>
-            <a href="" class="btn my-white-blue-btn">Reset</a>
-        </div>
-    </div>
-</form> -->
 
 <!-- List of Users Awaiting Approval -->
 {% if unapproved_members|length > 0 %}
@@ -197,16 +185,12 @@
                     <span class="my-green-text">Registered as a Volunteer.</span>
                 {% endif %}</p>
             <p>
-                <!-- Approve & Decline buttons  -->
+                <!-- Approve & Delete buttons  -->
                 <a href="{{ url_for('approve', user_id=user.id, approval_id=member.approval_id)}}"
                     class="col s12 btn-small my-yellow my-dark-blue-text">
                     Approve
                 </a>
 
-                <!-- <a href="{{ url_for('confirm_delete', user_id=user.id, member_id=member.id)}}"
-                    class="col s12 btn-small danger-btn">
-                    Delete Member
-                </a> -->
                 <button id="confirm-delete" class="col s12 btn-small danger-btn">
                     Delete Member
                 </button>
@@ -274,8 +258,8 @@
             </p>
 
         </div>
+
         <!-- Confirm Delete Modal  -->
-        
         <div id="modal-{{member.id}}" class="modal">
             <div  class="modal-body">
         
@@ -303,7 +287,6 @@
                     <p>The deletion will be permanent.</p>
                     <br>
                 
-
                 <!-- Cancel & Delete Buttons  -->
                 <div class="row">
                     <button id="cancel-{{member.id}}"

@@ -32,7 +32,7 @@
             {{ upcoming_trips_count }}
         </span>
         {% endif %}
-        My Requests</a>
+        <span class="active-nav-element">My Requests</span></a>
 </li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('new_request', user_id=user.id)}}">New Request</a>
 </li>
@@ -41,7 +41,7 @@
 
 <!-- Side nav elements  -->
 {% block sidenav_elements %}
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_requests', user_id=user.id)}}">
+<li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('member_requests', user_id=user.id)}}">
         {% if upcoming_trips_count > 0 %}
         <span class="badge btn tooltipped my-dark-blue my-white-text"
             data-tooltip="Number of upcoming, arranged trips.">
@@ -113,6 +113,8 @@
             {% if not req.volunteer_id %}
             <h3 class="my-green-text left-align">Awaiting Volunteer</h3>
             {% else %}
+
+            <!-- If a volunteer picked up this request, display volunteer's details  -->
             <h3 class="my-green-text left-align">Volunteer: {{req.volunteer.fullname }}</h3>
             <p class="my-green-text">Phone: <a class="my-green-text" href="tel:{{ req.volunteer.phone_nr}}">{{ req.volunteer.phone_nr}}</a></p>
             <p class="my-green-text">Email: <a class="my-green-text" href="mailto:{{req.volunteer.email}}">{{req.volunteer.email}}</a></p>

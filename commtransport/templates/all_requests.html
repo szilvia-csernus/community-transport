@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
+{% block headscripts %}
 <!-- Google Maps JavaScript API polyfill for markerClusterer -->
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+{% endblock %}
 
 <!-- Header elements  -->
 {% block left_nav_elements %}
@@ -24,8 +26,9 @@
 <!-- Large screen nav elements  -->
 {% block right_nav_elements %}
 
+<!-- If user is admin display the admin menu elements  -->
 {% if user.is_admin %}
-<li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
+<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
         {% if unapproved_members_count > 0 %}
         <span class="badge btn tooltipped my-red my-white-text" data-tooltip="Number of unapproved member requests.">
             {{unapproved_members_count}}
@@ -34,11 +37,12 @@
         <span class="my-red-text">All Users</span>
     </a></li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_requests', user_id=user.id)}}">
-        <span class="my-red-text">All Requests</span>
+        <span class="active-nav-element my-red-text">All Requests</span>
     </a>
 </li>
 {% endif%}
 
+<!-- If user is volunteer display the volunteer menu elements  -->
 {% if user.is_volunteer %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">
@@ -65,6 +69,7 @@
 </li>
 {% endif %}
 
+<!-- Profile page's route depends on the privilages of the user  -->
 {% if user.is_admin %}
 <li>
     <a class="my-nav-element my-dark-blue-text " href="{{ url_for('admin_profile', user_id=user.id)}}">Profile
@@ -81,6 +86,7 @@
 
 <!-- Side nav elements  -->
 {% block sidenav_elements %}
+<!-- If user is admin display the admin menu elements  -->
 {% if user.is_admin %}
 <li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
         {% if unapproved_members_count > 0 %}
@@ -90,12 +96,13 @@
         {% endif %}
         <span class="my-red-text">All Users</span>
     </a></li>
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('all_requests', user_id=user.id)}}">
+<li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_requests', user_id=user.id)}}">
         <span class="my-red-text">All Requests</span>
     </a>
 </li>
 {% endif%}
 
+<!-- If user is volunteer display the volunteer menu elements  -->
 {% if user.is_volunteer %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">
@@ -122,6 +129,7 @@
 </li>
 {% endif %}
 
+<!-- Profile page's route depends on the privilages of the user  -->
 {% if user.is_admin %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('admin_profile', user_id=user.id)}}">

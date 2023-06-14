@@ -21,6 +21,7 @@
 <!-- Large screen nav elements  -->
 {% block right_nav_elements %}
 
+<!-- If user is admin, display the admin menu elements  -->
 {% if user.is_admin %}
 <li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
         {% if unapproved_members_count > 0 %}
@@ -36,6 +37,7 @@
 </li>
 {% endif%}
 
+<!-- If user is volunteer display the volunteer menu elements  -->
 {% if user.is_volunteer %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">
@@ -62,13 +64,14 @@
 </li>
 {% endif %}
 
+<!-- Profile page's route depends on the privilages of the user  -->
 {% if user.is_admin %}
-<li>
+<li class="active-nav-element">
     <a class="my-nav-element my-dark-blue-text " href="{{ url_for('admin_profile', user_id=user.id)}}">Profile
     </a>
 </li>
 {% elif user.is_volunteer %}
-<li>
+<li class="active-nav-element">
     <a class="my-nav-element my-dark-blue-text " href="{{ url_for('volunteer_profile', user_id=user.id)}}">Profile
     </a>
 </li>
@@ -78,6 +81,8 @@
 
 <!-- Side nav elements  -->
 {% block sidenav_elements %}
+
+<!-- If user is admin display the admin menu elements  -->
 {% if user.is_admin %}
 <li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('all_members', user_id=user.id)}}">
         {% if unapproved_members_count > 0 %}
@@ -93,6 +98,7 @@
 </li>
 {% endif%}
 
+<!-- If user is volunteer display the volunteer menu elements  -->
 {% if user.is_volunteer %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_requests', user_id=user.id)}}">
@@ -119,15 +125,16 @@
 </li>
 {% endif %}
 
+<!-- Profile page's route depends on the privilages of the user  -->
 {% if user.is_admin %}
 <li>
-    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('admin_profile', user_id=user.id)}}">
+    <a class="active my-nav-element my-dark-blue-text" href="{{ url_for('admin_profile', user_id=user.id)}}">
         Profile
     </a>
 </li>
 {% elif user.is_volunteer %}
 <li>
-    <a class="my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_profile', user_id=user.id)}}">
+    <a class="active my-nav-element my-dark-blue-text" href="{{ url_for('volunteer_profile', user_id=user.id)}}">
         Profile
     </a>
 </li>
@@ -138,33 +145,35 @@
 
 {% block content %}
 
+<!-- The registered details of the user  -->
 <h2 class="center-align my-green-text">Your Details</h2>
 
 <div class="row">
     <div class="col s12 l10 offset-l1">
         <div class="card-panel">
-            <!-- name  -->
+            <!-- Name  -->
             <div class="row">
                 <div class="col s12">
-                    <img class="my-icon-user" src="{{ url_for('static', filename='assets/user.svg')}}">
+                    <img class="my-icon-user" src="{{ url_for('static', filename='assets/user.svg')}}" alt="user icon">
                     {{ user.fullname }}
                 </div>
             </div>
-            <!-- phone -->
+            <!-- Phone -->
             <div class="row">
                 <div class="col s12">
-                    <img class="my-icon" src="{{ url_for('static', filename='assets/phone.svg')}}">
+                    <img class="my-icon" src="{{ url_for('static', filename='assets/phone.svg')}}" alt="phone icon">
                     {{ user.phone_nr }}
                 </div>
             </div>
-            <!-- address -->
+            <!-- Address -->
             <div class="row">
                 <div class="col s12">
-                    <img class="my-icon" src="{{ url_for('static', filename='assets/house.svg')}}">
+                    <img class="my-icon" src="{{ url_for('static', filename='assets/house.svg')}}" alt="house icon">
                     <span>{{ place.address }}</span>
                 </div>
             </div>
             <br>
+            <!-- Privilages -->
             {% if user.is_admin %}
             <div class="row">
                 <div class="col s12">

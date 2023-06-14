@@ -31,7 +31,7 @@
 </li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('new_request', user_id=user.id)}}">New Request</a>
 </li>
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_profile', user_id=user.id)}}">Profile</a></li>
+<li class="active-nav-element"><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_profile', user_id=user.id)}}">Profile</a></li>
 {% endblock %}
 
 <!-- Side nav elements  -->
@@ -46,38 +46,41 @@
 </li>
 <li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('new_request', user_id=user.id)}}">New Request</a>
 </li>
-<li><a class="my-nav-element my-dark-blue-text" href="{{ url_for('member_profile', user_id=user.id)}}">Profile</a></li>
+<li><a class="active my-nav-element my-dark-blue-text" href="{{ url_for('member_profile', user_id=user.id)}}">Profile</a></li>
 {% endblock %}
 
 {% block content %}
 
+<!-- User record details  -->
 <h2 class="center-align my-dark-blue-text">Your Details</h2>
 
 <div class="row">
     <div class="col s12 m10 offset-m1 l8 offset-l2">
         <div class="card-panel">
-            <!-- name  -->
+            <!-- Name  -->
             <div class="row">
                 <div class="col s12">
-                    <img class="my-icon-user" src="{{ url_for('static', filename='assets/user.svg')}}">
+                    <img class="my-icon-user" src="{{ url_for('static', filename='assets/user.svg')}}" alt="user icon">
                     <strong>Full Name: </strong>{{ user.fullname }}
                 </div>
             </div>
-            <!-- phone -->
+            <!-- Phone -->
             <div class="row">
                 <div class="col s12">
-                    <img class="my-icon" src="{{ url_for('static', filename='assets/phone.svg')}}">
+                    <img class="my-icon" src="{{ url_for('static', filename='assets/phone.svg')}}" alt="phone icon">
                     <strong>Phone Number: </strong>{{ user.phone_nr }}
                 </div>
             </div>
-            <!-- address -->
+            <!-- Address -->
             <div class="row">
                 <div class="col s12">
-                    <img class="my-icon" src="{{ url_for('static', filename='assets/house.svg')}}">
+                    <img class="my-icon" src="{{ url_for('static', filename='assets/house.svg')}}" alt="house icon">
                     <strong>Address: </strong>{{ place.address }}
                 </div>
             </div>
             <br>
+
+            <!-- Privilages  -->
             {% if user.is_admin %}
             <div class="row">
                 <div class="col s12">
