@@ -623,7 +623,6 @@ def new_request(user_id):
         # Check if entered date is not later than 90 days
         too_late = datetime.strptime(
             request_date,  "%d %B, %Y").date() > now + timedelta(days=90)
-        flash(f"too_early: {too_early}, too_late: {too_late}")
 
         # If date is not in the required timeframe
         if (too_early or too_late):
