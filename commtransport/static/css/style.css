@@ -1,7 +1,7 @@
 :root {
     --my-green: #287f00;
     --my-green-translucent: #418b1e3a;
-    --my-red: rgb(239, 50, 50);
+    --my-red: #941b1b;
     --my-blue: #3367d6;
     --my-dark-blue: #20244f;
     --my-grey: rgb(117, 115, 115);
@@ -157,6 +157,7 @@ body {
     color: var(--my-dark-blue);
 }
 
+/* moving the oversized background */
 @keyframes moveBackground {
     0% {
       background-position: right;
@@ -168,7 +169,6 @@ body {
   }
 
 @media screen and (min-width: 700px) {
-    /* moving the oversized background */
   @keyframes moveBackground {
     0% {
       background-position: right;
@@ -181,7 +181,6 @@ body {
 }
 
 @media screen and (min-width: 1000px) {
-    /* moving the oversized background */
   @keyframes moveBackground {
     0% {
       background-position: right;
@@ -194,7 +193,6 @@ body {
 }
 
 @media screen and (min-width: 1200px) {
-    /* moving the oversized background */
   @keyframes moveBackground {
     0% {
       background-position: right;
@@ -206,25 +204,17 @@ body {
   }
 }
 
-.red-car-large {
-    position: absolute;
-    width: 140px;
-    height: 70px;
-    bottom: 90px;
-    right: 20px;
-}
-
-
+/* Red car styling and animations  */
 
 .red-car-logo {
     width: 50px;
     height: 25px;
     position: relative;
     top: 4px;
+    left: -7px;
 }
 
 .red-car-small {
-    transform: scaleX(-1);
     width: 50px;
     height: 25px;
     position: relative;
@@ -236,6 +226,22 @@ body {
     position: absolute;
     bottom: 105px;
     right: 16px;
+}
+
+@media screen and (max-width: 500px) {
+    .animated-car {
+        right: -2rem;
+        transform: scale(.7);
+        bottom: 85px
+    }
+}
+
+@media screen and (max-width: 389px) {
+    .animated-car {
+        right: -4.5rem;
+        transform: scale(.5);
+        bottom: 100px;
+    }
 }
 
 .red-car-body {
@@ -291,11 +297,7 @@ body {
     right: 17px;
 }
 
-@media screen and (max-width: 374px) {
-    .red-car-body, .red-car-wheel {
-        display: none;
-    }
-}
+/* Styles across all pages  */
 
 main {
     flex: 1 0 auto;
@@ -341,6 +343,8 @@ form {
 
 .logo-subtext {
     position: relative;
+    left: -7px;
+    top: -3px;
 }
 
 .my-nav-element {
@@ -669,8 +673,14 @@ span.my-transparent.my-green-text {
     text-align: center;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.9);
-    opacity: 0;
-    animation: appear 2s .5s forwards;
+    
+}
+
+@media screen and (min-width: 602px) {
+    .intro-card {
+        opacity: 0;
+        animation: appear 2s .5s forwards;
+    }
 }
 
 .mission-card {
