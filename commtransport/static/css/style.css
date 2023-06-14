@@ -705,6 +705,12 @@ span.my-transparent.my-green-text {
     }
 }
 
+/* Google map  */
+
+#map {
+  height: 250px;
+}
+
 
 
 

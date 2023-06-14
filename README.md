@@ -38,7 +38,28 @@ You can now use the `heroku` CLI program - try running `heroku apps` to confirm 
 
 Happy coding!
 
+## Tools used:
+Lucid App
+https://lucid.app
+
+Materialize https://materializecss.com/
+
+FontAwesome https://fontawesome.com/
+
+Random Key Generator: https://randomkeygen.com/
+
+
 ## Credits
+
+LucidChart link to my chart:
+https://lucid.app/lucidchart/55d32dd7-0602-401b-8492-4d5bce45d4cb/edit?viewport_loc=-282%2C-1353%2C2900%2C1157%2C0_0&invitationId=inv_b0df2289-d582-4b8f-8740-c7cafb034218
+
+
+
+
+
+user login model
+https://github.com/Code-Institute-Solutions/CombinedTaskManager2022/tree/main
 
 password validation regex:
 
