@@ -268,16 +268,16 @@ body {
         rotate: 0deg;
     }
     25% {
-        rotate: 90deg;
+        rotate: -90deg;
     }
     50% {
-        rotate: 180deg;
+        rotate: -180deg;
     }
     75% {
-        rotate: 270deg;
+        rotate: -270deg;
     }
     100% {
-        rotate: 360deg;
+        rotate: -360deg;
     }
 }
 
