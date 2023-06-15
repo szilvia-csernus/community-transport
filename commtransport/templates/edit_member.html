@@ -67,7 +67,7 @@
                       value="{{ member.place.address }}" autocomplete="off">
                     <label for="address" id="addressLabel">Address</label>
                     <input type="hidden" id="address_id" name="google_place_id" 
-                    value="{{ member.place.google_place_id }}" required>
+                    value="{{ member.place.google_place_id }}">
                     <div id="map"></div>
                 </div>
             </div>
@@ -78,18 +78,18 @@
             <div class="col s12 checkboxes-frame">
                 <label class="my-dark-blue-text">
                     {% if member.is_admin %}
-                        <input type="checkbox" name="is_admin" class="filled-in" value="True" checked/>
+                        <input type="checkbox" name="is_admin" class="filled-in" value="True" checked>
                     {% else %}
-                        <input type="checkbox" name="is_admin" class="filled-in" value="True" />
+                        <input type="checkbox" name="is_admin" class="filled-in" value="True">
                     {% endif %}
                     <span>Admin</span>
                 </label>
             
                 <label class="my-dark-blue-text">
                     {% if member.is_volunteer %}
-                        <input type="checkbox" name="is_volunteer" class="filled-in" value="True" checked/>
+                        <input type="checkbox" name="is_volunteer" class="filled-in" value="True" checked>
                     {% else %}
-                        <input type="checkbox" name="is_volunteer" class="filled-in" value="True" />
+                        <input type="checkbox" name="is_volunteer" class="filled-in" value="True">
                     {% endif %}
                     <span>Volunteer</span>
                 </label>
@@ -127,14 +127,16 @@
                     
                     <!-- Confirmation text  -->
 
-                    <p>Are you sure you want to delete <strong>
+                    <p>Are you sure you want to delete 
+                        <strong>
                             {% if user.id==member.id %}
                             your own
                             {% else%}
                             {{ member.fullname }}'s
                             {% endif %}
                         </strong>
-                        record?</p>
+                        record?
+                    </p>
                     {% if member.is_admin %}
                         All members approved by
                         {% if user.id==member.id %}
@@ -145,7 +147,9 @@
                             will need to be approved again by another admin.
                     {% endif %}
                     {% if member.is_volunteer %}
-                        <p>All accepted transports will be cancelled.</p>
+                        <p>
+                            All accepted transports will be cancelled.
+                        </p>
                     {% endif %}
                     <p>The deletion will be permanent.</p>
                     <br>
@@ -162,6 +166,7 @@
                 </div>
 
             </div>
+        </div>
     </form>
 </div>
 
