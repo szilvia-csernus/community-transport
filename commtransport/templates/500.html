@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Szilvia Csernusne Berczes">
+    <meta name="application-name" content="Community Transport, Egham">
+    <meta name="description" content="Fictional Community Project">
+    <meta name="keywords" content="community project, local volunteering, transport help for elderly">
+
+    <!-- Favicons  -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+
+    <!-- google font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Oswald:wght@200;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        type="text/css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>Not Found!</title>
+</head>
+
+<body>
+    <header>
+        <!-- top navbar  -->
+        <nav class="white">
+
+            <div>
+                <div class="logo left-align my-dark-blue-text">Community Transport&ast;</div>
+                <div class="center-align my-dark-blue-text">
+                    <img class="red-car-logo" src="{{ url_for('static', filename='assets/red-car-small.svg')}}"
+                        alt="red car">
+                    <span class="logo-subtext">Egham, Surrey, UK</span>
+                </div>
+            </div>
+
+    </header>
+
+    <main id="main" class="container">
+
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel intro-card mission-card">
+                    <h1>Error</h1>
+                    <br>
+                    <p>There seems to be a problem on our end, sorry for the inconvenience!
+                    </p>
+                    <br>
+                    <p>Please try again later.
+                    </p>
+                    <br>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- footer https://materializecss.com/footer.html -->
+    <footer class="white">
+        <div class="footer-copyright">
+            <div><strong>*Disclaimer: This website was created for demonstrational purposes only. Please don't enter
+                    real data.</strong></div>
+            <div>&copy; Szilvia Csernusne Berczes, 2023. All rights reserved.</div>
+        </div>
+    </footer>
+
+
+    <!-- Script for Materialize -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script src="{{ url_for('static', filename='js/general.js') }}"></script>
+
+</body>
+
+</html>
