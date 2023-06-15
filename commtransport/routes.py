@@ -904,3 +904,19 @@ def delete_member(user_id, member_id):
             'all_members', user_id=user.id, member_id=user.id))
     else:
         return redirect(url_for('home'))
+    
+
+@app.errorhandler(404)
+def page_not_found(error):
+    ''' Route to handle 404 error
+        Renders custom 404 page
+    '''
+    return render_template("404.html", error=error), 404
+
+
+@app.errorhandler(500)
+def page_not_found(error):
+    ''' Route to handle 404 error
+        Renders custom 404 page
+    '''
+    return render_template("500.html", error=error), 500
