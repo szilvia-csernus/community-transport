@@ -107,7 +107,7 @@
             {% endif %}
 
             <p>Pickup Address: <strong>{{ req.start_location.address }}</strong></p>
-            <p>Dropoff Address: <strong>{{ req.end_location.address }}</p></strong>
+            <p>Dropoff Address: <strong>{{ req.end_location.address }}</strong></p>
             <br>
 
             {% if not req.volunteer_id %}
@@ -155,7 +155,7 @@
         <div class="collapsible-body white">
             <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
             <p>Pickup Time: <strong>{{ req.request_time.strftime("%H:%M") }}</strong></p>
-            <p>Pickup Address: <em>{{ req.start_location.address }}</em></strong></p>
+            <p>Pickup Address: <em>{{ req.start_location.address }}</em></p>
             <p>Dropoff Address: <em>{{ req.end_location.address }}</em></p>
 
             <!-- Clear button  -->

@@ -190,7 +190,7 @@
 
             <!-- Trip and Requestor details  -->
             <p>Pickup Address: <strong>{{ req.start_location.address }}</strong></p>
-            <p>Dropoff Address: <strong>{{ req.end_location.address }}</p></strong>
+            <p>Dropoff Address: <strong>{{ req.end_location.address }}</strong></p>
             <p>Phone: <a href="tel:{{ req.requestor.phone_nr}}">{{ req.requestor.phone_nr}}</a></p>
             <p>Email: <a href="mailto:{{req.requestor.email}}">{{req.requestor.email}}</a></p>
 
@@ -231,7 +231,7 @@
             <h3>{{ req.request_date.strftime("%a %d %b, %Y")}}</h3>
             <p>Pickup Time: <strong>{{ req.request_time.strftime("%H:%M") }}</strong></p>
             <p>Pickup Address: <strong>{{ req.start_location.address }}</strong></p>
-            <p>Dropoff Address: <strong>{{ req.end_location.address }}</p></strong>
+            <p>Dropoff Address: <strong>{{ req.end_location.address }}</strong></p>
             <p>Phone: <a href="tel:{{ req.requestor.phone_nr}}">{{ req.requestor.phone_nr}}</a></p>
             <p>Email: <a href="mailto:{{req.requestor.email}}">{{req.requestor.email}}</a></p>
 

@@ -34,24 +34,27 @@
 
 ### HTML and CSS Validations
 
-| W3C Result | Passed without errors |
+> Warnings / Errors due to Jinja template functionalities are filtered out from the results.
+> CSS Errors can be ignored as they are referring to new CSS properties that are now widely supported.
+
+| W3C Result | Passed |
 | :--- | :---: | 
-| [base.html file validation](testing-images/W3C-base-html.pdf) | &check; |
-| [register.html file validation](testing-images/W3C-register-html.pdf) | &check; |
-| [signin.html file validation](testing-images/W3C-signin-html.pdf) | &check; |
-| [member_profile.html file validation](testing-images/W3C-member_profile-html.pdf) | &check; |
-| [member_requests.html file validation](testing-images/W3C-member_requests-html.pdf) | &check; |
-| [new_request.html file validation](testing-images/W3C-new_request-html.pdf) | &check; |
-| [admin_profile.html file validation](testing-images/W3C-admin_profile-html.pdf) | &check; |
-| [all_members.html file validation](testing-images/W3C-all_members-html.pdf) | &check; |
-| [all_requests.html file validation](testing-images/W3C-all_requests-html.pdf) | &check; |
-| [volunteer_profile.html file validation](testing-images/W3C-volunteer_profile-html.pdf) | &check; |
-| [volunteer_requests.html file validation](testing-images/W3C-volunteer_requests-html.pdf) | &check; |
-| [volunteer_trips.html file validation](testing-images/W3C-volunteer_trips-html.pdf) | &check; |
-| [edit_member.html file validation](testing-images/W3C-edit_member-html.pdf) | &check; |
-| [404.html file validation](testing-images/W3C-404-html.pdf) | &check; |
-| [500.html file validation](testing-images/W3C-404-html.pdf) | &check; |
-| [style.css file validation](testing-images/W3C-style-css.pdf) | &check; |
+| [base.html file validation](testing-images/w3c-base-html.jpeg) | &check; |
+| [register.html file validation](testing-images/w3c-register-html.jpeg) | &check; |
+| [signin.html file validation](testing-images/w3c-signin-html.jpeg) | &check; |
+| [member_profile.html file validation](testing-images/w3c-member_profile-html.jpeg) | &check; |
+| [member_requests.html file validation](testing-images/w3c-member_requests-html.jpeg) | &check; |
+| [new_request.html file validation](testing-images/w3c-new_request-html.jpeg) | &check; |
+| [admin_profile.html file validation](testing-images/w3c-admin_profile-html.jpeg) | &check; |
+| [all_members.html file validation](testing-images/w3c-all_members-html.jpeg) | &check; |
+| [all_requests.html file validation](testing-images/w3c-all_requests-html.jpeg) | &check; |
+| [volunteer_profile.html file validation](testing-images/w3c-volunteer_profile-html.jpeg) | &check; |
+| [volunteer_requests.html file validation](testing-images/w3c-volunteer_requests-html.jpeg) | &check; |
+| [volunteer_trips.html file validation](testing-images/w3c-volunteer_trips-html.jpeg) | &check; |
+| [edit_member.html file validation](testing-images/w3c-edit_member-html.jpeg) | &check; |
+| [404.html file validation](testing-images/w3c-404-html.jpeg) | &check; |
+| [500.html file validation](testing-images/w3c-500-html.jpeg) | &check; |
+| [style.css file validation](testing-images/w3c-style-css.jpeg) | &check; |
 
 <br><br>
 
