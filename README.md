@@ -1,116 +1,346 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Community Transport
 
-Welcome,
-
-This is the Code Institute student template for Codeanywhere. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
-
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Codeanywhere and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **May 11th, 2023**
-
-## Codeanywhere Reminders
-
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere, in the terminal, type:
-
-`python3 -m http.server`
-
-A button should appear to click: _Open Preview_ or _Open Browser_.
-
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere with no-cache, you can use this alias for `python3 -m http.server`.
-
-`http_server`
-
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
-
-A button should appear to click: _Open Preview_ or _Open Browser_.
-
-In Codeanywhere you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
-
-To log into the Heroku toolbelt CLI:
-
-1. Log in to your Heroku account and go to _Account Settings_ in the menu under your avatar.
-2. Scroll down to the _API Key_ and click _Reveal_
-3. Copy the key
-4. In Codeanywhere, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
-
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+Full stack web application to support the local community of Egham, UK. The app allows volunteers to sign up to offer transport to essential places such as hospitals or GP Practices. People who need such help can also sign up and request lifts. It is the Admin(s) responsibility to do background checks before they approve anybody who joins this initiative to ensure everybody's safety.
 
 ---
 
-Happy coding!
+## [View the live project here](https://community-transport-egham.herokuapp.com/)
+---
+
+![Landing page](readme-images/mockup.jpeg)
+
+> This project was created for [Code Institute](www.codeintitute.net)'s Web Development Course as the Third Milestone Project (MS3) - Data Centric Fullstack Development Project - for assessment purposes.
+<br><br>
+Not for public use.
+<br><br>
+&copy; 2023 Szilvia Csernusne Berczes. All rights reserved.
+
+---
+<br>
+
+# User Experience (UX)
+
+## Site Owner's Goals
+
+* 
+
+
+## Players' Goals
+
+* 
+
+<br>
+
+# Wireframes
+<br>
+
+Wireframes were created in [Balsamiq](https://balsamiq.cloud/). <br>
+
+![main screen](readme-images/balsamiq-wireframe-1.jpeg)<br>
+
+![game screens](readme-images/balsamiq-wireframe-2.jpeg)
+<br><br>
+
+## Colour Scheme
+
+
+<br><br>
+
+## Typography
+
+I used two fonts, [Oswald](https://fonts.google.com/specimen/Oswald) and [Quicksand](https://fonts.google.com/specimen/Quicksand) from the [Google Fonts](https://fonts.google.com/) library. I selected them because I felt that they complement each other and their styles are fitting the scheme.
+<br><br>
+
+
+## Icons
+
+The icons are either linked to the FontAwesome library or were downloaded from [svgrepo](https://svgrepo.com/). Credits to individual icons are given in the [credits](#credits) section. <br>
+For **favicons**, I created a small logo in [Figma](https://www.figma.com/) and used the [RealFaviconGenerator](https://realfavicongenerator.net/svg-favicon/) to convert it to favicons.
+
+<br><br>
+
+# Database
+
+Four tables were used to model the data and its relationships.
+
+![Schema](readme-images/schema.jpeg)
+
+<br>
+
+Schema Link (by LucidChart - accessible for LucidChart users)
+https://lucid.app/lucidchart/55d32dd7-0602-401b-8492-4d5bce45d4cb/edit?viewport_loc=-34%2C-1175%2C2263%2C1092%2C0_0&invitationId=inv_b0df2289-d582-4b8f-8740-c7cafb034218
+
+# Functionality
+
+## Landing Page
+
+
+
+<hr>
+<br><br>
+
+## Register
+
+
+<br>
+<hr>
+<br><br>
+
+## Login
+
+<br>
+<hr>
+<br><br>
+
+## Profile Page
+
+<br>
+<hr>
+<br><br>
+
+## Edit Profile
+
+<br>
+<hr>
+<br><br>
+
+## New Request
+
+<br>
+<hr>
+<br><br>
+
+## My Requests 
+
+<br>
+<hr>
+<br><br>
+
+## Outstanding Requests (seen by volunteers)
+
+<br>
+<hr>
+<br><br>
+
+## My Trips (seen by volunteers)
+
+<br>
+<hr>
+<br><br>
+
+## All Members (seen by admins)
+
+<br>
+<hr>
+<br><br>
+
+## All Requests (seen by admins)
+
+<br>
+<hr>
+<br><br>
+
+## Error pages
+
+Two types of error messages can be delivered to the user depending on the issue 
+* a `404 (not found) page` in case of an invalid URL was typed in or
+* a `500 (internal server error)` in case there is a problem with code execution or with the connection to the server. 
+<br>
+
+![404.html](readme-images/404-html.jpeg)
+![500.html](readme-images/500-html.jpeg)
+
+<br><br>
+<hr>
+
+
+<br><br>
+<hr>
+
+## Future Implementations
+
+* Email Confirmation and 'Forgot Password?' functionality
+
+* Automatic testing.
+
+<br><br>
+
+---
+
+## Accessibility
+<br>
+
+* Images have `alt` labels and other icons with inferred meanings are marked with `aria` labels.
+* For font sizes, `rem` was used throughout the site to allow the text to scale according to the users' preferred default font size.
+
+* Chrome Dev Tools' Lighthouse score is 100% for accessibility for both mobile and desktop devices. 
+
+
+<br><br>
+
+---
+
+# Technologies Used
+<br>
+
+## Languages Used
+<br>
+
+The site was built with [Python], [PosgreSQL], [JavaScript](https://en.wikipedia.org/wiki/JavaScript), [HTML](https://en.wikipedia.org/wiki/HTML5) and [CSS](https://en.wikipedia.org/wiki/CSS).
+<br><br>
+
+## Frameworks, Libraries & Programs Used
+<br>
+
+* [Flask]() - Fullstack framework
+
+* [SQLAlchemy]() - Object Relational Model to the ProsgreSQL database
+
+* [jinja2]() - to include python code into HTML
+
+* [Materialize](https://materializecss.com/) - Navbar, Collapsible, Form, Data and Time pickers.
+
+* [Google Maps API]() - Autocompletion, Direction, Geocoding, ClusterMarker and Map.
+
+* [Google Fonts](https://fonts.google.com/)  - for texts.
+
+* [Balsamiq](https://balsamiq.cloud/)  - to create wireframes.
+
+* [Figma](https://www.figma.com/)  - to create colour palette and image for favicons.
+
+* [RealFaviconGenerator](https://realfavicongenerator.net/svg-favicon/)  - to generate favicons.
+
+* [Multi Device Website Mockup](https://techsini.com/multi-mockup/index.php)  - to create site visuals for responsive design.
+
+* [Gyazo](https://gyazo.com)  - for adding `.gif` files to this README file.
+
+* [Git](https://git-scm.com/) & [Github](https://github.com/)  - for version control, safe storage and deployment.
+
+* [Google Dev Tools](https://developer.chrome.com/docs/devtools/)  - for testing and troubleshooting.
+
+* [Lucid App](https://lucid.app)
+
+* [FontAwesome](https://fontawesome.com/)
+
+* [Random Key Generator](https://randomkeygen.com/)
+
+* [Geolocation coordinate finder](http://bboxfinder.com/)
+
+
+---
+
+## Deployment
+
+* [Heroku]() -
+* [ElephantSQL]() - 
+
+<br><br>
+
+
+# Testing
+
+Detailed testing processes are documented in [TESTING.md](TESTING.md).
+
+---
+<br><br>
+
+# Credits
+
+
+
+
+
+<br>
+
+## Icons
+<br>
+
+* logout svg icon
+https://www.svgrepo.com/svg/499618/logout - PD licence (Public Domain)
+
+* user icon
+https://www.svgrepo.com/svg/499663/user
+
+* calendar icon
+https://www.svgrepo.com/svg/499578/calendar
+
+* house icon
+https://www.svgrepo.com/svg/499611/home
+
+* location icon
+https://www.svgrepo.com/svg/499616/location
+
+* phone icon
+https://www.svgrepo.com/svg/499633/phone
+
+* mail icon
+https://www.svgrepo.com/svg/499621/mail
+
+* edit icon
+https://www.svgrepo.com/svg/499600/edit
+
+* user-remove icon
+https://www.svgrepo.com/svg/499667/user-remove
+
+* lock icon
+https://www.svgrepo.com/svg/499617/lock
+
+* clock icon
+https://www.svgrepo.com/svg/499655/time
+
+* login icon
+https://www.svgrepo.com/svg/499619/login
+
+<br><br>
+
+## Other credits - incorporated ideas and solutions
+<br>
+
+* user login model
+https://github.com/Code-Institute-Solutions/CombinedTaskManager2022/tree/main
+
+* password validation regex:
+https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+
+* red car icon (own drawing after this picture)
+https://www.cleanpng.com/png-car-ferrari-f50-honda-civic-clip-art-red-car-clipa-178920/download-png.html
+
+* animation inspiration:
+https://developer.mozilla.org/en-US/docs/Web/CSS/transform
+https://developer.mozilla.org/en-US/docs/Web/CSS/animation
+
+<br><br>
+
+
+##  Acknowledgements
+<br>
+I would like to thank the following contributors:
+
+* [Manuel Perez Romero](https://www.linkedin.com/in/manuel-perez-romero-460063176/) and [Elaine Broche](https://github.com/elainebroche-dev) for giving useful feedback throughout the development and testing processes.
+
+* My family and friends for taking the time to test the game.
+
+* [Code Institute](www.codeintitute.net)'s Slack Community for continuous support.
+
+<br><br>
+
 
 ## Tools used:
-Lucid App
-https://lucid.app
 
-Materialize https://materializecss.com/
 
-FontAwesome https://fontawesome.com/
-
-Random Key Generator: https://randomkeygen.com/
 
 
 ## Credits
 
-LucidChart link to my chart:
-https://lucid.app/lucidchart/55d32dd7-0602-401b-8492-4d5bce45d4cb/edit?viewport_loc=-282%2C-1353%2C2900%2C1157%2C0_0&invitationId=inv_b0df2289-d582-4b8f-8740-c7cafb034218
+Schema Link (by LucidChart - accessible for LucidChart users)
+https://lucid.app/lucidchart/55d32dd7-0602-401b-8492-4d5bce45d4cb/edit?viewport_loc=-34%2C-1175%2C2263%2C1092%2C0_0&invitationId=inv_b0df2289-d582-4b8f-8740-c7cafb034218
 
 
 
 
 
-user login model
-https://github.com/Code-Institute-Solutions/CombinedTaskManager2022/tree/main
 
-password validation regex:
 
-https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
-
-On how to redirect to a previous url:
-https://stackoverflow.com/questions/65093140/flask-redirect-after-job-done-to-previous-url
-https://itecnote.com/tecnote/python-redirect-back-in-flask/
-
-red car icon (own drawing after this picture)
-https://www.cleanpng.com/png-car-ferrari-f50-honda-civic-clip-art-red-car-clipa-178920/download-png.html
-
-animation inspiration:
-https://developer.mozilla.org/en-US/docs/Web/CSS/transform
-https://developer.mozilla.org/en-US/docs/Web/CSS/animation
-
-logout svg icon
-https://www.svgrepo.com/svg/499618/logout - PD licence (Public Domain)
-
-user icon
-https://www.svgrepo.com/svg/499663/user
-
-calendar icon
-https://www.svgrepo.com/svg/499578/calendar
-
-house icon
-https://www.svgrepo.com/svg/499611/home
-
-location icon
-https://www.svgrepo.com/svg/499616/location
-
-phone icon
-https://www.svgrepo.com/svg/499633/phone
-
-mail icon
-https://www.svgrepo.com/svg/499621/mail
-
-edit icon
-https://www.svgrepo.com/svg/499600/edit
-
-user-remove icon
-https://www.svgrepo.com/svg/499667/user-remove
-
-lock icon
-https://www.svgrepo.com/svg/499617/lock
-
-clock icon
-https://www.svgrepo.com/svg/499655/time
-
-login icon
-https://www.svgrepo.com/svg/499619/login
 
 background picture
 
@@ -118,5 +348,15 @@ background picture
 Bugs
 Address label on google address autocomplete fields
 
-Schema Link (by LucidChart - accessible for LucidChart users)
-https://lucid.app/lucidchart/55d32dd7-0602-401b-8492-4d5bce45d4cb/edit?viewport_loc=-34%2C-1175%2C2263%2C1092%2C0_0&invitationId=inv_b0df2289-d582-4b8f-8740-c7cafb034218
+
+
+
+
+##  Disclaimer
+<br>
+
+This project was created for Code Institute's web application development course as the Third Milestone Project - Data Centric Fullstack Development Project - for assessment purposes. All parts of the project form the intellectual property of the developer.
+<br><br>
+Not for public use.
+<br><br>
+&copy;2023 Szilvia Csernusne Berczes. All rights reserved. 
