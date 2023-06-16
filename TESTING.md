@@ -5,6 +5,8 @@
 
 ### Python Validation
 
+Validator: https://pep8ci.herokuapp.com/
+
 | CI Python Linter Result | Passed |Warnings | 
 | :--- | :---: | :--- | 
 | [models.py file CI Linter Result](testing-images/python-models-py.jpeg) | &check; | |
@@ -14,6 +16,8 @@
 <br><br>
 
 ### JavaScript Validations
+
+Validator: https://jshint.com/
 
 | JSHint Result | Passed | Warnings |
 | :--- | :---: | :--- | 
@@ -33,6 +37,8 @@
 <br><br>
 
 ### HTML and CSS Validations
+
+Validator: https://validator.w3.org/
 
 > Warnings / Errors due to Jinja template functionalities are filtered out from the results.
 > CSS Errors can be ignored as they are referring to new CSS properties that are now widely supported.
