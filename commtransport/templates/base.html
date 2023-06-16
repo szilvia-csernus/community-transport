@@ -21,11 +21,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Oswald:wght@200;500&display=swap"
         rel="stylesheet">
 
-    <!-- Font Awesome Icons  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
-        integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-
     <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
         type="text/css">
@@ -73,8 +68,9 @@
                 {% endif %}
             </ul>
 
-            <a href="#" data-target="mobile-demo" class="sidenav-trigger my-dark-blue-text right" aria-label="menu"><i class="fas fa-bars"
-                    ></i></a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger my-dark-blue-text right" aria-label="menu">
+                <img class="my-icon" src="{{ url_for('static', filename='assets/menu-burger.svg')}}" alt="burger icon">
+            </a>
         </nav>
 
         <!-- mobile side navbar  -->

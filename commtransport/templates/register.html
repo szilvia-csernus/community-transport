@@ -51,7 +51,7 @@
                     
                     <div class="notification" id="address-notification">
                         <div class="tooltip"></div>
-                        <i class="fas fa-map-marker-alt"></i>
+                        <img class="my-small-icon" src="{{ url_for('static', filename='assets/location-grey.svg')}}" alt="location icon">
                         Please enter a Google-verified address in or around Egham.
                     </div>
 
@@ -78,7 +78,7 @@
 
                     <div class="notification" id="password-notification">
                         <div class="tooltip"></div>
-                        <i class="fas fa-lock-alt"></i>
+                        <img class="my-small-icon" src="{{ url_for('static', filename='assets/lock-grey.svg')}}" alt="lock icon">
                         Password should include at least one lowercase and one uppercase character, one number and one special character. It also has to be between 8-25 characters long.
                     </div>
 
@@ -90,8 +90,9 @@
             </div>
             <!-- register button  -->
             <div class="row">
-                <button id="submit-button" type="submit" class="col s12 btn-large my-dark-blue">
-                    Register <i class="fas fa-sign-in-alt"></i>
+                <button id="submit-button" type="submit" class="col s12 btn-large my-white-blue-btn">
+                    Register 
+                    <img class="my-small-icon" src="{{ url_for('static', filename='assets/login.svg')}}" alt="login icon">
                 </button>
             </div>
 
