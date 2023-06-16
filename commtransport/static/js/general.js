@@ -84,3 +84,12 @@ if (deleteButtons) {
 		
 	}
 }
+
+console.log(window.location)
+if (window.location.pathname === "/") {
+	document.body.setAttribute('class', 'animate-background');
+}
+else if (window.location.pathname === "all_requests/*") {
+	console.log(document.body.style)
+	document.body.style['background-image'] = 'none';
+}
