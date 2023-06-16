@@ -81,12 +81,11 @@ As a volunteer, I would like to
 
 Wireframes were created in [Balsamiq](https://balsamiq.cloud/). <br>
 
-![Home Page](readme-images/wireframes-home.jpeg)<br>
-
-![Registration Form](readme-images/wireframes-registration.jpeg)<br>
-![All Users](readme-images/wireframes-all-users.jpeg)<br>
-![All Requests](readme-images/wireframes-all_requests.jpeg)<br>
-![Outstanding Requests](readme-images/wireframes-outstanding-requests.jpeg)<br>
+![Home Page](readme-images/wireframe-home.jpeg)<br>
+![Registration Form](readme-images/wireframe-registration.jpeg)<br>
+![All Users](readme-images/wireframe-all-users.jpeg)<br>
+![All Requests](readme-images/wireframe-all-requests.jpeg)<br>
+![Outstanding Requests](readme-images/wireframe-outstanding-requests.jpeg)<br>
 <br><br>
 
 ## Colour Scheme
