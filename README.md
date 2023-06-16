@@ -108,7 +108,7 @@ I used two fonts, [Oswald](https://fonts.google.com/specimen/Oswald) and [Quicks
 
 The main background image was downloaded from [freesvg.org](https://freesvg.org/cityscape-cartoon-illustration).
 
-The icons are either linked to the FontAwesome library or were downloaded from [svgrepo](https://svgrepo.com/). Credits to individual icons are given in the [credits](#credits) section. <br>
+The icons were downloaded from [svgrepo](https://svgrepo.com/). Credits to individual icons are given in the [credits](#credits) section. <br>
 For **favicons**, I created a small logo in [Figma](https://www.figma.com/) and used the [RealFaviconGenerator](https://realfavicongenerator.net/svg-favicon/) to convert it to favicons.
 
 <br><br>
@@ -274,8 +274,6 @@ The site was built with [Python], [PosgreSQL], [JavaScript](https://en.wikipedia
 
 * [Lucid App](https://lucid.app)
 
-* [FontAwesome](https://fontawesome.com/)
-
 * [Random Key Generator](https://randomkeygen.com/)
 
 * [Geolocation coordinate finder](http://bboxfinder.com/)
@@ -343,6 +341,12 @@ https://www.svgrepo.com/svg/499655/time - PD (Public Domain) Licence
 
 * login icon
 https://www.svgrepo.com/svg/499619/login - PD (Public Domain) Licence
+
+* burger icon
+https://www.svgrepo.com/svg/499620/menu-burger - PD (Public Domain) Licence
+
+* caret down
+https://www.svgrepo.com/svg/499575/chevron-down - PD (Public Domain) Licence
 
 <br><br>
 
