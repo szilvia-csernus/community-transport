@@ -893,12 +893,15 @@ def delete_member(user_id, member_id):
 
     flash(f"{flash_name} record has been deleted.")
 
+    if user.id == member.id:
+        return redirect(url_for('home'))
+
     if user.is_admin:
         return redirect(url_for(
             'all_members', user_id=user.id, member_id=user.id))
     else:
         return redirect(url_for('home'))
-    
+
 
 @app.errorhandler(404)
 def page_not_found(error):
