@@ -908,15 +908,11 @@ def delete_member(user_id, member_id):
 
 @app.errorhandler(404)
 def page_not_found(error):
-    ''' Route to handle 404 error
-        Renders custom 404 page
-    '''
+    ''' Route to handle 404 error'''
     return render_template("404.html", error=error), 404
 
 
 @app.errorhandler(500)
-def page_not_found(error):
-    ''' Route to handle 404 error
-        Renders custom 404 page
-    '''
+def internal_server_error(error):
+    ''' Route to handle 500 error'''
     return render_template("500.html", error=error), 500
