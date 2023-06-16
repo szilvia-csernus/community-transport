@@ -90,6 +90,11 @@ Wireframes were created in [Balsamiq](https://balsamiq.cloud/). <br>
 
 ## Colour Scheme
 
+Colour Palette was created using [Figma](https://www.figma.com/).
+
+The colours were sampled from the background image. Dark red was used for admin pages and delete buttons, green was used for volunteer pages as well as volunteer actions. The general font colour is dark blue. All font colours were tested for contrast against their backgrounds.
+
+![Colour Palette](readme-images/colour-palette.png)
 
 <br><br>
 
@@ -99,7 +104,9 @@ I used two fonts, [Oswald](https://fonts.google.com/specimen/Oswald) and [Quicks
 <br><br>
 
 
-## Icons
+## Imagery
+
+The main background image was downloaded from [freesvg.org](https://freesvg.org/cityscape-cartoon-illustration).
 
 The icons are either linked to the FontAwesome library or were downloaded from [svgrepo](https://svgrepo.com/). Credits to individual icons are given in the [credits](#credits) section. <br>
 For **favicons**, I created a small logo in [Figma](https://www.figma.com/) and used the [RealFaviconGenerator](https://realfavicongenerator.net/svg-favicon/) to convert it to favicons.
@@ -293,60 +300,59 @@ Detailed testing processes are documented in [TESTING.md](TESTING.md).
 
 # Credits
 
-
-
-
-
 <br>
 
-## Icons
+## Imagery
 <br>
+
+* background image - PD (Public Domain) Licence 
+https://freesvg.org/cityscape-cartoon-illustration
 
 * logout svg icon
-https://www.svgrepo.com/svg/499618/logout - PD licence (Public Domain)
+https://www.svgrepo.com/svg/499618/logout - PD (Public Domain) Licence
 
 * user icon
-https://www.svgrepo.com/svg/499663/user
+https://www.svgrepo.com/svg/499663/user - PD (Public Domain) Licence
 
 * calendar icon
-https://www.svgrepo.com/svg/499578/calendar
+https://www.svgrepo.com/svg/499578/calendar - PD (Public Domain) Licence
 
 * house icon
-https://www.svgrepo.com/svg/499611/home
+https://www.svgrepo.com/svg/499611/home - PD (Public Domain) Licence
 
 * location icon
-https://www.svgrepo.com/svg/499616/location
+https://www.svgrepo.com/svg/499616/location - PD (Public Domain) Licence
 
 * phone icon
-https://www.svgrepo.com/svg/499633/phone
+https://www.svgrepo.com/svg/499633/phone - PD (Public Domain) Licence
 
 * mail icon
-https://www.svgrepo.com/svg/499621/mail
+https://www.svgrepo.com/svg/499621/mail - PD (Public Domain) Licence
 
 * edit icon
-https://www.svgrepo.com/svg/499600/edit
+https://www.svgrepo.com/svg/499600/edit - PD (Public Domain) Licence
 
 * user-remove icon
-https://www.svgrepo.com/svg/499667/user-remove
+https://www.svgrepo.com/svg/499667/user-remove - PD (Public Domain) Licence
 
 * lock icon
-https://www.svgrepo.com/svg/499617/lock
+https://www.svgrepo.com/svg/499617/lock - PD (Public Domain) Licence
 
 * clock icon
-https://www.svgrepo.com/svg/499655/time
+https://www.svgrepo.com/svg/499655/time - PD (Public Domain) Licence
 
 * login icon
-https://www.svgrepo.com/svg/499619/login
+https://www.svgrepo.com/svg/499619/login - PD (Public Domain) Licence
 
 <br><br>
 
-## Other credits - incorporated ideas and solutions
+## Incorporated ideas and solutions
 <br>
 
-* user login model
+* user login model (used as a starter code)
 https://github.com/Code-Institute-Solutions/CombinedTaskManager2022/tree/main
 
-* password validation regex:
+* password validation regex (used as a starter code)
 https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
 
 * red car icon (own drawing after this picture)
@@ -372,28 +378,6 @@ I would like to thank the following contributors:
 <br><br>
 
 
-## Tools used:
-
-
-
-
-## Credits
-
-Schema Link (by LucidChart - accessible for LucidChart users)
-https://lucid.app/lucidchart/55d32dd7-0602-401b-8492-4d5bce45d4cb/edit?viewport_loc=-34%2C-1175%2C2263%2C1092%2C0_0&invitationId=inv_b0df2289-d582-4b8f-8740-c7cafb034218
-
-
-
-
-
-
-
-
-background picture
-
-
-Bugs
-Address label on google address autocomplete fields
 
 
 
