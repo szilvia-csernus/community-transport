@@ -4,7 +4,7 @@ Full stack web application to support the local community of Egham, UK. The app 
 
 ---
 
-## [View the live project here](https://community-transport-egham.herokuapp.com/)
+### [View the live project here](https://community-transport-egham.herokuapp.com/)
 ---
 
 ![Landing page](readme-images/mockup.jpeg)
@@ -22,23 +22,71 @@ Not for public use.
 
 ## Site Owner's Goals
 
-* 
+* Provide a platform for people willing to take part in this local, community transport initiative.
+* Allow anybody to sign up to express interest, but make it clear that it is a local project.
+* Allow signing up as someone seeking help in the local area.
+* Allow signing up as a potential volunteer.
+* Let admin(s) control who can be accepted to join and manage all their data.
+* Provide authentication of users.
+* The site should serve all users' goals: admins, volunteers and members.
+* The site should be easily accessible from a variety of devices.
+<br><br>
 
+## Admin's Goals
 
-## Players' Goals
+As an admin, I would like to
 
-* 
+* be able to register and safely sign in.
+* have control over accepting / declining users who register.
+* have a record of each individual.
+* be able to edit the relevant records of any user.
+* be able delete any user from the database.
+* be able to grant admin / volunteer privilages to other users.
+* be able to take away admin / volunteer privilages from other users.
+* have an overview of all current and past transport requests.
+* be able to delete my own record without a trace.
+<br><br>
 
-<br>
+## Member's Goals
+
+As a member, I would like to
+
+* be able to register and safely sign in.
+* be able to edit my own data.
+* be able to request a new transport.
+* be able to see my current / past transport requests.
+* know if a volunteer offered transport to any of my requests.
+* have an overview of all of my own requests.
+* be able to cancel any of my current requests.
+* be able to clear any of my past requests.
+* be able to delete my own record without a trace.
+<br><br>
+
+## Volunteer's Goals
+
+As a volunteer, I would like to
+
+* be able to register and safely sign in.
+* be able to edit my own data.
+* be able to view all current outstanding transport requests.
+* be able to sign up for a transport.
+* have an overview of all of the trips I signed up for.
+* be able to cancel any current trips I signed up for.
+* be able to delete my own record without a trace.
+
+<br><br>
 
 # Wireframes
 <br>
 
 Wireframes were created in [Balsamiq](https://balsamiq.cloud/). <br>
 
-![main screen](readme-images/balsamiq-wireframe-1.jpeg)<br>
+![Home Page](readme-images/wireframes-home.jpeg)<br>
 
-![game screens](readme-images/balsamiq-wireframe-2.jpeg)
+![Registration Form](readme-images/wireframes-registration.jpeg)<br>
+![All Users](readme-images/wireframes-all-users.jpeg)<br>
+![All Requests](readme-images/wireframes-all_requests.jpeg)<br>
+![Outstanding Requests](readme-images/wireframes-outstanding-requests.jpeg)<br>
 <br><br>
 
 ## Colour Scheme
