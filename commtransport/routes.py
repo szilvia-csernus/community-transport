@@ -884,8 +884,6 @@ def delete_member(user_id, member_id):
 
     db.session.commit()
 
-    member_place = Place.query.filter(Place.id == member.place_id).first()
-    db.session.delete(member_place)
     # make a note of the member's name before it gets deleted.
     flash_name = "Your" if user.id == member.id else f"{member.fullname}'s"
     db.session.delete(member)
