@@ -2,7 +2,8 @@
 
 :root {
     --my-green: #287f00;
-    --my-green-translucent: #418b1e3a;
+    --my-green-translucent: hsla(101, 64%, 33%, 0.227);
+    --my-light-green: #d0ebd170;
     --my-red: #941b1b;
     --my-blue: #3367d6;
     --my-dark-blue: #20244f;
@@ -155,10 +156,14 @@ body {
     font-size: 1rem;
     background-color: var(--my-blue-sky);
     background-image: url(../assets/cityscape1.svg);
-    background-size: auto 100%;
+    background-size: auto 800px;
     background-repeat: repeat-x;
-    animation: moveBackground 30s linear forwards;
+    background-position: bottom;
     color: var(--my-dark-blue);
+}
+
+.animate-background {
+    animation: moveBackground 30s linear forwards;
 }
 
 /* moving background to the right */
@@ -372,6 +377,9 @@ h2 {
     font-size: 1.7rem;
     margin: 1rem;
     padding: 1.5rem;
+    text-shadow: 2px 2px 4px white;
+    filter: drop-shadow(2px 2px 2px white);
+
 }
 
 h2.sidenav-title {
@@ -568,7 +576,7 @@ input[name="address"] {
 
 .my-white-blue-btn:hover,
 .my-white-blue-btn:focus {
-    background-color: var(--my-blue-sky);
+    background-color: var(--my-light-green);
 }
 
 button.my-green, a.my-green {
@@ -709,7 +717,7 @@ span.my-transparent.my-green-text {
 @media screen and (min-width: 602px) {
     .intro-card {
         opacity: 0;
-        animation: appear 2s .5s forwards;
+        animation: appear 1s forwards;
     }
 }
 
