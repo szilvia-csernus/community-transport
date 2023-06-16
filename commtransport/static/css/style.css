@@ -163,21 +163,21 @@ body {
 /* moving background to the right */
 @keyframes moveBackground {
     0% {
-      background-position:  -60%;
+      background-position: right;
     }
 
     100% {
-      background-position:right;
+      background-position: -60%;
     }
   }
 
 @media screen and (min-width: 700px) {
   @keyframes moveBackground {
     0% {
-      background-position: -80%;
+      background-position: right;
     }
     100% {
-      background-position: right;
+      background-position: -80%;
     }
   }
 }
@@ -185,10 +185,10 @@ body {
 @media screen and (min-width: 1000px) {
   @keyframes moveBackground {
     0% {
-      background-position: -140%;
+      background-position: right;
     }
     100% {
-      background-position: right;
+      background-position: -140%;
     }
   }
 }
@@ -196,10 +196,10 @@ body {
 @media screen and (min-width: 1200px) {
   @keyframes moveBackground {
     0% {
-      background-position: -540%;
+      background-position: right;
     }
     100% {
-      background-position: right;
+      background-position: -540%;
     }
   }
 }
