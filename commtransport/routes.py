@@ -14,12 +14,6 @@ def home():
     return render_template("base.html")
 
 
-@app.route("/map")
-def map():
-    """ Map page """
-    return render_template("map.html")
-
-
 @app.route("/register/<user_type>", methods=["GET", "POST"])
 def register(user_type):
     """ Register a new account. """
