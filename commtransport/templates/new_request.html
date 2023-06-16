@@ -109,7 +109,7 @@
                     <!-- Notification for invalid address input  -->
                     <div class="notification" id="pickup_notification">
                         <div class="tooltip"></div>
-                        <i class="fas fa-map-marker-alt"></i>
+                        <img class="my-small-icon" src="{{ url_for('static', filename='assets/location-grey.svg')}}" alt="location icon">
                         Please enter a Google-verified address in or around Egham, UK.
                     </div>
                     
@@ -128,7 +128,7 @@
                     <!-- Notification for invalid address input  -->
                     <div class="notification" id="dropoff_notification">
                         <div class="tooltip"></div>
-                        <i class="fas fa-map-marker-alt"></i>
+                        <img class="my-small-icon" src="{{ url_for('static', filename='assets/location-grey.svg')}}" alt="location icon">
                         Please enter a Google-verified address in or around Egham, UK.
                     </div>
 
@@ -142,8 +142,9 @@
 
             <!-- Submit button  -->
             <div class="row">
-                <button type="submit" class="col s12 btn my-dark-blue">
-                    Send request <i class="fas fa-sign-in-alt"></i>
+                <button type="submit" class="col s12 btn my-white-blue-btn">
+                    Send request 
+                    <img class="my-small-icon" src="{{ url_for('static', filename='assets/login.svg')}}" alt="login icon">
                 </button>
             </div>
 

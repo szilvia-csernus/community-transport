@@ -59,7 +59,7 @@
                     <img class="my-icon prefix" src="{{ url_for('static', filename='assets/house.svg')}}" alt="house icon">
                     <div class="notification" id="address-notification">
                         <div class="tooltip"></div>
-                        <i class="fas fa-map-marker-alt"></i>
+                        <img class="my-small-icon" src="{{ url_for('static', filename='assets/location-grey.svg')}}" alt="location icon">
                         Please enter a Google-verified address in or around Egham, UK.
                     </div>
 
@@ -68,7 +68,7 @@
                     <label for="address" id="addressLabel">Address</label>
                     <input type="hidden" id="address_id" name="google_place_id" 
                     value="{{ member.place.google_place_id }}">
-                    <div id="map"></div>
+                    <div id="map" class="hidemap"></div>
                 </div>
             </div>
 
@@ -98,8 +98,9 @@
             {% endif %}
             <!-- update button  -->
             <div class="row">
-                <button type="submit" class="col s12 btn my-dark-blue">
-                    Update <i class="fas fa-sign-in-alt"></i>
+                <button type="submit" class="col s12 btn my-white-blue-btn">
+                    Update 
+                    <img class="my-small-icon" src="{{ url_for('static', filename='assets/login.svg')}}" alt="login icon">
                 </button>
             </div>
             
