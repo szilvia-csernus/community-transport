@@ -128,12 +128,42 @@ https://lucid.app/lucidchart/55d32dd7-0602-401b-8492-4d5bce45d4cb/edit?viewport_
 
 ## Landing Page
 
+![Home Page Desktop](readme-images/home-desktop.jpeg)
+![Home Page Mobile](readme-images/home-mobile.jpeg)
+![Mobile Navbar](readme-images/mobile-navbar.jpeg)
 
+The landing page gives a small intro about the organisation's mission and ways to sign up as a volunteer or as someone seeking help with transport. 
+
+### Features
+
+* I animated the background image and the red car in the front in CSS to give the impression of the car moving forward. 
+* I drew the red car in [Figma](https://www.figma by copying this [free image](https://www.cleanpng.com/png-car-ferrari-f50-honda-civic-clip-art-red-car-clipa-178920/download-png.html) com/). I needed to separate the car body from the wheels in order to animate them separately.
+* The responsible navbar is a [Materialize](https://materializecss.com/) feature.
+* The background picture is downloaded from [freesvg.org](https://freesvg.org/cityscape-cartoon-illustration) 
 
 <hr>
 <br><br>
 
-## Register
+## Registration
+
+People can register for this project by filling in a registration form. However, submitting the form does not give automatic access to the site, an admin is required to approve everyone signing up.
+![Registration Form](readme-images/register-form.jpeg)
+
+### Features
+
+* I used the [Google Maps API](https://developers.google.com/maps)'s Autocomplete service in JavaScript to validate the address input. The user has to choose an address from the suggested list otherwise it gives an error message. I also restricted the available addresses to Egham and its neighbouring areas.
+* I validate the password in JavaScript with a `regular expression`, requiring the user to include certain types of characters. An error message notifies the user if the requirements haven't been met.
+* Basic HTML validation is used for
+    - the length of the name, phone, email and password.
+    - email's format
+
+![Google Autocomplete](readme-images/google-autocomplete.jpeg)
+![Address Validation](readme-images/address-validation.jpeg)
+![Password Validation](readme-images/password-validation.jpeg)
+
+After Successfully submitting the form, the user receives a flash notification:
+
+![Registration Flash Message](readme-images/registration-flash-message.jpeg)
 
 
 <br>
@@ -254,7 +284,7 @@ The site was built with [Python], [PosgreSQL], [JavaScript](https://en.wikipedia
 
 * [Materialize](https://materializecss.com/) - Navbar, Collapsible, Form, Data and Time pickers.
 
-* [Google Maps API]() - Autocompletion, Direction, Geocoding, ClusterMarker and Map.
+* [Google Maps API](https://developers.google.com/maps) - Autocompletion, Direction, Geocoding, ClusterMarker and Map.
 
 * [Google Fonts](https://fonts.google.com/)  - for texts.
 
