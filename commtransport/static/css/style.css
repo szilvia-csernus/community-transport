@@ -156,56 +156,61 @@ body {
     font-size: 1rem;
     background-color: var(--my-blue-sky);
     background-image: url(../assets/cityscape1.svg);
-    background-size: auto 800px;
+    background-size: auto 500px;
     background-repeat: repeat-x;
     background-position: bottom;
     color: var(--my-dark-blue);
 }
 
 .animate-background {
+    background-size: auto 600px;
+    background-position: 100% 100%;
     animation: moveBackground 30s linear forwards;
 }
 
 /* moving background to the right */
 @keyframes moveBackground {
     0% {
-      background-position: right;
+      background-position: 100% 100%;
     }
 
     100% {
-      background-position: -60%;
+      background-position: -60% 100%;
     }
   }
 
 @media screen and (min-width: 700px) {
   @keyframes moveBackground {
     0% {
-      background-position: right;
+      background-position: 100% 100%;
     }
     100% {
-      background-position: -80%;
+      background-position: -80% 100%;
     }
   }
 }
 
 @media screen and (min-width: 1000px) {
-  @keyframes moveBackground {
-    0% {
-      background-position: right;
+    .animate-background {
+        background-size: auto 800px;
     }
-    100% {
-      background-position: -140%;
+    @keyframes moveBackground {
+        0% {
+        background-position: 100% 100%;
+        }
+        100% {
+        background-position: -400% 100%;
+        }
     }
-  }
 }
 
 @media screen and (min-width: 1200px) {
   @keyframes moveBackground {
     0% {
-      background-position: right;
+      background-position: 100% 100%;
     }
     100% {
-      background-position: -540%;
+      background-position: -600% 100%;
     }
   }
 }
@@ -242,7 +247,7 @@ body {
     }
 }
 
-@media screen and (max-width: 389px) {
+@media screen and (max-width: 359px) {
     .animated-car {
         right: -4.5rem;
         scale: 0.5;
@@ -378,7 +383,7 @@ h2 {
     margin: 1rem;
     padding: 1.5rem;
     text-shadow: 2px 2px 4px white;
-    filter: drop-shadow(2px 2px 2px white);
+    /* filter: drop-shadow(2px 2px 2px white); */
 
 }
 
@@ -391,8 +396,9 @@ h2.sidenav-title {
 }
 
 .callout {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 700;
+    margin: .5rem;
 }
 
 .flashes h4 {
@@ -708,7 +714,7 @@ span.my-transparent.my-green-text {
 /* Cards  */
 
 .intro-card {
-    padding: 2rem;
+    padding: 1.5rem;
     text-align: center;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.9);
@@ -723,11 +729,39 @@ span.my-transparent.my-green-text {
 
 .mission-card {
     margin-top: 2rem;
+    padding: 1.5rem 2rem;
 }
 
 .small-card {
-    padding: .5rem;
-    height: 9.5rem;
+    padding: 1rem;
+}
+
+@media screen and (max-width: 736px) {
+    .small-card {
+        height: 8.5rem;
+        margin: .5rem 0;
+    }
+    .small-card p {
+        margin: .5rem;
+    }
+    .callout {
+        font-size: 1.1rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .small-card {
+        height: auto;
+    }
+    .small-card-second {
+        margin-bottom: 12rem;
+    }
+    .small-card p {
+        margin: .5rem;
+    }
+    .callout {
+        font-size: 1.1rem;
+    }
 }
 
 @keyframes appear {
