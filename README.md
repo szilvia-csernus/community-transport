@@ -160,9 +160,13 @@ People can register for this project by filling in a registration form. However,
 ![Address Validation](readme-images/address-validation.jpeg)
 ![Password Validation](readme-images/password-validation.jpeg)
 
+<br>
+
 After Successfully submitting the form, the user receives a flash notification:
 
 ![Registration Flash Message](readme-images/registration-flash-message.jpeg)
+
+<br>
 
 If the email was already registered, it gives a feedback:
 
@@ -186,7 +190,7 @@ The platform gives indications about how many people are awaiting approval as we
 
 ![Approval Platform](readme-images/approval-many.jpeg)
 
-
+<br>
 
 ![Approval Page](readme-images/approval-one.jpeg)
 
@@ -199,10 +203,12 @@ The platform gives indications about how many people are awaiting approval as we
 After having been approved, a registered person can sign in.
 
 ![Sign In](readme-images/sign-in.jpeg)
+<br>
 
 If the email or password was incorrect, user gets an error:
 
 ![Incorrect Email or Password](readme-images/incorrect-email.jpeg)
+<br>
 
 Otherwise, the user is greeted with a welcome message:
 
@@ -218,12 +224,14 @@ Otherwise, the user is greeted with a welcome message:
 The new transport request form is pre-populated with the user's home address for convenience, but it also can be changed if the pickup address is different. Both addresses need to be Google-verified addresses, with the same validation process as for the registration form. The date input is restricted to the next 3 months.
 
 ![New Request](readme-images/new-request.jpeg)
+<br>
 
 The date- and time inputs are Materialize features:
 
 ![Date Picker](readme-images/date-picker.jpeg)
 
 ![Time Picker](readme-images/time-picker.jpeg)
+<br>
 
 Upon submission, I validate all input again with JavaScript. I restricted Materialize's date picker to the next three months but I validate all input once again to make sure the user didn't entered any wrong data manually.
 
@@ -234,6 +242,7 @@ Upon submission, I validate all input again with JavaScript. I restricted Materi
 ![Date wrong](readme-images/date-wrong.jpeg)
 
 ![Time wrong](readme-images/time-wrong.jpeg)
+<br>
 
 If all data is valid, the request gets registered and the user receives a feedback:
 
@@ -250,6 +259,7 @@ The user can keep track of their requests in the `My Requests` page.
 Here, we can see Ethan's newly registered requests. The first request opens automatically and a map shows the route of the requested trip. It calculates the distance and the approx. time of travel. There is an option to Cancel this request too.
 
 ![My Requests](readme-images/my-requests-open-awaiting.jpeg)
+<br>
 
 If a volunteer accepts such a request, the state of the request changes to `Arranged` and the volunteer's contact details will be visible on the page.
 
@@ -261,17 +271,23 @@ If a volunteer accepts such a request, the state of the request changes to `Arra
 <hr>
 <br><br>
 
-## Outstanding Requests (seen by volunteers)
+## Outstanding Requests and Arranged Trips (seen by volunteers)
+
+Volunteers can see all upcoming requests that nobody volunteered for yet in the `Outstanding Requests` tab. The first such request is provided with a map and a route as well as all details necessary. With the `Accept Transport Request` button, the volunteer can take on this transport.
+
+![Outstanding Requests](readme-images/outstanding-requests.jpeg)
+
+After accepting a request, the user will be taken to the `Trips` page, where they can keep track all of their upcoming trips they have volunteered for.
+
+![Trips](readme-images/trips.jpeg)
+
+The volunteer can cancel the trip anytime, in which case another volunteer can still pick up the request. However, if the cancellation time is within 24 hours of the pickup time, they get a notification to get in touch with this individual personally.
+
 
 <br>
 <hr>
 <br><br>
 
-## My Trips (seen by volunteers)
-
-<br>
-<hr>
-<br><br>
 
 ## All Members (seen by admins)
 
