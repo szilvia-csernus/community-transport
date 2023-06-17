@@ -208,24 +208,37 @@ Otherwise, the user is greeted with a welcome message:
 
 ![Welcome Message](readme-images/welcome.jpeg)
 
-
 <br>
 <hr>
 <br><br>
 
-## Profile Page
-
-<br>
-<hr>
-<br><br>
-
-## Edit Profile
-
-<br>
-<hr>
-<br><br>
 
 ## New Request
+
+The new transport request form is pre-populated with the user's home address for convenience, but it also can be changed if the pickup address is different. Both addresses need to be Google-verified addresses, with the same validation process as for the registration form. The date input is restricted to the next 3 months.
+
+![New Request](readme-images/new-request.jpeg)
+
+The date- and time inputs are Materialize features:
+
+![Date Picker](readme-images/date-picker.jpeg)
+
+![Time Picker](readme-images/time-picker.jpeg)
+
+Upon submission, I validate all input again with JavaScript. I restricted Materialize's date picker to the next three months but I validate all input once again to make sure the user didn't entered any wrong data manually.
+
+![Date in the past](readme-images/date-past.jpeg)
+
+![Date too far](readme-images/date-too-far.jpeg)
+
+![Date wrong](readme-images/date-wrong.jpeg)
+
+![Time wrong](readme-images/time-wrong.jpeg)
+
+If all data is valid, the request gets registered and the user receives a feedback:
+
+![New Request Success](readme-images/new-request-success.jpeg)
+
 
 <br>
 <hr>
@@ -260,6 +273,13 @@ Otherwise, the user is greeted with a welcome message:
 <br>
 <hr>
 <br><br>
+
+## Profile Page / Edit Profile
+
+<br>
+<hr>
+<br><br>
+
 
 ## Error pages
 
