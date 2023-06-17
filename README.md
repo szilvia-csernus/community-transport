@@ -120,7 +120,7 @@ Four tables were used to model the data and its relationships.
 
 <br>
 
-[Schema Link by (accessible for LucidChart users)](https://lucid.app/lucidchart/55d32dd7-0602-401b-8492-4d5bce45d4cb/edit?viewport_loc=-34%2C-1175%2C2263%2C1092%2C0_0&invitationId=inv_b0df2289-d582-4b8f-8740-c7cafb034218)
+[Schema Link (accessible for LucidChart users)](https://lucid.app/lucidchart/55d32dd7-0602-401b-8492-4d5bce45d4cb/edit?viewport_loc=-34%2C-1175%2C2263%2C1092%2C0_0&invitationId=inv_b0df2289-d582-4b8f-8740-c7cafb034218)
 
 # Functionality
 
@@ -144,7 +144,7 @@ The landing page gives a small intro about the organisation's mission and ways t
 
 ## Registration
 
-People can register for this project by filling in a registration form. However, submitting the form does not give automatic access to the site; an admin is required to approve everyone.
+People can register for this project by filling in a registration form. However, submitting the form does not give automatic access to the site - an admin is required to approve everyone.
 ![Registration Form](readme-images/register-form.jpeg)
 
 ### Features
@@ -163,6 +163,27 @@ After Successfully submitting the form, the user receives a flash notification:
 
 ![Registration Flash Message](readme-images/registration-flash-message.jpeg)
 
+
+<br>
+<hr>
+<br><br>
+
+## Approval
+
+Without an admin's approval, a newly registered person can't sign in, they get a notification if they try to:
+<br>
+
+![Signing in message before approval](readme-images/signing-in-before-approval.jpeg)
+
+Any Admin can approve a new person. They can review the request by contacting this person and having checks carried out before they approve them in the system.
+The approval happens on the admin platform, under the `All Users` tab.
+The platform gives indications about how many people are awaiting approval as well as if they signed up as a volunteer or just a simple member.
+
+![Approval Platform](readme-images/approval-many.jpeg)
+
+
+
+![Approval Page](readme-images/approval-one.jpeg)
 
 <br>
 <hr>
