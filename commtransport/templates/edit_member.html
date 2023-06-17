@@ -73,7 +73,7 @@
             </div>
 
             <!-- Admin & Volunteer checkboxes  -->
-            {% if user.is_admin and member.fullname != "Superuser" %}    
+            {% if user.is_admin and member.email!="superuser@superuser.super" %}   
             <div class="row ">
             <div class="col s12 checkboxes-frame">
                 <label class="my-dark-blue-text">
@@ -112,7 +112,7 @@
                 </a>
             </div>
 
-            {% if member.fullname != "Superuser"%}
+            {% if member.email != "superuser@superuser.super"%}
             <!-- delete button  -->
                 <div class="row">
                     <button type="button" data-modal-id="modal-{{member.id}}" data-cancel-id="cancel-{{member.id}}"

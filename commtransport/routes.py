@@ -811,7 +811,7 @@ def edit_member(user_id, member_id):
         member.fullname = form_data.get("fullname"),
         member.phone_nr = form_data.get("phone_nr"),
 
-        if user.is_admin:
+        if user.is_admin and member.email != "superuser@superuser.super":
             if form_data.get("is_admin") == 'True':
                 member.is_admin = True
             else:
