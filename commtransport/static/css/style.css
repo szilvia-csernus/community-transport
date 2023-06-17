@@ -382,9 +382,6 @@ h2 {
     font-size: 1.7rem;
     margin: 1rem;
     padding: 1.5rem;
-    text-shadow: 2px 2px 4px white;
-    /* filter: drop-shadow(2px 2px 2px white); */
-
 }
 
 h2.sidenav-title {
@@ -402,11 +399,12 @@ h2.sidenav-title {
 }
 
 .flashes h4 {
-    line-height: 2;
+    line-height: 1;
     font-size: 1.2rem;
     background-color: var(--my-green-translucent);
     padding: 1rem;
     margin-bottom: 0;
+    margin-top: 1rem
 }
 
 a {
