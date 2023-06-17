@@ -239,12 +239,23 @@ If all data is valid, the request gets registered and the user receives a feedba
 
 ![New Request Success](readme-images/new-request-success.jpeg)
 
-
 <br>
 <hr>
 <br><br>
 
 ## My Requests 
+
+The user can keep track of their requests in the `My Requests` page.
+
+Here, we can see Ethan's newly registered requests. The first request opens automatically and a map shows the route of the requested trip. It calculates the distance and the approx. time of travel. There is an option to Cancel this request too.
+
+![My Requests](readme-images/my-requests-open-awaiting.jpeg)
+
+If a volunteer accepts such a request, the state of the request changes to `Arranged` and the volunteer's contact details will be visible on the page.
+
+![My Requests Arranged](readme-images/my-requests-open-arranged.jpeg)
+
+![My Requests Closed](readme-images/my-requests-closed.jpeg)
 
 <br>
 <hr>
@@ -302,7 +313,7 @@ Two types of error messages can be delivered to the user depending on the issue
 
 * Email Confirmation and 'Forgot Password?' functionality
 
-* Automatic testing.
+* Automated testing.
 
 <br><br>
 
