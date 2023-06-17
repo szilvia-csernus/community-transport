@@ -22,13 +22,12 @@ Not for public use.
 
 ## Site Owner's Goals
 
-* Provide a platform for people willing to take part in this local, community transport initiative.
-* Allow anybody to sign up to express interest, but make it clear that it is a local project.
+* Provide a platform for people willing to take part in this initiative. Users should include admins, volunteers as well as people requiring transport.
 * Allow signing up as someone seeking help in the local area.
 * Allow signing up as a potential volunteer.
 * Let admin(s) control who can be accepted to join and manage all their data.
 * Provide authentication of users.
-* The site should serve all users' goals: admins, volunteers and members.
+* The site should serve all types of users' goals: admins, volunteers and members.
 * The site should be easily accessible from a variety of devices.
 <br><br>
 
@@ -40,7 +39,7 @@ As an admin, I would like to
 * have control over accepting / declining users who register.
 * have a record of each individual.
 * be able to edit the relevant records of any user.
-* be able delete any user from the database.
+* be able to delete any user from the database.
 * be able to grant admin / volunteer privilages to other users.
 * be able to take away admin / volunteer privilages from other users.
 * have an overview of all current and past transport requests.
@@ -69,9 +68,9 @@ As a volunteer, I would like to
 * be able to register and safely sign in.
 * be able to edit my own data.
 * be able to view all current outstanding transport requests.
-* be able to sign up for a transport.
-* have an overview of all of the trips I signed up for.
-* be able to cancel any current trips I signed up for.
+* be able to accept a transport request.
+* have an overview of all of the trips I previously accepted.
+* be able to cancel any current trips I previously accepted.
 * be able to delete my own record without a trace.
 
 <br><br>
@@ -121,8 +120,7 @@ Four tables were used to model the data and its relationships.
 
 <br>
 
-Schema Link (by LucidChart - accessible for LucidChart users)
-https://lucid.app/lucidchart/55d32dd7-0602-401b-8492-4d5bce45d4cb/edit?viewport_loc=-34%2C-1175%2C2263%2C1092%2C0_0&invitationId=inv_b0df2289-d582-4b8f-8740-c7cafb034218
+[Schema Link by (accessible for LucidChart users)](https://lucid.app/lucidchart/55d32dd7-0602-401b-8492-4d5bce45d4cb/edit?viewport_loc=-34%2C-1175%2C2263%2C1092%2C0_0&invitationId=inv_b0df2289-d582-4b8f-8740-c7cafb034218)
 
 # Functionality
 
@@ -132,12 +130,12 @@ https://lucid.app/lucidchart/55d32dd7-0602-401b-8492-4d5bce45d4cb/edit?viewport_
 ![Home Page Mobile](readme-images/home-mobile.jpeg)
 ![Mobile Navbar](readme-images/mobile-navbar.jpeg)
 
-The landing page gives a small intro about the organisation's mission and ways to sign up as a volunteer or as someone seeking help with transport. 
+The landing page gives a small intro about the organisation's mission and ways to sign up as a volunteer or as someone seeking help. 
 
 ### Features
 
 * I animated the background image and the red car in the front in CSS to give the impression of the car moving forward. 
-* I drew the red car in [Figma](https://www.figma by copying this [free image](https://www.cleanpng.com/png-car-ferrari-f50-honda-civic-clip-art-red-car-clipa-178920/download-png.html) com/). I needed to separate the car body from the wheels in order to animate them separately.
+* I drew the red car in [Figma](https://www.figma.com/) by copying this [free image](https://www.cleanpng.com/png-car-ferrari-f50-honda-civic-clip-art-red-car-clipa-178920/download-png.html). I needed to separate the car's body from its wheels in order to animate them separately.
 * The responsible navbar is a [Materialize](https://materializecss.com/) feature.
 * The background picture is downloaded from [freesvg.org](https://freesvg.org/cityscape-cartoon-illustration) 
 
@@ -146,7 +144,7 @@ The landing page gives a small intro about the organisation's mission and ways t
 
 ## Registration
 
-People can register for this project by filling in a registration form. However, submitting the form does not give automatic access to the site, an admin is required to approve everyone signing up.
+People can register for this project by filling in a registration form. However, submitting the form does not give automatic access to the site; an admin is required to approve everyone.
 ![Registration Form](readme-images/register-form.jpeg)
 
 ### Features
