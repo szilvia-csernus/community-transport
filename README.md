@@ -154,6 +154,7 @@ People can register for this project by filling in a registration form. However,
 * Basic HTML validation is used for
     - the length of the name, phone, email and password.
     - email's format
+* After submission, the email's uniqueness is verified.
 
 ![Google Autocomplete](readme-images/google-autocomplete.jpeg)
 ![Address Validation](readme-images/address-validation.jpeg)
@@ -163,12 +164,16 @@ After Successfully submitting the form, the user receives a flash notification:
 
 ![Registration Flash Message](readme-images/registration-flash-message.jpeg)
 
+If the email was already registered, it gives a feedback:
+
+![Email already registered](readme-images/already-registered.jpeg)
+
 
 <br>
 <hr>
 <br><br>
 
-## Approval
+## Approval (admin function)
 
 Without an admin's approval, a newly registered person can't sign in, they get a notification if they try to:
 <br>
@@ -177,7 +182,7 @@ Without an admin's approval, a newly registered person can't sign in, they get a
 
 Any Admin can approve a new person. They can review the request by contacting this person and having checks carried out before they approve them in the system.
 The approval happens on the admin platform, under the `All Users` tab.
-The platform gives indications about how many people are awaiting approval as well as if they signed up as a volunteer or just a simple member.
+The platform gives indications about how many people are awaiting approval as well as if they signed up as a volunteer or just as a simple member.
 
 ![Approval Platform](readme-images/approval-many.jpeg)
 
@@ -189,7 +194,20 @@ The platform gives indications about how many people are awaiting approval as we
 <hr>
 <br><br>
 
-## Login
+## Sign in
+
+After having been approved, a registered person can sign in.
+
+![Sign In](readme-images/sign-in.jpeg)
+
+If the email or password was incorrect, user gets an error:
+
+![Incorrect Email or Password](readme-images/incorrect-email.jpeg)
+
+Otherwise, the user is greeted with a welcome message:
+
+![Welcome Message](readme-images/welcome.jpeg)
+
 
 <br>
 <hr>
