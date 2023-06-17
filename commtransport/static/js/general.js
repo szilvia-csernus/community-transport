@@ -85,6 +85,22 @@ if (deleteButtons) {
 	}
 }
 
+
+// move background only if it's the home page
 if (window.location.pathname === "/") {
 	document.body.setAttribute('class', 'animate-background');
 }
+else {
+	// if the path is 'all_requests', remove the background image
+	// const pathname = window.location.pathname;
+	// console.log(window.location.pathname)
+	// const subPaths = pathname.split('/');
+	// console.log(subPaths)
+	// const myPath = subPaths[1];
+
+	// if (myPath === 'all_requests') {
+	// 	document.body.style.backgroundImage = 'none';
+	// }
+}
+
+
