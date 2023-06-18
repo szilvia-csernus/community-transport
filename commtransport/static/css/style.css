@@ -89,6 +89,7 @@ nav span.badge {
     justify-content: space-between;
     align-items: center;
     margin-right: 0.2rem;
+    padding: 0.5rem
 }
 
 .col .row {
