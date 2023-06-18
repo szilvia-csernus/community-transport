@@ -23,10 +23,10 @@ Not for public use.
 ## Site Owner's Goals
 
 * Provide a platform for people willing to take part in this initiative. Users should include admins, volunteers as well as people requiring transport.
-* Allow signing up as someone seeking help in the local area.
+* Allow signing up as someone seeking help with transport in the local area.
 * Allow signing up as a potential volunteer.
 * Let admin(s) control who can be accepted to join and manage all their data.
-* Provide authentication of users.
+* Provide authentication for users.
 * The site should serve all types of users' goals: admins, volunteers and members.
 * The site should be easily accessible from a variety of devices.
 <br><br>
@@ -36,7 +36,7 @@ Not for public use.
 As an admin, I would like to
 
 * be able to register and safely sign in.
-* have control over accepting / declining users who register.
+* have control over accepting / declining newly registered users.
 * have a record of each individual.
 * be able to edit the relevant records of any user.
 * be able to delete any user from the database.
@@ -365,7 +365,7 @@ Two types of error messages can be delivered to the user depending on the issue
 ## Languages Used
 <br>
 
-The site was built with [Python], [PosgreSQL], [JavaScript](https://en.wikipedia.org/wiki/JavaScript), [HTML](https://en.wikipedia.org/wiki/HTML5) and [CSS](https://en.wikipedia.org/wiki/CSS).
+The site was built with Python, PosgreSQL, JavaScript, HTML and CSS.
 <br><br>
 
 ## Frameworks, Libraries and APIs
@@ -377,7 +377,7 @@ The site was built with [Python], [PosgreSQL], [JavaScript](https://en.wikipedia
 
 * [jinja2]() - to include python code into HTML
 
-* [Materialize](https://materializecss.com/) - Navbar, Collapsible, Form, Data and Time pickers.
+* [Materialize](https://materializecss.com/) - Navbar, Collapsible, Form, Date and Time pickers.
 
 * [Google Maps API](https://developers.google.com/maps) - Autocompletion, Direction, Geocoding, ClusterMarker and Map.
 
@@ -412,13 +412,12 @@ The site was built with [Python], [PosgreSQL], [JavaScript](https://en.wikipedia
 ## Local Development
 
 To develop this project locally in VSCode, you need to do the followings.<br><br>
-(Instructions are for Mac, but using it on Windows should be self-explanatrory.)
 
 1. Make sure you have python installed.
 2. Clone this project into a new repository.
 3. Create a folder named `.venv`.
 4. Run `pipenv install 'Flask-SQLAlchemy<3' psycopg2 sqlalchemy=1.4.46 pep8 autopep8 pylint pylint-flask` - after executing this command, the `.venv` folder should be populated.
-5. Reload VSCode window with `CMD + Shift + P`.
+5. Reload VSCode window.
 6. Run `pipenv shell` to enter the virtual environment - if your prompt starts with `(community-transport)`, you are successfully iside the virtual environment.
 7. Create your own `env.py` file as mine was not pushed to Github. In your `.gitignore` file, you should list `env.py` so your secrets will not be revealed in your gitHub repo. In the `env.py` file, specify the followings:
 
