@@ -42,7 +42,7 @@ As an admin, I would like to
 * be able to delete any user from the database.
 * be able to grant admin / volunteer privilages to other users.
 * be able to take away admin / volunteer privilages from other users.
-* have an overview of all current and past transport requests.
+* have an overview of all current and past transport requests, except the deleted ones.
 * be able to delete my own record without a trace.
 <br><br>
 
@@ -55,7 +55,6 @@ As a member, I would like to
 * be able to request a new transport.
 * be able to see my current / past transport requests.
 * know if a volunteer offered transport to any of my requests.
-* have an overview of all of my own requests.
 * be able to cancel any of my current requests.
 * be able to clear any of my past requests.
 * be able to delete my own record without a trace.
@@ -314,6 +313,16 @@ The other main admin function is monitoring all transport requests under the `Al
 
 ## Profile Page / Edit Profile
 
+All types of users have slightly different profile page.
+
+![Member Profile](readme-images/member-profile.jpeg)
+![Volunteer Profile](readme-images/volunteer-profile.jpeg)
+![Admin Profile](readme-images/admin-profile.jpeg)
+
+The `Update User` page can be accessed from many channels throughout the website, they all land in this shared page:
+
+![Update User](readme-images/update-user.jpeg)
+
 <br>
 <hr>
 <br><br>
@@ -351,6 +360,7 @@ Two types of error messages can be delivered to the user depending on the issue
 
 * Images have `alt` labels and other icons with inferred meanings are marked with `aria` labels.
 * For font sizes, `rem` was used throughout the site to allow the text to scale according to the users' preferred default font size.
+* All colours were tested for contrast in Chrome's Dev Tools.
 
 * Chrome Dev Tools' Lighthouse score is 100% for accessibility for both mobile and desktop devices. 
 
@@ -419,7 +429,7 @@ To develop this project locally in VSCode, you need to do the followings.<br><br
 4. Run `pipenv install 'Flask-SQLAlchemy<3' psycopg2 sqlalchemy=1.4.46 pep8 autopep8 pylint pylint-flask` - after executing this command, the `.venv` folder should be populated.
 5. Reload VSCode window.
 6. Run `pipenv shell` to enter the virtual environment - if your prompt starts with `(community-transport)`, you are successfully iside the virtual environment.
-7. Create your own `env.py` file as mine was not pushed to Github. In your `.gitignore` file, you should list `env.py` so your secrets will not be revealed in your gitHub repo. In the `env.py` file, specify the followings:
+7. Create your own `env.py` file as mine was not pushed to Github. In your `.gitignore` file, you should list `env.py` so your secrets will not be revealed in your GitHub repo. In the `env.py` file, specify the followings:
 
     ```python
     import os
@@ -433,7 +443,7 @@ To develop this project locally in VSCode, you need to do the followings.<br><br
     os.environ.setdefault("GOOGLE_MAPS_KEY", 'your-google-maps-api')
     ```
 
-8. Creating the database locally:
+8. Create the database locally:
     - In the terminal, run:
     ```
     psql
@@ -495,7 +505,7 @@ In Heroku,
     ```
     The DEBUG setting was true only while I was developing the project. I deleted this variable before I submitted this project.
 3. Deploy / GitHub, connected my repo.
-4. Enabled Continous Integration - this made sure every new push to the gitHub repository was deployed too.
+4. Enabled Continous Integration - this made sure every new push to the GitHub repository was deployed.
 5. Open app / More / Run Console:
     ```
     python3
@@ -505,7 +515,7 @@ In Heroku,
 
     ```
 
-In both the local development environment and the deployed database, I first created the Superuser as the first user of the site. I had to manually give Superuser the superpowers by manually calling SQL commands. The program is designed such that only an admin can approve any person joining the site so the first person has to be "approved" outside the normal ways. Both in the local postgresql database or in ElephantSQL, I had to run the followings:
+In both the local development environment and the deployed database, I first created the Superuser as the first user of the site. I had to manually give Superuser the superpowers by executing SQL commands. The program is designed such that only an admin can approve any person joining the site so the first person has to be "approved" outside the normal ways. Both in the local postgresql database or in ElephantSQL, I had to run the followings:
 ```
 UPDATE member SET is_admin=True, approved=True WHERE id=1;
 UPDATE approval SET status='approved' WHERE id=1;
