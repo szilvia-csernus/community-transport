@@ -68,17 +68,81 @@ Validator: https://validator.w3.org/
 
 ## Site Owner's Goals
 
-*  -
-    - 
+| Passed | Site Owneer's Goals
+| :--: | :-- |
+|  |  **...provide a platform for people willing to take part in this initiative** |
+| &check; | The homepage effectively describes who this website is created for. |
+| &check; | It allows any individuals to register their interest. |
+|  |  **...allow signing up as someone seeking help with transport in the local area.** |
+| &check; | The site allows vulnerable individuals to sign up. |
+|  |  **...allow signing up as a potential volunteer.** |
+| &check; | There is a dedicated link for volunteers to sign up. |
+| &check; | The volunteer can sign up normally, then the admin can mark them as volunteers later. |
+|  |  **...let admin(s) control who can be accepted to join and manage all their data.** |
+| &check; | The admin can approve new members. |
+| &check; | The admin can mark anyone as a volunteer. |
+| &check; | The admin can mark anyone as an admin. |
+| &check; | The admin can edit any member's relevant data. |
+| &check; | The admin can delete any users. |
+|  |  **...provide authentication for users.** |
+| &check; | Without registration, there is no access to the site beyond the home page. |
+| &check; | People can register with a safe password. |
+| &check; | People can sign in. |
+| &check; | People can retain their signed in status until signout or closing the browser tab. |
+| &check; | People can sign out. |
+|| **...the site should serve all types of users' goals: admins, volunteers and members.**|
+| &check; | Detailed admin goals testing shows that the site serves their purpose. See results below. |
+| &check; | Detailed volunteer goals testing shows that the site serves their purpose. See results below. |
+| &check; | Detailed member goals testing shows that the site serves their purpose. See results below. |
+|| **...the site should be easily accessible from a variety of devices.**|
+| &check; | The site was thoroughly tested for responsiveness. See results below. |
+| &check; | Accessibility was tested with Lighthouse. See results below. |
 
 
+<br><br>
 
-## Members' Goals
+## Admin's Goals
 
-*  -
-    - 
+As an admin, I would like to
 
-- - -
+* be able to register and safely sign in.
+* have control over accepting / declining newly registere users.
+* have a record of each individual.
+* be able to edit the relevant records of any user.
+* be able to delete any user from the database.
+* be able to grant admin / volunteer privilages to other users.
+* be able to take away admin / volunteer privilages from other users.
+* have an overview of all current and past transport requests.
+* be able to delete my own record without a trace.
+<br><br>
+
+## Member's Goals
+
+As a member, I would like to
+
+* be able to register and safely sign in.
+* be able to edit my own data.
+* be able to request a new transport.
+* be able to see my current / past transport requests.
+* know if a volunteer offered transport to any of my requests.
+* have an overview of all of my own requests.
+* be able to cancel any of my current requests.
+* be able to clear any of my past requests.
+* be able to delete my own record without a trace.
+<br><br>
+
+## Volunteer's Goals
+
+As a volunteer, I would like to
+
+* be able to register and safely sign in.
+* be able to edit my own data.
+* be able to view all current outstanding transport requests.
+* be able to accept a transport request.
+* have an overview of all of the trips I previously accepted.
+* be able to cancel any current trips I previously accepted.
+* be able to delete my own record without a trace.
+
 <br><br>
 
 # Accessibility
@@ -91,89 +155,6 @@ Validator: https://validator.w3.org/
 
 <br><br>
 
-# Manual Test Cases
-
-
-| Test case code | load | click | type  | type  | select  | click  | click  | click  | click  |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | 
-| 001 | &check; | &check; |  | &check; | | | | | &check; |
-| 002 | | &check; |  | &check; | | | | &check; | &check; |
-| 003 | | &check; |  | &check; | | | | &check; | &check; |
-| 004 | | &check; |  | &check; | | | | &check; | &check; |
-| 005 | | &check; |  | &check; | | &check; | | | |
-| 006 | | &check; |  | | &check; | &check; | | | |
-| 007 | | &check; | | | | &check; | | | | | | | | 
-| 008 | | &check; | | | | | &check; | &check; | |
-| 009 | &check; | &check; |  | | | | &check; | &check; | |
-| 010 | &check; | &check; |  | |  &check; | | &check; | &check; | |
-
-<br><br>
-
-**"Expected look" definitions:**
-
-a.  
-
-b.  
-
-c.  
-
-d.  
-
-e.  
-
-f.  
-
-g.  
-
-h.  
-
-i.  
-
-j.  
-<br><br>
-
-**"Expected behaviour" definitions:**
-
-a. 
-
-b. 
-
-c. 
-
-d. 
-
-e. 
-
-f. 
-
-g. 
-
-h. 
-
-i. 
-
-j. 
-
-k. 
-
-l. 
-
-<br><br>
-
-Browser & Version: Chrome 111.0.5563.110 (Desktop)
-<br>
-| Test case | Expected look | Expected behaviour | Pass | Notes |
-| :---: | :--- | :--- | :--- | :--- |
-| 001 | a. i. c. e. g. | a. k. c. e. g. h. i. l. | &check; | |
-| 002 | b. d. f. h. j. | b. d. f. g. h. i. j. l. | &check; | |
-| 003 | b. d. f. h. j. | b. d. f. g. h. i. j. l. | &check; | |
-| 004 | b. d. f. h. j. | b. d. f. g. h. i. j. l. | &check; | |
-| 005 | b. d. f. | b. d. f. g. h. l. | &check; | |
-| 006 | b. d. f. | b. d. f. g. h. l. | &check; | |
-| 007 | b. d. | b. d. l. | &check; | |
-| 008 | b. d. | b. d. j. k. | &check; | |
-| 009 | b. d. f. | b. d. f. j. k. | &check; | |
-| 010 | b. d. f. | b. d. f. g. h. j. k. | &check; | |
 
 
 <br><br>
