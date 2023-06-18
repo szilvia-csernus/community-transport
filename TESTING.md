@@ -77,7 +77,7 @@ Validator: https://validator.w3.org/
 | &check; | The site allows vulnerable individuals to sign up. |
 |  |  **...allow signing up as a potential volunteer.** |
 | &check; | There is a dedicated link for volunteers to sign up. |
-| &check; | The volunteer can sign up normally, then the admin can mark them as volunteers later. |
+| &check; | The volunteer can sign up normally as well, then the admin can mark them as volunteers later. |
 |  |  **...let admin(s) control who can be accepted to join and manage all their data.** |
 | &check; | The admin can approve new members. |
 | &check; | The admin can mark anyone as a volunteer. |
@@ -103,45 +103,91 @@ Validator: https://validator.w3.org/
 
 ## Admin's Goals
 
-As an admin, I would like to
 
-* be able to register and safely sign in.
-* have control over accepting / declining newly registere users.
-* have a record of each individual.
-* be able to edit the relevant records of any user.
-* be able to delete any user from the database.
-* be able to grant admin / volunteer privilages to other users.
-* be able to take away admin / volunteer privilages from other users.
-* have an overview of all current and past transport requests.
-* be able to delete my own record without a trace.
-<br><br>
+| Passed | Admin's Goals
+| :--: | :-- |
+|  |  **...be able to register and safely sign in.** |
+| &check; | The user can sign up as anyone else, then another admin can grant them admin rights. |
+| &check; | After approval, admin can sign in with their username and password. |
+|  |  **...have control over accepting / declining newly registere users.** |
+| &check; | The `All Users` page provides platform for approving new members. |
+| &check; | The `All Users` page provides platform for deleting newly registered people without approving them first. |
+|  |  **...have a record of each individual.** |
+| &check; | The `All Users` page provides lists all users. |
+| &check; | Every users' detailed record is accessible for the admin. |
+|  |  **...be able to edit the relevant records of any user.** |
+| &check; | The `All Users` page provides access to edit any users' relevant data. |
+|  |  **...be able to delete any user from the database.** |
+| &check; | Admin has access to deleting any users from the database. (Except Superuser) |
+|  |  **...be able to grant admin / volunteer privilages to other users.** |
+| &check; | Admin can grant admin rights to any user. |
+| &check; | Admin can grant volunteer rights to any user. (Except Superuser) |
+|  |  **...be able to take away admin / volunteer privilages to other users.** |
+| &check; | Admin can take away admin rights from any user. (Except from Superuser)|
+| &check; | Admin can take away volunteer rights to any user.|
+|  |  **...have an overview of all current and past transport requests.** |
+| &check; | Admin can see any Current requests under the `All Requests` tab.|
+| &check; | Admin can see any Past requests under the `All Requests` tab.|
+| &check; | Admin can not see any Deleted requests or any previously deleted user's requests.|
+|  |  **...be able to delete my own record without a trace.** |
+| &check; | Admin can delete himself/herself from the database through either their own profile page or from the `All Users` page.|
+| &check; | All the users that he/she approved before, will turn into 'unapproved' status.|
+| &check; | User will have no access to the site anymore.|
 
 ## Member's Goals
 
-As a member, I would like to
 
-* be able to register and safely sign in.
-* be able to edit my own data.
-* be able to request a new transport.
-* be able to see my current / past transport requests.
-* know if a volunteer offered transport to any of my requests.
-* have an overview of all of my own requests.
-* be able to cancel any of my current requests.
-* be able to clear any of my past requests.
-* be able to delete my own record without a trace.
+| Passed | Member's Goals
+| :--: | :-- |
+|  |  **...be able to register and safely sign in.** |
+| &check; | The user can sign up as anyone else, then another admin can approve their registration. |
+| &check; | After approval, user can sign in with their username and password. |
+|  |  **...be able to edit my own data.** |
+| &check; | User can access to their personal data through their `Profile` page. |
+| &check; | They can update their name, phone number and address. |
+|  |  **...be able to request a new transport.** |
+| &check; | User can request a lift through the `New Request tab` or `New Request button` on the `My Requests` page. |
+|  |  **...be able to see my current / past transport requests.** |
+| &check; | User can view all their current requests under the `My Requests` page. |
+| &check; | User can view all their past requests under the `My Requests` page. |
+|  |  **...know if a volunteer offered transport to any of my requests.** |
+| &check; | User can see if their request was accepted when the request's mark turns to `Arranged`.|
+| &check; | The request's details also shows the Volunteer's name and contact details.|
+|  |  **...be able to cancel any of my current requests.** |
+| &check; | User is provided with a `Cancel Request` button through which they can delete any open requests.|
+| &check; | Those requests that have already been picked up by a volunteer, user gets a notification to contact the volunteer.|
+|  |  **...be able to clear any of my past requests.** |
+| &check; | User is provided with a `Clear` button, through which they can delete any past requests.|
+|  |  **...be able to delete my own record without a trace.** |
+| &check; | User can delete himself/herself from the database through their `Profile` page or `Update User` page.|
+| &check; | All their requests will also be deleted.|
+| &check; | User will have no access to the site anymore.|
+
 <br><br>
 
 ## Volunteer's Goals
 
-As a volunteer, I would like to
-
-* be able to register and safely sign in.
-* be able to edit my own data.
-* be able to view all current outstanding transport requests.
-* be able to accept a transport request.
-* have an overview of all of the trips I previously accepted.
-* be able to cancel any current trips I previously accepted.
-* be able to delete my own record without a trace.
+| Passed | Volunteer's Goals
+| :--: | :-- |
+|  |  **...be able to register and safely sign in.** |
+| &check; | The user can sign up as anyone else, then another admin can approve their registration. |
+| &check; | After approval, user can sign in with their username and password. |
+|  |  **...be able to edit my own data.** |
+| &check; | User can access to their personal data through their `Profile` page. |
+| &check; | They can update their name, phone number and address. |
+|  |  **...be able to view all current outstanding transport requests.** |
+| &check; | Volunteer can view all current requests under the `Outstanding Requests` tab. |
+|  |  **...be able to accept a transport request.** |
+| &check; | Volunteer is provided with an `Accept Transport Request` button through which they can sign up for any open requests. |
+|  |  **...have an overview of all of the trips I previously accepted.** |
+| &check; | Volunteer can see all the trips they have volunteered for under the `Trips` tab.|
+|  |  **...be able to cancel any current trips I previously accepted.** |
+| &check; | Volunteer is provided with a `Cancel` button through which they can delete any open requests.|
+| &check; | Those requests' status turns back to `Awaiting volunteer` status and any other volunteer can accept it again.|
+|  |  **...be able to delete my own record without a trace.** |
+| &check; | User can delete himself/herself from the database through their `Profile` page or `Update User` page.|
+| &check; | All the trips they have previously volunteered will change back to `Awaiting volunteer` status.|
+| &check; | User will have no access to the site anymore.|
 
 <br><br>
 
