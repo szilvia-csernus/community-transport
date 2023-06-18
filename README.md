@@ -326,8 +326,8 @@ Two types of error messages can be delivered to the user depending on the issue
 * a `500 (internal server error)` in case there is a problem with code execution or with the connection to the server. 
 <br>
 
-![404.html](readme-images/404-html.jpeg)
-![500.html](readme-images/500-html.jpeg)
+![Not found page](readme-images/404.jpeg)
+![Error page](readme-images/500.jpeg)
 
 <br><br>
 <hr>
@@ -368,7 +368,7 @@ Two types of error messages can be delivered to the user depending on the issue
 The site was built with [Python], [PosgreSQL], [JavaScript](https://en.wikipedia.org/wiki/JavaScript), [HTML](https://en.wikipedia.org/wiki/HTML5) and [CSS](https://en.wikipedia.org/wiki/CSS).
 <br><br>
 
-## Frameworks, Libraries, APIs & Programs Used
+## Frameworks, Libraries and APIs
 <br>
 
 * [Flask]() - Fullstack framework
@@ -381,6 +381,9 @@ The site was built with [Python], [PosgreSQL], [JavaScript](https://en.wikipedia
 
 * [Google Maps API](https://developers.google.com/maps) - Autocompletion, Direction, Geocoding, ClusterMarker and Map.
 
+
+## Other Programs Used
+
 * [Google Fonts](https://fonts.google.com/)  - for texts.
 
 * [Balsamiq](https://balsamiq.cloud/)  - to create wireframes.
@@ -390,8 +393,6 @@ The site was built with [Python], [PosgreSQL], [JavaScript](https://en.wikipedia
 * [RealFaviconGenerator](https://realfavicongenerator.net/svg-favicon/)  - to generate favicons.
 
 * [Multi Device Website Mockup](https://techsini.com/multi-mockup/index.php)  - to create site visuals for responsive design.
-
-* [Gyazo](https://gyazo.com)  - for adding `.gif` files to this README file.
 
 * [Git](https://git-scm.com/) & [Github](https://github.com/)  - for version control, safe storage and deployment.
 
@@ -406,17 +407,117 @@ The site was built with [Python], [PosgreSQL], [JavaScript](https://en.wikipedia
 
 ---
 
+# Local Development and Deployment
+
+## Local Development
+
+To develop this project locally in VSCode, you need to do the followings.<br><br>
+(Instructions are for Mac, but using it on Windows should be self-explanatrory.)
+
+1. Make sure you have python installed.
+2. Clone this project into a new repository.
+3. Create a folder named `.venv`.
+4. Run `pipenv install 'Flask-SQLAlchemy<3' psycopg2 sqlalchemy=1.4.46 pep8 autopep8 pylint pylint-flask` - after executing this command, the `.venv` folder should be populated.
+5. Reload VSCode window with `CMD + Shift + P`.
+6. Run `pipenv shell` to enter the virtual environment - if your prompt starts with `(community-transport)`, you are successfully iside the virtual environment.
+7. Create your own `env.py` file as mine was not pushed to Github. In your `.gitignore` file, you should list `env.py` so your secrets will not be revealed in your gitHub repo. In the `env.py` file, specify the followings:
+
+    ```python
+    import os
+
+    os.environ.setdefault("IP", "0.0.0.0")
+    os.environ.setdefault("PORT", "5000")
+    os.environ.setdefault("SECRET_KEY", "your-secret-key")
+    os.environ.setdefault("DEBUG", "True")
+    os.environ.setdefault("DEVELOPMENT", "True")
+    os.environ.setdefault("DB_URL", "postgresql:///commtransport")
+    os.environ.setdefault("GOOGLE_MAPS_KEY", 'your-google-maps-api')
+    ```
+
+8. Creating the database locally:
+    - In the terminal, run:
+    ```
+    psql
+    CREATE DATABASE commtransport;
+    \c commtransport;
+    \q
+    ```
+9. Set up the Model structure with the schema:
+    - in the terminal, run:
+    ```
+    python3
+    from commtransport import db
+    db.create_all()
+    exit()
+
+    ```
+
+10. To confirm that the migration was successful:
+    ```
+    psql -d commtransport
+    \dt
+    ```
+    This should have listed all model tables.
+    ```
+    \q
+    ```
+
+11. To run the project on the local development server:
+    ```
+    python3 run.py
+    ```
+
+<br>
+<hr>
+<br>
+
 ## Deployment
 
-* [Heroku]() -
-* [ElephantSQL]() - 
+To deploy this project, I took the following steps:
+
+1. I ran `pip freeze --local > requirement.txt`
+2. Created the `Procfile`.
+3. In my `__init__.py` file, I added the contitional database environment url code (lines 11-17).
+4. Pushed the changes to GitHub.
+
+In ElephantSQL,
+1. I created a new Instance (database) in ElephantSQL. 
+2. I copied the instance URL to the clipboard.
+
+In Heroku,
+1. Created a new project.
+2. In the new project's settings, I set the `Config Vars`
+    ```
+    DATABASE_URL  -- the ElephantSQL link comes here
+    IP -- 0.0.0.0
+    PORT -- 5000
+    SECRET_KEY -- my-secret-key
+    DEBUG -- True
+    ```
+    The DEBUG setting was true only while I was developing the project. I deleted this variable before I submitted this project.
+3. Deploy / GitHub, connected my repo.
+4. Enabled Continous Integration - this made sure every new push to the gitHub repository was deployed too.
+5. Open app / More / Run Console:
+    ```
+    python3
+    from commtransport import db
+    db.create_all()
+    exit()
+
+    ```
+
+In both the local development environment and the deployed database, I first created the Superuser as the first user of the site. I had to manually give Superuser the superpowers by manually calling SQL commands. The program is designed such that only an admin can approve any person joining the site so the first person has to be "approved" outside the normal ways. Both in the local postgresql database or in ElephantSQL, I had to run the followings:
+```
+UPDATE member SET is_admin=True, approved=True WHERE id=1;
+UPDATE approval SET status='approved' WHERE id=1;
+``` 
 
 <br><br>
 
 
 # Testing
 
-Detailed testing processes are documented in [TESTING.md](TESTING.md).
+Please refer to [TESTING.md](TESTING.md) for detailed testing documentation.
 
 ---
 <br><br>
