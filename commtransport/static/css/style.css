@@ -68,8 +68,12 @@ nav span.badge {
 }
 
 [type="checkbox"].filled-in:checked+span:not(.lever):before {
-    border-right: 2px solid var(--my-dark-blue);
-    border-bottom: 2px solid var(--my-dark-blue);
+    border-right: 3px solid var(--my-dark-blue);
+    border-bottom: 3px solid var(--my-dark-blue);
+}
+
+[type="checkbox"].filled-in:not(:checked)+span:not(.lever):after {
+    border-color: var(--my-dark-blue)
 }
 
 .switch label input[type=checkbox]:checked+.lever {
@@ -83,15 +87,13 @@ nav span.badge {
 .collapsible-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-right: 0.2rem;
 }
 
 .col .row {
     margin-left: 0;
     margin-right: 0;
-}
-
-[type="checkbox"].filled-in:not(:checked)+span:not(.lever):after {
-    border-color: var(--my-dark-blue)
 }
 
 .datepicker-date-display,
@@ -125,10 +127,6 @@ nav ul a {
 
 nav ul a:hover {
     background-color: unset;
-}
-
-.collapsible-header i {
-    margin-right: 0.2rem;
 }
 
 .input-field .prefix ~ input {
