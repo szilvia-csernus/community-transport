@@ -41,7 +41,7 @@ function initMap() {
       const locationsData = await getLocations(myPlaceIdsArray);
 
       const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 14,
+        zoom: 11,
         center: locationsData[0],
       });
 
