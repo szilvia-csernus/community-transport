@@ -177,28 +177,12 @@ If the email was already registered, it gives a feedback:
 <hr>
 <br><br>
 
-## Approval (admin function)
+## Sign in
 
 Without an admin's approval, a newly registered person can't sign in, they get a notification if they try to:
 <br>
 
 ![Signing in message before approval](readme-images/signing-in-before-approval.jpeg)
-
-Any Admin can approve a new person. They can review the request by contacting this person and having checks carried out before they approve them in the system.
-The approval happens on the admin platform, under the `All Users` tab.
-The platform gives indications about how many people are awaiting approval as well as if they signed up as a volunteer or just as a simple member.
-
-![Approval Platform](readme-images/approval-many.jpeg)
-
-<br>
-
-![Approval Page](readme-images/approval-one.jpeg)
-
-<br>
-<hr>
-<br><br>
-
-## Sign in
 
 After having been approved, a registered person can sign in.
 
@@ -210,7 +194,7 @@ If the email or password was incorrect, user gets an error:
 ![Incorrect Email or Password](readme-images/incorrect-email.jpeg)
 <br>
 
-Otherwise, the user is greeted with a welcome message:
+Otherwise, the user gets logged in and is greeted with a welcome message:
 
 ![Welcome Message](readme-images/welcome.jpeg)
 
@@ -261,7 +245,7 @@ Here, we can see Ethan's newly registered requests. The first request opens auto
 ![My Requests](readme-images/my-requests-open-awaiting.jpeg)
 <br>
 
-If a volunteer accepts such a request, the state of the request changes to `Arranged` and the volunteer's contact details will be visible on the page.
+If a volunteer accepts this request, the state of the request changes to `Arranged` and the volunteer's contact details will be visible on the page.
 
 ![My Requests Arranged](readme-images/my-requests-open-arranged.jpeg)
 
@@ -291,13 +275,40 @@ The volunteer can cancel the trip anytime, in which case another volunteer can s
 
 ## All Members (seen by admins)
 
+If an admin logs in, they are taken to the admin's platform. One of the admin functions is `All Users`: an admin can see, approve, edit and delete any user. They can grant and take away admin privilages as well as volunteer roles.
+
+![All Users Page](readme-images/all-users.jpeg)
+
+![Edit one user](readme-images/all-users-open.jpeg)
+
+![Grant admin privilage](readme-images/update-user-by-admin.jpeg)
+
+Approval
+
+Any Admin can approve a new person. They can review the request by contacting this person and having checks carried out before they approve them in the system.
+If there are new people awaiting approval, they appear under the `All Users` tab.
+The platform gives indications about how many new people there are as well as if they signed up as a volunteer or just as a simple member.
+
+![Approval Platform](readme-images/approval-many.jpeg)
+
+<br>
+
+![Approval Page](readme-images/approval-one.jpeg)
+
+
+Superuser is the first admin to the site. It can give admin privilages to others that have all the same rights as the Superuser except that Superuser can't be deleted or its admin status taken away. This is to ensure that one cannot accidentally delete all admins from the site.
+
 <br>
 <hr>
 <br><br>
 
 ## All Requests (seen by admins)
 
+The other main admin function is monitoring all transport requests under the `All Requests` tab. After successful login, this is the page where the admin is directed to. The page lists all upcoming and past requests, ordered by their pickup dates and times. The map shows all current requests' pickup places with clustered map markers, centered around the first request.
 <br>
+
+![All Requests Page](readme-images/all-requests.jpeg)
+
 <hr>
 <br><br>
 
@@ -357,7 +368,7 @@ Two types of error messages can be delivered to the user depending on the issue
 The site was built with [Python], [PosgreSQL], [JavaScript](https://en.wikipedia.org/wiki/JavaScript), [HTML](https://en.wikipedia.org/wiki/HTML5) and [CSS](https://en.wikipedia.org/wiki/CSS).
 <br><br>
 
-## Frameworks, Libraries & Programs Used
+## Frameworks, Libraries, APIs & Programs Used
 <br>
 
 * [Flask]() - Fullstack framework
@@ -386,11 +397,11 @@ The site was built with [Python], [PosgreSQL], [JavaScript](https://en.wikipedia
 
 * [Google Dev Tools](https://developer.chrome.com/docs/devtools/)  - for testing and troubleshooting.
 
-* [Lucid App](https://lucid.app)
+* [Lucid App](https://lucid.app) - for database model visuals.
 
-* [Random Key Generator](https://randomkeygen.com/)
+* [Random Key Generator](https://randomkeygen.com/) - to generate a secret key.
 
-* [Geolocation coordinate finder](http://bboxfinder.com/)
+* [Geolocation coordinate finder](http://bboxfinder.com/) - to define the boundary box around Egham.
 
 
 ---
@@ -489,7 +500,7 @@ I would like to thank the following contributors:
 
 * [Manuel Perez Romero](https://www.linkedin.com/in/manuel-perez-romero-460063176/) and [Elaine Broche](https://github.com/elainebroche-dev) for giving useful feedback throughout the development and testing processes.
 
-* My family and friends for taking the time to test the game.
+* My family and friends for taking the time to test the site.
 
 * [Code Institute](www.codeintitute.net)'s Slack Community for continuous support.
 
