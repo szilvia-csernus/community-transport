@@ -8,15 +8,11 @@ class Member(db.Model):
     fullname = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(300), nullable=False)
-    # handle the case when place gets deleted! (ask member for new address)
     place_id = db.Column(db.Integer, db.ForeignKey("place.id"))
-
     phone_nr = db.Column(db.String(20))
     is_admin = db.Column(db.Boolean, default=False, nullable=False)
     is_volunteer = db.Column(db.Boolean, default=False, nullable=False)
     approved = db.Column(db.Boolean, default=False, nullable=False)
-    # handle the case when approval gets deleted - when approving person
-    # gets deleted to get admins to approve member again
     approval_id = db.Column(db.Integer, db.ForeignKey("approval.id"))
 
     # one-to-many relationship, one Member can have one address but one address
