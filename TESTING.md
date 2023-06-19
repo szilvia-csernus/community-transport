@@ -255,6 +255,12 @@ Performance, Accessibility, Best Practices and SEO tests were carried out with [
 |      | mobile  | ![Lighthouse mobile volunteer-trips](testing-images/lh-volunteer-trips-m.jpeg) |The lower performance is caused by the Google Maps API's slow response time.<br> The lower Best Practices score is due to the Goggle Map Marker's low resolution picture, the lower SEO score to the difficult-to-tap small prints on the map.|
 | volunteer profile | desktop | ![Lighthouse desktop volunteer-profile](testing-images/lh-volunteer-profile-d.jpeg) ||
 |      | mobile  | ![Lighthouse mobile volunteer-profile](testing-images/lh-volunteer-profile-m.jpeg) ||
+| all members | desktop | ![Lighthouse desktop all-members](testing-images/lh-all-members-d.jpeg) ||
+|      | mobile  | ![Lighthouse mobile all-members](testing-images/lh-all-members-m.jpeg) ||
+| all requests | desktop | ![Lighthouse desktop all-requests](testing-images/lh-all-requests-d.jpeg) |The lower Best Practices score is due to the Goggle Map Marker's low resolution picture.|
+|      | mobile  | ![Lighthouse mobile all-requests](testing-images/lh-all-requests-m.jpeg) |The lower Best Practices score is due to the Goggle Map Marker's low resolution picture, the lower SEO score to the difficult-to-tap small prints on the map.|
+| admin profile | desktop | ![Lighthouse desktop admin-profile](testing-images/lh-admin-profile-d.jpeg) ||
+|      | mobile  | ![Lighthouse mobile admin-profile](testing-images/lh-admin-profile-m.jpeg) ||
 
 
 
