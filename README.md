@@ -249,6 +249,11 @@ If a volunteer accepts this request, the state of the request changes to `Arrang
 ![My Requests Arranged](readme-images/my-requests-open-arranged.jpeg)
 
 ![My Requests Closed](readme-images/my-requests-closed.jpeg)
+<br>
+
+If the user wants to cancel the request within 24 hours of the pickup time, their request will be denied with a notification:
+
+![Cancel Trip with short notice](readme-images/cancel-req-within24.jpeg)
 
 <br>
 <hr>
@@ -266,7 +271,7 @@ After accepting a request, the user will be taken to the `Trips` page, where the
 
 The volunteer can cancel the trip anytime, in which case another volunteer can still pick up the request. However, if the cancellation time is within 24 hours of the pickup time, they get a notification to get in touch with this individual personally.
 
-
+![Cancel trip within 1 day](readme-images/cancel-offer-within24.jpeg)
 <br>
 <hr>
 <br><br>
@@ -393,6 +398,10 @@ The site was built with Python, PosgreSQL, JavaScript, HTML and CSS.
 
 
 ## Other Programs Used
+
+* [Heroku](https://heroku.com/) - to deploy the project.
+
+* [ElephantSQL](https://elephantsql.com/) - to deploy the database.
 
 * [Google Fonts](https://fonts.google.com/)  - for texts.
 
