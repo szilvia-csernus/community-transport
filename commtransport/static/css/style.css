@@ -137,14 +137,15 @@ nav ul a:hover {
 
 .input-field.col label {
     left: -3px;
-    color: #767676;;
+    color: var(--my-grey);
 }
 
 .sidenav li>a.my-dark-blue-text {
     color: var(--my-dark-blue);
 }
 
-#addressLabel.active {
+#addressLabel.active,
+.addressLabel.active {
     background-color: transparent;
 }
 
