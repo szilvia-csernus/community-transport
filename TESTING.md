@@ -243,12 +243,18 @@ Performance, Accessibility, Best Practices and SEO tests were carried out with [
 |      | mobile  | ![Lighthouse mobile registration](testing-images/lh-registration-m.jpeg) ||
 | signin | desktop | ![Lighthouse desktop signin](testing-images/lh-signin-d.jpeg) ||
 |      | mobile  | ![Lighthouse mobile signin](testing-images/lh-signin-m.jpeg) ||
-| member requests | desktop | ![Lighthouse desktop member-requests](testing-images/lh-member-requests-d.jpeg) |The lower performance is caused by the Google Maps API slow response time.|
-|      | mobile  | ![Lighthouse mobile member-requests](testing-images/lh-member-requests-m.jpeg) |The lower performance is caused by the Google Maps API slow response time.|
+| member requests | desktop | ![Lighthouse desktop member-requests](testing-images/lh-member-requests-d.jpeg) |The lower performance is caused by the Google Maps API's slow response time.<br> The lower Best Practices score is due to the Goggle Map Marker's low resolution picture.|
+|      | mobile  | ![Lighthouse mobile member-requests](testing-images/lh-member-requests-m.jpeg) |The lower performance is caused by the Google Maps API's slow response time. <br> The lower Best Practices score is due to the Goggle Map Marker's low resolution picture, the lower SEO score to the difficult-to-tap small prints on the map.|
 | new request | desktop | ![Lighthouse desktop new-request](testing-images/lh-new-request-d.jpeg) ||
 |      | mobile  | ![Lighthouse mobile new-request](testing-images/lh-new-request-m.jpeg) ||
 | member profile | desktop | ![Lighthouse desktop member-profile](testing-images/lh-member-profile-d.jpeg) ||
 |      | mobile  | ![Lighthouse mobile member-profile](testing-images/lh-member-profile-m.jpeg) ||
+| volunteer requests | desktop | ![Lighthouse desktop volunteer-requests](testing-images/lh-volunteer-requests-d.jpeg) |The lower performance is caused by the Google Maps API's slow response time.<br> The lower Best Practices score is due to the Goggle Map Marker's low resolution picture.|
+|      | mobile  | ![Lighthouse mobile volunteer-requests](testing-images/lh-volunteer-requests-m.jpeg) |The lower performance is caused by the Google Maps API's slow response time. <br> The lower Best Practices score is due to the Goggle Map Marker's low resolution picture, the lower SEO score to the difficult-to-tap small prints on the map.|
+| volunteer trips | desktop | ![Lighthouse desktop volunteer-trips](testing-images/lh-volunteer-trips-d.jpeg) |The lower performance is caused by the Google Maps API's slow response time.<br> The lower Best Practices score is due to the Goggle Map Marker's low resolution picture.|
+|      | mobile  | ![Lighthouse mobile volunteer-trips](testing-images/lh-volunteer-trips-m.jpeg) |The lower performance is caused by the Google Maps API's slow response time.<br> The lower Best Practices score is due to the Goggle Map Marker's low resolution picture, the lower SEO score to the difficult-to-tap small prints on the map.|
+| volunteer profile | desktop | ![Lighthouse desktop volunteer-profile](testing-images/lh-volunteer-profile-d.jpeg) ||
+|      | mobile  | ![Lighthouse mobile volunteer-profile](testing-images/lh-volunteer-profile-m.jpeg) ||
 
 
 
@@ -260,7 +266,7 @@ Performance, Accessibility, Best Practices and SEO tests were carried out with [
 * Colour contrast issue for the form labels.
     - Solution: As these labels are Materialize features, I had to modify the classes's styles that Materialize used.
 * The notification for cancelling a trip too close to the due time was not appearing.
-    - Solution: The cause was that I used the `datetime.utcnow()` function for the current time. I corrected it to `datetime.now()` that takes the current timezone, as well as the summertime calculations into account.
+    - Solution: The cause was that I used the `datetime.utcnow()` function for the current time. I corrected it to `datetime.now()` that takes the current timezone as well as the summertime calculations into account.
 
 <br><br>
 
