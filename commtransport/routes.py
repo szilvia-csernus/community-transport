@@ -167,7 +167,7 @@ def admin_profile(user_id):
 
     now = datetime.utcnow()
     outstanding_requests_count = Request.query.filter(
-        Request.request_date > now).count()
+        Request.request_date > now, Request.volunteer_id == None).count()
 
     # is admin is a volunteer too, we need this info for the nav element
     upcoming_trips_count = Request.query.filter(
