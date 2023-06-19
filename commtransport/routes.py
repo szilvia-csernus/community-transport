@@ -772,7 +772,7 @@ def cancel_transport_request(user_id, request_id):
 def edit_member(user_id, member_id):
     """ Edit member's data. Members can edit their own details,
         while Admin can edit any member's details as well as
-        grant admin or volunteer privilages.
+        grant admin or volunteer privileges.
     """
     user = Member.query.get_or_404(user_id)
     member = Member.query.get_or_404(member_id)

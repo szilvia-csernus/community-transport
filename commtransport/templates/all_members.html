@@ -64,7 +64,7 @@
 </li>
 {% endif %}
 
-<!-- Profile page's route depends on the privilages of the user  -->
+<!-- Profile page's route depends on the privileges of the user  -->
 {% if user.is_admin %}
 <li>
     <a class="my-nav-element my-dark-blue-text " href="{{ url_for('admin_profile', user_id=user.id)}}">Profile
@@ -124,7 +124,7 @@
 </li>
 {% endif %}
 
-<!-- Profile page's route depends on the privilages of the user  -->
+<!-- Profile page's route depends on the privileges of the user  -->
 {% if user.is_admin %}
 <li>
     <a class="my-nav-element my-dark-blue-text" href="{{ url_for('admin_profile', user_id=user.id)}}">
@@ -178,7 +178,7 @@
             <p>Email: <em>{{ member.email }}</em></p>
             <p>
                 {% if member.is_admin %}
-                    <span class="my-red-text">Has Admin Privilages.</span>
+                    <span class="my-red-text">Has Admin privileges.</span>
                 {% endif %}</p>
             <p>
                 {% if member.is_volunteer %}
@@ -277,7 +277,7 @@
             <p>Email: <em>{{ member.email }}</em></p>
             <p>
                 {% if member.is_admin %}
-                <span class="my-red-text">Has Admin Privilages.</span>
+                <span class="my-red-text">Has Admin privileges.</span>
                 {% endif %}
             </p>
             <p>
