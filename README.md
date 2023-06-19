@@ -40,8 +40,8 @@ As an admin, I would like to
 * have a record of each individual.
 * be able to edit the relevant records of any user.
 * be able to delete any user from the database.
-* be able to grant admin / volunteer privilages to other users.
-* be able to take away admin / volunteer privilages from other users.
+* be able to grant admin / volunteer privileges to other users.
+* be able to take away admin / volunteer privileges from other users.
 * have an overview of all current and past transport requests, except the deleted ones.
 * be able to delete my own record without a trace.
 <br><br>
@@ -55,7 +55,8 @@ As a member, I would like to
 * be able to request a new transport.
 * be able to see my current / past transport requests.
 * know if a volunteer offered transport to any of my requests.
-* be able to cancel any of my current requests.
+* be able to cancel any of my current requests that are due later than within 24 hours or has no volunteer.
+* get a notification if I intend to cancel a request within 24 hours that already has a volunteer.
 * be able to clear any of my past requests.
 * be able to delete my own record without a trace.
 <br><br>
@@ -279,13 +280,13 @@ The volunteer can cancel the trip anytime, in which case another volunteer can s
 
 ## All Members (seen by admins)
 
-If an admin logs in, they are taken to the admin's platform. One of the admin functions is `All Users`: an admin can see, approve, edit and delete any user. They can grant and take away admin privilages as well as volunteer roles.
+If an admin logs in, they are taken to the admin's platform. One of the admin functions is `All Users`: an admin can see, approve, edit and delete any user. They can grant and take away admin privileges as well as volunteer roles.
 
 ![All Users Page](readme-images/all-users.jpeg)
 
 ![Edit one user](readme-images/all-users-open.jpeg)
 
-![Grant admin privilage](readme-images/update-user-by-admin.jpeg)
+![Grant admin privilege](readme-images/update-user-by-admin.jpeg)
 
 Approval
 
@@ -300,7 +301,7 @@ The platform gives indications about how many new people there are as well as if
 ![Approval Page](readme-images/approval-one.jpeg)
 
 
-Superuser is the first admin to the site. It can give admin privilages to others that have all the same rights as the Superuser except that Superuser can't be deleted or its admin status taken away. This is to ensure that one cannot accidentally delete all admins from the site.
+Superuser is the first admin to the site. It can give admin privileges to others that have all the same rights as the Superuser except that Superuser can't be deleted or its admin status taken away. This is to ensure that one cannot accidentally delete all admins from the site.
 
 <br>
 <hr>

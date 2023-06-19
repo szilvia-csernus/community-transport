@@ -79,11 +79,11 @@ Validator: https://validator.w3.org/
 | &check; | There is a dedicated link for volunteers to sign up. |
 | &check; | The volunteer can sign up normally as well, then the admin can mark them as volunteers later. |
 |  |  **...let admin(s) control who can be accepted to join and manage all their data.** |
-| &check; | The admin can approve new members. |
-| &check; | The admin can mark anyone as a volunteer. |
-| &check; | The admin can mark anyone as an admin. |
-| &check; | The admin can edit any member's relevant data. |
-| &check; | The admin can delete any users. |
+| &check; | Admin(s) can approve new members. |
+| &check; | Admin(s) can mark anyone as a volunteer. |
+| &check; | Admin(s) can mark anyone as an admin. |
+| &check; | Admin(s) can edit any member's relevant data. |
+| &check; | Admin(s) can delete any users. |
 |  |  **...provide authentication for users.** |
 | &check; | Without registration, there is no access to the site beyond the home page. |
 | &check; | People can register with a safe password. |
@@ -109,20 +109,20 @@ Validator: https://validator.w3.org/
 |  |  **...be able to register and safely sign in.** |
 | &check; | The user can sign up as anyone else, then another admin can grant them admin rights. |
 | &check; | After approval, admin can sign in with their username and password. |
-|  |  **...have control over accepting / declining newly registere users.** |
+|  |  **...have control over accepting / declining newly registered users.** |
 | &check; | The `All Users` page provides platform for approving new members. |
 | &check; | The `All Users` page provides platform for deleting newly registered people without approving them first. |
 |  |  **...have a record of each individual.** |
-| &check; | The `All Users` page provides lists all users. |
+| &check; | The `All Users` page provides list for all users. |
 | &check; | Every users' detailed record is accessible for the admin. |
 |  |  **...be able to edit the relevant records of any user.** |
 | &check; | The `All Users` page provides access to edit any users' relevant data. |
 |  |  **...be able to delete any user from the database.** |
 | &check; | Admin has access to deleting any users from the database. (Except Superuser) |
-|  |  **...be able to grant admin / volunteer privilages to other users.** |
+|  |  **...be able to grant admin / volunteer privileges to other users.** |
 | &check; | Admin can grant admin rights to any user. |
 | &check; | Admin can grant volunteer rights to any user. (Except Superuser) |
-|  |  **...be able to take away admin / volunteer privilages to other users.** |
+|  |  **...be able to take away admin / volunteer privileges to other users.** |
 | &check; | Admin can take away admin rights from any user. (Except from Superuser)|
 | &check; | Admin can take away volunteer rights to any user.|
 |  |  **...have an overview of all current and past transport requests.** |
@@ -143,7 +143,7 @@ Validator: https://validator.w3.org/
 | &check; | The user can sign up as anyone else, then another admin can approve their registration. |
 | &check; | After approval, user can sign in with their username and password. |
 |  |  **...be able to edit my own data.** |
-| &check; | User can access to their personal data through their `Profile` page. |
+| &check; | User can access their personal data through their `Profile` page. |
 | &check; | They can update their name, phone number and address. |
 |  |  **...be able to request a new transport.** |
 | &check; | User can request a lift through the `New Request tab` or `New Request button` on the `My Requests` page. |
@@ -153,9 +153,11 @@ Validator: https://validator.w3.org/
 |  |  **...know if a volunteer offered transport to any of my requests.** |
 | &check; | User can see if their request was accepted when the request's mark turns to `Arranged`.|
 | &check; | The request's details also shows the Volunteer's name and contact details.|
-|  |  **...be able to cancel any of my current requests.** |
+|  |  **...be able to cancel any of my current requests that are due later than within 24 hours or has no volunteer.** |
 | &check; | User is provided with a `Cancel Request` button through which they can delete any open requests.|
-| &check; | Those requests that have already been picked up by a volunteer, user gets a notification to contact the volunteer.|
+| &check; | User can delete any requests that are due later than one day.|
+|  |  **...get a notification if I intend to cancel a request within 24 hours that already has a volunteer..** |
+| &check; | Those requests that have volunteer offers and are within 24 hours, cancellation is denied with a notification.|
 |  |  **...be able to clear any of my past requests.** |
 | &check; | User is provided with a `Clear` button, through which they can delete any past requests.|
 |  |  **...be able to delete my own record without a trace.** |
@@ -170,10 +172,11 @@ Validator: https://validator.w3.org/
 | Passed | Volunteer's Goals
 | :--: | :-- |
 |  |  **...be able to register and safely sign in.** |
-| &check; | The user can sign up as anyone else, then another admin can approve their registration. |
+| &check; | User can sign up specifically as a volunteer. |
+| &check; | User can sign up as anyone else, then another admin can mark them as a volunteer. |
 | &check; | After approval, user can sign in with their username and password. |
 |  |  **...be able to edit my own data.** |
-| &check; | User can access to their personal data through their `Profile` page. |
+| &check; | User can access their personal data through their `Profile` page. |
 | &check; | They can update their name, phone number and address. |
 |  |  **...be able to view all current outstanding transport requests.** |
 | &check; | Volunteer can view all current requests under the `Outstanding Requests` tab. |
@@ -183,10 +186,10 @@ Validator: https://validator.w3.org/
 | &check; | Volunteer can see all the trips they have volunteered for under the `Trips` tab.|
 |  |  **...be able to cancel any current trips I previously accepted.** |
 | &check; | Volunteer is provided with a `Cancel` button through which they can delete any open requests.|
-| &check; | Those requests' status turns back to `Awaiting volunteer` status and any other volunteer can accept it again.|
+| &check; | The request's status turns back to `Awaiting volunteer` and any other volunteer can accept it again.|
 |  |  **...be able to delete my own record without a trace.** |
 | &check; | User can delete himself/herself from the database through their `Profile` page or `Update User` page.|
-| &check; | All the trips they have previously volunteered will change back to `Awaiting volunteer` status.|
+| &check; | All the trips they have previously volunteered for will change back to `Awaiting volunteer` status.|
 | &check; | User will have no access to the site anymore.|
 
 <br><br>
