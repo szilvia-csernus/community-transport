@@ -165,7 +165,7 @@ def admin_profile(user_id):
     unapproved_members_count = Member.query.filter(
         Member.approved == False).count()
 
-    now = datetime.utcnow()
+    now = datetime.now()
     outstanding_requests_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == None).count()
 
@@ -245,7 +245,7 @@ def all_members(user_id):
     approved_members = list(
         Member.query.filter(Member.approved == True))
 
-    now = datetime.utcnow()
+    now = datetime.now()
     outstanding_requests_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == None).count()
 
@@ -283,7 +283,7 @@ def all_requests(user_id):
     unapproved_members_count = Member.query.filter(
         Member.approved == False).count()
 
-    now = datetime.utcnow()
+    now = datetime.now()
     future_requests = list(Request.query.filter(
         Request.request_date >= now,
         Request.request_date > now).order_by(
@@ -343,7 +343,7 @@ def volunteer_profile(user_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
-    now = datetime.utcnow()
+    now = datetime.now()
     upcoming_trips_count = Request.query.filter(
         Request.request_date > now, Request.volunteer_id == user.id).count()
 
@@ -380,7 +380,7 @@ def volunteer_requests(user_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
-    now = datetime.utcnow()
+    now = datetime.now()
     outstanding_requests = list(Request.query.filter(
         Request.request_date > now, Request.volunteer_id == None).order_by(
             Request.request_date, Request.request_time).all())
@@ -458,7 +458,7 @@ def volunteer_trips(user_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
-    now = datetime.utcnow()
+    now = datetime.now()
     upcoming_trips = list(Request.query.filter(
         Request.request_date > now, Request.volunteer_id == user.id).order_by(
             Request.request_date, Request.request_time).all())
@@ -509,11 +509,11 @@ def cancel_volunteer_trip(user_id, request_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
-    now = datetime.utcnow()
+    now = datetime.now()
     too_short_notice = timedelta(days=1)
     req_datetime = datetime.combine(
         transport_req.request_date, transport_req.request_time)
-    within_one_day = (now + too_short_notice > req_datetime) and \
+    within_one_day = ((now + too_short_notice) > req_datetime) and \
         (req_datetime > now)
 
     if within_one_day is True:
@@ -606,7 +606,7 @@ def new_request(user_id):
             return redirect(request.referrer)
 
         # Check if the date is in the future timeframe of 3 months
-        now = datetime.utcnow().date()
+        now = datetime.now().date()
         request_date = form_data.get("date")
 
         # Check if entered date is not  earlier than tomorrow
@@ -699,7 +699,7 @@ def member_requests(user_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
-    now = datetime.utcnow()
+    now = datetime.now()
     future_requests = list(Request.query.filter(
         Request.request_date > now, Request.requestor_id == user.id).order_by(
             Request.request_date, Request.request_time).all())
@@ -741,11 +741,11 @@ def cancel_transport_request(user_id, request_id):
     transport_req = Request.query.get_or_404(request_id)
     arranged = transport_req.volunteer is not None
 
-    now = datetime.utcnow()
+    now = datetime.now()
     too_short_notice = timedelta(days=1)
     req_datetime = datetime.combine(
         transport_req.request_date, transport_req.request_time)
-    within_one_day = (now + too_short_notice > req_datetime) and \
+    within_one_day = ((now + too_short_notice) > req_datetime) and \
         (req_datetime > now)
 
     if (arranged and within_one_day):
