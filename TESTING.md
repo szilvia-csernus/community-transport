@@ -243,6 +243,12 @@ Performance, Accessibility, Best Practices and SEO tests were carried out with [
 |      | mobile  | ![Lighthouse mobile registration](testing-images/lh-registration-m.jpeg) ||
 | signin | desktop | ![Lighthouse desktop signin](testing-images/lh-signin-d.jpeg) ||
 |      | mobile  | ![Lighthouse mobile signin](testing-images/lh-signin-m.jpeg) ||
+| member requests | desktop | ![Lighthouse desktop member-requests](testing-images/lh-member-requests-d.jpeg) |The lower performance is caused by the Google Maps API slow response time.|
+|      | mobile  | ![Lighthouse mobile member-requests](testing-images/lh-member-requests-m.jpeg) |The lower performance is caused by the Google Maps API slow response time.|
+| new request | desktop | ![Lighthouse desktop new-request](testing-images/lh-new-request-d.jpeg) ||
+|      | mobile  | ![Lighthouse mobile new-request](testing-images/lh-new-request-m.jpeg) ||
+| member profile | desktop | ![Lighthouse desktop member-profile](testing-images/lh-member-profile-d.jpeg) ||
+|      | mobile  | ![Lighthouse mobile member-profile](testing-images/lh-member-profile-m.jpeg) ||
 
 
 
@@ -264,5 +270,5 @@ Performance, Accessibility, Best Practices and SEO tests were carried out with [
 * Address label on google address autocomplete fields are in "active" state, even there was no activity in that field. 
     - The reason behind this is that the Google Autocomplete API 'listens' to this field and that triggers the active status. In order to make this field look the same as the other fields, I should not use Materialize for forms. This solution would be disproportionate compared to the issue, so I decided to leave it for now.
 * On one occasion, there was a console error after I selected an address offered by Autocomplete. It didn't get through my JS validation either, unless I chose another address.
-    - The error was coming from the Google Maps API, complaining about the place not having an ID. I concluded, that this must be an error either with the way the autocoplete results are cached within the API or within the API itself. This issue should be investigated further. 
+    - The error was coming from the Google Maps API, complaining about the place not having an ID. I concluded, that this must be an error either with the way the autocoplete results are cached within the browser or the error is with the API itself. This issue could be investigated further.
 - - -
