@@ -230,31 +230,39 @@ Responsiveness was tested using [Google Dev Tools](https://developer.chrome.com/
 
 <br><br>
 
+
 # Lighthouse tests
 
 Performance, Accessibility, Best Practices and SEO tests were carried out with [Google Dev Tools](https://developer.chrome.com/docs/devtools/)' **Lighthouse** tool in `Incognito` mode. Results are not 100% consistent, there is always a few percent variation at each performed test.
 
-Results for mobile:
-<br>
+| Page | Device  | Result | Note |
+| :--: | :-----: | :----: | :--- |
+| home | desktop | ![Lighthouse desktop home](testing-images/lh-home-d.jpeg) ||
+|      | mobile  | ![Lighthouse mobile home](testing-images/lh-home-m.jpeg) ||
+| registration | desktop | ![Lighthouse desktop registration](testing-images/lh-registration-d.jpeg) ||
+|      | mobile  | ![Lighthouse mobile registration](testing-images/lh-registration-m.jpeg) ||
+| signin | desktop | ![Lighthouse desktop signin](testing-images/lh-signin-d.jpeg) ||
+|      | mobile  | ![Lighthouse mobile signin](testing-images/lh-signin-m.jpeg) ||
 
-![Result-mobile](testing-images/lighthouse-mobile.jpeg)
 
-The lower performance scores are caused by the Materialize library's loading time:
-
-![performance-issue](testing-images/lighthouse-mobile-error.jpeg)
-
-Results for desktop:
-<br>
-
-![Result-desktop](testing-images/lighthouse-desktop.jpeg)
 
 
 ---
+
+# Resolved bugs - discovered during Testing
+
+* Colour contrast issue for the form labels.
+    - Solution: As these labels are Materialize features, I had to modify the classes's styles that Materialize used.
+* The notification for cancelling a trip too close to the due time was not appearing.
+    - Solution: The cause was that I used the `datetime.utcnow()` function for the current time. I corrected it to `datetime.now()` that takes the current timezone, as well as the summertime calculations into account.
 
 <br><br>
 
 # Bugs
 
 
-Address label on google address autocomplete fields
+* Address label on google address autocomplete fields are in "active" state, even there was no activity in that field. 
+    - The reason behind this is that the Google Autocomplete API 'listens' to this field and that triggers the active status. In order to make this field look the same as the other fields, I should not use Materialize for forms. This solution would be disproportionate compared to the issue, so I decided to leave it for now.
+* On one occasion, there was a console error after I selected an address offered by Autocomplete. It didn't get through my JS validation either, unless I chose another address.
+    - The error was coming from the Google Maps API, complaining about the place not having an ID. I concluded, that this must be an error either with the way the autocoplete results are cached within the API or within the API itself. This issue should be investigated further. 
 - - -
