@@ -13,7 +13,7 @@ Validator: https://pep8ci.herokuapp.com/
 | [routes.py file CI Linter Result](testing-images/python-routes-py.jpeg) | &check; | The Linter warnings refer to SQL Alchemy database queries that would not work with the suggested corrections.|
 
 
-<br><br>
+    
 
 ### JavaScript Validations
 
@@ -33,8 +33,11 @@ Validator: https://jshint.com/
 | [cluster_trips_map.js file JSHint Result](testing-images/jshint-cluster_trips_map-js.jpeg)| &check;| ES8 features were flagged due to JSHint testing code against ES6.  `google` and `markerClusterer` variables are defined by Google.  `markerCluster` variable definition is the recommended way of usage. (Using `new` without a variable would be unsafe.) |
 | [datetime_validation.js file JSHint Result](testing-images/jshint-datetime_validation-js.jpeg)| &check;| No warnings. |
 | [validation_helper.js file JSHint Result](testing-images/jshint-validation_helper-js.jpeg)| &check;| No warnings. |
+| [name_validation.js file JSHint Result](testing-images/jshint-name-validation-js.jpeg)| &check;| No warnings. |
+| [phone_validation.js file JSHint Result](testing-images/jshint-phone-validation-js.jpeg)| &check;| No warnings. |
+| [email_validation.js file JSHint Result](testing-images/jshint-email-validation-js.jpeg)| &check;| No warnings. |
 
-<br><br>
+    
 
 ### HTML and CSS Validations
 
@@ -62,11 +65,11 @@ Validator: https://validator.w3.org/
 | `500` Page | &check; |
 | [style.css file validation](testing-images/w3c-style-css.jpeg) | &check; |
 
-<br><br>
+    
 
 # Testing User Stories
 
-Tests were carried out on Chrome 111.0.5563.110<br>
+Tests were carried out on Chrome 111.0.5563.110  
 (macOS Catalina v10.15.7)
 
 ## Site Owner's Goals
@@ -102,7 +105,7 @@ Tests were carried out on Chrome 111.0.5563.110<br>
 | &check; | Accessibility was tested with Lighthouse. See results below. |
 
 
-<br><br>
+    
 
 ## Admin's Goals
 
@@ -168,7 +171,7 @@ Tests were carried out on Chrome 111.0.5563.110<br>
 | &check; | All their requests will also be deleted.|
 | &check; | User will have no access to the site anymore.|
 
-<br><br>
+    
 
 ## Volunteer's Goals
 
@@ -195,10 +198,10 @@ Tests were carried out on Chrome 111.0.5563.110<br>
 | &check; | All the trips they have previously volunteered for will change back to `Awaiting volunteer` status.|
 | &check; | User will have no access to the site anymore.|
 
-<br><br>
+    
 
 # Accessibility
-<br>
+  
 
 * Images have `alt` labels. 
 * Icons that have inferred meanings are marked with `aria` labels.
@@ -208,17 +211,17 @@ Tests were carried out on Chrome 111.0.5563.110<br>
 * Chrome Dev Tools' Lighthouse score is 100% for accessibility for both mobile and desktop devices. 
 * `WAVE` Accessibility checker was also used to check all the pages. One issue was flagged on every page where a map rendered, stating that 'the map area is missing alternative text'. This piece of code is beyond my control, it's controlled by the Google Maps API. The underlying cause is that rendered Google Maps are not accessible for visually impared users. However, in my case, I included both addresses in written form as well so the screen readers would access all the information.
 
-<br><br>
-<hr>
+    
+ ---
 
 
-<br><br>
+    
 
 # Responsiveness Testing
 
-Responsiveness was tested using [Google Dev Tools](https://developer.chrome.com/docs/devtools/)<br>
+Responsiveness was tested using [Google Dev Tools](https://developer.chrome.com/docs/devtools/)  
 Browser & Version: Chrome 111.0.5563.110 (on Desktop, macOS Catalina version 10.15.7)
-<br><br>
+    
 
 | Device | Home | Register | Login | All Members | All Requests | Admin Profile |Outstanding Requests|Volunteer Trips|Volunteer Profile| Member Profile |New Request| Edit Member |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -235,7 +238,7 @@ Browser & Version: Chrome 111.0.5563.110 (on Desktop, macOS Catalina version 10.
 | Nest Hub | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; |
 | Nest Hub Max | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; | &check; |
 
-<br><br>
+    
 
 
 # Lighthouse tests
@@ -250,16 +253,16 @@ Performance, Accessibility, Best Practices and SEO tests were carried out with [
 |      | mobile  | ![Lighthouse mobile registration](testing-images/lh-registration-m.jpeg) ||
 | signin | desktop | ![Lighthouse desktop signin](testing-images/lh-signin-d.jpeg) ||
 |      | mobile  | ![Lighthouse mobile signin](testing-images/lh-signin-m.jpeg) ||
-| member requests | desktop | ![Lighthouse desktop member-requests](testing-images/lh-member-requests-d.jpeg) |The lower performance is caused by the Google Maps API's slow response time.<br> The lower Best Practices score is due to the Goggle Map Marker's low resolution picture.|
-|      | mobile  | ![Lighthouse mobile member-requests](testing-images/lh-member-requests-m.jpeg) |The lower performance is caused by the Google Maps API's slow response time. <br> The lower Best Practices score is due to the Goggle Map Marker's low resolution picture, the lower SEO score to the difficult-to-tap small prints on the map.|
+| member requests | desktop | ![Lighthouse desktop member-requests](testing-images/lh-member-requests-d.jpeg) |The lower performance is caused by the Google Maps API's slow response time.   The lower Best Practices score is due to the Goggle Map Marker's low resolution picture.|
+|      | mobile  | ![Lighthouse mobile member-requests](testing-images/lh-member-requests-m.jpeg) |The lower performance is caused by the Google Maps API's slow response time.    The lower Best Practices score is due to the Goggle Map Marker's low resolution picture, the lower SEO score to the difficult-to-tap small prints on the map.|
 | new request | desktop | ![Lighthouse desktop new-request](testing-images/lh-new-request-d.jpeg) ||
 |      | mobile  | ![Lighthouse mobile new-request](testing-images/lh-new-request-m.jpeg) ||
 | member profile | desktop | ![Lighthouse desktop member-profile](testing-images/lh-member-profile-d.jpeg) ||
 |      | mobile  | ![Lighthouse mobile member-profile](testing-images/lh-member-profile-m.jpeg) ||
-| volunteer requests | desktop | ![Lighthouse desktop volunteer-requests](testing-images/lh-volunteer-requests-d.jpeg) |The lower performance is caused by the Google Maps API's slow response time.<br> The lower Best Practices score is due to the Goggle Map Marker's low resolution picture.|
-|      | mobile  | ![Lighthouse mobile volunteer-requests](testing-images/lh-volunteer-requests-m.jpeg) |The lower performance is caused by the Google Maps API's slow response time. <br> The lower Best Practices score is due to the Goggle Map Marker's low resolution picture, the lower SEO score to the difficult-to-tap small prints on the map.|
-| volunteer trips | desktop | ![Lighthouse desktop volunteer-trips](testing-images/lh-volunteer-trips-d.jpeg) |The lower performance is caused by the Google Maps API's slow response time.<br> The lower Best Practices score is due to the Goggle Map Marker's low resolution picture.|
-|      | mobile  | ![Lighthouse mobile volunteer-trips](testing-images/lh-volunteer-trips-m.jpeg) |The lower performance is caused by the Google Maps API's slow response time.<br> The lower Best Practices score is due to the Goggle Map Marker's low resolution picture, the lower SEO score to the difficult-to-tap small prints on the map.|
+| volunteer requests | desktop | ![Lighthouse desktop volunteer-requests](testing-images/lh-volunteer-requests-d.jpeg) |The lower performance is caused by the Google Maps API's slow response time.   The lower Best Practices score is due to the Goggle Map Marker's low resolution picture.|
+|      | mobile  | ![Lighthouse mobile volunteer-requests](testing-images/lh-volunteer-requests-m.jpeg) |The lower performance is caused by the Google Maps API's slow response time.    The lower Best Practices score is due to the Goggle Map Marker's low resolution picture, the lower SEO score to the difficult-to-tap small prints on the map.|
+| volunteer trips | desktop | ![Lighthouse desktop volunteer-trips](testing-images/lh-volunteer-trips-d.jpeg) |The lower performance is caused by the Google Maps API's slow response time.   The lower Best Practices score is due to the Goggle Map Marker's low resolution picture.|
+|      | mobile  | ![Lighthouse mobile volunteer-trips](testing-images/lh-volunteer-trips-m.jpeg) |The lower performance is caused by the Google Maps API's slow response time.   The lower Best Practices score is due to the Goggle Map Marker's low resolution picture, the lower SEO score to the difficult-to-tap small prints on the map.|
 | volunteer profile | desktop | ![Lighthouse desktop volunteer-profile](testing-images/lh-volunteer-profile-d.jpeg) ||
 |      | mobile  | ![Lighthouse mobile volunteer-profile](testing-images/lh-volunteer-profile-m.jpeg) ||
 | all members | desktop | ![Lighthouse desktop all-members](testing-images/lh-all-members-d.jpeg) ||
@@ -286,7 +289,7 @@ Performance, Accessibility, Best Practices and SEO tests were carried out with [
 * A number of semicolons were missing from my javascript files. - Rectified.
 * Lots of extra whitespace as well as long rows were present in my python files. - Rectified.
 
-<br><br>
+    
 
 # Bugs
 
@@ -295,5 +298,6 @@ Performance, Accessibility, Best Practices and SEO tests were carried out with [
     - The reason behind this is that the Google Autocomplete API 'listens' to this field and that triggers the active status. In order to make this field look the same as the other fields, I should not use Materialize for forms. This solution would be disproportionate compared to the issue, so I decided to leave it for now.
 * On one occasion, there was a console error after I selected an address offered by Autocomplete. It didn't get through my JS validation either, unless I chose another address.
     - The error was coming from the Google Maps API, complaining about the place not having an ID. I concluded, that this must be an error either with the way the autocoplete results are cached within the browser or the error is with the API itself. This issue could be investigated further.
-* My mentor noticed that when he signed in on a Samsung Galaxy 20, received two welcome messages. 
-    - This issue never happened on any of my devices. Unfortunately, I could not replicate the issue, therefore, I could not find a solution.
+* My mentor noticed that when he signed in on a Samsung Galaxy S20 device in the Chrome browser, received double welcome messages. 
+    - This issue never happened on any of my devices. Unfortunately, I could not replicate the issue, therefore, I could not find a solution.  
+    ![Double Welcome Message](testing-images/bug-double-welcomes.jpg)
