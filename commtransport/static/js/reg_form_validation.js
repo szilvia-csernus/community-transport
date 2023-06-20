@@ -15,7 +15,8 @@ export const addressNotification = document.getElementById('address-notification
 export const phoneNotification = document.getElementById('phone-notification');
 export const fullnameNotification = document.getElementById('fullname-notification');
 export const emailNotification = document.getElementById('email-notification');
-export const form = document.getElementById('form');
+
+const form = document.getElementById('form');
 
 passwordInputField.addEventListener('focusout', validateStrongPassword);
 phoneInputField.addEventListener('focusout', validatePhoneNumber);

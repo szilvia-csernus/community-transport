@@ -1,10 +1,10 @@
 import { showInvalid, showValid } from './validation_helper.js';
-import { form } from './reg_form_validation.js';
 
 export let passwordIsVerified = false;
 
 export const passwordInputField = document.getElementById('password');
 const passwordNotification = document.getElementById('password-notification');
+const form = document.getElementById('form');
 
 export function validateStrongPassword() {
 	const formData = new FormData(form);
@@ -36,10 +36,6 @@ export function validateStrongPassword() {
 		passwordIsVerified = false;
 	}
 
-	return passwordInputField.removeEventListener(
-		'change',
-		validateStrongPassword
-	);
 }
 
 

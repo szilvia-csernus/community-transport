@@ -35,8 +35,16 @@
             <div class="row">
                 <div class="input-field col s12">
                     <img class="my-icon-user prefix" src="{{ url_for('static', filename='assets/user.svg')}}" alt="user icon">
-                    <input id="fullname" name="fullname" type="text" minlength="5" maxlength="100" class="validate"
-                        value="{{ member.fullname }}" required
+
+                    <!-- Error notification for name input  -->
+                    <div class="notification" id="fullname-notification">
+                        <div class="tooltip"></div>
+                        <img class="my-small-icon" src="{{ url_for('static', filename='assets/user-grey.svg')}}" alt="user icon">
+                        Invalid name input. Should be characters only, 5-30 long.
+                    </div>
+
+                    <input id="fullname" name="fullname" type="text"
+                        value="{{ member.fullname }}"
                         {% if member.email=="superuser@superuser.super" %}
                         readonly
                         {% endif %}
@@ -48,8 +56,16 @@
             <div class="row">
                 <div class="input-field col s12">
                     <img class="my-icon prefix" src="{{ url_for('static', filename='assets/phone.svg')}}" alt="phone icon">
-                    <input id="phone_nr" name="phone_nr" type="text" minlength="10" maxlength="20" class="validate"
-                        value="{{ member.phone_nr }}" required>
+
+                    <!-- Error notification for phone input  -->
+                    <div class="notification" id="phone-notification">
+                        <div class="tooltip"></div>
+                        <img class="my-small-icon" src="{{ url_for('static', filename='assets/phone-grey.svg')}}" alt="phone icon">
+                        Please enter a valid UK number without spaces.
+                    </div>
+
+                    <input id="phone_nr" name="phone_nr" type="text"
+                        value="{{ member.phone_nr }}">
                     <label for="phone_nr">Phone Number</label>
                 </div>
             </div>
