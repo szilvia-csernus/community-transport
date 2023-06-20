@@ -1,10 +1,12 @@
 import { showInvalid, showValid } from './validation_helper.js';
-import { form } from './reg_form_validation.js';
 
 export let phoneIsVerified = false;
 
 export const phoneInputField = document.getElementById('phone_nr');
+
 const phoneNotification = document.getElementById('phone-notification');
+
+const form = document.getElementById('form');
 
 export function validatePhoneNumber() {
 	const formData = new FormData(form);
@@ -27,7 +29,6 @@ export function validatePhoneNumber() {
 		phoneIsVerified = false;
 	}
 
-	return phoneInputField.removeEventListener('change', validatePhoneNumber);
 }
 
 

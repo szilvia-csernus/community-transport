@@ -1,10 +1,10 @@
 import { showInvalid, showValid } from './validation_helper.js';
-import { form } from './reg_form_validation.js';
 
 export let fullnameIsVerified = false;
 
 export const fullnameInputField = document.getElementById('fullname');
 const fullnameNotification = document.getElementById('fullname-notification');
+const form = document.getElementById('form');
 
 export function validateFullname() {
 	const formData = new FormData(form);
@@ -27,7 +27,6 @@ export function validateFullname() {
 		fullnameIsVerified = false;
 	}
 
-	return fullnameInputField.removeEventListener('change', validateFullname);
 }
 
 
