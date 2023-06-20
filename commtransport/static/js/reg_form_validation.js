@@ -18,16 +18,22 @@ export const emailNotification = document.getElementById('email-notification');
 
 const form = document.getElementById('form');
 
+// Add imported event llisteners
 passwordInputField.addEventListener('focusout', validateStrongPassword);
 phoneInputField.addEventListener('focusout', validatePhoneNumber);
 fullnameInputField.addEventListener('focusout', validateFullname);
 emailInputField.addEventListener('focusout', validateEmail);
 
-// prevent form subbmission unless address is verified
+// prevent form subbmission unless all form input data are verified
 form.addEventListener(
     'submit',
     (e) => {
         e.preventDefault();
+
+        validateStrongPassword();
+        validatePhoneNumber();
+        validateFullname();
+        validateEmail();
 
         if (passwordIsVerified && 
             addressIsVerified && 
@@ -50,7 +56,7 @@ form.addEventListener(
             }
         }
         if (!passwordIsVerified) {
-            validateStrongPassword()
+            validateStrongPassword();
         }
         if (!phoneIsVerified) {
             validatePhoneNumber();

@@ -2,14 +2,15 @@ import { showInvalid, showValid } from './validation_helper.js';
 
 export let emailIsVerified = false;
 
+// Grab HTML elements
 export const emailInputField = document.getElementById('email');
 const emailNotification = document.getElementById('email-notification');
 const form = document.getElementById('form');
 
+/** Validate email against Regex */
 export function validateEmail() {
 	const formData = new FormData(form);
 	const emailInput = formData.get('email');
-	console.log(emailInput);
 
 	// Regex tester I used: https://www.regextester.com/
 	// [\w.-]+: matches one or more word characters (alphanumeric and underscore), periods, or hyphens, representing the local part of the email address before the @ symbol.
