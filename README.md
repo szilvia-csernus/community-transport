@@ -147,30 +147,39 @@ The landing page gives a small intro about the organisation's mission and ways t
 People can register for this project by filling in a registration form. However, submitting the form does not give automatic access to the site - an admin is required to approve everyone.
 ![Registration Form](readme-images/register-form.jpeg)
 
-### Features
+### Validation
 
-* I used the [Google Maps API](https://developers.google.com/maps)'s Autocomplete service in JavaScript to validate the address input. The user has to choose an address from the suggested list otherwise it gives an error message. I also restricted the available addresses to Egham and its neighbouring areas.
-* I validate the password in JavaScript with a `regular expression`, requiring the user to include certain types of characters. An error message notifies the user if the requirements haven't been met.
-* Basic HTML validation is used for
-    - the length of the name, phone, email and password.
-    - email's format
-* After submission, the email's uniqueness is verified.
+Javascript was used throughout for frontend validation. For name, phone number, email and password, `Regular Expressions (Regex)` was used.<br>
 
-![Google Autocomplete](readme-images/google-autocomplete.jpeg)
-![Address Validation](readme-images/address-validation.jpeg)
-![Password Validation](readme-images/password-validation.jpeg)
+* Name input is being verified to have only characters with the length of 5-30.<br>
+![Invalid Name](readme-images/invalid-name.jpeg) <br>
+
+* Phone number is being verified to be a UK phone number without space characters.<br>
+![Invalid phone](readme-images/invalid-phone.jpeg) <br>
+
+* I used the [Google Maps API](https://developers.google.com/maps)'s Autocomplete service in JavaScript to validate the address input. The user has to choose an address from the suggested list otherwise it gives an error message. I also restricted the available addresses to Egham and its neighbouring areas.<br>
+![Google Autocomplete](readme-images/google-autocomplete.jpeg)<br>
+![Address Validation](readme-images/address-validation.jpeg)<br>
+
+* Phone number has to be a UK phone number without space characters.<br>
+![Invalid phone](readme-images/invalid-phone.jpeg) <br>
+
+* Email has to have the correct format.<br>
+![Invalid phone](readme-images/invalid-phone.jpeg) <br>
+
+* Password is also restricted to be a regular 'strong' password. An error message notifies the user if the requirements haven't been met.<br>
+![Password Validation](readme-images/password-validation.jpeg)<br>
 
 <br>
 
-After Successfully submitting the form, the user receives a flash notification:
+After Successfully submitting the form, the user receives a flash notification:<br>
 
-![Registration Flash Message](readme-images/registration-flash-message.jpeg)
+![Registration Flash Message](readme-images/registration-flash-message.jpeg)<br>
 
-<br>
+After submission, the email's uniqueness is verified on the backend.<br>
+If the email was already registered, it gives a feedback:<br>
 
-If the email was already registered, it gives a feedback:
-
-![Email already registered](readme-images/already-registered.jpeg)
+![Email already registered](readme-images/already-registered.jpeg)<br>
 
 
 <br>
@@ -423,6 +432,8 @@ The site was built with Python, PosgreSQL, JavaScript, HTML and CSS.
 * [Random Key Generator](https://randomkeygen.com/) - to generate a secret key.
 
 * [Geolocation coordinate finder](http://bboxfinder.com/) - to define the boundary box around Egham.
+
+* [Regex testing](https://regexr.com/) - for Regular Expressions used for validations.
 
 
 ---
