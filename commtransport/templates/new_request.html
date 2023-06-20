@@ -73,12 +73,13 @@
                     <!-- Notification for invalid date input  -->
                     <div class="notification" id="date-notification">
                         <div class="tooltip"></div>
+                        <img class="my-small-icon" src="{{ url_for('static', filename='assets/calendar-grey.svg')}}" alt="calendar icon">
                         <!-- This field gets overwritten by JS with a specified message.  -->
-                        <div>Invalid date.</div>
+                        <span>Invalid date.</span>
                     </div>
 
                     <!-- Date input  -->
-                    <input id="date" name="date" type="text" class="datepicker validate" required>
+                    <input id="date" name="date" type="text" class="datepicker validate">
                     <label for="date">Date of Required Pickup (within 3 months)</label>
                 </div>
             </div>
@@ -90,13 +91,14 @@
                     <!-- Notification for invalid time input  -->
                     <div class="notification" id="time-notification">
                         <div class="tooltip"></div>
+                        <img class="my-small-icon" src="{{ url_for('static', filename='assets/clock-grey.svg')}}" alt="clock icon">
                         <!-- This field gets overwritten by JS with a specified message.  -->
-                        <div>Invalid time.</div>
+                        <span>Invalid time.</span>
                     </div>
 
                     <!-- Time input  -->
                     <img class="my-icon prefix" src="{{ url_for('static', filename='assets/clock.svg')}}" alt="clock icon">
-                    <input id="time" name="time" type="text" class="timepicker valitime" required>
+                    <input id="time" name="time" type="text" class="timepicker valitime">
                     <label for="time">Time of Required Pickup</label>
                 </div>
             </div>
