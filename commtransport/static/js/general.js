@@ -83,6 +83,62 @@ if (deleteButtons) {
 	}
 }
 
+// Add event listener to cancel-transport-request-buttons if they exist
+const cancelRequestButtons = document.querySelectorAll('.cancel-transport');
+
+if (cancelRequestButtons) {
+	for (let deleteReqBtn of cancelRequestButtons) {
+		const modalId = deleteReqBtn.dataset.modalId;
+		const confirmDeleteModal = document.getElementById(modalId);
+		const cancelId = deleteReqBtn.dataset.cancelId;
+		const cancelBtn = document.getElementById(cancelId);
+
+		const handleDelete = () => {
+		
+			confirmDeleteModal.style.display = 'flex';
+
+			const handleCancel = () => {
+				confirmDeleteModal.style.display = 'none';
+
+				return cancelBtn.removeEventListener('click', handleCancel);
+			};
+
+			cancelBtn.addEventListener('click', handleCancel);
+
+		};
+		
+		deleteReqBtn.addEventListener('click', handleDelete);
+	}
+}
+
+// Add event listener to cancel-trip-buttons if they exist
+const cancelTripButtons = document.querySelectorAll('.cancel-trip');
+
+if (cancelTripButtons) {
+	for (let deleteTripBtn of cancelTripButtons) {
+		const modalId = deleteTripBtn.dataset.modalId;
+		const confirmDeleteModal = document.getElementById(modalId);
+		const cancelId = deleteTripBtn.dataset.cancelId;
+		const cancelBtn = document.getElementById(cancelId);
+
+		const handleDelete = () => {
+		
+			confirmDeleteModal.style.display = 'flex';
+
+			const handleCancel = () => {
+				confirmDeleteModal.style.display = 'none';
+
+				return cancelBtn.removeEventListener('click', handleCancel);
+			};
+
+			cancelBtn.addEventListener('click', handleCancel);
+
+		};
+		
+		deleteTripBtn.addEventListener('click', handleDelete);
+	}
+}
+
 
 // move background only if it's the home page
 if (window.location.pathname === "/") {

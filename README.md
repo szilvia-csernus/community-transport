@@ -629,7 +629,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/animation
 <br>
 I would like to thank the following contributors:
 
-* [Manuel Perez Romero](https://www.linkedin.com/in/manuel-perez-romero-460063176/) and [Elaine Broche](https://github.com/elainebroche-dev) for giving useful feedback throughout the development and testing processes.
+* My mentors, [David Bowers](https://github.com/dnlbowers/) and [Elaine Broche](https://github.com/elainebroche-dev), as well as my college coordinator [Manuel Perez Romero](https://www.linkedin.com/in/manuel-perez-romero-460063176/) for giving useful feedback throughout the development and testing processes.
 
 * My family and friends for taking the time to test the site.
 
