@@ -6,10 +6,10 @@ export const fullnameInputField = document.getElementById('fullname');
 const fullnameNotification = document.getElementById('fullname-notification');
 const form = document.getElementById('form');
 
+/** Validate Name against Regex */
 export function validateFullname() {
 	const formData = new FormData(form);
 	const fullnameInput = formData.get('fullname');
-	console.log(fullnameInput);
 
 	// Regex tester I used for UK fullname number: https://www.regextester.com/104299
 	// [A-Za-z ]: Only letter characters and spaces allowed

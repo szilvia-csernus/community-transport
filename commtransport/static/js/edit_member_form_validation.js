@@ -29,13 +29,17 @@ export const fullnameNotification = document.getElementById(
 );
 export const form = document.getElementById('form');
 
-phoneInputField.addEventListener('focusout', () => validatePhoneNumber(form));
-fullnameInputField.addEventListener('focusout', () => validateFullname(form));
+// add the imported event listeners
+phoneInputField.addEventListener('focusout', validatePhoneNumber);
+fullnameInputField.addEventListener('focusout', validateFullname);
 
 
-// prevent form subbmission unless address is verified
+// prevent form subbmission unless all form input data are verified
 form.addEventListener('submit', (e) => {
 	e.preventDefault();
+
+	validatePhoneNumber();
+	validateFullname();
 
 	if (addressIsVerified && phoneIsVerified && fullnameIsVerified) {
 		form.submit();
@@ -50,9 +54,9 @@ form.addEventListener('submit', (e) => {
 	}
 	
 	if (!phoneIsVerified) {
-		validatePhoneNumber(form);
+		validatePhoneNumber();
 	}
 	if (!fullnameIsVerified) {
-		validateFullname(form);
+		validateFullname();
 	}
 });
