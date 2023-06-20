@@ -219,7 +219,7 @@ Tests were carried out on Chrome 111.0.5563.110
 Tests were carried out on Chrome 111.0.5563.110  
 (macOS Catalina v10.15.7)
 
-For detailed Manual Test Cases, please refer to this document: [Manual Test Cases](testing-images/test_cases.pdf)
+For detailed Manual Test Cases, please refer to this document: [Manual Test Cases](testing-images/manual-test-cases.pdf)
 
 
     
