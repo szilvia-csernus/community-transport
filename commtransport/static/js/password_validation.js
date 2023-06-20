@@ -29,7 +29,6 @@ export function validateStrongPassword() {
 	const test = passwordPattern.test(pwInput);
 
 	if (test) {
-		// if (pwInput.length > 5) {
 		showValid(passwordInputField, passwordNotification);
 		passwordIsVerified = true;
 	} else {

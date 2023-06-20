@@ -24,58 +24,83 @@
 <div class="row">
     <form id="form" class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register', user_type=user_type) }}">
         <div class="card-panel">
-            <!-- name input  -->
+            <!-- Name input  -->
             <div class="row">
                 <div class="input-field col s12">
                     <img class="my-icon-user prefix" src="{{ url_for('static', filename='assets/user.svg')}}" alt="user icon">
-                    <input id="fullname" name="fullname" type="text" minlength="5" maxlength="30"
-                        class="validate" required>
+
+                    <!-- Error notification for name input  -->
+                    <div class="notification" id="fullname-notification">
+                        <div class="tooltip"></div>
+                        <img class="my-small-icon" src="{{ url_for('static', filename='assets/user-grey.svg')}}" alt="user icon">
+                        Invalid name input. Should be characters only, 5-30 long.
+                    </div>
+
+                    <input id="fullname" name="fullname" type="text"
+                        class="validate" >
                     <label for="fullname">Full Name</label>
                 </div>
             </div>
-            <!-- phone input  -->
+            <!-- Phone input  -->
             <div class="row">
                 <div class="input-field col s12">
                     <img class="my-icon prefix" src="{{ url_for('static', filename='assets/phone.svg')}}" alt="phone icon">
-                    <input id="phone_nr" name="phone_nr" type="text" minlength="10" maxlength="20"
-                         class="validate" required>
+
+                    <!-- Error notification for phone input  -->
+                    <div class="notification" id="phone-notification">
+                        <div class="tooltip"></div>
+                        <img class="my-small-icon" src="{{ url_for('static', filename='assets/phone-grey.svg')}}" alt="phone icon">
+                        Please enter a valid UK number without spaces.
+                    </div>
+
+                    <input id="phone_nr" name="phone_nr" type="text"
+                         class="validate" >
                     <label for="phone_nr">Phone Number</label>
                 </div>
             </div>
-            <!-- address input  -->
+            <!-- Address input  -->
             <div class="row">
                 <div class="input-field col s12">
                     <img class="my-icon prefix" src="{{ url_for('static', filename='assets/house.svg')}}" alt="house icon">
                     
-                    <!--  Google Autocomplete -->
-                    
+                    <!-- Error notification for address input  -->
                     <div class="notification" id="address-notification">
                         <div class="tooltip"></div>
-                        <img class="my-small-icon" src="{{ url_for('static', filename='assets/location-grey.svg')}}" alt="location icon">
+                        <img class="my-small-icon" src="{{ url_for('static', filename='assets/house-grey.svg')}}" alt="house icon">
                         Please enter a Google-verified address in or around Egham, UK.
                     </div>
 
+                    <!--  Google Autocomplete -->
                     <input id="address" name="address" type="text" placeholder="" 
-                    autocomplete="address-line1" required>
+                    autocomplete="address-line1" >
                     <label for="address" id="addressLabel">Address</label>
                     <input type="hidden" id="address_id" name="google_place_id">
                     <div id="map" class="hidemap"></div>
                 </div>
             </div>
-            <!-- email input  -->
+            <!-- Email input  -->
             <div class="row">
                 <div class="input-field col s12">
                     <img class="my-icon prefix" src="{{ url_for('static', filename='assets/mail.svg')}}" alt="mail icon">
-                    <input id="email" name="email" type="email" minlength="5" maxlength="50"
-                         class="validate" autocomplete="email" required>
+
+                    <!-- Error notification for email input  -->
+                    <div class="notification" id="email-notification">
+                        <div class="tooltip"></div>
+                        <img class="my-small-icon" src="{{ url_for('static', filename='assets/mail-grey.svg')}}" alt="mail icon">
+                        Please enter a valid email address.
+                    </div>
+
+                    <input id="email" name="email" type="email"
+                         class="validate" autocomplete="email" >
                     <label for="email">Email</label>
                 </div>
             </div>
-            <!-- password input  -->
+            <!-- Password input  -->
             <div class="row">
                 <div class="input-field col s12">
                     <img class="my-icon prefix" src="{{ url_for('static', filename='assets/lock.svg')}}" alt="lock icon">
 
+                    <!-- Error notification for password input  -->
                     <div class="notification" id="password-notification">
                         <div class="tooltip"></div>
                         <img class="my-small-icon" src="{{ url_for('static', filename='assets/lock-grey.svg')}}" alt="lock icon">
@@ -83,8 +108,7 @@
                     </div>
 
                     <input id="password" name="password" type="password" 
-                        minlength="8" maxlength="25"
-                        autocomplete="new-password" required>
+                        autocomplete="new-password" >
                     <label for="password">New Password (8-25 characters)</label>
                 </div>
             </div>

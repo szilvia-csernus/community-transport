@@ -40,31 +40,34 @@ Validator: https://jshint.com/
 
 Validator: https://validator.w3.org/
 
-> Warnings / Errors due to Jinja template functionalities are filtered out from the results.
-> CSS Errors can be ignored as they are referring to new CSS properties that are now widely supported.
+> Please note that all the HTML validations' result looks the same, so I included only one screenshot under the `Home` Page.
+> CSS Errors can be ignored as they are referring to new CSS properties (translate, scale, rotate) that are now widely supported.
 
 | W3C Result | Passed |
 | :--- | :---: | 
-| [base.html file validation](testing-images/w3c-base-html.jpeg) | &check; |
-| [register.html file validation](testing-images/w3c-register-html.jpeg) | &check; |
-| [signin.html file validation](testing-images/w3c-signin-html.jpeg) | &check; |
-| [member_profile.html file validation](testing-images/w3c-member_profile-html.jpeg) | &check; |
-| [member_requests.html file validation](testing-images/w3c-member_requests-html.jpeg) | &check; |
-| [new_request.html file validation](testing-images/w3c-new_request-html.jpeg) | &check; |
-| [admin_profile.html file validation](testing-images/w3c-admin_profile-html.jpeg) | &check; |
-| [all_members.html file validation](testing-images/w3c-all_members-html.jpeg) | &check; |
-| [all_requests.html file validation](testing-images/w3c-all_requests-html.jpeg) | &check; |
-| [volunteer_profile.html file validation](testing-images/w3c-volunteer_profile-html.jpeg) | &check; |
-| [volunteer_requests.html file validation](testing-images/w3c-volunteer_requests-html.jpeg) | &check; |
-| [volunteer_trips.html file validation](testing-images/w3c-volunteer_trips-html.jpeg) | &check; |
-| [edit_member.html file validation](testing-images/w3c-edit_member-html.jpeg) | &check; |
-| [404.html file validation](testing-images/w3c-404-html.jpeg) | &check; |
-| [500.html file validation](testing-images/w3c-500-html.jpeg) | &check; |
+| [`Home`](testing-images/ww3c-home.jpeg) Page | &check; |
+| `Register` Page | &check; |
+| `Sign In` Page | &check; |
+| `Member Profile` Page | &check; |
+| `My Requests` Page | &check; |
+| `New Request` Page | &check; |
+| `Admin Profile` Page | &check; |
+| `All Users` Page | &check; |
+| `All Requests` Page | &check; |
+| `Volunteer Profile` Page | &check; |
+| `Outstanding Requests` Page | &check; |
+| `Trips` Page | &check; |
+| `Update User` Page | &check; |
+| `404` Page | &check; |
+| `500` Page | &check; |
 | [style.css file validation](testing-images/w3c-style-css.jpeg) | &check; |
 
 <br><br>
 
 # Testing User Stories
+
+Tests were carried out on Chrome 111.0.5563.110<br>
+(macOS Catalina v10.15.7)
 
 ## Site Owner's Goals
 
@@ -197,20 +200,24 @@ Validator: https://validator.w3.org/
 # Accessibility
 <br>
 
+* Images have `alt` labels. 
+* Icons that have inferred meanings are marked with `aria` labels.
+* For font sizes, `rem` was used throughout the site to allow the text to scale according to the users' preferred default font size.
+* Semantic HTML was used.
+* All colours were tested for contrast in Chrome's Dev Tools.
 * Chrome Dev Tools' Lighthouse score is 100% for accessibility for both mobile and desktop devices. 
-
-<br>
-
+* `WAVE` Accessibility checker was also used to check all the pages. One issue was flagged on every page where a map rendered, stating that 'the map area is missing alternative text'. This piece of code is beyond my control, it's controlled by the Google Maps API. The underlying cause is that rendered Google Maps are not accessible for visually impared users. However, in my case, I included both addresses in written form as well so the screen readers would access all the information.
 
 <br><br>
-
+<hr>
 
 
 <br><br>
 
 # Responsiveness Testing
 
-Responsiveness was tested using [Google Dev Tools](https://developer.chrome.com/docs/devtools/). 
+Responsiveness was tested using [Google Dev Tools](https://developer.chrome.com/docs/devtools/)<br>
+Browser & Version: Chrome 111.0.5563.110 (on Desktop, macOS Catalina version 10.15.7)
 <br><br>
 
 | Device | Home | Register | Login | All Members | All Requests | Admin Profile |Outstanding Requests|Volunteer Trips|Volunteer Profile| Member Profile |New Request| Edit Member |
@@ -270,17 +277,21 @@ Performance, Accessibility, Best Practices and SEO tests were carried out with [
 # Resolved bugs - discovered during Testing
 
 * Colour contrast issue for the form labels.
-    - Solution: As these labels are Materialize features, I had to modify the classes's styles that Materialize used.
-* The notification for cancelling a trip too close to the due time was not appearing.
+    - Solution: As these labels are Materialize features, I had to modify Materialize classes.
+* The notification for cancelling a trip that is too close to the due time was not appearing.
     - Solution: The cause was that I used the `datetime.utcnow()` function for the current time. I corrected it to `datetime.now()` that takes the current timezone as well as the summertime calculations into account.
+* Validation testing flagged that my 'flash' messages were in a `section` without a header. These flash messages didn't need a header so I changed `section` to `div`.
+* Error Pages missed the link to Home page from the Logo. - Rectified.
+* A `rem` unit was missing from the `my-small-icon`'s margin. - Rectified.
+* A number of semicolons were missing from my javascript files.
+* Lots of extra whitespace as well as long rows were present in my python files. - Rectified.
 
 <br><br>
 
 # Bugs
 
 
-* Address label on google address autocomplete fields are in "active" state, even there was no activity in that field. 
+* Address label on google address autocomplete fields are in "active" state, even when there hasn't been any activity in that field. 
     - The reason behind this is that the Google Autocomplete API 'listens' to this field and that triggers the active status. In order to make this field look the same as the other fields, I should not use Materialize for forms. This solution would be disproportionate compared to the issue, so I decided to leave it for now.
 * On one occasion, there was a console error after I selected an address offered by Autocomplete. It didn't get through my JS validation either, unless I chose another address.
     - The error was coming from the Google Maps API, complaining about the place not having an ID. I concluded, that this must be an error either with the way the autocoplete results are cached within the browser or the error is with the API itself. This issue could be investigated further.
-- - -
