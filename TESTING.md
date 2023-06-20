@@ -283,7 +283,7 @@ Performance, Accessibility, Best Practices and SEO tests were carried out with [
 * Validation testing flagged that my 'flash' messages were in a `section` without a header. These flash messages didn't need a header so I changed `section` to `div`.
 * Error Pages missed the link to Home page from the Logo. - Rectified.
 * A `rem` unit was missing from the `my-small-icon`'s margin. - Rectified.
-* A number of semicolons were missing from my javascript files.
+* A number of semicolons were missing from my javascript files. - Rectified.
 * Lots of extra whitespace as well as long rows were present in my python files. - Rectified.
 
 <br><br>
@@ -295,3 +295,5 @@ Performance, Accessibility, Best Practices and SEO tests were carried out with [
     - The reason behind this is that the Google Autocomplete API 'listens' to this field and that triggers the active status. In order to make this field look the same as the other fields, I should not use Materialize for forms. This solution would be disproportionate compared to the issue, so I decided to leave it for now.
 * On one occasion, there was a console error after I selected an address offered by Autocomplete. It didn't get through my JS validation either, unless I chose another address.
     - The error was coming from the Google Maps API, complaining about the place not having an ID. I concluded, that this must be an error either with the way the autocoplete results are cached within the browser or the error is with the API itself. This issue could be investigated further.
+* My mentor noticed that when he signed in on a Samsung Galaxy 20, received two welcome messages. 
+    - This issue never happened on any of my devices. Unfortunately, I could not replicate the issue, therefore, I could not find a solution.
