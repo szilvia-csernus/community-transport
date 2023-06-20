@@ -208,7 +208,7 @@ Tests were carried out on Chrome 111.0.5563.110
 * For font sizes, `rem` was used throughout the site to allow the text to scale according to the users' preferred default font size.
 * Semantic HTML was used.
 * All colours were tested for contrast in Chrome's Dev Tools.
-* Chrome Dev Tools' Lighthouse score is 100% for accessibility for both mobile and desktop devices. 
+* Chrome Dev Tools' Lighthouse score is 100% for accessibility for both mobile and desktop devices. (See below.)
 * `WAVE` Accessibility checker was also used to check all the pages. One issue was flagged on every page where a map rendered, stating that 'the map area is missing alternative text'. This piece of code is beyond my control, it's controlled by the Google Maps API. The underlying cause is that rendered Google Maps are not accessible for visually impared users. However, in my case, I included both addresses in written form as well so the screen readers would access all the information.
 
     
