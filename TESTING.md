@@ -287,7 +287,7 @@ Performance, Accessibility, Best Practices and SEO tests were carried out with [
 * Error Pages missed the link to Home page from the Logo. - Rectified.
 * A `rem` unit was missing from the `my-small-icon`'s margin. - Rectified.
 * A number of semicolons were missing from my javascript files. - Rectified.
-* Lots of extra whitespace as well as long rows were present in my python files. - Rectified.
+* Lot of extra whitespaces as well as long rows were present in my python files. - Rectified.
 
     
 
