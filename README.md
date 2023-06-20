@@ -249,7 +249,7 @@ If all data is valid, the request gets registered and the user receives a feedba
 
 The user can keep track of their requests in the `My Requests` page.
 
-Here, we can see Ethan's newly registered requests. The first request opens automatically and a map shows the route of the requested trip. It calculates the distance and the approx. time of travel. There is an option to Cancel this request too.
+Here, we can see Ethan's newly registered requests. The first request opens automatically and a map shows the route of the requested trip. It calculates the distance and the approx. time of travel. There is an option to Cancel this request too. The reason why just the first request is rendered with a map is that the Google Map API is a paid for service and rendering a map for all requests would quickly multiply the costs.
 
 ![My Requests](readme-images/my-requests-open-awaiting.jpeg)
   
@@ -271,11 +271,13 @@ If the user wants to cancel the request within 24 hours of the pickup time, thei
 
 ## Outstanding Requests and Arranged Trips (seen by volunteers)
 
-Volunteers can see all upcoming requests that nobody volunteered for yet in the `Outstanding Requests` tab. The first such request is provided with a map and a route as well as all details necessary. With the `Accept Transport Request` button, the volunteer can take on this transport.
+Volunteers can see all upcoming requests that nobody volunteered for yet in the `Outstanding Requests` tab. The first such request is provided with a map and a route as well as all details necessary.  The reason behind rendering a map to the first trip only is the same as for the `My Requests` page.   
+ With the `Accept Transport Request` button, the volunteer can take on this transport.
 
 ![Outstanding Requests](readme-images/outstanding-requests.jpeg)
 
 After accepting a request, the user will be taken to the `Trips` page, where they can keep track all of their upcoming trips they have volunteered for.
+The first such trip is provided with a map and a route as well as all details necessary. The reason behind rendering a map to the first trip only is the same as for the `My Requests` page.  
 
 ![Trips](readme-images/trips.jpeg)
 
@@ -339,8 +341,34 @@ The `Update User` page can be accessed from many channels throughout the website
 ![Update User](readme-images/update-user.jpeg)
 
   
- ---
-    
+---
+
+## Confirmation Messages
+
+Whenever the user is about to take a distructive action, a modal is rendered to ask for confirmation.
+* Signing Out via clicking the Logo:  
+ ![confirm3](readme-images/confirm3.jpeg) 
+* Cancelling a transport offer by the volunteer:  
+ ![confirm2](readme-images/confirm2.jpeg) 
+* Cancelling a transport request by the member:  
+ ![confirm6](readme-images/confirm6.jpeg) 
+* Member deleting their own record:  
+![confirm4](readme-images/confirm4.jpeg) 
+* Deleting a volunteer by an admin:  
+ ![confirm1](readme-images/confirm1.jpeg)  
+* Deleting an admin by another admin:  
+ ![confirm5](readme-images/confirm5.jpeg) 
+
+
+## Deletion of records
+
+As there are many types of relationships among the tables, the database's integrity needed to be preserved when deleting data.
+
+* When a trip gets cancelled by a volunteer, the transport request's state will turn to `Awaiting Volunteer` again.
+* When a request gets cancelled by the member, the request will not show up anymore among the volunteer's trips if it was previously accepted.
+* When a member gets deleted, all their requests will be deleted too.
+* When a volunteer gets deleted, all the trips they volunteered for will turn back to `Awaiting Volunteer` state.
+* When an admin gets deleted, all other people who were approved by this admin upon registration need re-approval by another admin. This also means that these people can not access their account until this re-approval happens.
 
 
 ## Error pages
@@ -352,10 +380,6 @@ Two types of error messages can be delivered to the user depending on the issue
 
 ![Not found page](readme-images/404.jpeg)
 ![Error page](readme-images/500.jpeg)
-
-    
- ---
-
 
     
  ---
@@ -380,15 +404,7 @@ Two types of error messages can be delivered to the user depending on the issue
 
 ## Accessibility
   
-
-* Images have `alt` labels and other icons with inferred meanings are marked with `aria` labels.
-* For font sizes, `rem` was used throughout the site to allow the text to scale according to the users' preferred default font size.
-* All colours were tested for contrast in Chrome's Dev Tools.
-
-* Chrome Dev Tools' Lighthouse score is 100% for accessibility for both mobile and desktop devices. 
-
-
-    
+For details on Accessibility, please refer to the [TESTING.md](TESTING.md#accessibility) file.    
 
 ---
 
