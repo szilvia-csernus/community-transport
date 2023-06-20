@@ -1,5 +1,5 @@
 import { showInvalid, showValid } from './validation_helper.js';
-import { addressId, addressInput, notification } from './reg_form_validation.js';
+import { addressId, addressInput, addressNotification } from './reg_form_validation.js';
 
 // Initialize map function with Autotocomplete and PlacesService
 // using Google Maps Api documentation
@@ -94,14 +94,14 @@ export async function initMap() {
 			}
 		);
 	};
-	/** Underline the input with red or green and display notification
+	/** Underline the input with red or green and display addressNotification
 	 * if necessary. */
 	renderInputField = (is_verified) => {
 		if (!is_verified) {
 
 			// The value in the input field is not recognised by google
 			// display a notification and set red underline
-			showInvalid(addressInput, notification);
+			showInvalid(addressInput, addressNotification);
 
 			// if addressId is not verified or addressId doesn't match the
 			// entered address, clear out addressId.
@@ -110,7 +110,7 @@ export async function initMap() {
 		} else {
 			// if verification was successful set the underline to
 			// green and hide the notification
-			showValid(addressInput, notification);
+			showValid(addressInput, addressNotification);
 			
 		}
 	};
@@ -120,12 +120,12 @@ export async function initMap() {
 		if (!place || !place?.place_id) {
 			// User entered the name of a Place that was not suggested
 			// or the Place Details request failed,
-			// display notification and red underlie
-			showInvalid(addressInput, notification);
+			// display a notification and red underlie
+			showInvalid(addressInput, addressNotification);
 
 		} else {
 			// if place is verified, add green underline
-			showValid(addressInput, notification);
+			showValid(addressInput, addressNotification);
 
 			addressInput.value = place.formatted_address;
 			addressId.value = place.place_id;
@@ -148,7 +148,7 @@ export async function initMap() {
 		if (addressId.value) {
 			getVerification(addressId.value, addressInput.value, renderInputField);
 		} else {
-			showInvalid(addressInput, notification);
+			showInvalid(addressInput, addressNotification);
 		}
 	});
 
