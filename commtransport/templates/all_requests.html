@@ -225,7 +225,7 @@
         <div class="collapsible-body white">
             <p><strong>Date and Time:{{ req.request_date}} - {{ req.request_time.strftime("%H:%M") }}</strong></p>
             <p>Pickup Address: <em>{{ req.start_location.address }}</em></p>
-            <p>Dropoff Address: <em>{{ req.start_location.address }}</em></p>
+            <p>Dropoff Address: <em>{{ req.end_location.address }}</em></p>
         </div>
     </li>
     {% endfor %}
