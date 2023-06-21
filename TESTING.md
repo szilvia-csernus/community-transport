@@ -69,7 +69,7 @@ Validator: https://validator.w3.org/
 
 # Testing User Stories
 
-Tests were carried out on Chrome 111.0.5563.110  
+Tests were carried out on Chrome 114.0.5735.133  
 (macOS Catalina v10.15.7)
 
 ## Site Owner's Goals
@@ -215,8 +215,8 @@ Tests were carried out on Chrome 111.0.5563.110
  ---
 
  # Manual Testing
-
-Tests were carried out on Chrome 111.0.5563.110  
+114.0.5735.133
+Tests were carried out on Chrome 114.0.5735.133  
 (macOS Catalina v10.15.7)
 
 For detailed manual testing, please refer to this document:  
@@ -229,7 +229,7 @@ For detailed manual testing, please refer to this document:
 # Responsiveness Testing
 
 Responsiveness was tested using [Google Dev Tools](https://developer.chrome.com/docs/devtools/)  
-Browser & Version: Chrome 111.0.5563.110 (on Desktop, macOS Catalina version 10.15.7)
+Browser & Version: Chrome 114.0.5735.133 (on Desktop, macOS Catalina version 10.15.7)
     
 
 | Device | Home | Register | Login | All Members | All Requests | Admin Profile |Outstanding Requests|Volunteer Trips|Volunteer Profile| Member Profile |New Request| Edit Member |
@@ -252,7 +252,7 @@ Browser & Version: Chrome 111.0.5563.110 (on Desktop, macOS Catalina version 10.
 
 # Lighthouse tests
 
-Performance, Accessibility, Best Practices and SEO tests were carried out with [Google Dev Tools](https://developer.chrome.com/docs/devtools/)' **Lighthouse** tool in `Incognito` mode. Results are not 100% consistent, there is always a few percent variation at each performed test.
+Performance, Accessibility, Best Practices and SEO tests were carried out with [Google Dev Tools](https://developer.chrome.com/docs/devtools/)' **Lighthouse** tool in `Incognito` mode.
 
 | Page | Device  | Result | Note |
 | :--: | :-----: | :----: | :--- |
