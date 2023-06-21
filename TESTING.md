@@ -215,7 +215,7 @@ Tests were carried out on Chrome 114.0.5735.133
  ---
 
  # Manual Testing
-114.0.5735.133
+
 Tests were carried out on Chrome 114.0.5735.133  
 (macOS Catalina v10.15.7)
 
