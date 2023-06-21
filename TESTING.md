@@ -221,11 +221,8 @@ Tests were carried out on Chrome 111.0.5563.110
 
 For detailed manual testing, please refer to this document:  
 
-<details><summary>Manual Test Cases</summary>
+[Manual Test Cases](testing-images/manual-test-cases.pdf)
 
-![Manual Test Cases](testing-images/manual-test-cases.pdf)
-
-</details>
   
   
 
