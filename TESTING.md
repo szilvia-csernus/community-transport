@@ -297,10 +297,12 @@ Performance, Accessibility, Best Practices and SEO tests were carried out with [
 * A `rem` unit was missing from the `my-small-icon`'s margin. - Rectified.
 * A number of semicolons were missing from my javascript files. - Rectified.
 * Lot of extra whitespaces as well as long rows were present in my python files. - Rectified.
+* In the `All Requests` page, under the `Expired Requests` section, the pickup address and dropoff address was the same for all requests. 
+    - Solution: I corrected the code in `all_requests.html`.
 
     
 
-# Bugs
+# Remaining Bugs
 
 
 * Address label on google address autocomplete fields are in "active" state, even when there hasn't been any activity in that field. 
@@ -310,3 +312,4 @@ Performance, Accessibility, Best Practices and SEO tests were carried out with [
 * My mentor noticed that when he signed in on a Samsung Galaxy S20 device in the Chrome browser, received double welcome messages. 
     - This issue never happened on any of my devices. Unfortunately, I could not replicate the issue, therefore, I could not find a solution.  
     ![Double Welcome Message](testing-images/bug-double-welcomes.jpg)
+* When registering a `New Request`, one can select the same address for pickup and dropoff. Although it is not a real life issue and it does not break the code, this bug will be rectified in later versions.
