@@ -388,7 +388,7 @@ Two types of error messages can be delivered to the user depending on the issue
 
 ## Future Implementations
 
-* Email Confirmation and 'Forgot Password?' functionality
+* Email Confirmation, 'Change Password' and 'Forgot Password?' functionalities
 
 * Including Messages functions, so that people can get in touch with each other within the app.
 
