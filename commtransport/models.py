@@ -20,7 +20,7 @@ class Member(db.Model):
     place = relationship(
         "Place", back_populates="member_of_address")
 
-    # many-to-one relationship, one many requests can belong to one Member
+    # many-to-one relationship, many requests can belong to one Member
     requests = relationship(
         "Request",
         primaryjoin="Member.id==Request.requestor_id",
