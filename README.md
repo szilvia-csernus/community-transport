@@ -137,7 +137,9 @@ The landing page gives a small intro about the organisation's mission and ways t
 * I animated the background image and the red car in the front in CSS to give the impression of the car moving forward. 
 * I drew the red car in [Figma](https://www.figma.com/) by copying this [free image](https://www.cleanpng.com/png-car-ferrari-f50-honda-civic-clip-art-red-car-clipa-178920/download-png.html). I needed to separate the car's body from its wheels in order to animate them separately.
 * The responsible navbar is a [Materialize](https://materializecss.com/) feature.
-* The background picture is downloaded from [freesvg.org](https://freesvg.org/cityscape-cartoon-illustration) 
+* The background picture is downloaded from [freesvg.org](https://freesvg.org/cityscape-cartoon-illustration)  
+
+![Animated Car](readme-images/animated-car.gif)
 
  ---
     
@@ -455,6 +457,8 @@ The site was built with Python, PosgreSQL, JavaScript, HTML and CSS.
 * [Geolocation coordinate finder](http://bboxfinder.com/) - to define the boundary box around Egham.
 
 * [Regex testing](https://regexr.com/) - for Regular Expressions used for validations.
+
+* [Gyazo App](https://gyazo.com/) - to include a `.gif` file into this README.
 
 
 ---
