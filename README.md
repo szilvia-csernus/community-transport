@@ -9,7 +9,7 @@ Full stack web application to support the local community of Egham, UK. The app 
 
 ![Landing page](readme-images/mockup.jpeg)
 
-> This project was created for [Code Institute](www.codeintitute.net)'s Web Development Course as the Third Milestone Project (MS3) - Data Centric Fullstack Development Project - for assessment purposes.
+> This project was created for [Code Institute](www.codeintitute.net)'s Web Development Course as the Third Milestone Project (MS3) - Data Centric App Development Project - for assessment purposes.
     
 Not for public use.
     
@@ -388,17 +388,14 @@ Two types of error messages can be delivered to the user depending on the issue
 
 * Email Confirmation and 'Forgot Password?' functionality
 
-* Include Messages functions, so that people can get in touch with each other within the app.
+* Including Messages functions, so that people can get in touch with each other within the app.
 
-* Include optional GPS tracking to allow seeing drivers in Uber-style live view.
+* Including optional GPS tracking to allow seeing drivers in Uber-style live view.
 
-* Include search options as well as paginations for the case the records grow significantly.
+* Including search options as well as paginations for the case the records grow significantly.
 
-* Collect more data about the trips and make them available for the admins in the form of charts and diagrams.
+* Collecting more data about the trips and make them available for the admins in the form of charts and diagrams.
 
-* Automated testing.
-
-    
 
 ---
 
@@ -441,7 +438,7 @@ The site was built with Python, PosgreSQL, JavaScript, HTML and CSS.
 
 * [Balsamiq](https://balsamiq.cloud/)  - to create wireframes.
 
-* [Figma](https://www.figma.com/)  - to create colour palette and image for favicons.
+* [Figma](https://www.figma.com/)  - to create colour palette and drawing of red car.
 
 * [RealFaviconGenerator](https://realfavicongenerator.net/svg-favicon/)  - to generate favicons.
 
@@ -583,8 +580,8 @@ Please refer to [TESTING.md](TESTING.md) for detailed testing documentation.
 ## Imagery
   
 
-* background image - PD (Public Domain) Licence 
-https://freesvg.org/cityscape-cartoon-illustration
+* background image 
+https://freesvg.org/cityscape-cartoon-illustration - PD (Public Domain) Licence 
 
 * logout svg icon
 https://www.svgrepo.com/svg/499618/logout - PD (Public Domain) Licence
