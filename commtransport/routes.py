@@ -122,12 +122,10 @@ def signin():
                             url_for(
                                 'member_requests', user_id=existing_member.id))
             else:
-                # invalid password match
                 flash("Incorrect Email or Password!")
                 return redirect(url_for("signin"))
 
         else:
-            # email doesn't exist
             flash("Incorrect Email or Password!")
             return redirect(url_for("signin"))
 
