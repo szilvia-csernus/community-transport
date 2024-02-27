@@ -347,7 +347,7 @@ The `Update User` page can be accessed from many channels throughout the website
 
 ## Confirmation Messages
 
-Whenever the user is about to take a distructive action, a modal is rendered to ask for confirmation.
+Whenever the user is about to take a destructive action, a modal is rendered to ask for confirmation.
 * Signing Out via clicking the Logo:  
  ![confirm3](readme-images/confirm3.jpeg) 
 * Cancelling a transport offer by the volunteer:  
