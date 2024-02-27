@@ -548,9 +548,11 @@ def member_profile(user_id):
         flash("Unauthorized access!")
         return redirect(url_for("signout"))
 
+    now = datetime.now()
     upcoming_trips_count = Request.query.filter(
+        Request.request_date > now,
         Request.requestor_id == user.id,
-        Request.volunteer_id is not None).count()
+        Request.volunteer_id != None).count()
 
     return render_template(
         "member_profile.html",
