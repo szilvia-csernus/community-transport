@@ -1,5 +1,7 @@
 # Community Transport
 
+[![DeepScan grade](https://deepscan.io/api/teams/23376/projects/26641/branches/850435/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=23376&pid=26641&bid=850435)
+
 Full stack web application to support the local community of Egham, UK. The app allows volunteers to sign up to offer transport to essential places such as hospitals or GP Practices. People who need such help can also sign up and request lifts. It is the Admin(s) responsibility to do background checks before they approve anybody who joins to ensure everybody's safety.
 
 ---
